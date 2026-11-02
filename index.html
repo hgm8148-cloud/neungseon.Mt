@@ -308,6 +308,7 @@ body.touch .card h1{font-size:30px}
     ['지도 ·','map ·','地図・','地图 ·'],
     ['체크포인트','checkpoint','チェックポイント','检查点'],
     ['산행 시작','Start hiking','山歩きスタート','开始登山'],
+    ['같은 산길을 걷는 사람들이 실시간으로 보여요. 지나치며 인사(1)를 건네 보세요.','Hikers on the same trail appear live. Say hello (1) as you pass.','同じ山道を歩く人がリアルタイムで見えます。すれ違うときに挨拶(1)をしてみましょう。','同一条山路上的登山者会实时出现，路过时打个招呼(1)吧。'],
     ['지난 산행이 저장되어 있어요','Your last hike was saved','前回の山歩きが保存されています','上次的登山已保存'],
     ['이어서 오르기','Continue climbing','続きから登る','继续攀登'],
     ['처음부터 다시 오르기','Start over from the trailhead','最初から登り直す','从头开始'],
@@ -2354,7 +2355,7 @@ const remotes = new Map();   // peer -> avatar
 let room = null, lastPush = 0, lastSent = '';
 function pushPresence(force){
   if(!room || !st.started) return;
-  const now = performance.now(); if(!force && now - lastPush < 120) return;
+  const now = performance.now(); if(!force && now - lastPush < (room.minGap||120)) return;
   const pkt = { n: me.nick, c: [me.outfit.jacket, me.outfit.pants, me.outfit.hat, me.outfit.pack], x: Math.round(st.x*10)/10, z: Math.round(st.z*10)/10, f: Math.round(st.face*100)/100, m: st.speed>0.2?1:0, s: st.sitting?1:0, w: st.waveStamp, cp: st.cp };
   const key = JSON.stringify(pkt); if(key === lastSent && !force) return;
   lastSent = key; lastPush = now; room.presence(pkt).catch(()=>{});
@@ -2392,9 +2393,38 @@ function updateRemotes(dt){
   }
 }
 if(!window.claude){ const n=document.getElementById('mpNote'); if(n) n.textContent='길에서 만나는 등산객들에게 손 인사를 건네 보세요. 함께 걷는 기능은 곧 열려요.'; }
+// ---------- 웹에서 함께 걷기: Firebase Realtime Database (익명 로그인) ----------
+// 산마다 방을 하나씩: rooms/<산 이름>/peers/<내 uid> 에 내 위치만 쓰고, 같은 방 사람들 위치를 받아요.
+const FIREBASE = {
+  apiKey: "AIzaSyBkEXAfIGxvxCsl5LSDf2x7ysgrRKTtWT4",
+  authDomain: "neungseon-mt.firebaseapp.com",
+  databaseURL: "https://neungseon-mt-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "neungseon-mt",
+  appId: "1:646919362788:web:bafc1a58c795fcf294b4f1"
+};
+const ROOM_ID = 'bukhansan';
+async function connectFirebase(){
+  const base = 'https://www.gstatic.com/firebasejs/10.12.2/';
+  const [A, U, D] = await Promise.all([import(base+'firebase-app.js'), import(base+'firebase-auth.js'), import(base+'firebase-database.js')]);
+  const app = A.initializeApp(FIREBASE);
+  const cred = await U.signInAnonymously(U.getAuth(app)); const uid = cred.user.uid;
+  const db = D.getDatabase(app), peersRef = D.ref(db, `rooms/${ROOM_ID}/peers`), meRef = D.ref(db, `rooms/${ROOM_ID}/peers/${uid}`);
+  let skew = 0; D.onValue(D.ref(db, '.info/serverTimeOffset'), s => { skew = s.val() || 0; });
+  await D.onDisconnect(meRef).remove();
+  let latest = {};
+  const emit = () => { const now = Date.now() + skew;
+    applyPeers(Object.entries(latest).filter(([k,v]) => k !== uid && v && now - num(v.t) < 45000).map(([k,v]) => ({ peer:k, sameTab:false, kind:'viewer', presence:v }))); };
+  D.onValue(peersRef, s => { latest = s.val() || {}; emit(); });
+  setInterval(emit, 5000);
+  // 데이터 아끼기: 1.2초에 한 번만 보내고, 가만히 있어도 20초마다 '아직 여기 있어요' 신호
+  room = { minGap: 1200, presence(pkt){ return D.set(meRef, { ...pkt, n: String(pkt.n).slice(0,12), t: D.serverTimestamp() }); } };
+  setInterval(() => pushPresence(true), 20000);
+  const n = document.getElementById('mpNote'); if(n) n.textContent = '같은 산길을 걷는 사람들이 실시간으로 보여요. 지나치며 인사(1)를 건네 보세요.';
+  pushPresence(true);
+}
 async function connectRoom(){
   try{
-    if(!window.claude || !window.claude.use) return;
+    if(!window.claude || !window.claude.use){ try{ await connectFirebase(); }catch(e){ room = null; console.warn('함께 걷기 연결 실패', e); } return; }
     const r = await window.claude.use('room'); if(!r) return;
     room = r;
     room.onPeers(ch => applyPeers(ch.peers), () => { room = null; });
