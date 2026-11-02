@@ -13,6 +13,12 @@
 <meta property="og:image" content="https://hgm8148-cloud.github.io/neungseon.Mt/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#1d2238">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="능선">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&display=swap">
 <style>
@@ -103,6 +109,14 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .tag.me .n{background:rgba(200,86,42,.75)}
 #goalRing{display:none}
 
+#flash{position:fixed;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:30;transition:opacity .35s}
+#flash.on{opacity:.75;transition:none}
+.psCard{max-width:520px;width:100%;text-align:center}
+.psCard img{width:100%;border-radius:12px;display:block;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.psBtns{display:flex;gap:8px;flex-wrap:wrap}
+.psBtns .btn{flex:1;margin-top:10px;text-align:center;text-decoration:none;font-size:15px;padding:12px;min-width:90px}
+.touchOnly{display:none}
+body.touch #tr.open #tools > .touchOnly{display:grid}
 .panel{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(20,16,12,.42);backdrop-filter:blur(4px);z-index:10;padding:16px}
 .panel[hidden]{display:none}
 .spIcon svg{width:46px;height:38px;display:block;margin-bottom:6px}
@@ -239,6 +253,24 @@ body.touch #toast{top:calc(64px + env(safe-area-inset-top,0px));font-size:12.5px
 body.touch #breath{width:120px;height:120px;margin:-60px 0 0 -60px;font-size:14px}
 body.touch .tag{font-size:11px}
 body.touch #joy{display:block;left:max(18px,env(safe-area-inset-left,0px));bottom:calc(22px + env(safe-area-inset-bottom,0px));width:116px;height:116px;border-radius:50%;background:rgba(18,20,17,.28);border:1.5px solid rgba(255,255,255,.28);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);pointer-events:auto;touch-action:none;z-index:3}
+body.touch #tr{z-index:6}
+/* 휴대폰 가로 화면: 세로 공간이 좁으니 메뉴는 옆으로 펼치고, 행동 버튼은 오른쪽 아래 가로줄로 */
+@media (orientation:landscape) and (max-height:540px){
+  body.touch #tr{flex-direction:row-reverse;align-items:flex-start}
+  body.touch #tr.open #tools{flex-direction:row}
+  body.touch #actions{flex-direction:row}
+  body.touch #bottom{padding:0 290px 0 150px}
+  body.touch #mapWrap{top:calc(60px + env(safe-area-inset-top,0px))}
+  body.touch #map{width:110px;height:110px}
+  body.touch #banner{top:10%}
+  body.touch #toast{top:auto;bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+  body.touch #joy{width:104px;height:104px}
+  body.touch .card{max-height:calc(100vh - 24px);overflow:auto}
+  .psCard{padding:14px 16px!important}
+  .psCard img{max-height:58vh;width:auto;max-width:100%;margin:0 auto}
+  .psCard .note{margin:6px 0 0}
+  .psBtns .btn{margin-top:8px;padding:9px}
+}
 body.touch #joy i{position:absolute;left:50%;top:50%;width:48px;height:48px;margin:-24px 0 0 -24px;border-radius:50%;background:rgba(244,239,230,.82);box-shadow:0 2px 10px rgba(0,0,0,.3);transition:transform .12s}
 body.touch #joy.on i{transition:none}
 body.touch .card{padding:22px 20px;border-radius:20px}
@@ -308,6 +340,18 @@ body.touch .card h1{font-size:30px}
     ['지도 ·','map ·','地図・','地图 ·'],
     ['체크포인트','checkpoint','チェックポイント','检查点'],
     ['산행 시작','Start hiking','山歩きスタート','开始登山'],
+    ['사진을 길게 눌러도 저장할 수 있어요','You can also long-press the photo to save it','写真を長押ししても保存できます','长按照片也可以保存'],
+    ['공유하기','Share','共有','分享'],
+    ['저장하기','Save','保存','保存'],
+    ['닫기','Close','閉じる','关闭'],
+    ['사진을 저장했어요','Photo saved','写真を保存しました','照片已保存'],
+    ['찍은 사진','Your photo','撮った写真','拍下的照片'],
+    ['전체 화면','Full screen','全画面','全屏'],
+    ['가로·세로 전환','Rotate screen','縦横切り替え','横竖屏切换'],
+    ['가로 화면','Landscape','横画面','横屏'],
+    ['세로 화면','Portrait','縦画面','竖屏'],
+    ['아이폰은 공유 버튼 → 홈 화면에 추가로 열면 주소창 없이 꽉 찬 화면으로 즐길 수 있어요','On iPhone, tap Share → Add to Home Screen to play full screen without the address bar','iPhoneは共有 → ホーム画面に追加で開くと、アドレスバーなしの全画面で遊べます','iPhone 请点分享 → 添加到主屏幕，即可无地址栏全屏游玩'],
+    ['이 기기에서는 화면 회전 잠금을 풀고 휴대폰을 돌려 주세요','On this device, turn off rotation lock and rotate your phone','この端末では画面回転ロックを解除して、スマホを回してください','此设备请关闭旋转锁定后转动手机'],
     ['같은 산길을 걷는 사람들이 실시간으로 보여요. 지나치며 인사(1)를 건네 보세요.','Hikers on the same trail appear live. Say hello (1) as you pass.','同じ山道を歩く人がリアルタイムで見えます。すれ違うときに挨拶(1)をしてみましょう。','同一条山路上的登山者会实时出现，路过时打个招呼(1)吧。'],
     ['지난 산행이 저장되어 있어요','Your last hike was saved','前回の山歩きが保存されています','上次的登山已保存'],
     ['이어서 오르기','Continue climbing','続きから登る','继续攀登'],
@@ -538,6 +582,8 @@ body.touch .card h1{font-size:30px}
     <button class="ib" id="bSound" title="소리" aria-label="소리 켜기/끄기"><svg viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path class="w" d="M15.5 9a4.5 4.5 0 0 1 0 6M18 6.5a8 8 0 0 1 0 11"/></svg></button>
     <button class="ib" id="bOutfit" title="옷 색 바꾸기" aria-label="옷 색 바꾸기"><svg viewBox="0 0 24 24"><path d="M8.5 4 4 6.5l1.8 4L8 9.7V20h8V9.7l2.2.8 1.8-4L15.5 4c-.6 1.4-1.9 2.3-3.5 2.3S9.1 5.4 8.5 4z"/></svg></button>
     <button class="ib" id="bView" title="1인칭 / 3인칭 (V)" aria-label="시점 바꾸기"><svg viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></svg></button>
+    <button class="ib" id="bFull" title="전체 화면" aria-label="전체 화면"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+    <button class="ib touchOnly" id="bRotate" title="가로·세로 전환" aria-label="가로·세로 전환"><svg viewBox="0 0 24 24"><rect x="7" y="3.5" width="10" height="17" rx="2"/><path d="M3 12a9 9 0 0 1 4-7.5M21 12a9 9 0 0 1-4 7.5"/><path d="M5.5 3.5 7 4.5 6 6M18.5 20.5 17 19.5l1-1.5"/></svg></button>
     <button class="ib" id="bClean" title="화면 정리: 버튼 모두 숨기기 (H)" aria-label="버튼 모두 숨기기"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="2.5"/><path d="M3.5 9h17" opacity=".5"/><path d="M8 14h8" stroke-dasharray="2 2"/></svg></button>
     <button class="ib" id="bLang" title="언어 바꾸기" aria-label="언어 바꾸기"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.6 2.6 3.6 5.4 3.6 8.5s-1 5.9-3.6 8.5c-2.6-2.6-3.6-5.4-3.6-8.5s1-5.9 3.6-8.5z"/></svg></button>
     <button class="ib" id="bMap" title="지도 크게 (M)" aria-label="지도 크게 보기"><svg viewBox="0 0 24 24"><path d="M3 6.5 9 4l6 2.5L21 4v13.5L15 20l-6-2.5L3 20z"/><path d="M9 4v13.5M15 6.5V20"/></svg></button>
@@ -576,6 +622,14 @@ body.touch .card h1{font-size:30px}
     <div id="resume" hidden><div class="resHead">지난 산행이 저장되어 있어요</div><div class="resTxt" id="resTxt"></div><button class="btn" id="goResume">이어서 오르기</button></div>
     <button class="btn" id="go">산행 시작</button>
     <div class="credit">지형 고도: AWS Terrain Tiles (Mapzen Terrarium, SRTM 등 공개 DEM). 약 30m 해상도라 실제보다 부드럽고, 탐방로는 주요 지점을 지형에 맞춰 이은 근사치입니다.</div>
+  </div>
+</div>
+<div id="flash"></div>
+<div id="photoSheet" class="panel" hidden>
+  <div class="card psCard">
+    <img id="psImg" alt="찍은 사진">
+    <p class="note">사진을 길게 눌러도 저장할 수 있어요</p>
+    <div class="psBtns"><button class="btn" id="psShare">공유하기</button><a class="btn sec" id="psSave" download>저장하기</a><button class="btn sec" id="psClose">닫기</button></div>
   </div>
 </div>
 <div id="supportPanel" class="panel" hidden>
@@ -2037,7 +2091,7 @@ addEventListener('keydown', e => {
   if(e.code==='Digit2'||e.code==='KeyE') doRest();
   if(e.code==='Digit3'||e.code==='KeyQ') doDrink();
   if(e.code==='Digit4') doBreath();
-  if(e.code==='Digit5'||e.code==='KeyP') document.body.classList.toggle('photo');
+  if(e.code==='Digit5'||e.code==='KeyP') takePhoto();
   if(e.code==='KeyF') toggleAuto();
   if(e.code==='KeyR') toCheckpoint();
   if(e.code==='KeyM') $('mapWrap').classList.toggle('big');
@@ -2147,8 +2201,45 @@ function openSupport(){
 }
 window.__support = SUPPORT;
 $('spClose').onclick = () => { $('supportPanel').hidden = true; canvas.focus(); };
-$('aWave').onclick=doWave; $('aRest').onclick=doRest; $('aWater').onclick=doDrink; $('aBreath').onclick=doBreath; $('aPhoto').onclick=()=>document.body.classList.toggle('photo');
+$('aWave').onclick=doWave; $('aRest').onclick=doRest; $('aWater').onclick=doDrink; $('aBreath').onclick=doBreath; $('aPhoto').onclick=takePhoto;
 function toggleClean(on){ const v = on===undefined ? !document.body.classList.contains('clean') : on; document.body.classList.toggle('clean', v); $('tr').classList.remove('open'); if(v) toast('버튼을 숨겼어요 · H 또는 오른쪽 위 버튼으로 다시 보여요', 2.5); }
+// ---------- 사진: PC는 바로 파일로 저장, 휴대폰은 미리보기 + 공유/저장 ----------
+function takePhoto(){
+  const T_ = window.T || (x=>x);
+  renderer.render(scene, camera);
+  const src = renderer.domElement, c = document.createElement('canvas'); c.width = src.width; c.height = src.height;
+  const x = c.getContext('2d'); x.drawImage(src, 0, 0);
+  const k = c.height / 720; x.font = `700 ${Math.round(24*k)}px "Gowun Batang", serif`; x.textAlign = 'right'; x.textBaseline = 'bottom';
+  x.shadowColor = 'rgba(0,0,0,.55)'; x.shadowBlur = 8*k; x.fillStyle = 'rgba(255,255,255,.9)';
+  x.fillText(`${T_('능선')} · ${T_('북한산 백운대')} · ${Math.round(heightAt(st.x, st.z))}m`, c.width - 26*k, c.height - 22*k);
+  const fl = $('flash'); fl.classList.add('on'); requestAnimationFrame(() => requestAnimationFrame(() => fl.classList.remove('on')));
+  sfx.shutter && sfx.shutter();
+  const d = new Date(), p2 = n => String(n).padStart(2,'0'), name = `neungseon-${d.getFullYear()}${p2(d.getMonth()+1)}${p2(d.getDate())}-${p2(d.getHours())}${p2(d.getMinutes())}${p2(d.getSeconds())}.png`;
+  c.toBlob(blob => { if(!blob) return; const url = URL.createObjectURL(blob);
+    if(document.body.classList.contains('touch')){
+      $('psImg').src = url; const sv = $('psSave'); sv.href = url; sv.download = name;
+      const file = new File([blob], name, {type:'image/png'}); const canShare = navigator.canShare && navigator.canShare({files:[file]});
+      $('psShare').style.display = canShare ? '' : 'none';
+      $('psShare').onclick = () => navigator.share({files:[file], title: T_('능선'), text: T_('능선, 여유 있는 산행')}).catch(()=>{});
+      $('photoSheet').hidden = false;
+    } else { const a = document.createElement('a'); a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 4000); toast('사진을 저장했어요', 2); }
+  }, 'image/png');
+}
+$('psClose').onclick = () => { $('photoSheet').hidden = true; };
+// ---------- 전체 화면 · 가로/세로 ----------
+const fsEl = () => document.fullscreenElement || document.webkitFullscreenElement;
+async function enterFull(){ const el = document.documentElement, req = el.requestFullscreen || el.webkitRequestFullscreen;
+  if(!req){ toast('아이폰은 공유 버튼 → 홈 화면에 추가로 열면 주소창 없이 꽉 찬 화면으로 즐길 수 있어요', 5); return false; }
+  try{ await req.call(el, {navigationUI:'hide'}); return true; }catch(e){ return false; } }
+function toggleFull(){ if(fsEl()){ (document.exitFullscreen || document.webkitExitFullscreen).call(document); } else enterFull(); $('tr').classList.remove('open'); }
+async function toggleRotate(){
+  $('tr').classList.remove('open');
+  const o = screen.orientation; const want = (o && o.type && o.type.startsWith('portrait')) || innerHeight > innerWidth ? 'landscape' : 'portrait';
+  if(o && o.lock){ if(!fsEl()) await enterFull(); try{ await o.lock(want); toast(want==='landscape' ? '가로 화면' : '세로 화면', 1.5); return; }catch(e){} }
+  toast('이 기기에서는 화면 회전 잠금을 풀고 휴대폰을 돌려 주세요', 4);
+}
+$('bFull').onclick = toggleFull; $('bRotate').onclick = toggleRotate;
+document.addEventListener('fullscreenchange', () => $('bFull').classList.toggle('on', !!fsEl()));
 $('bLang').onclick=()=>{ const ks=Object.keys(I18N.LANGS); const n=ks[(ks.indexOf(I18N.lang)+1)%ks.length]; I18N.setLang(n); try{ toast(I18N.LANGS[n]); }catch(e){} };
 $('bClean').onclick=()=>toggleClean(true); $('cleanOff').onclick=()=>toggleClean(false);
 $('bMenu').onclick=()=>$('tr').classList.toggle('open');
@@ -2220,11 +2311,13 @@ function startAudio(){
   if(audio) return;
   try{
     const ac = new (window.AudioContext||window.webkitAudioContext)(), R = ac.sampleRate;
-    const master = ac.createGain(); master.gain.value = soundOn ? 0.8 : 0;
+    const master = ac.createGain(); master.gain.value = soundOn ? 0.8 : 0; const TOUCH_S = document.body.classList.contains('touch');
     // 스피커·이어폰 어디서나 귀에 거슬리지 않도록: 높은 쉿 소리를 살짝 눌러 주고, 갑자기 커지는 소리는 부드럽게 눌러 줌
-    { const soft = ac.createBiquadFilter(); soft.type='highshelf'; soft.frequency.value=4500; soft.gain.value=-6; const comp = ac.createDynamicsCompressor(); comp.threshold.value=-26; comp.knee.value=18; comp.ratio.value=3; comp.attack.value=0.02; comp.release.value=0.4; master.connect(soft).connect(comp).connect(ac.destination); }
+    { const soft = ac.createBiquadFilter(); soft.type='highshelf'; soft.frequency.value=TOUCH_S?3200:4500; soft.gain.value=TOUCH_S?-11:-6; const comp = ac.createDynamicsCompressor(); comp.threshold.value=-26; comp.knee.value=18; comp.ratio.value=3; comp.attack.value=0.02; comp.release.value=0.4; master.connect(soft).connect(comp).connect(ac.destination); }
     const noise = (sec, brown) => { const b=ac.createBuffer(1,R*sec,R), d=b.getChannelData(0); let l=0; for(let i=0;i<d.length;i++){ const w=Math.random()*2-1; if(brown){ l=(l+0.02*w)/1.02; d[i]=l*3.2; } else d[i]=w; } return b; };
-    const brownB = noise(6,true), whiteB = noise(3,false);
+    // 반복이 귀에 잡히지 않도록 긴 소음 버퍼 (짧게 돌면 '기계 소리'처럼 들려요)
+    const brownB = noise(13,true), whiteB = noise(11,false);
+    const TOUCH = document.body.classList.contains('touch'), AMB = TOUCH ? 0.5 : 1;
     // 숲 잔향
     const verb = ac.createConvolver(); { const b=ac.createBuffer(2,R*2.2,R); for(let c=0;c<2;c++){ const d=b.getChannelData(c); for(let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,3.2)*0.6; } verb.buffer=b; }
     const verbG = ac.createGain(); verbG.gain.value = 0.55; verb.connect(verbG).connect(master);
@@ -2236,9 +2329,9 @@ function startAudio(){
     // 나뭇잎 스치는 소리
     const leafF = filt('bandpass',2600,0.5), leafG = gain(0.0); loop(whiteB, filt('highpass',1300), leafF, leafG).connect(master);
     // 계곡물 (들머리 근처)
-    const brookF = filt('bandpass',900,0.4), brookG = gain(0.0), brookLfo = ac.createOscillator(), brookLfoG = gain(250);
-    brookLfo.frequency.value = 3.1; brookLfo.connect(brookLfoG).connect(brookF.frequency); brookLfo.start();
-    loop(whiteB, filt('lowpass',2600), brookF, brookG).connect(master);
+    // 일정한 떨림(LFO) 대신 천천히 무작위로 흔들리는 물살
+    const brookF = filt('bandpass',750,0.55), brookG = gain(0.0); let brookT = 0;
+    loop(whiteB, filt('lowpass',2200), brookF, brookG).connect(master);
     const panTo = (node, p) => { if(ac.createStereoPanner){ const pn=ac.createStereoPanner(); pn.pan.value=p; node.connect(pn); return pn; } return node; };
     const out = (node, dry=1, wet=0.6) => { const d=gain(dry), w=gain(wet); node.connect(d).connect(master); node.connect(w).connect(verb); };
     const env = (g, t, a, peak, dec) => { g.gain.setValueAtTime(0.0001,t); g.gain.linearRampToValueAtTime(peak,t+a); g.gain.exponentialRampToValueAtTime(0.0001,t+a+dec); };
@@ -2273,9 +2366,9 @@ function startAudio(){
     // 계곡 물방울 소리 (돌 사이로 떨어지는 맑은 소리)
     const plip = (t,p,v) => { const f=700+Math.random()*900; tone('sine', f, f*1.9, t, 0.05, v, p, 0.5); };
     // 바위 능선을 스치는 높은 바람
-    const whistF = filt('bandpass',900,9), whistG = gain(0); loop(whiteB, whistF, whistG).connect(master);
+    const whistF = filt('bandpass',800,3.5), whistG = gain(0); loop(whiteB, whistF, whistG).connect(master);
     // 들머리 계곡물: 두 겹 (낮게 웅웅 + 높게 졸졸)
-    const brook2F = filt('bandpass',2600,0.8), brook2G = gain(0); loop(whiteB, brook2F, brook2G).connect(master);
+    const brook2F = filt('bandpass',2300,0.7), brook2G = gain(0); loop(whiteB, brook2F, brook2G).connect(master);
     let crT = 1, bellT = 25 + Math.random()*20, acT = 8, scT = 15, flapT = 0, plT = 0;
     let birdT = 2, gust = 0, gustT = 0, breathT = 0, heartT = 0;
     // 발소리: 갑자기 튀지 않도록 부드럽게 시작하는 낮은 소리 + 바닥 재질별 잔소리
@@ -2287,17 +2380,19 @@ function startAudio(){
       else { for(let i=0;i<3;i++) burst(t+0.015+i*0.03+Math.random()*0.02, 1600+Math.random()*1500, 1.2, 0.04, 0.009*vol, p, 'bandpass', 0.15, 0.006); } // 흙·자갈
     };
     sfx.pole = () => { burst(ac.currentTime+0.01, 1900, 3, 0.03, 0.006, 0.15, 'bandpass', 0.4, 0.003); };
+    sfx.shutter = () => { const t=ac.currentTime; burst(t+0.005, 2600, 1.5, 0.025, 0.012, 0, 'bandpass', 0.2, 0.002); burst(t+0.09, 1800, 1.5, 0.03, 0.009, 0, 'bandpass', 0.2, 0.002); };
     sfx.gulp = () => { const t=ac.currentTime; for(let i=0;i<2;i++){ tone('sine',300,150,t+i*0.24,0.14,0.06,0,0.1); } };
     sfx.update = (dt, k) => {
       const t = ac.currentTime;
       gustT -= dt; if(gustT < 0){ gustT = 7 + Math.random()*10; gust = Math.random()*0.8; }
       const w = (0.011 + k.alt*0.024) * (0.75 + gust*0.4);
-      windG.gain.setTargetAtTime(w, t, 3.2); windF.frequency.setTargetAtTime(190 + gust*200 + k.alt*140, t, 3.5);
-      leafG.gain.setTargetAtTime((0.0025 + gust*0.005) * k.forest, t, 2.0);
-      brookG.gain.setTargetAtTime(k.brook*0.05, t, 1.0); brook2G.gain.setTargetAtTime(k.brook*0.022*(0.7+0.3*Math.sin(t*0.7)), t, 0.6);
+      windG.gain.setTargetAtTime(w*AMB, t, 3.2); windF.frequency.setTargetAtTime(190 + gust*200 + k.alt*140, t, 3.5);
+      leafG.gain.setTargetAtTime((0.0025 + gust*0.005) * k.forest * AMB, t, 2.0);
+      brookT -= dt; if(brookT < 0){ brookT = 1.2 + Math.random()*2.4; brookF.frequency.setTargetAtTime(600 + Math.random()*350, t, 1.4); brook2F.frequency.setTargetAtTime(2000 + Math.random()*700, t, 1.6); brook2G.gain.setTargetAtTime(k.brook*0.009*(0.6+Math.random()*0.5)*AMB, t, 1.2); }
+      brookG.gain.setTargetAtTime(k.brook*0.03*AMB, t, 1.5);
       plT -= dt; if(k.brook > 0.15 && plT < 0){ plT = 0.05 + Math.random()*0.35/k.brook; plip(t+0.02, Math.random()*1.2-0.6, 0.012*k.brook); }
       const sm = k.summit||0;
-      whistG.gain.setTargetAtTime(sm*(0.0012 + gust*0.003), t, 2.5); whistF.frequency.setTargetAtTime(560 + gust*360 + Math.sin(t*0.23)*120, t, 2.0);
+      whistG.gain.setTargetAtTime(TOUCH ? 0 : sm*(0.0008 + gust*0.002), t, 2.5); whistF.frequency.setTargetAtTime(560 + gust*360 + Math.sin(t*0.23)*120, t, 2.0);
       crT -= dt; if(crT < 0){ crT = 0.6 + Math.random()*2.2; const low = 1 - THREE.MathUtils.clamp(k.prog*4, 0, 1); if(low > 0.05) cricket(t+0.02, Math.random()*1.6-0.8, 0.004*low); }
       bellT -= dt; if(bellT < 0){ bellT = 70 + Math.random()*60; if(k.prog < 0.35) bell(t+0.1, 0.03*(1 - k.prog*2)); }
       acT -= dt; if(acT < 0){ acT = 6 + Math.random()*14; if(k.forest > 0.5) acorn(t+0.05, Math.random()*1.8-0.9, 0.02*k.forest); }
@@ -2671,7 +2766,7 @@ function beginHike(resume){
   $('start').hidden = true; st.started = true; canvas.focus(); startAudio(); refreshSound();
   if(resume && savedHike){ const nx = WPS[Math.min(st.cp+1, WPS.length-1)]; banner('다시 산행 시작', nx.name.replace(/\(.*\)/,'') + '까지 ' + (Math.max(0, nx.s - trail[Math.min(st.lastProg, trail.length-1)].s)/1000).toFixed(1) + 'km', 3.5); }
   else banner('산행 시작', '하루재까지 ' + (WPS[1].s/1000).toFixed(1) + 'km', 3.5);
-  setTimeout(() => toast('산행 기록은 자동으로 저장돼요. 언제든 닫았다 다시 와도 괜찮아요', 4), 4200);
+  setTimeout(() => toast('산행 기록은 자동으로 저장돼요. 언제든 닫았다 다시 와도 괜찮아요', 4), 5200);
   pushPresence(true); saveHike();
 }
 $('go').onclick = () => beginHike(false);
