@@ -123,7 +123,7 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .spKakao .kQR svg{width:100%;height:100%;display:block}
 .spKakao .kBtn{width:100%;display:flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;background:#fee500;color:#191919;font-weight:700;border-radius:12px;padding:11px;font-size:14.5px}
 .spBmc{display:flex;align-items:center;justify-content:space-between;text-decoration:none;color:#2a2219;background:linear-gradient(135deg,#ffdd55,#f5c518);border-radius:16px;padding:14px 18px;font-size:14.5px}
-.spBmc .cup{display:flex;align-items:center;gap:8px;font-weight:600}
+.spBmc .cup{display:flex;align-items:center;gap:8px;font-weight:700;font-size:16px}
 .spBmc b{display:flex;align-items:center;gap:4px}
 .spToss,.spBmc,.spKakao .kBtn{transition:transform .15s, filter .15s}
 .spToss:hover,.spBmc:hover,.spKakao .kBtn:hover{transform:translateY(-1px);filter:brightness(1.05)}
@@ -411,9 +411,18 @@ body.touch .card h1{font-size:30px}
     [/^(\d+)번$/, m => ({en:`${m[1]}`, ja:`${m[1]}回`, zh:`${m[1]}次`})],
     [/^(\d+)\s?가파름$/, m => ({en:`${m[1]} steep`, ja:`${m[1]} 急坂`, zh:`${m[1]} 陡坡`})]
   ];
-  let LANG = 'ko';
+  // 기본 언어: ① 사용자가 직접 고른 언어 → ② 기기가 있는 나라(시간대) → ③ 기기 언어 → ④ 영어
+  function detectLang(){
+    let tz = ''; try{ tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; }catch(e){}
+    if(/^Asia\/(Seoul|Pyongyang)$/.test(tz)) return 'ko';
+    if(/^Asia\/Tokyo$/.test(tz)) return 'ja';
+    if(/^Asia\/(Shanghai|Chongqing|Chungking|Harbin|Urumqi|Kashgar|Hong_Kong|Macau|Taipei)$|^PRC$|^ROC$/.test(tz)) return 'zh';
+    for(const l of (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language||''])){ const n = String(l).slice(0,2).toLowerCase(); if(LANGS[n]) return n; }
+    return 'en';
+  }
+  let LANG = '';
   try{ LANG = localStorage.getItem('neungseon.lang') || ''; }catch(e){}
-  if(!LANGS[LANG]){ const n = (navigator.language||'ko').slice(0,2); LANG = n==='ko' ? 'ko' : n==='ja' ? 'ja' : n==='zh' ? 'zh' : 'en'; }
+  if(!LANGS[LANG]) LANG = detectLang();
   const HANGUL = /[가-힣]/;
   function T(s){
     if(LANG==='ko' || !s || !HANGUL.test(s)) return s;
@@ -450,12 +459,12 @@ body.touch .card h1{font-size:30px}
     mo.takeRecords(); busy = false; });
   mo.observe(document.documentElement, {subtree:true, childList:true, characterData:true, attributes:true, attributeFilter:ATTRS});
   const titleKo = document.title;
-  function setLang(l){ if(!LANGS[l]) return; LANG = l; try{ localStorage.setItem('neungseon.lang', l); }catch(e){}
+  function setLang(l, save=true){ if(!LANGS[l]) return; LANG = l; if(save){ try{ localStorage.setItem('neungseon.lang', l); }catch(e){} }
     document.documentElement.lang = l; busy = true; walk(document.body); busy = false; document.title = T(titleKo || '능선, 여유 있는 산행');
     document.querySelectorAll('select.langSel').forEach(s => s.value = l); window.dispatchEvent(new Event('langchange')); }
   window.I18N = { T, setLang, get lang(){ return LANG; }, LANGS };
   window.T = T;
-  document.addEventListener('DOMContentLoaded', () => setLang(LANG));
+  document.addEventListener('DOMContentLoaded', () => setLang(LANG, false));
   if(document.body) { busy = true; walk(document.body); busy = false; }
 })();
 
@@ -2038,13 +2047,20 @@ addEventListener('keydown', e => {
 });
 addEventListener('keyup', e => keys[e.code] = false);
 addEventListener('blur', () => { for(const k in keys) keys[k]=false; });
-let drag = null;
-canvas.addEventListener('pointerdown', e => { drag = {x:e.clientX, y:e.clientY, sx:e.clientX, sy:e.clientY}; canvas.setPointerCapture(e.pointerId); canvas.focus(); });
-canvas.addEventListener('pointermove', e => { if(!drag) return; st.yaw -= (e.clientX-drag.x)*0.005; st.pitch = THREE.MathUtils.clamp(st.pitch + (e.clientY-drag.y)*0.004, -0.5, 1.35); drag.x=e.clientX; drag.y=e.clientY; });
-canvas.addEventListener('pointerup', e => {
-  if(drag && st.started && Math.hypot(e.clientX-drag.sx, e.clientY-drag.sy) < 6) clickMove(e);
-  drag = null;
-});
+let drag = null; const ptrs = new Map(); let pinch = null;
+// 두 손가락 벌리기/오므리기 = 확대/축소 (1인칭에서는 시야각), 한 손가락 끌기 = 둘러보기
+function zoomBy(k){ if(st.fp){ camera.fov = THREE.MathUtils.clamp(camera.fov / k, 35, 80); camera.updateProjectionMatrix(); } else st.dist = THREE.MathUtils.clamp(st.dist / k, 3, 60); }
+canvas.addEventListener('pointerdown', e => { ptrs.set(e.pointerId, {x:e.clientX, y:e.clientY}); try{ canvas.setPointerCapture(e.pointerId); }catch(_){} canvas.focus();
+  if(ptrs.size === 2){ const [a,b] = [...ptrs.values()]; pinch = Math.hypot(a.x-b.x, a.y-b.y); if(drag) drag.multi = true; }
+  else if(ptrs.size === 1) drag = {x:e.clientX, y:e.clientY, sx:e.clientX, sy:e.clientY}; });
+canvas.addEventListener('pointermove', e => { const pt = ptrs.get(e.pointerId); if(pt){ pt.x = e.clientX; pt.y = e.clientY; }
+  if(ptrs.size >= 2 && pinch){ const [a,b] = [...ptrs.values()]; const d = Math.hypot(a.x-b.x, a.y-b.y); if(d > 10){ zoomBy(d / pinch); pinch = d; } return; }
+  if(!drag) return; st.yaw -= (e.clientX-drag.x)*0.005; st.pitch = THREE.MathUtils.clamp(st.pitch + (e.clientY-drag.y)*0.004, -0.5, 1.35); drag.x=e.clientX; drag.y=e.clientY; });
+const ptrEnd = e => { ptrs.delete(e.pointerId);
+  if(ptrs.size < 2) pinch = null;
+  if(ptrs.size === 1){ const [a] = [...ptrs.values()]; if(drag){ drag.x = a.x; drag.y = a.y; } return; }
+  if(ptrs.size === 0){ if(e.type === 'pointerup' && drag && !drag.multi && st.started && Math.hypot(e.clientX-drag.sx, e.clientY-drag.sy) < 6) clickMove(e); drag = null; } };
+canvas.addEventListener('pointerup', ptrEnd); canvas.addEventListener('pointercancel', ptrEnd);
 canvas.addEventListener('wheel', e => { st.dist = THREE.MathUtils.clamp(st.dist * (e.deltaY>0?1.1:0.9), 3, 60); e.preventDefault(); }, {passive:false});
 canvas.addEventListener('contextmenu', e => e.preventDefault());
 const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
@@ -2125,7 +2141,7 @@ function openSupport(){
     el.appendChild(d);
     if(!touch) loadQR().then(qrcode=>{ const q=qrcode(0,'M'); q.addData(SUPPORT.kakao); q.make(); const box=$('kQR'); if(box) box.innerHTML=q.createSvgTag({cellSize:4, margin:2, scalable:true}); }).catch(()=>{ const box=$('kQR'); if(box) box.remove(); }); }
   if(ok(SUPPORT.bmc)){ const a=document.createElement('a'); a.className='spBmc'; a.href=SUPPORT.bmc; a.target='_blank'; a.rel='noopener';
-    a.innerHTML=`<span class="cup"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h12l-1.3 11.2a2 2 0 0 1-2 1.8H8.3a2 2 0 0 1-2-1.8z"/><path d="M4 5h14M8 5l1-2h4l1 2"/></svg>Buy me a coffee</span><b>해외에서 보태기 ${arrow}</b>`; el.appendChild(a); }
+    a.innerHTML=`<span class="cup"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h12l-1.3 11.2a2 2 0 0 1-2 1.8H8.3a2 2 0 0 1-2-1.8z"/><path d="M4 5h14M8 5l1-2h4l1 2"/></svg>Buy me a coffee</span><b class="bmcGo">${arrow}</b>`; el.appendChild(a); }
   if(!el.children.length) el.innerHTML = '<div class="soon">후원 창구를 준비하고 있어요. 곧 열릴 거예요.</div>';
   $('supportPanel').hidden = false;
 }
