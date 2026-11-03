@@ -1,0 +1,114 @@
+{
+ "id": "hallasan",
+ "region": "kr",
+ "order": 2,
+ "flag": "kr",
+ "tz": 9,
+ "cityLights": true,
+ "area": {
+  "ko": "한라산",
+  "en": "Hallasan",
+  "ja": "漢拏山",
+  "zh": "汉拿山"
+ },
+ "peak": {
+  "ko": "윗세오름",
+  "en": "Witse-oreum",
+  "ja": "ウィッセオルム",
+  "zh": "威势岳"
+ },
+ "end": {
+  "ko": "윗세오름 대피소",
+  "en": "Witse-oreum Shelter",
+  "ja": "ウィッセオルム避難所",
+  "zh": "威势岳避难所"
+ },
+ "elev": 1700,
+ "trailheadArea": {
+  "ko": "영실",
+  "en": "Yeongsil",
+  "ja": "霊室",
+  "zh": "灵室"
+ },
+ "summitSub": {
+  "ko": "백록담 남벽이 보이는 고원",
+  "en": "plateau below the south wall of Baengnokdam",
+  "ja": "白鹿潭南壁を望む高原",
+  "zh": "可望白鹿潭南壁的高原"
+ },
+ "vista": {
+  "ko": "구상나무 숲 너머로 제주 바다가 펼쳐져요",
+  "en": "The sea around Jeju opens beyond the Korean fir forest",
+  "ja": "チョウセンシラベの森の向こうに済州の海が広がります",
+  "zh": "朝鲜冷杉林外，济州的大海铺展开来"
+ },
+ "course": {
+  "ko": "영실 코스",
+  "en": "Yeongsil Trail",
+  "ja": "霊室コース",
+  "zh": "灵室路线"
+ },
+ "waypoints": [
+  {
+   "ko": "영실탐방로 입구",
+   "en": "Yeongsil Trailhead",
+   "ja": "霊室登山口",
+   "zh": "灵室登山口",
+   "lat": 33.36,
+   "lon": 126.4952,
+   "elev": 1280,
+   "snap": "elev",
+   "desc": {
+    "ko": "영실 들머리. 한라산 탐방로 5곳 중 가장 짧은 3.7km 코스예요.",
+    "en": "Yeongsil trailhead: at 3.7 km, the shortest of Hallasan's five trails."
+   }
+  },
+  {
+   "ko": "병풍바위",
+   "en": "Byeongpung Rocks",
+   "ja": "屏風岩",
+   "zh": "屏风岩",
+   "lat": 33.3592,
+   "lon": 126.5045,
+   "elev": 1600,
+   "snap": "elev",
+   "desc": {
+    "ko": "오백나한이라 불리는 수직 바위기둥이 병풍처럼 둘러선 영실기암이에요.",
+    "en": "The Yeongsil Giam: vertical rock pillars called the 500 Arhats, standing like a folding screen."
+   }
+  },
+  {
+   "ko": "선작지왓",
+   "en": "Seonjakjiwat",
+   "ja": "ソンジャクチワッ",
+   "zh": "仙作地平原",
+   "lat": 33.3622,
+   "lon": 126.5115,
+   "elev": 1680,
+   "snap": "elev",
+   "desc": {
+    "ko": "털진달래와 조릿대가 덮인 고원이에요. 큰부리까마귀를 자주 만나요.",
+    "en": "A highland plateau of azalea and dwarf bamboo. Ravens are common here."
+   }
+  },
+  {
+   "ko": "윗세오름 대피소",
+   "en": "Witse-oreum Shelter",
+   "ja": "ウィッセオルム避難所",
+   "zh": "威势岳避难所",
+   "lat": 33.3632,
+   "lon": 126.5172,
+   "elev": 1700,
+   "snap": "elev"
+  }
+ ],
+ "biome": {
+  "preset": "highland",
+  "treeline": 1560,
+  "rockline": 1640,
+  "plantline": 1950,
+  "pine": 2.4,
+  "grass": 0.35
+ },
+ "climate": "kr-high"
+}

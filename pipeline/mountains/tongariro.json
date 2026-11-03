@@ -1,0 +1,109 @@
+{
+ "id": "tongariro",
+ "region": "world",
+ "order": 20,
+ "flag": "nz",
+ "tz": 12,
+ "cityLights": false,
+ "area": {
+  "ko": "통가리로",
+  "en": "Tongariro",
+  "ja": "トンガリロ",
+  "zh": "汤加里罗"
+ },
+ "peak": {
+  "ko": "레드 크레이터",
+  "en": "Red Crater",
+  "ja": "レッド・クレーター",
+  "zh": "红火山口"
+ },
+ "end": {
+  "ko": "레드 크레이터",
+  "en": "Red Crater",
+  "ja": "レッド・クレーター",
+  "zh": "红火山口"
+ },
+ "elev": 1886,
+ "trailheadArea": {
+  "ko": "망가테포포",
+  "en": "Mangatepopo",
+  "ja": "マンガテポポ",
+  "zh": "曼加特波波"
+ },
+ "summitSub": {
+  "ko": "나우루호에가 보이는 화산 능선",
+  "en": "volcanic ridge facing Ngauruhoe",
+  "ja": "ナウルホエを望む火山の稜線",
+  "zh": "可望瑙鲁霍伊的火山山脊"
+ },
+ "vista": {
+  "ko": "에메랄드 호수와 원뿔 화산이 내려다보여요",
+  "en": "The Emerald Lakes and a cone volcano below",
+  "ja": "エメラルド湖と円錐火山を見下ろします",
+  "zh": "俯瞰翡翠湖与圆锥火山"
+ },
+ "course": {
+  "ko": "통가리로 알파인 크로싱",
+  "en": "Tongariro Alpine Crossing",
+  "ja": "トンガリロ・アルパイン・クロッシング",
+  "zh": "汤加里罗高山步道"
+ },
+ "waypoints": [
+  {
+   "ko": "망가테포포",
+   "en": "Mangatepopo",
+   "ja": "マンガテポポ",
+   "zh": "曼加特波波",
+   "lat": -39.146,
+   "lon": 175.581,
+   "elev": 1120,
+   "snap": "elev"
+  },
+  {
+   "ko": "소다 스프링스",
+   "en": "Soda Springs",
+   "ja": "ソーダ・スプリングス",
+   "zh": "苏打泉",
+   "lat": -39.137,
+   "lon": 175.608,
+   "elev": 1400,
+   "snap": "elev",
+   "desc": {
+    "ko": "화산 지대의 샘이에요. 앞으로 가파른 악마의 계단이 이어져요.",
+    "en": "A spring in the volcanic plateau; the steep Devil's Staircase follows."
+   }
+  },
+  {
+   "ko": "사우스 크레이터",
+   "en": "South Crater",
+   "ja": "サウス・クレーター",
+   "zh": "南火山口",
+   "lat": -39.139,
+   "lon": 175.633,
+   "elev": 1660,
+   "snap": "elev",
+   "desc": {
+    "ko": "평평한 분화구 바닥을 건너요. 오른쪽에 나우루호에가 솟아 있어요.",
+    "en": "Crossing the flat crater floor, with Ngauruhoe rising to the right."
+   }
+  },
+  {
+   "ko": "레드 크레이터",
+   "en": "Red Crater",
+   "ja": "レッド・クレーター",
+   "zh": "红火山口",
+   "lat": -39.131,
+   "lon": 175.644,
+   "elev": 1886,
+   "snap": "peak"
+  }
+ ],
+ "biome": {
+  "preset": "volcanic",
+  "treeline": 1150,
+  "rockline": 1250,
+  "plantline": 1700,
+  "snow": 2150
+ },
+ "climate": "nz"
+}

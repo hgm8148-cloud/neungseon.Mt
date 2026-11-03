@@ -1,0 +1,114 @@
+{
+ "id": "halfdome",
+ "region": "world",
+ "order": 17,
+ "flag": "us",
+ "tz": -8,
+ "cityLights": false,
+ "area": {
+  "ko": "하프돔",
+  "en": "Half Dome",
+  "ja": "ハーフドーム",
+  "zh": "半穹顶"
+ },
+ "peak": {
+  "ko": "하프돔",
+  "en": "Half Dome",
+  "ja": "ハーフドーム",
+  "zh": "半穹顶"
+ },
+ "end": {
+  "ko": "하프돔 정상",
+  "en": "Half Dome Summit",
+  "ja": "ハーフドーム 山頂",
+  "zh": "半穹顶 山顶"
+ },
+ "elev": 2694,
+ "trailheadArea": {
+  "ko": "서브돔 갈림길",
+  "en": "Sub Dome junction",
+  "ja": "サブドーム分岐",
+  "zh": "副穹顶岔路"
+ },
+ "summitSub": {
+  "ko": "요세미티 계곡 위 화강암 돔",
+  "en": "granite dome above Yosemite Valley",
+  "ja": "ヨセミテ渓谷の上の花崗岩ドーム",
+  "zh": "优胜美地山谷上方的花岗岩穹顶"
+ },
+ "vista": {
+  "ko": "발아래로 요세미티 계곡이 깊게 패어 있어요",
+  "en": "Yosemite Valley drops away beneath your feet",
+  "ja": "足元にヨセミテ渓谷が深く刻まれています",
+  "zh": "脚下是深切的优胜美地山谷"
+ },
+ "course": {
+  "ko": "서브돔 · 케이블 구간",
+  "en": "Sub Dome · Cables",
+  "ja": "サブドーム・ケーブル区間",
+  "zh": "副穹顶 · 钢索路段"
+ },
+ "waypoints": [
+  {
+   "ko": "리틀 요세미티 밸리 길",
+   "en": "Little Yosemite Valley Trail",
+   "ja": "リトル・ヨセミテ・バレーの道",
+   "zh": "小优胜美地谷步道",
+   "lat": 37.7445,
+   "lon": -119.5105,
+   "elev": 1980,
+   "snap": "elev",
+   "desc": {
+    "ko": "거대한 소나무 숲 사이로 오르막이 시작돼요."
+   }
+  },
+  {
+   "ko": "하프돔 갈림길",
+   "en": "Half Dome Junction",
+   "ja": "ハーフドーム分岐",
+   "zh": "半穹顶岔路",
+   "lat": 37.754,
+   "lon": -119.517,
+   "elev": 2160,
+   "snap": "elev",
+   "desc": {
+    "ko": "존 뮤어 트레일에서 갈라지는 하프돔 길이에요.",
+    "en": "Where the Half Dome trail leaves the John Muir Trail."
+   }
+  },
+  {
+   "ko": "서브돔",
+   "en": "Sub Dome",
+   "ja": "サブドーム",
+   "zh": "副穹顶",
+   "lat": 37.749,
+   "lon": -119.527,
+   "elev": 2560,
+   "snap": "elev",
+   "desc": {
+    "ko": "화강암 계단을 지그재그로 올라요. 다음은 케이블 구간이에요.",
+    "en": "Granite steps zigzag up; next come the cables."
+   }
+  },
+  {
+   "ko": "하프돔 정상",
+   "en": "Half Dome Summit",
+   "ja": "ハーフドーム 山頂",
+   "zh": "半穹顶 山顶",
+   "lat": 37.7459,
+   "lon": -119.5332,
+   "elev": 2694,
+   "snap": "peak"
+  }
+ ],
+ "biome": {
+  "preset": "sierra",
+  "treeline": 2620,
+  "rockline": 2450
+ },
+ "climate": "sierra",
+ "terrain": {
+  "sharp": true,
+  "nearN": 385
+ }
+}

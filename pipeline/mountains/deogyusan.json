@@ -1,0 +1,96 @@
+{
+ "id": "deogyusan",
+ "region": "kr",
+ "order": 8,
+ "flag": "kr",
+ "tz": 9,
+ "cityLights": false,
+ "area": {
+  "ko": "덕유산",
+  "en": "Deogyusan",
+  "ja": "徳裕山",
+  "zh": "德裕山"
+ },
+ "peak": {
+  "ko": "향적봉",
+  "en": "Hyangjeokbong",
+  "ja": "香積峰",
+  "zh": "香积峰"
+ },
+ "end": {
+  "ko": "향적봉 정상",
+  "en": "Hyangjeokbong Summit",
+  "ja": "香積峰 山頂",
+  "zh": "香积峰 山顶"
+ },
+ "elev": 1614,
+ "trailheadArea": {
+  "ko": "백련사",
+  "en": "Baengnyeonsa",
+  "ja": "白蓮寺",
+  "zh": "白莲寺"
+ },
+ "summitSub": {
+  "ko": "덕유산 최고봉",
+  "en": "highest peak of Deogyusan",
+  "ja": "徳裕山の最高峰",
+  "zh": "德裕山最高峰"
+ },
+ "vista": {
+  "ko": "주목과 구상나무 너머로 덕유 능선이 길게 이어져요",
+  "en": "The long Deogyu ridge runs beyond yews and firs",
+  "ja": "イチイとシラベの向こうに徳裕の稜線が続きます",
+  "zh": "红豆杉与冷杉外，德裕山脊绵延不绝"
+ },
+ "course": {
+  "ko": "백련사 코스",
+  "en": "Baengnyeonsa Trail",
+  "ja": "白蓮寺コース",
+  "zh": "白莲寺路线"
+ },
+ "waypoints": [
+  {
+   "ko": "구천동 계곡",
+   "en": "Gucheondong Valley",
+   "ja": "九千洞渓谷",
+   "zh": "九千洞溪谷",
+   "lat": 35.8835,
+   "lon": 127.764,
+   "elev": 830,
+   "snap": "elev",
+   "desc": {
+    "ko": "맑은 계곡물 소리를 들으며 걸어요."
+   }
+  },
+  {
+   "ko": "백련사",
+   "en": "Baengnyeonsa Temple",
+   "ja": "白蓮寺",
+   "zh": "白莲寺",
+   "lat": 35.877,
+   "lon": 127.756,
+   "elev": 920,
+   "snap": "elev",
+   "desc": {
+    "ko": "덕유산 깊은 골짜기의 절이에요. 여기서부터 향적봉까지 가파른 길이에요.",
+    "en": "A temple deep in the Deogyusan valley; from here it's a steep climb to Hyangjeokbong."
+   }
+  },
+  {
+   "ko": "향적봉 정상",
+   "en": "Hyangjeokbong Summit",
+   "ja": "香積峰 山頂",
+   "zh": "香积峰 山顶",
+   "lat": 35.8602,
+   "lon": 127.7462,
+   "elev": 1614,
+   "snap": "peak"
+  }
+ ],
+ "biome": {
+  "preset": "conifer",
+  "treeline": 1640,
+  "rockline": 1590
+ },
+ "climate": "kr-high"
+}

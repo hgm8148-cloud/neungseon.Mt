@@ -1,0 +1,509 @@
+0	Neungseon
+1	Neungseon · Matembezi ya taratibu
+2	Neungseon · Matembezi ya vuli
+3	Bukhansan
+4	Bukhansan · Baegundae
+5	Bukhansan · Baegundae m 836
+6	Baegundae
+7	Kilele cha Baegundae
+8	Kilele cha Baegundae m 836
+9	Kilele cha Baegundae 360°
+10	Kituo cha wageni cha Baegundae
+11	Njia panda ya Harujae
+12	Kibanda cha Baegun
+13	Lango la Wimun
+14	Lango la Wimun
+15	→ Njia panda ya Harujae → Kibanda cha Baegun → Lango la Wimun →
+16	Mwanzo wa njia upande wa Ui-dong. Safari yako inaanzia hapa.
+17	Kivuko cha kwanza. Vuta pumzi kabla ya kuendelea.
+18	Mahali pa kupumzika chini ya Insubong. Kilele hakiko mbali sasa.
+19	Baada ya lango la ngome sehemu ya miamba inaanza. Fuata reli kupanda.
+20	Kilele cha juu zaidi cha Bukhansan, m 836 juu ya usawa wa bahari.
+21	Hatua kwa hatua, pamoja juu ya njia ya vuli
+22	Njia inafunguliwa
+23	Mwanzo wa njia
+24	Kufunga kamba za buti mwanzoni mwa njia
+25	Milima ya mbali inajitokeza
+26	Msitu wa vuli unapandwa
+27	Wapanda mlima wengine wanaitwa
+28	Njia inafika kileleni
+29	Wakati wa vuli, tupande pamoja Baegundae ya Bukhansan
+30	Kwenda tu, takriban
+31	km · ardhi iliyotengenezwa kwa data halisi ya mwinuko
+32	Jina lako la safari
+33	Jina jipya
+34	Rangi za mavazi
+35	Jaketi
+36	Suruali
+37	Kofia
+38	Mkoba
+39	Wanaofungua ukurasa huu pamoja nawe wanaonekana kwenye njia ileile. Pungia mkono (1) unapopita.
+40	Wapungie mkono wapanda mlima unaokutana nao. Kutembea pamoja mtandaoni kunakuja hivi karibuni.
+41	Sukuma duara la chini kushoto kutembea · Buruta kuangalia · Gusa ardhi kwenda huko
+42	tembea ·
+43	haraka zaidi · bofya ardhi kwenda · buruta kuangalia ·
+44	tembea kiotomatiki ·
+45	mtazamo wa mtu wa kwanza ·
+46	ficha vitufe ·
+47	ramani ·
+48	kituo cha ukaguzi
+49	Anza safari
+50	Unaweza pia kubonyeza picha kwa muda kuihifadhi
+51	Shiriki
+52	Hifadhi
+53	Funga
+54	Picha imehifadhiwa
+55	Picha yako
+56	Skrini nzima
+57	Zungusha skrini
+58	Mlalo
+59	Wima
+60	Kwenye iPhone: Shiriki → Ongeza kwenye Skrini ya Nyumbani ili ucheze skrini nzima bila upau wa anwani
+61	Kwenye kifaa hiki zima kufuli ya kuzungusha na zungusha simu
+62	Wapanda mlima wa njia ileile wanaonekana moja kwa moja. Salimia (1) unapopita.
+63	Safari yako ya mwisho imehifadhiwa
+64	Endelea kupanda
+65	Anza upya mwanzoni mwa njia
+66	Umerudi njiani
+67	Safari yako inajihifadhi yenyewe. Funga wakati wowote na uendelee ulipoachia
+68	Mwinuko: AWS Terrain Tiles (Mapzen Terrarium, DEM za umma kama SRTM). Kwa usahihi wa takriban m 30, ardhi ni laini kuliko uhalisia, na njia ni makadirio yanayounganisha sehemu kuu.
+69	Badilisha mavazi
+70	Tembea hivi
+71	Mwinuko
+72	Umbali
+73	Muda
+74	Mteremko
+75	Nguvu
+76	Moyo
+77	Maji
+78	 mwinuko mkali
+79	Njiani
+80	Tembea polepole
+81	Unatembea polepole
+82	Simama
+83	Pungia mkono
+84	Pumzika
+85	Maji
+86	Pumua
+87	Picha
+88	Vuta pumzi
+89	Toa pumzi
+90	Tununulie kitafunwa cha safari
+91	Mfuko wa machungwa
+92	Kipande cha gimbap
+93	Tambi za kileleni
+94	≈ $1
+95	≈ $1.5
+96	≈ $2
+97	Mfuko wa machungwa unaotesha mti mmoja zaidi msituni.
+98	Kipande cha gimbap kinaweka seva ya kutembea pamoja hai siku moja zaidi.
+99	Tambi za kileleni zinafungua kipande kingine cha njia kwenye mlima unaofuata.
+100	Neungseon ni mchezo mdogo wa kupanda mlima uliotengenezwa na mtu mmoja, mlima mmoja baada ya mwingine. Ikiwa umefurahia njia ya leo, weka kitafunwa kwenye mkoba wetu.
+101	Kitafunwa chako kinalipia seva na mlima unaofuata, na sehemu yake inachangiwa kulinda milima ya Korea, kama urejeshaji baada ya moto wa misitu.
+102	Onyesha vitufe
+103	Sehemu ya mandhari
+104	Pumziko bondeni
+105	Mandhari katikati ya mteremko
+106	Mandhari kwenye ukingo
+107	Simama ufurahie mandhari
+108	Milima ya vuli inaenea zaidi ya bonde
+109	Insubong na safu za milima moja baada ya nyingine
+110	Sikiliza kijito na utazame bonde la vuli
+111	Seoul na milima ya tabaka juu ya bahari ya mawingu
+112	Tazama
+113	Tazama pande zote
+114	Unafurahia mandhari
+115	Pumzi yako inatulia polepole
+116	Endelea kutembea
+117	Unapumzika
+118	Nguvu inajaa polepole
+119	Simama
+120	Umeishiwa pumzi
+121	Vuta pumzi kidogo
+122	Kaa upumzike kidogo
+123	Kaa kwenye benchi
+124	Kaa kwenye mwamba
+125	Mwamba tambarare
+126	Mahali pa kupumzika
+127	benchi
+128	mwamba
+129	Unakaa kando ya njia kupumzika
+130	Funda la maji baridi · Nguvu +40
+131	Maji yako yameisha
+132	Nje ya njia · unatembea polepole zaidi
+133	Mbali na njia · bonyeza R kurudi kituo cha ukaguzi
+134	Mwamba ni mkali mno. Rudi njiani.
+135	Tazama kote taratibu · hifadhi kwa Picha (5)
+136	Vitufe vimefichwa · bonyeza H au kitufe cha juu kulia kuvionyesha
+137	Jambo!
+138	Habari~
+139	Panda salama!
+140	Safari njema
+141	Kilele kiko karibu
+142	Nimefurahi kukutana nawe!
+143	Mpanda mlima
+144	m 836 · kilele cha juu zaidi cha Bukhansan
+145	Muda wa safari
+146	Umbali uliotembea
+147	Salamu
+148	Mapumziko
+149	Ikiwa umefurahia njia ya leo, changia kitafunwa kidogo kwa mlima unaofuata.
+150	Furahia mandhari ya kilele
+151	⛺ Piga kambi kileleni
+152	Shuka
+153	Kushuka
+154	Tazama moto
+155	Tazama nyota
+156	Ramen
+157	Lala hemani
+158	Maliza
+159	Shuka polepole
+160	Unashuka…
+161	Njiani kushuka
+162	Kushuka
+163	Taratibu kwa magoti, hatua kwa hatua
+164	Kambi ya kileleni
+165	Jua linazama na nyota zinatokea moja moja
+166	Habari za asubuhi
+167	Mawio kutoka Baegundae
+168	Kambi ya kileleni · nguvu yako haipungui hapa
+169	⛰ Kilele
+170	Kambi
+171	Maji yameisha · pumzika au pumua ili kujaza
+172	Chupa zimejaa 💧
+173	Chupa moja imejazwa 💧
+174	Chupa zimejazwa kijitoni 💧
+175	Chupa zimejazwa kambini 💧
+176	Upau wa urambazaji umebandikwa · gusa skrini nzima tena kuuficha
+177	Safari njema!
+178	Jitunze
+179	Kazi nzuri leo!
+180	Tuonane kileleni!
+181	Ingia kwa Google
+182	Toka
+183	Ingia ili uendelee na safari kwenye vifaa vingine
+184	Umeingia kwa Google · safari yako inasawazishwa kwenye vifaa
+185	Umetoka · kifaa hiki kinatunza kumbukumbu zake
+186	Kuingia kwa Google kumeshindikana · jaribu tena baada ya muda mfupi
+187	Kuingia hakupatikani sasa · jaribu tena baada ya muda mfupi
+188	Kupiga kambi hapa, au kushuka polepole?
+189	Zaidi
+190	Rangi ya hema
+191	Linasimikwa unapopiga kambi kileleni
+192	Mikono juu, vuta pumzi
+193	Mikono chini, toa pumzi
+194	⛰ Menyu ya kilele
+195	Tembea haraka
+196	Unatembea haraka
+197	Shuka haraka
+198	Unashuka haraka…
+199	Haraka
+200	Polepole
+201	Jinsia
+202	Moto, nyota, hema… usiwe na haraka
+203	Gusa duara linalong'aa ukae unapopenda
+204	Wapiga kambi wa mtandaoni wamekusanyika motoni
+205	Simika hema
+206	Ondoa
+207	Hema limesimikwa
+208	Hema limefungwa
+209	Aurora inacheza kaskazini · usiku adimu
+210	Saa ya aurora ya Jumamosi · tutazame kaskazini pamoja
+211	Me
+212	Ke
+213	Anza upya
+214	Neungseon ni mchezo mdogo wa kupanda mlima uliotengenezwa na mtu mmoja, mlima mmoja baada ya mwingine. Ikiwa umefurahia njia ya leo, changia kitafunwa cha moto kwa mlima unaofuata.
+215	Msaada daima ni hiari. Kutembea nasi tayari kuna maana kubwa.
+216	Rudi mlimani
+217	Njia za kusaidia zinakuja hivi karibuni.
+218	Toss · uhamisho wa haraka wa Korea
+219	Saidia kwa Toss
+220	Changanua QR kwa kamera ya simu
+221	Gusa kutuma kwa KakaoPay
+222	Fungua KakaoPay
+223	Msaada kutoka nje ya nchi
+224	Mpole
+225	Mwekundu
+226	Mtulivu
+227	Mchangamfu
+228	Mdogo
+229	Angavu
+230	Imara
+231	Mbichi
+232	Mwenye joto
+233	Mstarehe
+234	Kimya
+235	Ing'aayo
+236	Kindi
+237	Koni ya msonobari
+238	Jani la vuli
+239	Kokwa
+240	Ndege mwimbaji
+241	Upepo wa misonobari
+242	Kuvu
+243	Nyasi ya fedha
+244	Wingu
+245	Kinjia
+246	Ua la porini
+247	Mtu wa kwanza / wa tatu (V)
+248	Jina la utani
+249	Jina jingine
+250	Menyu
+251	Fungua menyu
+252	Onyesha vitufe tena
+253	Ficha vitufe vyote
+254	Mwonekano wa safari
+255	Sauti
+256	Sauti washa/zima
+257	Badilisha mwonekano
+258	Kijiti cha kutembea
+259	Wanaotembea nawe sasa
+260	Ramani kubwa (M)
+261	Onyesha ramani kubwa
+262	Mwonekano safi: ficha vitufe vyote (H)
+263	Lugha
+264	Mlima gani leo?
+265	Chagua njia iliyotengenezwa kwa data halisi ya mwinuko
+266	Korea · milima 10
+267	Dunia · milima 10
+268	Chagua mlima mwingine
+269	Uko hapa
+270	Inakuja hivi karibuni
+271	Baki kwenye mlima huu
+272	Vuta pumzi kidogo.
+273	Ui-dong · Njia ya Baegundae
+274	Ui-dong
+275	Korea
+276	Hallasan
+277	Witse-oreum
+278	Kibanda cha Witse-oreum
+279	Njia ya Yeongsil
+280	Yeongsil
+281	Mwanzo wa Yeongsil
+282	Miamba ya Byeongpung
+283	Seonjakjiwat
+284	Jirisan
+285	Cheonwangbong
+286	Kilele cha Cheonwangbong
+287	Njia ya Jungsan-ri
+288	Jungsan-ri
+289	Njia panda ya Kalbawi
+290	Hekalu la Beopgyesa
+291	Seoraksan
+292	Daecheongbong
+293	Kilele cha Daecheongbong
+294	Njia ya Osaek
+295	Osaek
+296	Kituo cha wageni cha Osaek
+297	Maporomoko ya Seorak
+298	Mudeungsan
+299	Seoseokdae
+300	Njia ya Jeungsimsa
+301	Jeungsimsa
+302	Mwanzo wa Jeungsimsa
+303	Njia panda ya Jungmeorijae
+304	Njia panda ya Jangbuljae
+305	Ipseokdae
+306	Wolchulsan
+307	Cheonhwangbong
+308	Kilele cha Cheonhwangbong
+309	Cheonhwangsa · Njia ya Daraja la Mawingu
+310	Cheonhwangsa
+311	Kituo cha wageni cha Cheonhwangsa
+312	Daraja la Mawingu
+313	Naejangsan
+314	Sinseonbong
+315	Kilele cha Sinseonbong
+316	Naejangsa · Njia ya Yeonjabong
+317	Hekalu la Naejangsa
+318	Yeonjabong
+319	Deogyusan
+320	Hyangjeokbong
+321	Kilele cha Hyangjeokbong
+322	Njia ya Baengnyeonsa
+323	Hekalu la Baengnyeonsa
+324	Sobaeksan
+325	Birobong
+326	Kilele cha Birobong
+327	Njia ya Eouigok
+328	Eouigok
+329	Kituo cha wageni cha Eouigok
+330	Njia panda ya Eouigok
+331	Taebaeksan
+332	Madhabahu ya Cheonjedan
+333	Njia ya Yuilsa
+334	Yuilsa
+335	Mwanzo wa Yuilsa
+336	Mahali pa kupumzika Yuilsa
+337	Janggunbong
+338	Everest
+339	Kala Patthar
+340	Mandhari ya Kala Patthar
+341	Gorak Shep · Kala Patthar
+342	Gorak Shep
+343	Nepali
+344	Fuji
+345	Kilele cha Fuji
+346	Njia ya Yoshida
+347	Kituo cha 5 cha Yoshida
+348	Kituo cha 7
+349	Kituo cha 8
+350	Japani
+351	Kilimanjaro
+352	Kilele cha Uhuru
+353	Njia ya ukingo wa kasoko
+354	Gilman's Point
+355	Stella Point
+356	Tanzania
+357	Matterhorn
+358	Kibanda cha Hörnli
+359	Njia ya Kibanda cha Hörnli
+360	Schwarzsee
+361	Mwanzo wa ukingo wa Hörnli
+362	Uswisi
+363	Mont Blanc
+364	Lac Blanc
+365	Njia ya Lac Blanc
+366	La Flégère
+367	Lacs des Chéserys
+368	Ufaransa
+369	Tre Cime di Lavaredo
+370	Rifugio Locatelli
+371	Mzunguko wa Tre Cime
+372	Rifugio Auronzo
+373	Rifugio Lavaredo
+374	Forcella Lavaredo
+375	Italia
+376	Half Dome
+377	Kilele cha Half Dome
+378	Sub Dome · Kamba
+379	Njia panda ya Sub Dome
+380	Njia panda ya Half Dome
+381	Sub Dome
+382	Marekani
+383	Huangshan
+384	Kilele cha Yungiyungi
+385	Kilele cha Yungiyungi juu
+386	Mnara wa Yuping · Kilele cha Yungiyungi
+387	Mnara wa Yuping
+388	China
+389	Torres del Paine
+390	Mirador Las Torres
+391	Chileno · Mirador Las Torres
+392	Refugio Chileno
+393	Campamento Torres
+394	Chile
+395	Tongariro
+396	Red Crater
+397	Tongariro Alpine Crossing
+398	Mangatepopo
+399	Soda Springs
+400	South Crater
+401	Nyuzilandi
+402	Matterhorn · Kibanda cha Hörnli
+403	Matterhorn · Kibanda cha Hörnli m 3260
+404	Kibanda cha Hörnli m 3260
+405	Kibanda cha Hörnli 360°
+406	m 3260 · chini ya ukingo wa Hörnli wa Matterhorn
+407	Ukuta wa kaskazini wa Matterhorn unakuinukia juu
+408	Pamoja hadi Kibanda cha Hörnli kwenye Matterhorn
+409	Mawio kutoka Kibanda cha Hörnli
+410	Mwanzo wa Schwarzsee
+411	→ Mwanzo wa ukingo wa Hörnli →
+412	Mwanzo wa njia wenye ziwa dogo na kanisa dogo.
+413	Ni miamba na changarawe tu; ukuta wa kaskazini unakuinukia juu.
+414	Chini ya ukingo wa Hörnli wa Matterhorn, m 3260 juu ya usawa wa bahari.
+415	Hatua kwa hatua, pamoja juu ya njia
+416	Maendeleo yako yamehifadhiwa
+417	Chagua mlima mwingine (maendeleo yanahifadhiwa)
+418	Msimu
+419	Machipuko
+420	Kiangazi
+421	Vuli
+422	Majira ya baridi
+423	Mlima huu unabaki mwaka mzima katika msimu wake wa theluji na miamba
+424	Ukibadilisha, mlima unachorwa upya
+425	Mawio
+426	Asubuhi
+427	Mchana
+428	Machweo
+429	Usiku wa manane
+430	Wakati halisi
+431	🕐 Mawio
+432	🕐 Asubuhi
+433	🕐 Mchana
+434	🕐 Machweo
+435	🕐 Usiku wa manane
+436	Petali zinapeperuka kwenye upepo wa machipuko 🌸
+437	Mvua ya rasharasha inapita · anga linatanda mawingu kwa muda 🌧
+438	Majani yanazunguka upeponi 🍂
+439	Theluji inaanza kunyesha ❄
+440	Mvua imekatika · anga linatakata
+441	Theluji imekoma
+442	Badilisha msimu
+443	Badilisha msimu hapa · mlima unachorwa upya na unaendelea kutoka hapa hapa
+444	Msimu umebadilika · endelea kutembea
+445	Mont Blanc · Lac Blanc
+446	Mont Blanc · Lac Blanc m 2352
+447	Lac Blanc m 2352
+448	Lac Blanc 360°
+449	m 2352 · ambapo Mont Blanc unaakisiwa ziwani
+450	Safu ya Mont Blanc inainuka ng'ambo ya ziwa
+451	Pamoja hadi Lac Blanc mbele ya Mont Blanc
+452	Mawio kutoka Lac Blanc
+453	Mwanzo wa La Flégère
+454	→ Lacs des Chéserys →
+455	Mwanzo wa njia La Flégère. Safari yako inaanzia hapa.
+456	Mlolongo wa maziwa madogo. Kuwa makini kwenye ngazi.
+457	Ambapo Mont Blanc unaakisiwa ziwani, m 2352 juu ya usawa wa bahari.
+458	Tre Cime di Lavaredo · Rifugio Locatelli
+459	Tre Cime di Lavaredo · Rifugio Locatelli m 2405
+460	Rifugio Locatelli m 2405
+461	Rifugio Locatelli 360°
+462	m 2405 · mbele ya kuta tatu za kaskazini
+463	Minara mitatu mikubwa ya miamba ubavu kwa ubavu
+464	Pamoja hadi Rifugio Locatelli kwenye Tre Cime di Lavaredo
+465	Mawio kutoka Rifugio Locatelli
+466	Mwanzo wa Rifugio Auronzo
+467	→ Rifugio Lavaredo → Forcella Lavaredo →
+468	Mwanzo wa njia Rifugio Auronzo. Safari yako inaanzia hapa.
+469	Kupita chini ya upande wa kusini wa vilele vitatu.
+470	Baada ya kivuko, kuta tatu za kaskazini zinaonekana kwa pamoja.
+471	Mbele ya kuta tatu za kaskazini, m 2405 juu ya usawa wa bahari.
+472	Torres del Paine · Mirador Las Torres
+473	Torres del Paine · Mirador Las Torres m 875
+474	Mirador Las Torres m 875
+475	Mirador Las Torres 360°
+476	m 875 · ziwa la barafu chini ya minara mitatu ya graniti
+477	Minara mitatu juu ya ziwa la samawati
+478	Pamoja hadi Mirador Las Torres huko Torres del Paine
+479	Mawio kutoka Mirador Las Torres
+480	Mwanzo wa Refugio Chileno
+481	→ Campamento Torres →
+482	Mwanzo wa njia Refugio Chileno. Safari yako inaanzia hapa.
+483	Ukingo wa msitu wa lenga; mbele kuna mteremko mkubwa wa mawe.
+484	Ziwa la barafu chini ya minara mitatu ya graniti, m 875 juu ya usawa wa bahari.
+485	Everest · Kala Patthar
+486	Everest · Kala Patthar m 5644
+487	Mandhari ya Kala Patthar m 5644
+488	Mandhari ya Kala Patthar 360°
+489	m 5644 · kilima kinachotazamana na Everest
+490	Everest na barafuto la Khumbu mbele yako
+491	Pamoja hadi mandhari ya Kala Patthar mbele ya Everest
+492	Mawio kutoka Kala Patthar
+493	Mwanzo wa Gorak Shep
+494	m 5,163, kambi ya zamani ya msingi ya Everest.
+495	Kilima kinachotazamana na Everest, m 5644 juu ya usawa wa bahari.
+496	Kilimanjaro · Kilele cha Uhuru
+497	Kilimanjaro · Kilele cha Uhuru m 5895
+498	Kilele cha Uhuru m 5895
+499	Kilele cha Uhuru 360°
+500	m 5895 · kilele cha juu zaidi barani Afrika
+501	Nyanda za Afrika zisizo na mwisho ng'ambo ya barafu
+502	Pamoja hadi Kilele cha Uhuru kwenye Kilimanjaro
+503	Mawio kutoka Kilele cha Uhuru
+504	Mwanzo wa Gilman's Point
+505	→ Stella Point →
+506	Sehemu ya kwanza kwenye ukingo wa kasoko ya Kibo.
+507	Kwenye ukingo wa kasoko, barafu ikiwa mbele yako.
+508	Kilele cha juu zaidi barani Afrika, m 5895 juu ya usawa wa bahari.

@@ -1,0 +1,144 @@
+{
+ "id": "bukhansan",
+ "region": "kr",
+ "order": 1,
+ "page": "index.html",
+ "flag": "kr",
+ "tz": 9,
+ "cityLights": true,
+ "area": {
+  "ko": "북한산",
+  "en": "Bukhansan",
+  "ja": "北漢山",
+  "zh": "北汉山"
+ },
+ "peak": {
+  "ko": "백운대",
+  "en": "Baegundae",
+  "ja": "白雲台",
+  "zh": "白云台"
+ },
+ "end": {
+  "ko": "백운대 정상",
+  "en": "Baegundae Summit",
+  "ja": "白雲台 山頂",
+  "zh": "白云台 山顶"
+ },
+ "elev": 836,
+ "trailheadArea": {
+  "ko": "우이동",
+  "en": "Ui-dong",
+  "ja": "牛耳洞",
+  "zh": "牛耳洞"
+ },
+ "summitSub": {
+  "ko": "북한산 최고봉",
+  "en": "highest peak of Bukhansan",
+  "ja": "北漢山の最高峰",
+  "zh": "北汉山最高峰"
+ },
+ "vista": {
+  "ko": "운해 위로 서울과 겹겹의 산줄기가 펼쳐져요",
+  "en": "Seoul and layered ridges spread out above the sea of clouds",
+  "ja": "雲海の上にソウルと幾重もの山並みが広がります",
+  "zh": "云海之上，首尔与层层山脉铺展开来"
+ },
+ "season": {
+  "ko": "가을",
+  "en": "Autumn",
+  "ja": "秋",
+  "zh": "秋天"
+ },
+ "terrain": {
+  "center": [
+   37.66,
+   126.992
+  ],
+  "near": 3400,
+  "nearN": 291,
+  "z": 15
+ },
+ "waypoints": [
+  {
+   "ko": "우이분소",
+   "en": "Ui Ranger Station",
+   "ja": "牛耳分所",
+   "zh": "牛耳管理所",
+   "lat": 37.6617,
+   "lon": 127.0068,
+   "desc": {
+    "ko": "우이동 계곡을 따라 산행을 시작해요."
+   }
+  },
+  {
+   "ko": "백운대탐방지원센터",
+   "en": "Baegundae Visitor Center",
+   "ja": "白雲台探訪支援センター",
+   "zh": "白云台访客中心",
+   "lat": 37.6597,
+   "lon": 126.9963,
+   "desc": {
+    "ko": "우이동 방면 들머리. 산행을 시작합니다.",
+    "en": "Trailhead on the Ui-dong side. Your hike begins here.",
+    "ja": "牛耳洞側の登山口。ここから山歩きが始まります。",
+    "zh": "牛耳洞方向的登山口，从这里出发。"
+   }
+  },
+  {
+   "ko": "하루재",
+   "en": "Harujae Pass",
+   "ja": "ハルジェ峠",
+   "zh": "哈鲁岭",
+   "lat": 37.6608,
+   "lon": 126.9878,
+   "desc": {
+    "ko": "첫 번째 고개. 숨을 고르고 가세요."
+   }
+  },
+  {
+   "ko": "백운산장",
+   "en": "Baegun Mountain Hut",
+   "ja": "白雲山荘",
+   "zh": "白云山庄",
+   "lat": 37.6614,
+   "lon": 126.983,
+   "desc": {
+    "ko": "인수봉 아래 쉼터. 정상까지 얼마 남지 않았어요."
+   }
+  },
+  {
+   "ko": "위문(백운봉암문)",
+   "en": "Wimun Gate",
+   "ja": "衛門(白雲峰暗門)",
+   "zh": "卫门（白云峰暗门）",
+   "lat": 37.6599,
+   "lon": 126.9795,
+   "desc": {
+    "ko": "성문을 지나면 바위 구간이 시작됩니다. 난간을 따라 오르세요."
+   }
+  },
+  {
+   "ko": "백운대 정상",
+   "en": "Baegundae Summit",
+   "ja": "白雲台 山頂",
+   "zh": "白云台 山顶",
+   "lat": 37.6587,
+   "lon": 126.9779,
+   "desc": {
+    "ko": "북한산 최고봉, 해발 836m.",
+    "en": "The highest peak of Bukhansan, 836 m above sea level.",
+    "ja": "北漢山の最高峰、標高836m。",
+    "zh": "北汉山最高峰，海拔836米。"
+   }
+  }
+ ],
+ "legacy": true,
+ "note": "기존 v1 데이터. prep.py/far.py/ultra.py와 같은 값으로 재현됩니다.",
+ "course": {
+  "ko": "우이동 · 백운대 코스",
+  "en": "Ui-dong · Baegundae Trail",
+  "ja": "牛耳洞・白雲台コース",
+  "zh": "牛耳洞 · 白云台路线"
+ },
+ "climate": "kr"
+}

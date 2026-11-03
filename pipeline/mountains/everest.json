@@ -1,0 +1,99 @@
+{
+ "id": "everest",
+ "region": "world",
+ "order": 11,
+ "flag": "np",
+ "tz": 5.75,
+ "cityLights": false,
+ "area": {
+  "ko": "에베레스트",
+  "en": "Everest",
+  "ja": "エベレスト",
+  "zh": "珠穆朗玛峰"
+ },
+ "peak": {
+  "ko": "칼라파타르",
+  "en": "Kala Patthar",
+  "ja": "カラパタール",
+  "zh": "卡拉帕塔"
+ },
+ "end": {
+  "ko": "칼라파타르 전망대",
+  "en": "Kala Patthar Viewpoint",
+  "ja": "カラパタール展望地",
+  "zh": "卡拉帕塔观景点"
+ },
+ "elev": 5644,
+ "trailheadArea": {
+  "ko": "고락셉",
+  "en": "Gorak Shep",
+  "ja": "ゴラクシェプ",
+  "zh": "戈拉克谢普"
+ },
+ "summitSub": {
+  "ko": "에베레스트를 정면으로 보는 언덕",
+  "en": "the hill facing Everest head-on",
+  "ja": "エベレストを正面に望む丘",
+  "zh": "正对珠峰的山丘"
+ },
+ "vista": {
+  "ko": "에베레스트와 쿰부 빙하가 눈앞에 펼쳐져요",
+  "en": "Everest and the Khumbu Glacier right before you",
+  "ja": "エベレストとクンブ氷河が目の前に",
+  "zh": "珠峰与昆布冰川近在眼前"
+ },
+ "course": {
+  "ko": "고락셉 · 칼라파타르",
+  "en": "Gorak Shep · Kala Patthar",
+  "ja": "ゴラクシェプ・カラパタール",
+  "zh": "戈拉克谢普 · 卡拉帕塔"
+ },
+ "waypoints": [
+  {
+   "ko": "쿰부 빙하 모레인",
+   "en": "Khumbu Moraine",
+   "ja": "クンブ氷河のモレーン",
+   "zh": "昆布冰川冰碛",
+   "lat": 27.9725,
+   "lon": 86.8255,
+   "elev": 5090,
+   "snap": "elev",
+   "desc": {
+    "ko": "빙하가 밀어 올린 자갈 언덕을 따라가요."
+   }
+  },
+  {
+   "ko": "고락셉",
+   "en": "Gorak Shep",
+   "ja": "ゴラクシェプ",
+   "zh": "戈拉克谢普",
+   "lat": 27.9806,
+   "lon": 86.8292,
+   "elev": 5164,
+   "snap": "elev",
+   "desc": {
+    "ko": "해발 5,163m. 예전 에베레스트 베이스캠프 자리예요.",
+    "en": "5,163 m, the former Everest base camp."
+   }
+  },
+  {
+   "ko": "칼라파타르 전망대",
+   "en": "Kala Patthar Viewpoint",
+   "ja": "カラパタール展望地",
+   "zh": "卡拉帕塔观景点",
+   "lat": 27.988,
+   "lon": 86.8285,
+   "elev": 5644,
+   "snap": "peak"
+  }
+ ],
+ "biome": {
+  "preset": "alpine",
+  "treeline": 3900,
+  "rockline": 4000,
+  "plantline": 5250,
+  "snow": 5550
+ },
+ "seasons": [],
+ "climate": "fixed"
+}

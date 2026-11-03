@@ -1,0 +1,95 @@
+{
+ "id": "sobaeksan",
+ "region": "kr",
+ "order": 9,
+ "flag": "kr",
+ "tz": 9,
+ "cityLights": false,
+ "area": {
+  "ko": "소백산",
+  "en": "Sobaeksan",
+  "ja": "小白山",
+  "zh": "小白山"
+ },
+ "peak": {
+  "ko": "비로봉",
+  "en": "Birobong",
+  "ja": "毘盧峰",
+  "zh": "毗卢峰"
+ },
+ "end": {
+  "ko": "비로봉 정상",
+  "en": "Birobong Summit",
+  "ja": "毘盧峰 山頂",
+  "zh": "毗卢峰 山顶"
+ },
+ "elev": 1439,
+ "trailheadArea": {
+  "ko": "어의곡",
+  "en": "Eouigok",
+  "ja": "於衣谷",
+  "zh": "於衣谷"
+ },
+ "summitSub": {
+  "ko": "소백산 최고봉",
+  "en": "highest peak of Sobaeksan",
+  "ja": "小白山の最高峰",
+  "zh": "小白山最高峰"
+ },
+ "vista": {
+  "ko": "부드러운 초원 능선이 바람에 일렁여요",
+  "en": "Soft grassy ridges ripple in the wind",
+  "ja": "なだらかな草原の稜線が風に揺れます",
+  "zh": "柔和的草原山脊随风起伏"
+ },
+ "course": {
+  "ko": "어의곡 코스",
+  "en": "Eouigok Trail",
+  "ja": "於衣谷コース",
+  "zh": "於衣谷路线"
+ },
+ "waypoints": [
+  {
+   "ko": "어의곡 탐방지원센터",
+   "en": "Eouigok Visitor Center",
+   "ja": "於衣谷探訪支援センター",
+   "zh": "於衣谷访客中心",
+   "lat": 36.988,
+   "lon": 128.469,
+   "elev": 470,
+   "snap": "elev"
+  },
+  {
+   "ko": "어의곡 삼거리",
+   "en": "Eouigok Junction",
+   "ja": "於衣谷三叉路",
+   "zh": "於衣谷三岔路",
+   "lat": 36.964,
+   "lon": 128.481,
+   "elev": 1340,
+   "snap": "elev",
+   "desc": {
+    "ko": "나무가 줄고 바람 부는 초원 능선이 시작돼요.",
+    "en": "Trees thin out and the windswept grassy ridge begins."
+   }
+  },
+  {
+   "ko": "비로봉 정상",
+   "en": "Birobong Summit",
+   "ja": "毘盧峰 山頂",
+   "zh": "毗卢峰 山顶",
+   "lat": 36.9575,
+   "lon": 128.485,
+   "elev": 1439,
+   "snap": "peak"
+  }
+ ],
+ "biome": {
+  "preset": "highland",
+  "treeline": 1330,
+  "rockline": 1430,
+  "grass": 0.45,
+  "bare": 0
+ },
+ "climate": "kr-high"
+}

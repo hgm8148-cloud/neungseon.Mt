@@ -1,0 +1,98 @@
+{
+ "id": "wolchulsan",
+ "region": "kr",
+ "order": 6,
+ "flag": "kr",
+ "tz": 9,
+ "cityLights": true,
+ "area": {
+  "ko": "월출산",
+  "en": "Wolchulsan",
+  "ja": "月出山",
+  "zh": "月出山"
+ },
+ "peak": {
+  "ko": "천황봉",
+  "en": "Cheonhwangbong",
+  "ja": "天皇峰",
+  "zh": "天皇峰"
+ },
+ "end": {
+  "ko": "천황봉 정상",
+  "en": "Cheonhwangbong Summit",
+  "ja": "天皇峰 山頂",
+  "zh": "天皇峰 山顶"
+ },
+ "elev": 809,
+ "trailheadArea": {
+  "ko": "천황사",
+  "en": "Cheonhwangsa",
+  "ja": "天皇寺",
+  "zh": "天皇寺"
+ },
+ "summitSub": {
+  "ko": "월출산 최고봉",
+  "en": "highest peak of Wolchulsan",
+  "ja": "月出山の最高峰",
+  "zh": "月出山最高峰"
+ },
+ "vista": {
+  "ko": "기암 능선 너머로 영암 들판이 펼쳐져요",
+  "en": "Yeongam's plains beyond the jagged rock ridges",
+  "ja": "奇岩の稜線の向こうに霊岩の平野が広がります",
+  "zh": "奇岩山脊外，灵岩平原铺展开来"
+ },
+ "course": {
+  "ko": "천황사 · 구름다리 코스",
+  "en": "Cheonhwangsa · Cloud Bridge Trail",
+  "ja": "天皇寺・雲の橋コース",
+  "zh": "天皇寺 · 云桥路线"
+ },
+ "waypoints": [
+  {
+   "ko": "천황사 탐방지원센터",
+   "en": "Cheonhwangsa Visitor Center",
+   "ja": "天皇寺探訪支援センター",
+   "zh": "天皇寺访客中心",
+   "lat": 34.77,
+   "lon": 126.713,
+   "elev": 110,
+   "snap": "elev"
+  },
+  {
+   "ko": "구름다리",
+   "en": "Cloud Bridge",
+   "ja": "雲の橋",
+   "zh": "云桥",
+   "lat": 34.765,
+   "lon": 126.705,
+   "elev": 510,
+   "snap": "elev",
+   "desc": {
+    "ko": "두 봉우리를 잇는 붉은 출렁다리예요. 호남의 금강산이라 불러요.",
+    "en": "A red suspension bridge between two peaks. Wolchulsan is called the Geumgangsan of Honam."
+   }
+  },
+  {
+   "ko": "천황봉 정상",
+   "en": "Cheonhwangbong Summit",
+   "ja": "天皇峰 山頂",
+   "zh": "天皇峰 山顶",
+   "lat": 34.76,
+   "lon": 126.698,
+   "elev": 809,
+   "snap": "peak"
+  }
+ ],
+ "biome": {
+  "preset": "autumn",
+  "treeline": 760,
+  "rockline": 560,
+  "flat": 0.2
+ },
+ "climate": "kr-south",
+ "terrain": {
+  "sharp": true,
+  "nearN": 385
+ }
+}

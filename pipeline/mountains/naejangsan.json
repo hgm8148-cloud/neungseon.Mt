@@ -1,0 +1,111 @@
+{
+ "id": "naejangsan",
+ "region": "kr",
+ "order": 7,
+ "flag": "kr",
+ "tz": 9,
+ "cityLights": true,
+ "area": {
+  "ko": "내장산",
+  "en": "Naejangsan",
+  "ja": "内蔵山",
+  "zh": "内藏山"
+ },
+ "peak": {
+  "ko": "신선봉",
+  "en": "Sinseonbong",
+  "ja": "神仙峰",
+  "zh": "神仙峰"
+ },
+ "end": {
+  "ko": "신선봉 정상",
+  "en": "Sinseonbong Summit",
+  "ja": "神仙峰 山頂",
+  "zh": "神仙峰 山顶"
+ },
+ "elev": 763,
+ "trailheadArea": {
+  "ko": "내장사",
+  "en": "Naejangsa",
+  "ja": "内蔵寺",
+  "zh": "内藏寺"
+ },
+ "summitSub": {
+  "ko": "내장산 최고봉",
+  "en": "highest peak of Naejangsan",
+  "ja": "内蔵山の最高峰",
+  "zh": "内藏山最高峰"
+ },
+ "vista": {
+  "ko": "말굽 모양 능선이 단풍으로 물들어요",
+  "en": "The horseshoe ridge glows with autumn leaves",
+  "ja": "馬蹄形の稜線が紅葉に染まります",
+  "zh": "马蹄形山脊被红叶染透"
+ },
+ "course": {
+  "ko": "내장사 · 연자봉 코스",
+  "en": "Naejangsa · Yeonjabong Trail",
+  "ja": "内蔵寺・燕子峰コース",
+  "zh": "内藏寺 · 燕子峰路线"
+ },
+ "waypoints": [
+  {
+   "ko": "내장산 탐방지원센터",
+   "en": "Naejangsan Visitor Center",
+   "ja": "内蔵山探訪支援センター",
+   "zh": "内藏山游客中心",
+   "lat": 35.4975,
+   "lon": 126.9035,
+   "elev": 130,
+   "snap": "elev",
+   "desc": {
+    "ko": "단풍 터널을 지나 내장사로 들어가요."
+   }
+  },
+  {
+   "ko": "내장사",
+   "en": "Naejangsa Temple",
+   "ja": "内蔵寺",
+   "zh": "内藏寺",
+   "lat": 35.4885,
+   "lon": 126.8935,
+   "elev": 250,
+   "snap": "elev",
+   "desc": {
+    "ko": "500년 넘게 단풍으로 이름난 산이에요. 내장사에서 산행을 시작해요.",
+    "en": "Famous for its autumn colors for over 500 years. The hike starts at Naejangsa Temple."
+   }
+  },
+  {
+   "ko": "연자봉",
+   "en": "Yeonjabong",
+   "ja": "燕子峰",
+   "zh": "燕子峰",
+   "lat": 35.48,
+   "lon": 126.8915,
+   "elev": 675,
+   "snap": "peak",
+   "desc": {
+    "ko": "말발굽 모양으로 이어진 아홉 봉우리 가운데 하나예요.",
+    "en": "One of nine peaks on the horseshoe-shaped ridge."
+   }
+  },
+  {
+   "ko": "신선봉 정상",
+   "en": "Sinseonbong Summit",
+   "ja": "神仙峰 山頂",
+   "zh": "神仙峰 山顶",
+   "lat": 35.477,
+   "lon": 126.8845,
+   "elev": 763,
+   "snap": "peak"
+  }
+ ],
+ "biome": {
+  "preset": "autumn",
+  "treeline": 900,
+  "rockline": 740,
+  "pine": 0.6
+ },
+ "climate": "kr-south"
+}

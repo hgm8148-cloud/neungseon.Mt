@@ -1,0 +1,99 @@
+{
+ "id": "torresdelpaine",
+ "region": "world",
+ "order": 19,
+ "flag": "cl",
+ "tz": -3,
+ "cityLights": false,
+ "area": {
+  "ko": "토레스 델 파이네",
+  "en": "Torres del Paine",
+  "ja": "トーレス・デル・パイネ",
+  "zh": "百内国家公园"
+ },
+ "peak": {
+  "ko": "토레스 전망대",
+  "en": "Mirador Las Torres",
+  "ja": "ミラドール・ラス・トーレス",
+  "zh": "三塔观景台"
+ },
+ "end": {
+  "ko": "토레스 전망대",
+  "en": "Mirador Las Torres",
+  "ja": "ミラドール・ラス・トーレス",
+  "zh": "三塔观景台"
+ },
+ "elev": 875,
+ "trailheadArea": {
+  "ko": "칠레노 산장",
+  "en": "Refugio Chileno",
+  "ja": "チレノ小屋",
+  "zh": "奇利诺小屋"
+ },
+ "summitSub": {
+  "ko": "세 화강암 탑 아래 빙하 호수",
+  "en": "glacial lake beneath three granite towers",
+  "ja": "三本の花崗岩の塔の下の氷河湖",
+  "zh": "三座花岗岩塔下的冰川湖"
+ },
+ "vista": {
+  "ko": "청록빛 호수 위로 세 개의 탑이 솟아 있어요",
+  "en": "Three towers rise above a turquoise lake",
+  "ja": "青緑の湖の上に三本の塔がそびえます",
+  "zh": "三座塔耸立在碧绿湖面之上"
+ },
+ "course": {
+  "ko": "칠레노 · 토레스 전망대",
+  "en": "Chileno · Mirador Las Torres",
+  "ja": "チレノ・ミラドール",
+  "zh": "奇利诺 · 三塔观景台"
+ },
+ "waypoints": [
+  {
+   "ko": "칠레노 산장",
+   "en": "Refugio Chileno",
+   "ja": "チレノ小屋",
+   "zh": "奇利诺小屋",
+   "lat": -50.962,
+   "lon": -72.933,
+   "elev": 550,
+   "snap": "elev"
+  },
+  {
+   "ko": "토레스 야영장",
+   "en": "Campamento Torres",
+   "ja": "トーレス野営地",
+   "zh": "三塔营地",
+   "lat": -50.949,
+   "lon": -72.951,
+   "elev": 620,
+   "snap": "elev",
+   "desc": {
+    "ko": "남방 너도밤나무(렝가) 숲 끝이에요. 이제 거대한 바위 비탈이에요.",
+    "en": "The edge of the lenga beech forest; a huge boulder slope lies ahead."
+   }
+  },
+  {
+   "ko": "토레스 전망대",
+   "en": "Mirador Las Torres",
+   "ja": "ミラドール・ラス・トーレス",
+   "zh": "三塔观景台",
+   "lat": -50.9425,
+   "lon": -72.96,
+   "elev": 875,
+   "snap": "elev"
+  }
+ ],
+ "biome": {
+  "preset": "lenga",
+  "treeline": 700,
+  "rockline": 740,
+  "plantline": 850,
+  "snow": 1400
+ },
+ "climate": "patagonia",
+ "terrain": {
+  "sharp": true,
+  "nearN": 385
+ }
+}

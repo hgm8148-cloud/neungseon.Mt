@@ -1,0 +1,509 @@
+0	Neungseon
+1	Neungseon · Randonnée sans hâte
+2	Neungseon · Randonnée d'automne
+3	Bukhansan
+4	Bukhansan · Baegundae
+5	Bukhansan · Baegundae 836 m
+6	Baegundae
+7	Sommet du Baegundae
+8	Sommet du Baegundae 836 m
+9	Sommet du Baegundae 360°
+10	Centre d'accueil de Baegundae
+11	Col de Harujae
+12	Refuge de Baegun
+13	Porte de Wimun
+14	Porte de Wimun
+15	→ Col de Harujae → Refuge de Baegun → Porte de Wimun →
+16	Départ côté Ui-dong. Votre randonnée commence ici.
+17	Le premier col. Reprenez votre souffle avant de repartir.
+18	Halte au pied de l'Insubong. Le sommet n'est plus très loin.
+19	Après la porte de la forteresse commence la section rocheuse. Suivez les rampes.
+20	Le plus haut sommet du Bukhansan, à 836 m d'altitude.
+21	Pas à pas, ensemble sur un sentier d'automne
+22	Ouverture du sentier
+23	Départ
+24	On lace ses chaussures au départ
+25	Les crêtes lointaines se déploient
+26	On plante la forêt d'automne
+27	On appelle les autres randonneurs
+28	Le sentier atteint le sommet
+29	En automne, ensemble au Baegundae du Bukhansan
+30	Aller simple, environ
+31	km · relief issu de vraies données d'altitude
+32	Votre nom de randonneur
+33	Nouveau nom
+34	Couleurs de la tenue
+35	Veste
+36	Pantalon
+37	Casquette
+38	Sac à dos
+39	Ceux qui ouvrent cette page avec vous apparaissent sur le même sentier. Faites signe (1) en passant.
+40	Faites signe aux randonneurs croisés. La randonnée ensemble en ligne arrive bientôt.
+41	Poussez le cercle en bas à gauche pour marcher · Glissez pour regarder · Touchez le sol pour y aller
+42	marcher ·
+43	plus vite · cliquez le sol pour y aller · glissez pour regarder ·
+44	marche auto ·
+45	vue subjective ·
+46	masquer les boutons ·
+47	carte ·
+48	point de contrôle
+49	Commencer la randonnée
+50	Vous pouvez aussi appuyer longuement sur la photo pour l'enregistrer
+51	Partager
+52	Enregistrer
+53	Fermer
+54	Photo enregistrée
+55	Votre photo
+56	Plein écran
+57	Tourner l'écran
+58	Paysage
+59	Portrait
+60	Sur iPhone : Partager → Sur l'écran d'accueil, pour jouer en plein écran sans barre d'adresse
+61	Sur cet appareil, désactivez le verrouillage de rotation et tournez le téléphone
+62	Les randonneurs du même sentier apparaissent en direct. Saluez (1) en passant.
+63	Votre dernière randonnée a été enregistrée
+64	Continuer l'ascension
+65	Recommencer au départ
+66	De retour sur le sentier
+67	Votre randonnée s'enregistre automatiquement. Fermez quand vous voulez et reprenez où vous étiez
+68	Altitude : AWS Terrain Tiles (Mapzen Terrarium, MNT publics comme SRTM). À environ 30 m de résolution, le relief est plus lisse que la réalité, et le sentier relie approximativement les points clés.
+69	Changer de tenue
+70	Partir ainsi
+71	Alt.
+72	Dist.
+73	Temps
+74	Pente
+75	Endurance
+76	Cœur
+77	Eau
+78	 raide
+79	Sur le sentier
+80	Marcher lentement
+81	Marche lente
+82	Arrêter
+83	Saluer
+84	Se reposer
+85	Eau
+86	Respirer
+87	Photo
+88	Inspirez
+89	Expirez
+90	Offrez-nous un en-cas de rando
+91	Sachet de mandarines
+92	Rouleau de gimbap
+93	Nouilles du sommet
+94	≈ 1 $
+95	≈ 1,5 $
+96	≈ 2 $
+97	Un sachet de mandarines fait pousser un érable de plus dans la forêt.
+98	Un rouleau de gimbap fait tourner un jour de plus le serveur de randonnée partagée.
+99	Des nouilles au sommet ouvrent un tronçon de plus sur la prochaine montagne.
+100	Neungseon est un petit jeu de randonnée créé par une seule personne, une montagne à la fois. Si le sentier vous a plu, glissez un en-cas dans notre sac.
+101	Votre en-cas paie les serveurs et la prochaine montagne, et une partie est donnée pour protéger les montagnes de Corée, comme la reconstruction après les incendies.
+102	Afficher les boutons
+103	Point de vue
+104	Halte dans la vallée
+105	Belvédère à mi-pente
+106	Belvédère sur la crête
+107	Faites une pause et profitez de la vue
+108	Les crêtes d'automne s'étirent au-delà de la vallée
+109	L'Insubong et des crêtes à perte de vue
+110	Écoutez le ruisseau et contemplez la vallée d'automne
+111	Séoul et les crêtes étagées au-dessus de la mer de nuages
+112	Regarder
+113	Regarder tout autour
+114	Profiter de la vue
+115	Votre souffle s'apaise peu à peu
+116	Continuer
+117	Repos
+118	L'endurance remonte doucement
+119	Se lever
+120	À bout de souffle
+121	Reprenez votre souffle un instant
+122	Asseyez-vous et reposez-vous un peu
+123	S'asseoir sur le banc
+124	S'asseoir sur le rocher
+125	Rocher plat
+126	Halte
+127	banc
+128	rocher
+129	Vous vous asseyez au bord du sentier
+130	Une gorgée d'eau fraîche · Endurance +40
+131	Vous n'avez plus d'eau
+132	Hors du sentier · vous marchez plus lentement
+133	Loin du sentier · appuyez sur R pour revenir au point de contrôle
+134	Le rocher est trop raide. Revenez au sentier.
+135	Regardez tranquillement autour · gardez-le avec Photo (5)
+136	Boutons masqués · appuyez sur H ou le bouton en haut à droite pour les revoir
+137	Bonjour !
+138	Salut~
+139	Bonne montée !
+140	Bonne randonnée
+141	Le sommet est proche
+142	Ravi de vous croiser !
+143	Randonneur
+144	836 m · plus haut sommet du Bukhansan
+145	Durée de la randonnée
+146	Distance parcourue
+147	Saluts échangés
+148	Pauses
+149	Si le sentier vous a plu, offrez un petit en-cas pour la prochaine montagne.
+150	Profiter de la vue du sommet
+151	⛺ Camper au sommet
+152	Descendre
+153	Descente
+154	Regarder le feu
+155	Regarder les étoiles
+156	Ramen
+157	Dormir sous la tente
+158	Terminer
+159	Descendre lentement
+160	En descente…
+161	Pendant la descente
+162	Descente
+163	Doucement pour les genoux, pas à pas
+164	Camp au sommet
+165	Le soleil se couche et les étoiles apparaissent une à une
+166	Bonjour
+167	Lever du soleil depuis le Baegundae
+168	Camping du sommet · votre endurance ne baisse pas ici
+169	⛰ Sommet
+170	Camping
+171	Plus d'eau · reposez-vous ou respirez pour remplir
+172	Gourdes pleines 💧
+173	Une gourde remplie 💧
+174	Gourdes remplies au ruisseau 💧
+175	Gourdes remplies au camping 💧
+176	Barre de navigation fixée · touchez à nouveau plein écran pour la masquer
+177	Bonne randonnée !
+178	Prenez soin de vous
+179	Bravo pour aujourd'hui !
+180	Rendez-vous au sommet !
+181	Se connecter avec Google
+182	Se déconnecter
+183	Connectez-vous pour reprendre votre randonnée sur d'autres appareils
+184	Connecté avec Google · votre randonnée se synchronise entre appareils
+185	Déconnecté · cet appareil garde ses données
+186	Échec de la connexion Google · réessayez dans un instant
+187	Connexion indisponible pour le moment · réessayez dans un instant
+188	Camper ici, ou redescendre doucement ?
+189	Plus
+190	Couleur de la tente
+191	Montée quand vous campez au sommet
+192	Bras en haut, inspirez
+193	Bras en bas, expirez
+194	⛰ Menu du sommet
+195	Marcher vite
+196	Marche rapide
+197	Descendre vite
+198	Descente rapide…
+199	Vite
+200	Lent
+201	Genre
+202	Feu, étoiles, tente… prenez votre temps
+203	Touchez un cercle lumineux pour vous asseoir où vous voulez
+204	Des campeurs virtuels autour du feu
+205	Monter la tente
+206	Démonter
+207	Tente montée
+208	Tente rangée
+209	Une aurore ondule au nord · une nuit rare
+210	L'heure de l'aurore du samedi · regardons ensemble vers le nord
+211	H
+212	F
+213	Recommencer
+214	Neungseon est un petit jeu de randonnée créé par une seule personne, une montagne à la fois. Si le sentier vous a plu, offrez un en-cas chaud pour la prochaine montagne.
+215	Le soutien est toujours facultatif. Marcher avec nous compte déjà beaucoup.
+216	Retour à la montagne
+217	Les options de soutien arrivent bientôt.
+218	Toss · virement rapide coréen
+219	Soutenir avec Toss
+220	Scannez le QR avec l'appareil photo du téléphone
+221	Touchez pour envoyer avec KakaoPay
+222	Ouvrir KakaoPay
+223	Soutien depuis l'étranger
+224	Lent
+225	Rouge
+226	Paisible
+227	Douillet
+228	Petit
+229	Clair
+230	Solide
+231	Frais
+232	Chaleureux
+233	Tranquille
+234	Calme
+235	Scintillant
+236	Écureuil
+237	Pomme de pin
+238	Feuille d'érable
+239	Gland
+240	Oiseau chanteur
+241	Brise des pins
+242	Mousse
+243	Herbe argentée
+244	Nuage
+245	Sentier
+246	Aster sauvage
+247	Vue subjective / à la troisième personne (V)
+248	Pseudo
+249	Autre nom
+250	Menu
+251	Ouvrir le menu
+252	Réafficher les boutons
+253	Masquer tous les boutons
+254	Vue de randonnée
+255	Son
+256	Son activé/désactivé
+257	Changer de vue
+258	Joystick de déplacement
+259	En randonnée avec vous
+260	Carte agrandie (M)
+261	Afficher une carte plus grande
+262	Vue épurée : masquer tous les boutons (H)
+263	Langue
+264	Quelle montagne aujourd'hui ?
+265	Choisissez un sentier issu de vraies données d'altitude
+266	Corée · 10 montagnes
+267	Monde · 10 montagnes
+268	Choisir une autre montagne
+269	Vous êtes ici
+270	Bientôt
+271	Rester sur cette montagne
+272	Reprenez votre souffle un instant.
+273	Ui-dong · Sentier du Baegundae
+274	Ui-dong
+275	Corée
+276	Hallasan
+277	Witse-oreum
+278	Refuge de Witse-oreum
+279	Sentier de Yeongsil
+280	Yeongsil
+281	Départ de Yeongsil
+282	Rochers de Byeongpung
+283	Seonjakjiwat
+284	Jirisan
+285	Cheonwangbong
+286	Sommet du Cheonwangbong
+287	Sentier de Jungsan-ri
+288	Jungsan-ri
+289	Bifurcation de Kalbawi
+290	Temple Beopgyesa
+291	Seoraksan
+292	Daecheongbong
+293	Sommet du Daecheongbong
+294	Sentier d'Osaek
+295	Osaek
+296	Centre d'accueil d'Osaek
+297	Cascade de Seorak
+298	Mudeungsan
+299	Seoseokdae
+300	Sentier de Jeungsimsa
+301	Jeungsimsa
+302	Départ de Jeungsimsa
+303	Col de Jungmeorijae
+304	Col de Jangbuljae
+305	Ipseokdae
+306	Wolchulsan
+307	Cheonhwangbong
+308	Sommet du Cheonhwangbong
+309	Cheonhwangsa · Sentier du pont des nuages
+310	Cheonhwangsa
+311	Centre d'accueil de Cheonhwangsa
+312	Pont des nuages
+313	Naejangsan
+314	Sinseonbong
+315	Sommet du Sinseonbong
+316	Naejangsa · Sentier du Yeonjabong
+317	Temple Naejangsa
+318	Yeonjabong
+319	Deogyusan
+320	Hyangjeokbong
+321	Sommet du Hyangjeokbong
+322	Sentier de Baengnyeonsa
+323	Temple Baengnyeonsa
+324	Sobaeksan
+325	Birobong
+326	Sommet du Birobong
+327	Sentier d'Eouigok
+328	Eouigok
+329	Centre d'accueil d'Eouigok
+330	Bifurcation d'Eouigok
+331	Taebaeksan
+332	Autel de Cheonjedan
+333	Sentier de Yuilsa
+334	Yuilsa
+335	Départ de Yuilsa
+336	Aire de repos de Yuilsa
+337	Janggunbong
+338	Everest
+339	Kala Patthar
+340	Belvédère du Kala Patthar
+341	Gorak Shep · Kala Patthar
+342	Gorak Shep
+343	Népal
+344	Fuji
+345	Sommet du Fuji
+346	Sentier Yoshida
+347	5e station de Yoshida
+348	7e station
+349	8e station
+350	Japon
+351	Kilimandjaro
+352	Uhuru Peak
+353	Tour du cratère
+354	Gilman's Point
+355	Stella Point
+356	Tanzanie
+357	Cervin
+358	Cabane du Hörnli
+359	Sentier de la cabane du Hörnli
+360	Schwarzsee
+361	Départ de l'arête du Hörnli
+362	Suisse
+363	Mont Blanc
+364	Lac Blanc
+365	Sentier du Lac Blanc
+366	La Flégère
+367	Lacs des Chéserys
+368	France
+369	Tre Cime di Lavaredo
+370	Refuge Locatelli
+371	Tour des Tre Cime
+372	Refuge Auronzo
+373	Refuge Lavaredo
+374	Forcella Lavaredo
+375	Italie
+376	Half Dome
+377	Sommet du Half Dome
+378	Sub Dome · Câbles
+379	Bifurcation du Sub Dome
+380	Bifurcation du Half Dome
+381	Sub Dome
+382	États-Unis
+383	Huangshan
+384	Pic du Lotus
+385	Sommet du pic du Lotus
+386	Tour Yuping · Pic du Lotus
+387	Tour Yuping
+388	Chine
+389	Torres del Paine
+390	Mirador Las Torres
+391	Chileno · Mirador Las Torres
+392	Refuge Chileno
+393	Campement Torres
+394	Chili
+395	Tongariro
+396	Red Crater
+397	Tongariro Alpine Crossing
+398	Mangatepopo
+399	Soda Springs
+400	South Crater
+401	Nouvelle-Zélande
+402	Cervin · Cabane du Hörnli
+403	Cervin · Cabane du Hörnli 3260 m
+404	Cabane du Hörnli 3260 m
+405	Cabane du Hörnli 360°
+406	3260 m · au pied de l'arête du Hörnli du Cervin
+407	La face nord du Cervin vous domine
+408	Ensemble jusqu'à la cabane du Hörnli au Cervin
+409	Lever du soleil à la cabane du Hörnli
+410	Départ du Schwarzsee
+411	→ Départ de l'arête du Hörnli →
+412	Un départ avec un petit lac et une chapelle.
+413	Rien que roche et éboulis ; la face nord vous domine.
+414	Au pied de l'arête du Hörnli du Cervin, à 3260 m d'altitude.
+415	Pas à pas, ensemble sur le sentier
+416	Votre progression est enregistrée
+417	Choisir une autre montagne (progression enregistrée)
+418	Saison
+419	Printemps
+420	Été
+421	Automne
+422	Hiver
+423	Cette montagne reste toute l'année dans sa saison de neige et de roche
+424	Changer de saison redessine la montagne
+425	Lever du soleil
+426	Matin
+427	Après-midi
+428	Coucher du soleil
+429	Cœur de la nuit
+430	Temps réel
+431	🕐 Lever du soleil
+432	🕐 Matin
+433	🕐 Après-midi
+434	🕐 Coucher du soleil
+435	🕐 Cœur de la nuit
+436	Des pétales dansent dans la brise de printemps 🌸
+437	Une averse passe · le ciel se couvre un moment 🌧
+438	Les feuilles tourbillonnent au vent 🍂
+439	Les premiers flocons tombent ❄
+440	La pluie a cessé · le ciel s'éclaircit
+441	La neige a cessé
+442	Changer de saison
+443	Changer de saison ici · la montagne est redessinée et vous repartez de cet endroit
+444	La saison a changé · continuez
+445	Mont Blanc · Lac Blanc
+446	Mont Blanc · Lac Blanc 2352 m
+447	Lac Blanc 2352 m
+448	Lac Blanc 360°
+449	2352 m · où le Mont Blanc se reflète dans le lac
+450	Le massif du Mont-Blanc s'élève au-delà du lac
+451	Ensemble jusqu'au Lac Blanc face au Mont Blanc
+452	Lever du soleil au Lac Blanc
+453	Départ de La Flégère
+454	→ Lacs des Chéserys →
+455	Départ à La Flégère. Votre randonnée commence ici.
+456	Un chapelet de petits lacs. Attention aux échelles.
+457	Là où le Mont Blanc se reflète dans le lac, à 2352 m d'altitude.
+458	Tre Cime di Lavaredo · Refuge Locatelli
+459	Tre Cime di Lavaredo · Refuge Locatelli 2405 m
+460	Refuge Locatelli 2405 m
+461	Refuge Locatelli 360°
+462	2405 m · face aux trois faces nord
+463	Trois tours de roche géantes côte à côte
+464	Ensemble jusqu'au refuge Locatelli aux Tre Cime di Lavaredo
+465	Lever du soleil au refuge Locatelli
+466	Départ du refuge Auronzo
+467	→ Refuge Lavaredo → Forcella Lavaredo →
+468	Départ au refuge Auronzo. Votre randonnée commence ici.
+469	On passe sous le versant sud des trois sommets.
+470	Passé le col, les trois faces nord apparaissent d'un coup.
+471	Face aux trois faces nord, à 2405 m d'altitude.
+472	Torres del Paine · Mirador Las Torres
+473	Torres del Paine · Mirador Las Torres 875 m
+474	Mirador Las Torres 875 m
+475	Mirador Las Torres 360°
+476	875 m · lac glaciaire sous trois tours de granit
+477	Trois tours dominent un lac turquoise
+478	Ensemble jusqu'au Mirador Las Torres à Torres del Paine
+479	Lever du soleil au Mirador Las Torres
+480	Départ du refuge Chileno
+481	→ Campement Torres →
+482	Départ au refuge Chileno. Votre randonnée commence ici.
+483	Lisière de la forêt de lengas ; un immense pierrier vous attend.
+484	Lac glaciaire sous trois tours de granit, à 875 m d'altitude.
+485	Everest · Kala Patthar
+486	Everest · Kala Patthar 5644 m
+487	Belvédère du Kala Patthar 5644 m
+488	Belvédère du Kala Patthar 360°
+489	5644 m · la colline face à l'Everest
+490	L'Everest et le glacier du Khumbu juste devant vous
+491	Ensemble jusqu'au belvédère du Kala Patthar face à l'Everest
+492	Lever du soleil au Kala Patthar
+493	Départ de Gorak Shep
+494	5 163 m, l'ancien camp de base de l'Everest.
+495	La colline face à l'Everest, à 5644 m d'altitude.
+496	Kilimandjaro · Uhuru Peak
+497	Kilimandjaro · Uhuru Peak 5895 m
+498	Uhuru Peak 5895 m
+499	Uhuru Peak 360°
+500	5895 m · plus haut sommet d'Afrique
+501	Des plaines africaines sans fin au-delà des glaciers
+502	Ensemble jusqu'à l'Uhuru Peak au Kilimandjaro
+503	Lever du soleil à l'Uhuru Peak
+504	Départ de Gilman's Point
+505	→ Stella Point →
+506	Le premier point sur le bord du cratère du Kibo.
+507	Sur le bord du cratère, les glaciers juste devant vous.
+508	Plus haut sommet d'Afrique, à 5895 m d'altitude.

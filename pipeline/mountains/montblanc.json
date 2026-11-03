@@ -1,0 +1,112 @@
+{
+ "id": "montblanc",
+ "region": "world",
+ "order": 15,
+ "flag": "fr",
+ "tz": 1,
+ "cityLights": true,
+ "area": {
+  "ko": "몽블랑",
+  "en": "Mont Blanc",
+  "ja": "モンブラン",
+  "zh": "勃朗峰"
+ },
+ "peak": {
+  "ko": "락 블랑",
+  "en": "Lac Blanc",
+  "ja": "ラック・ブラン",
+  "zh": "白湖"
+ },
+ "end": {
+  "ko": "락 블랑",
+  "en": "Lac Blanc",
+  "ja": "ラック・ブラン",
+  "zh": "白湖"
+ },
+ "elev": 2352,
+ "trailheadArea": {
+  "ko": "라 플레제르",
+  "en": "La Flégère",
+  "ja": "ラ・フレジェール",
+  "zh": "拉弗莱热尔"
+ },
+ "summitSub": {
+  "ko": "몽블랑이 호수에 비치는 곳",
+  "en": "where Mont Blanc mirrors in the lake",
+  "ja": "モンブランが湖に映る場所",
+  "zh": "勃朗峰倒映湖中之处"
+ },
+ "vista": {
+  "ko": "호수 너머로 몽블랑 산군이 펼쳐져요",
+  "en": "The Mont Blanc massif rises beyond the lake",
+  "ja": "湖の向こうにモンブラン山群が広がります",
+  "zh": "湖对面，勃朗峰群峰连绵"
+ },
+ "course": {
+  "ko": "락 블랑 길",
+  "en": "Lac Blanc Trail",
+  "ja": "ラック・ブランへの道",
+  "zh": "白湖步道"
+ },
+ "waypoints": [
+  {
+   "ko": "플레제르 아래 숲길",
+   "en": "Trail below La Flégère",
+   "ja": "ラ・フレジェール下の道",
+   "zh": "弗莱热尔下方步道",
+   "lat": 45.9555,
+   "lon": 6.882,
+   "elev": 1700,
+   "snap": "elev",
+   "desc": {
+    "ko": "몽블랑을 마주 보며 숲길을 걸어요."
+   }
+  },
+  {
+   "ko": "라 플레제르",
+   "en": "La Flégère",
+   "ja": "ラ・フレジェール",
+   "zh": "拉弗莱热尔",
+   "lat": 45.9605,
+   "lon": 6.888,
+   "elev": 1877,
+   "snap": "elev"
+  },
+  {
+   "ko": "락 데 슈제르",
+   "en": "Lacs des Chéserys",
+   "ja": "シェズリー湖",
+   "zh": "谢泽里湖",
+   "lat": 45.9755,
+   "lon": 6.893,
+   "elev": 2210,
+   "snap": "elev",
+   "desc": {
+    "ko": "작은 호수들이 이어져요. 사다리 구간을 조심하세요.",
+    "en": "A chain of small lakes. Watch your step on the ladders."
+   }
+  },
+  {
+   "ko": "락 블랑",
+   "en": "Lac Blanc",
+   "ja": "ラック・ブラン",
+   "zh": "白湖",
+   "lat": 45.98,
+   "lon": 6.889,
+   "elev": 2352,
+   "snap": "elev"
+  }
+ ],
+ "biome": {
+  "preset": "larch",
+  "treeline": 2150,
+  "rockline": 2200,
+  "plantline": 2700,
+  "snow": 2900
+ },
+ "climate": "alps",
+ "terrain": {
+  "sharp": true,
+  "nearN": 385
+ }
+}
