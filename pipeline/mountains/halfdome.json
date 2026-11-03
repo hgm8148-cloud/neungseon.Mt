@@ -50,6 +50,19 @@
  },
  "waypoints": [
   {
+   "ko": "리틀 요세미티 밸리 길",
+   "en": "Little Yosemite Valley Trail",
+   "ja": "リトル・ヨセミテ・バレーの道",
+   "zh": "小优胜美地谷步道",
+   "lat": 37.7445,
+   "lon": -119.5105,
+   "elev": 1980,
+   "snap": "elev",
+   "desc": {
+    "ko": "거대한 소나무 숲 사이로 오르막이 시작돼요."
+   }
+  },
+  {
    "ko": "하프돔 갈림길",
    "en": "Half Dome Junction",
    "ja": "ハーフドーム分岐",
@@ -93,5 +106,9 @@
   "treeline": 2620,
   "rockline": 2450
  },
- "climate": "sierra"
+ "climate": "sierra",
+ "terrain": {
+  "sharp": true,
+  "nearN": 385
+ }
 }

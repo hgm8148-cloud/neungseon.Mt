@@ -93,5 +93,9 @@
   "treeline": 1690,
   "rockline": 1450
  },
- "climate": "kr-high"
+ "climate": "kr-high",
+ "terrain": {
+  "sharp": true,
+  "nearN": 385
+ }
 }

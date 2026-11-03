@@ -11,9 +11,13 @@ photos/<id>/          받은 사진, photos/credits.json 에 출처·라이선�
 make_sky.py           하늘 사진 → 밤하늘 은하수·달 텍스처 (photos/web/sky/)
 sky_patch.py          일출·오전·오후·일몰·심야 사진 색 하늘, 사진 밤하늘
 avatar_patch.py       아바타 외형·걸음 모션
-weather_patch.py      계절 날씨(꽃잎·소나기·낙엽·눈)와 게임 중 계절 바꾸기
+weather_patch.py      날씨·하늘 효과(꽃비·낙엽·소나기·눈·돌풍·천둥번개·별똥별·오로라) 자동 발생 + 관리자 버튼, 게임 중 계절 바꾸기
 release_patch.py      출시 전 점검에서 고친 것들
 lang_patch.py         해외 산 페이지에 그 나라 말 더하기 (i18n/<언어>.tsv, python3 lang_patch.py 로 표 점검)
+sound_patch.py        도선사 종소리 빼기, 산마다 고유 효과음 2~3가지, 천둥·돌풍 소리
+camera_patch.py       멀미 없는 카메라(스프링 추적), 자동 걷기 방향 부드럽게, 바위·통나무·돌계단 위로 걷기
+look_patch.py         산 사진에서 뽑은 바위 색 입히기 (make_look.py → photos/look.json)
+landmark_patch.py     정상 랜드마크(정상석·천제단·도리이·우후루 표지판·산장 등) + 야영장 상주 NPC·텐트
 ```
 
 ## 새 산 추가하기

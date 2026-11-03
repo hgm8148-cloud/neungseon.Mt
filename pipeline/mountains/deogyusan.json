@@ -50,6 +50,19 @@
  },
  "waypoints": [
   {
+   "ko": "구천동 계곡",
+   "en": "Gucheondong Valley",
+   "ja": "九千洞渓谷",
+   "zh": "九千洞溪谷",
+   "lat": 35.8835,
+   "lon": 127.764,
+   "elev": 830,
+   "snap": "elev",
+   "desc": {
+    "ko": "맑은 계곡물 소리를 들으며 걸어요."
+   }
+  },
+  {
    "ko": "백련사",
    "en": "Baengnyeonsa Temple",
    "ja": "白蓮寺",

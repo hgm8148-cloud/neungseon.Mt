@@ -91,5 +91,9 @@
   "plantline": 850,
   "snow": 1400
  },
- "climate": "patagonia"
+ "climate": "patagonia",
+ "terrain": {
+  "sharp": true,
+  "nearN": 385
+ }
 }

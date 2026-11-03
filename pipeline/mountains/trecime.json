@@ -50,6 +50,19 @@
  },
  "waypoints": [
   {
+   "ko": "아우론초 전망길",
+   "en": "Auronzo Viewpoint Path",
+   "ja": "アウロンツォ展望路",
+   "zh": "奥龙佐观景步道",
+   "lat": 46.6085,
+   "lon": 12.2885,
+   "elev": 2290,
+   "snap": "elev",
+   "desc": {
+    "ko": "카디니 봉우리들을 바라보며 걷기 시작해요."
+   }
+  },
+  {
    "ko": "아우론초 산장",
    "en": "Rifugio Auronzo",
    "ja": "アウロンツォ小屋",
@@ -105,5 +118,9 @@
   "plantline": 2550,
   "snow": 2900
  },
- "climate": "alps"
+ "climate": "alps",
+ "terrain": {
+  "sharp": true,
+  "nearN": 385
+ }
 }

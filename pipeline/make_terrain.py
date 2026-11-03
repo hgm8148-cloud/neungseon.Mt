@@ -159,7 +159,8 @@ def build(cfg, log=print):
         if bad.any(): crop[bad] = np.median(crop[~bad])
     G = resize(crop, N)
     P = np.pad(G, 1, mode='edge')
-    G = sum(P[1 + dy:1 + dy + N, 1 + dx:1 + dx + N] for dy in (-1, 0, 1) for dx in (-1, 0, 1)) / 9
+    B = sum(P[1 + dy:1 + dy + N, 1 + dx:1 + dx + N] for dy in (-1, 0, 1) for dx in (-1, 0, 1)) / 9
+    G = 0.7 * G + 0.3 * B if T.get('sharp') else B   # 뾰족한 바위산은 덜 뭉개요 (절벽·첨봉이 살아 있게)
     cell = SIZE / (N - 1)
     def g(lat, lon):
         px, py = to_px(lat, lon); return (px / span * (N - 1), py / span * (N - 1))

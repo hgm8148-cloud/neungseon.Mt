@@ -95,5 +95,9 @@
   "plantline": 2850,
   "snow": 3150
  },
- "climate": "alps"
+ "climate": "alps",
+ "terrain": {
+  "sharp": true,
+  "nearN": 385
+ }
 }

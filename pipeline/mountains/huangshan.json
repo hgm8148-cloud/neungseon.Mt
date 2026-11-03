@@ -50,6 +50,19 @@
  },
  "waypoints": [
   {
+   "ko": "자광각 돌계단",
+   "en": "Ciguang Pavilion Steps",
+   "ja": "慈光閣の石段",
+   "zh": "慈光阁石阶",
+   "lat": 30.114,
+   "lon": 118.163,
+   "elev": 1100,
+   "snap": "elev",
+   "desc": {
+    "ko": "끝없이 이어지는 화강암 돌계단의 시작이에요."
+   }
+  },
+  {
    "ko": "옥병루",
    "en": "Yuping Tower",
    "ja": "玉屏楼",
@@ -78,5 +91,9 @@
   "treeline": 1900,
   "rockline": 1650
  },
- "climate": "cn"
+ "climate": "cn",
+ "terrain": {
+  "sharp": true,
+  "nearN": 385
+ }
 }

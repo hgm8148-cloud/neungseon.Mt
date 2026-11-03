@@ -17,6 +17,10 @@ from avatar_patch import patch_avatar
 from weather_patch import patch_weather, WX_ROWS
 from release_patch import patch_release
 from lang_patch import patch_lang
+from sound_patch import patch_sound
+from camera_patch import patch_camera
+from look_patch import patch_look
+from landmark_patch import patch_landmark, lm_rows
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PF = '/mnt/project-files/hiking-game'
@@ -278,7 +282,7 @@ def build_page(T, m, mts, data):
     rows = list(UI_ROWS)
     for x in mts: rows += mountain_rows(x)
     if m['id'] != 'bukhansan': rows += page_rows(m)
-    rows += EXTRA_ROWS + SEASON_ROWS + SKY_ROWS + WX_ROWS + [[tagline(m, l) for l in LANGS]]
+    rows += EXTRA_ROWS + SEASON_ROWS + SKY_ROWS + WX_ROWS + lm_rows(m) + [[tagline(m, l) for l in LANGS]]
     pre, R, post = split_R(P.t)
     R += ',\n    // 산 고르기·산 이름 (pipeline/build_site.py)\n' + ',\n'.join('    ' + json.dumps(r, ensure_ascii=False) for r in rows)
     if not m.get('legacy'):
@@ -290,6 +294,10 @@ def build_page(T, m, mts, data):
     patch_sky(P, m)
     patch_avatar(P)
     patch_weather(P, m)
+    patch_sound(P, m)
+    patch_camera(P, m)
+    patch_look(P, m)
+    patch_landmark(P, m)
     patch_release(P, m)
     patch_lang(P, m)
     # 선택 화면

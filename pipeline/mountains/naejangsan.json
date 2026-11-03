@@ -50,6 +50,19 @@
  },
  "waypoints": [
   {
+   "ko": "내장산 탐방지원센터",
+   "en": "Naejangsan Visitor Center",
+   "ja": "内蔵山探訪支援センター",
+   "zh": "内藏山游客中心",
+   "lat": 35.4975,
+   "lon": 126.9035,
+   "elev": 130,
+   "snap": "elev",
+   "desc": {
+    "ko": "단풍 터널을 지나 내장사로 들어가요."
+   }
+  },
+  {
    "ko": "내장사",
    "en": "Naejangsa Temple",
    "ja": "内蔵寺",

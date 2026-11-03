@@ -50,6 +50,19 @@
  },
  "waypoints": [
   {
+   "ko": "플레제르 아래 숲길",
+   "en": "Trail below La Flégère",
+   "ja": "ラ・フレジェール下の道",
+   "zh": "弗莱热尔下方步道",
+   "lat": 45.9555,
+   "lon": 6.882,
+   "elev": 1700,
+   "snap": "elev",
+   "desc": {
+    "ko": "몽블랑을 마주 보며 숲길을 걸어요."
+   }
+  },
+  {
    "ko": "라 플레제르",
    "en": "La Flégère",
    "ja": "ラ・フレジェール",
@@ -91,5 +104,9 @@
   "plantline": 2700,
   "snow": 2900
  },
- "climate": "alps"
+ "climate": "alps",
+ "terrain": {
+  "sharp": true,
+  "nearN": 385
+ }
 }

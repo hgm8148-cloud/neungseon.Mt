@@ -52,13 +52,24 @@
  "terrain": {
   "center": [
    37.66,
-   126.987
+   126.992
   ],
-  "near": 3000,
-  "nearN": 257,
+  "near": 3400,
+  "nearN": 291,
   "z": 15
  },
  "waypoints": [
+  {
+   "ko": "우이분소",
+   "en": "Ui Ranger Station",
+   "ja": "牛耳分所",
+   "zh": "牛耳管理所",
+   "lat": 37.6617,
+   "lon": 127.0068,
+   "desc": {
+    "ko": "우이동 계곡을 따라 산행을 시작해요."
+   }
+  },
   {
    "ko": "백운대탐방지원센터",
    "en": "Baegundae Visitor Center",

@@ -90,5 +90,9 @@
   "rockline": 560,
   "flat": 0.2
  },
- "climate": "kr-south"
+ "climate": "kr-south",
+ "terrain": {
+  "sharp": true,
+  "nearN": 385
+ }
 }
