@@ -195,9 +195,9 @@ def build(cfg, log=print):
     for key, Z, S, NN, sc in (('far', 13, 14000, 161, 2), ('ultra', 11, 48000, 241, 1)):
         c, *_ = dem_crop(clat, clon, S, Z)
         c[c < 0] = 0
-        GG = resize(c, NN) - BASE
+        GG = resize(c, NN)   # 먼 산은 실제 해발 그대로 저장 (바다·평야가 잘리지 않게, 게임에서 BASE를 빼요)
         out[key] = dict(N=NN, size=S, h=base64.b64encode(np.clip(np.round(GG * sc), 0, 65535).astype('<u2').tobytes()).decode())
-    out['meta'] = dict(id=cfg['id'], lat=round(clat, 5), lon=round(clon, 5), BASE=BASE, H0=H0, VEX=VEX,
+    out['meta'] = dict(farReal=True, id=cfg['id'], lat=round(clat, 5), lon=round(clon, 5), BASE=BASE, H0=H0, VEX=VEX,
                        trail_m=round(L), snapped=[[round(a, 5), round(b, 5)] for a, b in pts])
     log(f"[{cfg['id']}] near {SIZE:.0f}m N={N} cell={cell:.1f}m · trail {L/1000:.2f}km · BASE {BASE} H0 {H0} VEX {VEX} · DEM start {h_start:.0f} end {h_end:.0f}")
     for r in report:

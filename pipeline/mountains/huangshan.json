@@ -77,5 +77,6 @@
   "preset": "granite-pine",
   "treeline": 1900,
   "rockline": 1650
- }
+ },
+ "climate": "cn"
 }

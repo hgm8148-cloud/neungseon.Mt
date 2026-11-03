@@ -117,5 +117,6 @@
   "treeline": 930,
   "rockline": 1050,
   "grass": 0.4
- }
+ },
+ "climate": "kr"
 }

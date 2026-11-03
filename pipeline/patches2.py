@@ -6,6 +6,7 @@ import base64, json, math
 import numpy as np
 
 EXTRA_ROWS = [
+    *[], 
     ['산길을 한 걸음씩, 함께 오르다', 'One step at a time, up the trail together', '山道を一歩ずつ、いっしょに登る', '一步一步，一起走上山路'],
     ['지금까지 걸은 기록을 저장했어요', 'Your progress so far is saved', 'ここまでの記録を保存しました', '已保存目前的进度'],
     ['다른 산 고르기 (기록은 저장돼요)', 'Choose another mountain (progress is saved)', '別の山を選ぶ（記録は保存されます）', '选择其他山（进度会保存）'],
@@ -125,7 +126,7 @@ def _skyline(data):
     def h(x, z):
         for g in (Nn, F, U):
             v = _samp(*g, x, z)
-            if v is not None: return M['H0'] + (v - M['H0']) * M['VEX'] if g is Nn else v
+            if v is not None: return M['H0'] + (v - M['H0']) * M['VEX'] if g is Nn else (v - M['BASE'] if M.get('farReal') else v)
         return 0.0
     sx, sz = data['trail'][-1]; tx_, tz_ = data['trail'][0]
     vx, vz = tx_ - sx, tz_ - sz; L = math.hypot(vx, vz) or 1; vx, vz = vx / L, vz / L
@@ -184,6 +185,20 @@ def patch_opening(P, data):
     P.rep('<g class="sun"><circle cx="1060" cy="560" r="46"', f'<g class="sun"><circle cx="{ld["peakX"]-40}" cy="{max(200, ld["peakY"]+30)}" r="46"', 1)
 
 
+SEA_JS = "const SEA_C = new THREE.Color(0x5f86a6), SEA_C2 = new THREE.Color(0x7aa0bd);\n"
+
+
+def patch_geo(P, m, data):
+    """먼 풍경 = 실제 주변 지리: 먼 산 높이를 실제 해발로 받아 BASE만 빼고, 바다는 바다색으로."""
+    if not P.t.count('ALT0 ='):
+        P.rep('const H0 = 272, VEX = 1.058;', 'const H0 = 272, VEX = 1.058, ALT0 = 0;', 1)
+    if data['meta'].get('farReal'):
+        P.rep('decode(F.h, 2)', 'decode(F.h, 2).map(v => v - ALT0)')
+        P.rep('decode(U.h, 1)', 'decode(U.h, 1).map(v => v - ALT0)')
+    P.rep('if(hm > 85 || hm < 3) continue;', 'if(hm + ALT0 > 85 || hm + ALT0 < 3) continue;', 1)
+    P.rep('function toonColor(x,z,h,ny,o){', SEA_JS + 'function toonColor(x,z,h,ny,o){\n  if(h + ALT0 < 1.5 && ny > 0.97){ o.copy(SEA_C).lerp(SEA_C2, vnoise(x/1400, z/1400)*0.6); return o; }   // 바다', 1)
+
+
 def patch_common(P, m, data):
     # 계절 문구 빼기
     P.rep('<p class="ldTag">가을 산길을 한 걸음씩, 함께 오르다</p>', '<p class="ldTag">산길을 한 걸음씩, 함께 오르다</p>', 1)
@@ -195,6 +210,8 @@ def patch_common(P, m, data):
     patch_brand(P, m)
     P.rep('</style>', BRAND_CSS + '</style>', 1)
     patch_biome(P, bio_for(m, data['meta']))
+    patch_season(P, m, data['meta'])
+    patch_geo(P, m, data)
 
 
 # ---------- 산 고르기 카드 그림: 실제 능선 실루엣 ----------
@@ -226,3 +243,125 @@ def thumb_svg(m, data):
             f'<rect y="0" width="1600" height="900" fill="url(#g{i})"/><circle cx="{ld["peakX"]-260}" cy="{ld["peakY"]-40:.0f}" r="70" fill="{sun}" opacity=".85"/>'
             + ''.join(f'<path d="{path(ys)}" fill="{lay[k]}"/>' for k, ys in enumerate(ld['layers']))
             + f'<path d="{path(ld["front"])}" fill="{fr}"/>{snow}</svg>')
+
+
+# ---------- 계절 고르기 (봄·여름·가을·겨울) ----------
+SEASON_ROWS = [
+    ['계절', 'Season', '季節', '季节'], ['봄', 'Spring', '春', '春'], ['여름', 'Summer', '夏', '夏'], ['가을', 'Autumn', '秋', '秋'], ['겨울', 'Winter', '冬', '冬'],
+    ['이 산은 일 년 내내 눈과 바위의 계절이에요', 'This mountain stays in its season of snow and rock all year', 'この山は一年中、雪と岩の季節です', '这座山一年四季都是冰雪与岩石'],
+    ['바꾸면 산을 새로 그려요', 'Changing it redraws the mountain', '変えると山を描き直します', '更改后会重新绘制山景'],
+]
+
+SEASON_JS = r'''
+const SEASONS_OK = __SEASONS__;
+let SEASON = 'autumn'; try{ const s = localStorage.getItem('neungseon.season.__ID__'); if(SEASONS_OK.includes(s)) SEASON = s; }catch(e){}
+if(!SEASONS_OK.length) SEASON = 'fixed';
+const SZ = ({
+  spring: { green:.42, snow:0, grass:[[[120,160,70],[140,176,84],[104,146,60],[96,136,58]],[[110,150,66],[130,166,78],[96,138,56],[88,128,52]]], bushRed:[[96,140,64],[112,156,74],[84,128,58]], bushOak:[[120,160,80],[136,176,92],[104,146,70]], toon:[0x5d8a3e,0x7aa34a,0x9cbc5a,0xc6d27a,0xe9b7c8,0x86ad55,0x5f8d44],
+    leaf:[[236,176,196],[244,206,216],[226,150,176],[150,186,96],[126,170,80],[180,206,120]],
+    pals:[[[232,170,192],[244,200,212],[220,150,178],[250,220,228]],[[150,190,96],[170,206,112],[130,176,84],[190,214,130]],[[96,140,70],[80,124,60],[112,156,80],[70,110,54]],[[176,204,110],[156,190,96],[196,216,130],[136,176,86]],[[226,160,186],[150,190,100],[206,130,166],[120,170,90]]],
+    floor:[0x4a4a28,0x5e6a2e,0x4f5a2a],
+    sp:{ mapleRed:[[232,166,188],[244,198,212],[218,140,172],[250,222,230],[204,120,156],[236,184,200]], mapleOrange:[[150,190,96],[170,206,112],[130,176,84],[190,214,130],[118,160,76],[160,196,104]],
+         oak:[[120,160,80],[136,176,92],[104,146,70],[150,186,100],[96,136,66],[128,168,86]], oakGold:[[166,200,104],[186,214,120],[150,188,92],[176,206,112],[200,220,140],[140,180,90]],
+         yellow:[[196,214,120],[214,226,140],[176,200,106],[160,190,96],[220,230,150],[150,184,90]], birch:[[176,206,112],[196,220,130],[160,194,100],[150,186,96],[206,226,144]],
+         green:[[96,140,64],[112,156,74],[84,128,58],[126,166,82],[104,148,70],[92,136,62]], bare:[[150,186,100],[130,170,86]] } },
+  summer: { green:.62, snow:0, grass:[[[84,124,52],[100,140,60],[70,110,44],[64,100,40]],[[78,118,48],[94,134,58],[66,104,42],[58,94,38]]], bushRed:[[52,92,40],[64,106,48],[44,82,36]], bushOak:[[64,104,44],[76,116,50],[54,92,38]], toon:[0x2f5a2a,0x3f6e30,0x4f7c36,0x5f8a3e,0x3a6630,0x2a5026,0x467038],
+    leaf:[[96,130,60],[80,116,52],[120,150,70],[70,100,46],[110,120,60],[90,96,50]],
+    pals:[[[52,96,44],[64,110,52],[44,84,38],[76,120,58]],[[70,116,52],[84,130,60],[60,104,46],[96,140,66]],[[40,74,36],[32,62,30],[50,86,42],[28,52,26]],[[84,124,56],[70,110,50],[96,136,64],[60,98,44]],[[60,106,48],[48,92,40],[74,120,56],[40,80,36]]],
+    floor:[0x3a3e22,0x4a5428,0x3e4824],
+    sp:{ mapleRed:[[60,112,48],[74,126,56],[50,98,42],[86,136,62],[44,88,38],[68,118,52]], mapleOrange:[[70,120,52],[84,134,60],[60,108,46],[96,144,66],[54,98,42],[78,128,56]],
+         oak:[[64,104,44],[76,116,50],[54,92,38],[88,126,56],[48,84,36],[70,110,48]], oakGold:[[80,124,54],[94,138,62],[70,112,48],[86,130,58],[104,146,68],[64,104,46]],
+         yellow:[[90,136,60],[104,148,68],[80,124,54],[72,114,50],[110,152,72],[66,108,46]], birch:[[96,140,64],[110,152,72],[84,128,58],[76,120,54],[120,160,80]],
+         green:[[48,86,36],[58,98,42],[40,76,32],[66,106,46],[52,92,38],[44,80,34]], bare:[[70,110,50],[60,100,44]] } },
+  winter: { green:0, snow:.82, grass:[[[196,186,160],[214,206,184],[176,166,140],[226,226,222]],[[190,180,156],[210,202,180],[170,160,136],[222,222,218]]], bushRed:[[120,90,70],[100,76,60],[226,232,238]], bushOak:[[130,104,80],[110,90,70],[228,234,240]], toon:[0xdfe5ec,0xc9d2dc,0xb7c2cf,0xe9eef3,0xd3dbe4,0xa9b6c4,0xc1cbd6],
+    leaf:[[226,232,238],[210,218,226],[150,130,110],[236,240,244],[190,196,204],[170,150,128]],
+    pals:[[[120,104,92],[230,236,242],[100,90,80],[214,222,230]],[[220,228,236],[110,96,84],[236,240,246],[130,116,100]],[[40,62,44],[226,232,238],[34,54,38],[210,218,226]],[[132,116,100],[226,232,238],[112,100,88],[240,244,248]],[[228,234,240],[118,104,92],[212,220,228],[96,86,76]]],
+    floor:[0xd8dee6,0xe6ebf0,0xcfd6df], bareAll:true,
+    sp:{} },
+})[SEASON] || { green:0, snow:0 };
+const seasonGLSL = () => `lit = mix(lit, lit.g*vec3(0.62,1.0,0.5) + vec3(0.03,0.06,0.0), ${(SZ.green||0).toFixed(2)}); lit = mix(lit, vec3(0.9,0.93,0.97)*(0.86+0.14*lit.g), ${(SZ.snow||0).toFixed(2)});`;
+'''
+
+SEASON_UI_CSS = '''
+.seasonRow{display:flex;gap:6px;flex-wrap:wrap;margin:2px 0 4px}
+.seasonRow button{padding:7px 14px;border-radius:999px;border:1px solid var(--paperLine);background:transparent;color:var(--ink);font-size:14px;cursor:pointer}
+.seasonRow button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.seasonNote{font-size:12px;opacity:.7;margin:0 0 6px}
+'''
+
+
+CLIMATES = {
+    # 봄꽃·여름꽃 색, 겨울 눈 양(0~1), 계절별 설선(실제 해발 m), 상고대
+    'kr':   dict(spring=dict(flower=[[214,82,150],[232,120,180],[196,60,130],[240,160,200],[226,100,160]], flowerAmt=.35), summer=dict(flower=[[236,150,60],[250,190,90],[220,120,50]], flowerAmt=.08), winter=dict(snowAmt=.8)),
+    'kr-south': dict(spring=dict(flower=[[214,82,150],[232,120,180],[196,60,130],[240,160,200]], flowerAmt=.3), winter=dict(snowAmt=.4)),
+    'kr-high': dict(spring=dict(flower=[[214,82,150],[232,120,180],[196,60,130],[240,160,200]], flowerAmt=.45), summer=dict(flower=[[236,150,60],[250,196,80],[230,230,236]], flowerAmt=.12), winter=dict(snowAmt=.92, rime=1)),
+    'jp':   dict(spring=dict(snowline=2700), summer=dict(snowline=9000, flower=[[240,220,90],[236,236,240],[200,120,200]], flowerAmt=.06), autumn=dict(snowline=3500), winter=dict(snowAmt=.95, snowline=1600)),
+    'alps': dict(spring=dict(snowline=2200, flower=[[250,250,250],[240,214,70]], flowerAmt=.1, notCherry=1), summer=dict(snowline=3300, flower=[[80,110,220],[244,214,70],[246,246,246],[206,90,170],[220,60,60]], flowerAmt=.35, notCherry=1), winter=dict(snowAmt=.97, snowline=900)),
+    'sierra': dict(spring=dict(notCherry=1, flower=[[150,110,220],[244,200,70]], flowerAmt=.12), summer=dict(notCherry=1, grassDry=1), winter=dict(snowAmt=.7, snowline=1900)),
+    'cn':   dict(spring=dict(flower=[[214,82,150],[240,240,244]], flowerAmt=.2), winter=dict(snowAmt=.5, rime=1)),
+    'patagonia': dict(spring=dict(notCherry=1, snowline=1100), summer=dict(notCherry=1, flower=[[246,222,80],[246,246,246],[214,60,60]], flowerAmt=.15, snowline=1500), autumn=dict(snowline=1300), winter=dict(snowAmt=.85, snowline=500)),
+    'nz':   dict(spring=dict(notCherry=1, snowline=1650, flower=[[246,246,246]], flowerAmt=.12), summer=dict(notCherry=1, snowline=2500, flower=[[246,246,246],[240,214,90]], flowerAmt=.18), autumn=dict(snowline=2200), winter=dict(snowAmt=.9, snowline=1150)),
+    'fixed': dict(),
+}
+
+
+def climate_js(m, meta):
+    c = CLIMATES[m.get('climate', 'kr')]; base = meta['BASE']; out = {}
+    for s, d in c.items():
+        d = dict(d)
+        if 'snowline' in d: d['snowline'] = round(d['snowline'] - base)
+        out[s] = d
+    return out
+
+
+def patch_season(P, m, meta):
+    ok = m.get('seasons', ['spring', 'summer', 'autumn', 'winter'])
+    P.rep('const BIO = ', SEASON_JS.replace('__SEASONS__', json.dumps(ok)).replace('__ID__', m['id'])
+          + 'const SZX = ' + json.dumps(climate_js(m, meta)) + ';\nObject.assign(SZ, SZX[SEASON] || {});\n'
+          + 'if(SZ.notCherry && SZ.sp && SZ.sp.mapleOrange) SZ.sp = Object.assign({}, SZ.sp, {mapleRed: SZ.sp.mapleOrange});\n'
+          + 'if(SZ.snowAmt != null) SZ.snow = SZ.snowAmt;\n'
+          + "if(SZ.rime){ SZ.bareAll = false; SZ.sp = {}; for(const k of ['mapleRed','mapleOrange','oak','oakGold','yellow','birch','green','bare']) SZ.sp[k] = [[236,240,246],[222,230,240],[248,250,253],[210,220,232],[240,244,250]]; }\n"
+          + 'const BIO = ', 1)
+    P.rep('const D = JSON.parse(', 'if(SZ.snowline != null) BIO.snow = SZ.snowline;\nconst D = JSON.parse(', 1)
+    # 풀·덤불·꽃
+    P.rep("strokes(220, v? [[150,130,80],[170,150,96],[120,110,70],[100,96,62]] : [[176,144,70],[196,164,84],[150,120,56],[120,104,52]]",
+          "strokes(220, SZ.grass ? SZ.grass[v ? 1 : 0] : v? [[150,130,80],[170,150,96],[120,110,70],[100,96,62]] : [[176,144,70],[196,164,84],[150,120,56],[120,104,52]]", 1)
+    P.rep("const pal = kind==='bushRed' ? [[160,38,28],[186,66,34],[138,30,26],[120,48,30],[200,90,40]] : kind==='bushOak' ? [[140,96,48],[160,112,54],[118,80,40],[176,128,60]]",
+          "const pal = kind==='bushRed' ? (SZ.flower || SZ.bushRed || [[160,38,28],[186,66,34],[138,30,26],[120,48,30],[200,90,40]]) : kind==='bushOak' ? (SZ.bushOak || [[140,96,48],[160,112,54],[118,80,40],[176,128,60]])", 1)
+    P.rep("zones.grass += BIO.grass;", "zones.grass += BIO.grass; zones.bushRed += (SZ.flowerAmt || 0);", 1)
+    # 나무 색
+    P.rep("  bare:       {pal:[[110,72,40],[96,64,36]], trunk:'#4a3a2e', bare:true}\n};",
+          "  bare:       {pal:[[110,72,40],[96,64,36]], trunk:'#4a3a2e', bare:true}\n};\n"
+          "if(SZ.sp) for(const k in SZ.sp) if(SPECIES[k]) SPECIES[k].pal = SZ.sp[k];\n"
+          "if(SZ.bareAll) for(const k in SPECIES) SPECIES[k].bare = true;", 1)
+    P.rep("[[176,70,32],[150,52,28],[196,100,40],[120,60,30]] ];", "[[176,70,32],[150,52,28],[196,100,40],[120,60,30]] ];\n  if(SZ.pals) pals.splice(0, pals.length, ...SZ.pals);", 1)
+    P.rep("const LEAF_COLS = [[150,52,30],[176,82,32],[190,120,45],[150,104,52],[112,72,40],[96,58,34],[168,140,70],[130,40,28]];",
+          "const LEAF_COLS = [[150,52,30],[176,82,32],[190,120,45],[150,104,52],[112,72,40],[96,58,34],[168,140,70],[130,40,28]];\n"
+          "if(SZ.leaf) LEAF_COLS.splice(0, LEAF_COLS.length, ...SZ.leaf);", 1)
+    P.rep("const TOON_PAL = [0x3c6230, 0x5f7a32, 0xb08a2e, 0xd8822c, 0xcc4a22, 0xa42e1e, 0x467038].map(c=>new THREE.Color(c));",
+          "const TOON_PAL = (SZ.toon || [0x3c6230, 0x5f7a32, 0xb08a2e, 0xd8822c, 0xcc4a22, 0xa42e1e, 0x467038]).map(c=>new THREE.Color(c));", 1)
+    P.rep("  rock: new THREE.Color(0xa29d93), rockDark: new THREE.Color(0x7c776f), trail: new THREE.Color(0xb39a72)\n};",
+          "  rock: new THREE.Color(0xa29d93), rockDark: new THREE.Color(0x7c776f), trail: new THREE.Color(0xb39a72)\n};\n"
+          "if(SZ.floor){ C.floor1.setHex(SZ.floor[0]); C.floor2.setHex(SZ.floor[1]); C.floor3.setHex(SZ.floor[2]); }\n"
+          "if(SZ.snow){ C.rock.lerp(new THREE.Color(0xe8edf2), SZ.snow*0.6); C.rockDark.lerp(new THREE.Color(0xc8d0da), SZ.snow*0.5); }", 1)
+    # 바닥 질감 (낙엽 → 새싹·풀·눈)
+    P.rep("        lit = mix(lit, mix(texture2D(tCanopy, vWP.xz/110.0).rgb, texture2D(tCanopy, vWP.zx/260.0 + 0.3).rgb, 0.4), cdist);",
+          "        lit = mix(lit, mix(texture2D(tCanopy, vWP.xz/110.0).rgb, texture2D(tCanopy, vWP.zx/260.0 + 0.3).rgb, 0.4), cdist);\n        ${seasonGLSL()}", 1)
+    P.rep("        vec3 alb = lit * vSplat.x + rk * vSplat.y + dt * vSplat.z;",
+          "        rk = mix(rk, vec3(0.92,0.94,0.97), ${((SZ.snow||0)*0.45).toFixed(2)});\n        vec3 alb = lit * vSplat.x + rk * vSplat.y + dt * vSplat.z;", 1)
+    # 시작 화면: 계절 고르기
+    if ok:
+        btns = ''.join(f'<button type="button" data-s="{s}">{dict(spring="봄", summer="여름", autumn="가을", winter="겨울")[s]}</button>' for s in ok)
+        ui = f'<h2>계절</h2>\n    <div class="seasonRow" id="seasonRow">{btns}</div><p class="seasonNote">바꾸면 산을 새로 그려요</p>\n    '
+    else:
+        ui = '<h2>계절</h2>\n    <p class="seasonNote">이 산은 일 년 내내 눈과 바위의 계절이에요</p>\n    '
+    P.rep('<h2>텐트 색 <small class="tentHint">', ui + '<h2>텐트 색 <small class="tentHint">', 1)
+    P.rep('</body>', '''<script>
+(function(){ const row = document.getElementById('seasonRow'); if(!row) return; const K = 'neungseon.season.%s';
+  let cur = 'autumn'; try{ cur = localStorage.getItem(K) || 'autumn'; }catch(e){}
+  row.querySelectorAll('button').forEach(b => { b.classList.toggle('on', b.dataset.s === cur);
+    b.onclick = () => { if(b.dataset.s === cur) return; try{ localStorage.setItem(K, b.dataset.s); sessionStorage.setItem('neungseon.go', '%s'); }catch(e){} location.reload(); }; });
+})();
+</script>
+</body>''' % (m['id'], m['id']), 1)
+    P.rep('</style>', SEASON_UI_CSS + '</style>', 1)

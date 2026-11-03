@@ -108,5 +108,6 @@
   "rockline": 2350,
   "plantline": 2600,
   "snow": 3350
- }
+ },
+ "climate": "jp"
 }

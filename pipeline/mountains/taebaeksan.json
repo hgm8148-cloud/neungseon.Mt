@@ -102,5 +102,6 @@
   "preset": "conifer",
   "treeline": 1600,
   "rockline": 1560
- }
+ },
+ "climate": "kr-high"
 }

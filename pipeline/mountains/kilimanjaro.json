@@ -94,5 +94,7 @@
   "rockline": 3100,
   "plantline": 4300,
   "snow": 5750
- }
+ },
+ "seasons": [],
+ "climate": "fixed"
 }

@@ -89,5 +89,6 @@
   "treeline": 760,
   "rockline": 560,
   "flat": 0.2
- }
+ },
+ "climate": "kr-south"
 }

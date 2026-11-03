@@ -104,5 +104,6 @@
   "rockline": 1250,
   "plantline": 1700,
   "snow": 2150
- }
+ },
+ "climate": "nz"
 }

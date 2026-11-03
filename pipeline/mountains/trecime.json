@@ -104,5 +104,6 @@
   "rockline": 2250,
   "plantline": 2550,
   "snow": 2900
- }
+ },
+ "climate": "alps"
 }

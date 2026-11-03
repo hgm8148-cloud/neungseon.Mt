@@ -90,5 +90,6 @@
   "rockline": 740,
   "plantline": 850,
   "snow": 1400
- }
+ },
+ "climate": "patagonia"
 }

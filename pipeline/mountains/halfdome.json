@@ -92,5 +92,6 @@
   "preset": "sierra",
   "treeline": 2620,
   "rockline": 2450
- }
+ },
+ "climate": "sierra"
 }

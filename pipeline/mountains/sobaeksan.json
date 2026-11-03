@@ -90,5 +90,6 @@
   "rockline": 1430,
   "grass": 0.45,
   "bare": 0
- }
+ },
+ "climate": "kr-high"
 }
