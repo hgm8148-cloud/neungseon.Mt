@@ -18,7 +18,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="능선">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&display=swap">
 <style>
@@ -31,7 +31,7 @@
 }
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;overflow:hidden;background:#20241f;color:var(--text);font-family:var(--body)}
-canvas#gl{display:block;width:100vw;height:100vh;outline:none;touch-action:none}
+canvas#gl{display:block;width:100vw;height:var(--vh,100vh);outline:none;touch-action:none}
 .hud{position:fixed;pointer-events:none;z-index:2}
 .glass{background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .pill{border-radius:999px}
@@ -167,7 +167,7 @@ body.touch #tr.open #tools > .touchOnly{display:grid}
 /* 간식 보태기: 스크롤 없이 한 화면에 */
 #supportPanel{z-index:14}
 .card{position:relative}.pX{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;border:0;background:rgba(0,0,0,.07);color:inherit;font-size:16px;line-height:34px;text-align:center;cursor:pointer;z-index:2}.pX:hover{background:rgba(0,0,0,.14)}
-#supportPanel .card{max-width:520px;padding:18px 22px 16px;max-height:calc(100vh - 16px);overflow:auto}
+#supportPanel .card{max-width:520px;padding:18px 22px 16px;max-height:calc(var(--vh,100vh) - 16px);overflow:auto}
 #supportPanel .spHead{display:flex;align-items:center;justify-content:center;gap:10px}
 #supportPanel .spIcon .oni{width:40px;height:40px;margin:0}
 #supportPanel h1{font-size:22px!important}
@@ -194,7 +194,7 @@ body.touch #tr.open #tools > .touchOnly{display:grid}
 #supportPanel #spClose{margin-top:10px;padding:10px}
 body.touch #supportPanel .spToss{flex-direction:row;align-items:center}
 @media (max-height:640px){#supportPanel .spText,#supportPanel .note{display:none}#supportPanel .spToss .tQR,#supportPanel .spKakao .kQR{width:84px;height:84px}}
-#adminPanel{position:fixed;left:max(12px,env(safe-area-inset-left,0px));top:150px;width:min(330px,calc(100vw - 24px));max-height:calc(100vh - 170px);overflow:auto;padding:10px 12px 12px;border-radius:18px;font-size:12.5px;z-index:30;pointer-events:auto}
+#adminPanel{position:fixed;left:max(12px,env(safe-area-inset-left,0px));top:150px;width:min(330px,calc(100vw - 24px));max-height:calc(var(--vh,100vh) - 170px);overflow:auto;padding:10px 12px 12px;border-radius:18px;font-size:12.5px;z-index:30;pointer-events:auto}
 #adminPanel .adHead{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}#adminPanel .adHead button{border:0;background:transparent;color:inherit;font-size:15px;cursor:pointer}
 #adminPanel .adSec{margin:8px 0 4px;opacity:.7;font-size:11.5px}#adminPanel .adSec small{opacity:.8;font-size:10.5px}#adminPanel .adRow button[data-tg].on::after{content:' ON';font-size:10px;font-weight:700}#adminPanel .adRow{display:flex;flex-wrap:wrap;gap:4px}
 #adminPanel .adRow button{border:0;background:rgba(255,255,255,.12);color:inherit;border-radius:10px;padding:6px 9px;font-size:12px;cursor:pointer}#adminPanel .adRow button:hover{background:rgba(255,255,255,.22)}#adminPanel .adRow button.on{background:rgba(227,176,79,.45)}
@@ -343,7 +343,7 @@ body.touch #tr{z-index:6}
   body.touch #banner{top:10%}
   body.touch #toast{top:auto;bottom:calc(76px + env(safe-area-inset-bottom,0px))}
   body.touch #joy{width:104px;height:104px}
-  body.touch .card{max-height:calc(100vh - 24px);overflow:auto}
+  body.touch .card{max-height:calc(var(--vh,100vh) - 24px);overflow:auto}
   .psCard{padding:14px 16px!important}
   .psCard img{max-height:58vh;width:auto;max-width:100%;margin:0 auto}
   .psCard .note{margin:6px 0 0}
@@ -398,6 +398,43 @@ body.touch #pcard{bottom:150px;left:10px;width:min(260px,58vw)}
 #seasonPop p{margin:0 0 8px;font-size:12.5px;opacity:.8;line-height:1.45}
 #seasonPop .seasonRow button{color:inherit;border-color:rgba(255,255,255,.35)}
 #seasonPop .seasonRow button.on{background:#fff;color:#1d2230;border-color:#fff}
+
+html{touch-action:manipulation;-webkit-text-size-adjust:100%}
+html,body{overscroll-behavior:none}
+body{-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+input,textarea{-webkit-user-select:text;user-select:text;-webkit-touch-callout:default}
+body.ios .field input,body.ios #adminPanel .adMsg input,body.ios #adPw{font-size:16px}
+body.standalone #bFull{display:none!important}
+
+#appInst{display:flex;align-items:center;gap:10px;margin-top:10px;font-size:12.5px;opacity:.85;flex-wrap:wrap}#appInst[hidden]{display:none}
+#aiSheet{z-index:40}.aiCard{max-width:400px;padding:20px 22px 18px;max-height:calc(var(--vh,100vh) - 32px);overflow:auto}
+.aiH{margin:0 30px 10px 0;font-size:18px}.aiSteps{margin:0 0 10px;padding-left:22px;font-size:14.5px;line-height:1.55}.aiSteps li{margin:7px 0}
+.aiIc{width:20px;height:20px;vertical-align:-4px;margin:0 3px;fill:none;stroke:#2f7cf6;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.aiNote{font-size:12.5px;opacity:.75;margin:8px 0}#aiSheet .btn{width:100%;margin-top:6px}
+
+body:not(.admin) #bAdmin{display:none!important}
+#tr{flex-direction:row-reverse;align-items:flex-start}
+body.touch #supportBtn{display:flex;font-size:12px;height:42px;box-sizing:border-box;padding:4px 12px 4px 5px!important}
+body.touch #supportBtn .oni{width:30px;height:30px}
+body.touch #tr.open #supportBtn{display:flex;font-size:12px;padding:4px 12px 4px 5px!important}
+body.clean #tr#tr#tr#tr#tr#tr{opacity:1!important;pointer-events:none!important;top:calc(54px + env(safe-area-inset-top,0px))}
+body.clean #tools#tools#tools#tools#tools#tools{display:none!important}
+body.clean #supportBtn#supportBtn#supportBtn#supportBtn#supportBtn#supportBtn{display:flex!important;pointer-events:auto!important;padding:4px!important;height:auto;opacity:.8}
+body.clean #supportBtn span{display:none!important}
+@media (orientation:portrait){
+  body.touch #tr.open #tools{align-items:stretch}
+  body.touch #tr.open #tools > .ib:not(#bMenu){width:auto;grid-template-columns:24px auto;justify-content:start;gap:8px;padding:0 14px 0 8px;border-radius:20px;color:inherit;font-size:12.5px;white-space:nowrap}
+  body.touch #tr.open #tools > .ib:not(#bMenu)::after{content:attr(aria-label)}
+  body.touch #tr.open #supportBtn{padding:4px!important}body.touch #tr.open #supportBtn span{display:none!important}
+}
+#supportBtn .sShort{display:none}
+@media (max-width:480px){ body.touch #supportBtn .sLong{display:none} body.touch #supportBtn .sShort{display:inline} }
+#cMin .mOpen{display:none}body.campMini #supportBtn .sShort{display:none}
+@media (max-width:480px){ body.touch #supportBtn .sLong{display:none} body.touch #supportBtn .sShort{display:inline} }
+#cMin .mOpen{display:inline}body.campMini #cMin .mClose{display:none}
+body.campMini #campBar button:not(#cMin){display:none!important}
+body.campMini #campBar .cTitle{border-right:0}
+body.inSummit:not(.camping) #summitBtn#summitBtn#summitBtn{display:inline-flex!important}
 
 #mtSel{z-index:15;background:rgba(40,52,74,.35);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 .mtCard{width:min(980px,100%);max-height:calc(100vh - 32px);display:flex;flex-direction:column;gap:12px;padding:22px 22px 18px;border-radius:24px;
@@ -864,6 +901,17 @@ body.touch #pcard{bottom:150px;left:10px;width:min(260px,58vw)}
     ["🏕 가우초 마테오 · 파타고니아 바람은 사람도 넘어뜨릴 만큼 세요", "🏕 Mateo the Gaucho · Patagonian wind can knock a person over", "🏕 ガウチョのマテオ · パタゴニアの風は人を倒すほど強いです", "🏕 高乔人马特奥 · 巴塔哥尼亚的风能把人吹倒"],
     ["🏕 가우초 마테오 · 해 뜰 무렵 세 탑이 붉게 타오르는 걸 꼭 보세요", "🏕 Mateo the Gaucho · Watch the three towers burn red at sunrise", "🏕 ガウチョのマテオ · 日の出に三つの塔が赤く燃えるのをぜひ見て", "🏕 高乔人马特奥 · 一定要看日出时三塔被染红"],
     ["가우초 마테오", "Mateo the Gaucho", "ガウチョのマテオ", "高乔人马特奥"],
+    ["📲 앱으로 설치", "📲 Install as app", "📲 アプリとして追加", "📲 安装为应用"],
+    ["홈 화면에 두고 앱처럼 꽉 찬 화면으로 즐겨요", "Keep it on your home screen and play full screen like an app", "ホーム画面に置いて、アプリのように全画面で", "放到主屏幕，像应用一样全屏游玩"],
+    ["아이폰에 앱으로 설치하기", "Install on iPhone", "iPhoneにアプリとして追加", "在 iPhone 上安装"],
+    ["알겠어요", "Got it", "わかりました", "知道了"],
+    ["설치했어요 · 홈 화면의 능선 아이콘으로 열어 보세요", "Installed · open it from the 능선 icon on your home screen", "インストールしました · ホーム画面の「능선」アイコンから開いてください", "已安装 · 请从主屏幕的“능선”图标打开"],
+    ["📲 앱으로 설치를 누르면 홈 화면에서 바로 열 수 있어요", "📲 Tap “Install as app” to open it right from your home screen", "📲「アプリとして追加」でホーム画面からすぐ開けます", "📲 点“安装为应用”，就能从主屏幕直接打开"],
+    ["앱과 Safari는 기록을 따로 저장해요. 구글로 로그인하면 산행 기록이 앱으로 이어져요.", "The app and Safari keep separate records. Sign in with Google to carry your hikes over.", "アプリとSafariは記録を別々に保存します。Googleでログインすると記録が引き継がれます。", "应用和 Safari 分开保存记录。用 Google 登录即可同步登山记录。"],
+    ["후원", "Support", "応援", "支持"],
+    ["접기", "Fold", "たたむ", "收起"],
+    ["펼치기", "Open", "ひらく", "展开"],
+    ["야영장 메뉴 접기·펼치기", "Fold or open the camp menu", "キャンプメニューをたたむ・ひらく", "收起或展开营地菜单"],
     ["토레스 델 파이네 토레스 전망대에 함께 오르다", "Climbing to Mirador Las Torres on Torres del Paine together", "トーレス・デル・パイネ・ミラドール・ラス・トーレスへいっしょに登る", "一起登上百内国家公园三塔观景台"]
   ];
   const IDX = { en:1, ja:2, zh:3 };
@@ -1024,7 +1072,7 @@ body.touch #pcard{bottom:150px;left:10px;width:min(260px,58vw)}
     <button class="ib" id="bLang" title="언어 바꾸기" aria-label="언어 바꾸기"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.6 2.6 3.6 5.4 3.6 8.5s-1 5.9-3.6 8.5c-2.6-2.6-3.6-5.4-3.6-8.5s1-5.9 3.6-8.5z"/></svg></button>
     <button class="ib" id="bMap" title="지도 크게 (M)" aria-label="지도 크게 보기"><svg viewBox="0 0 24 24"><path d="M3 6.5 9 4l6 2.5L21 4v13.5L15 20l-6-2.5L3 20z"/><path d="M9 4v13.5M15 6.5V20"/></svg></button>
   </div>
-  <button id="supportBtn" class="glass pill"><svg class="oni" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2c-1.5 0-2.6.9-3.5 2.4l-4.3 7.6c-1.3 2.4.3 6.3 3.4 6.3h8.8c3.1 0 4.7-3.9 3.4-6.3l-4.3-7.6c-.9-1.5-2-2.4-3.5-2.4z" fill="#f6f1e6" stroke="#3a2c1e" stroke-width="1.3" stroke-linejoin="round"/><path d="M8.6 14h6.8v5.5H8.6z" fill="#2c3a2a"/><circle cx="9.6" cy="10.4" r=".75" fill="#3a2c1e"/><circle cx="14.4" cy="10.4" r=".75" fill="#3a2c1e"/><path d="M11 11.6q1 .8 2 0" fill="none" stroke="#3a2c1e" stroke-width=".9" stroke-linecap="round"/><circle cx="8.3" cy="11.8" r=".9" fill="#f2a28a" opacity=".7"/><circle cx="15.7" cy="11.8" r=".9" fill="#f2a28a" opacity=".7"/></svg><span>산행 간식 보태기</span></button>
+  <button id="supportBtn" class="glass pill"><svg class="oni" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2c-1.5 0-2.6.9-3.5 2.4l-4.3 7.6c-1.3 2.4.3 6.3 3.4 6.3h8.8c3.1 0 4.7-3.9 3.4-6.3l-4.3-7.6c-.9-1.5-2-2.4-3.5-2.4z" fill="#f6f1e6" stroke="#3a2c1e" stroke-width="1.3" stroke-linejoin="round"/><path d="M8.6 14h6.8v5.5H8.6z" fill="#2c3a2a"/><circle cx="9.6" cy="10.4" r=".75" fill="#3a2c1e"/><circle cx="14.4" cy="10.4" r=".75" fill="#3a2c1e"/><path d="M11 11.6q1 .8 2 0" fill="none" stroke="#3a2c1e" stroke-width=".9" stroke-linecap="round"/><circle cx="8.3" cy="11.8" r=".9" fill="#f2a28a" opacity=".7"/><circle cx="15.7" cy="11.8" r=".9" fill="#f2a28a" opacity=".7"/></svg><span class="sLong">산행 간식 보태기</span><span class="sShort">후원</span></button>
 </div>
 <div id="toast" class="hud glass pill"></div>
 <div id="banner" class="hud"><div class="big"></div><div class="small"></div></div>
@@ -1042,6 +1090,7 @@ body.touch #pcard{bottom:150px;left:10px;width:min(260px,58vw)}
     <button id="cSleep"><span class="e">😴</span>텐트에서 자기</button>
     <button id="cDown"><span class="e">🥾</span>하산</button>
     <button id="cEnd"><span class="e">↩</span>마치기</button>
+    <button id="cMin" aria-label="야영장 메뉴 접기·펼치기"><span class="e mClose">▾</span><span class="e mOpen">▴</span><span class="mClose">접기</span><span class="mOpen">펼치기</span></button>
   </div>
   <div id="actions" class="glass">
     <button id="aWave"><svg viewBox="0 0 24 24"><path d="M8 13V6.5a1.5 1.5 0 0 1 3 0V12m0-6.5V4.5a1.5 1.5 0 0 1 3 0V12m0-6a1.5 1.5 0 0 1 3 0v7.5c0 4-2.5 6.5-6 6.5-2.6 0-4-1.2-5.5-3.3L3.8 13.6a1.5 1.5 0 0 1 2.4-1.8L8 14"/></svg>인사<kbd>1</kbd></button>
@@ -1072,6 +1121,7 @@ body.touch #pcard{bottom:150px;left:10px;width:min(260px,58vw)}
     <div class="keys deskKeys"><kbd>W A S D</kbd> 걷기 · <kbd>Shift</kbd> 빠르게 · 땅 클릭으로 이동 · 마우스 드래그 시점 · <kbd>F</kbd> 천천히 걷기 · <kbd>V</kbd> 1인칭 · <kbd>H</kbd> 버튼 숨기기 · <kbd>M</kbd> 지도 · <kbd>R</kbd> 체크포인트</div>
     <div id="gLogin" hidden><button id="gBtn" class="gBtn" type="button">Google로 로그인</button><span id="gTxt">로그인하면 다른 기기에서도 이어서 오를 수 있어요</span></div>
     <div id="resume" hidden><div class="resHead">지난 산행이 저장되어 있어요</div><div class="resTxt" id="resTxt"></div><button class="btn" id="goResume">이어서 오르기</button></div>
+        <div id="appInst" hidden><button id="aiBtn" class="gBtn" type="button">📲 앱으로 설치</button><span id="aiTxt">홈 화면에 두고 앱처럼 꽉 찬 화면으로 즐겨요</span></div>
     <button class="btn sec" id="mtOpen" type="button">다른 산 고르기</button>
     <button class="btn" id="go">산행 시작</button>
     <div class="credit">지형 고도: AWS Terrain Tiles (Mapzen Terrarium, SRTM 등 공개 DEM). 약 30m 해상도라 실제보다 부드럽고, 탐방로는 주요 지점을 지형에 맞춰 이은 근사치입니다.</div>
@@ -1144,6 +1194,18 @@ body.touch #pcard{bottom:150px;left:10px;width:min(260px,58vw)}
 </div>
 <div id="fade"></div>
 <div id="waveMenu" class="glass" hidden></div>
+<div id="aiSheet" class="panel" hidden><div class="card aiCard"><button class="pX" id="aiX" aria-label="닫기">✕</button>
+  <h3 class="aiH">아이폰에 앱으로 설치하기</h3>
+  <ol class="aiSteps" id="aiSafari">
+    <li><span>Safari 주소창 옆 <b>공유 버튼</b></span><svg class="aiIc" viewBox="0 0 24 24"><path d="M12 3v12M7.5 7.5 12 3l4.5 4.5M6 11H5v10h14V11h-1"/></svg><span>을 눌러요. 안 보이면 <b>⋯</b> 버튼을 먼저 눌러요.</span></li>
+    <li><span>목록을 내려 <b>홈 화면에 추가</b>를 눌러요.</span></li>
+    <li><span><b>웹 앱으로 열기</b>가 켜져 있으면 그대로 두고 <b>추가</b>를 눌러요.</span></li>
+    <li><span>홈 화면의 <b>능선</b> 아이콘으로 열면 주소창 없이 꽉 찬 화면이에요.</span></li>
+  </ol>
+  <p class="aiNote" id="aiOther" hidden>카카오톡·네이버 같은 앱 안에서 연 화면에서는 설치할 수 없어요. 오른쪽 위(또는 아래) 메뉴에서 <b>Safari로 열기</b>를 누른 뒤 다시 해 주세요.</p>
+  <p class="aiNote">앱과 Safari는 기록을 따로 저장해요. 구글로 로그인하면 산행 기록이 앱으로 이어져요.</p>
+  <button class="btn" id="aiOk" type="button">알겠어요</button>
+</div></div>
 <div id="adminLogin" class="panel" hidden><div class="card adCard">
   <h1 style="font-size:22px">관리자 모드<small>정상 이벤트를 바로 시험해 볼 수 있어요</small></h1>
   <input id="adPw" type="password" autocomplete="off" placeholder="비밀번호" style="width:100%;padding:12px 14px;border-radius:12px;border:1.5px solid rgba(0,0,0,.15);font-size:16px;margin-top:12px">
@@ -3539,15 +3601,29 @@ const ADMIN_BOTS = [];
 async function sha256hex(s){ const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(v=>v.toString(16).padStart(2,'0')).join(''); }
 function openAdminLogin(){ if(document.body.classList.contains('admin')){ $('adminPanel').hidden = false; return; } $('adErr').textContent = ''; $('adPw').value = ''; $('adminLogin').hidden = false; setTimeout(()=>$('adPw').focus(), 50); }
 function setAdmin(on){ document.body.classList.toggle('admin', on); $('adminPanel').hidden = !on; try{ on ? sessionStorage.setItem('neungseon.admin','1') : sessionStorage.removeItem('neungseon.admin'); }catch(e){} }
+
+const ADMIN_MAIL_HASH = '66fbf40f2c12a58d89db570b34b34470b40e9b715c720b3d85123fa53f768f56';
+// 지금 로그인한 계정이 관리자(승연 님) 구글 계정인지. login=true면 필요할 때 구글 로그인 창을 띄워요
+async function adminOwner(login){
+  if(window.claude && window.claude.use) return true;
+  const fb = await Promise.race([FB_READY, new Promise(r => setTimeout(() => r(null), 8000))]); if(!fb) return false;
+  let u = fb.auth.currentUser;
+  if((!u || u.isAnonymous) && login){ toast('관리자 구글 계정으로 로그인해 주세요', 2.5); if(!(await googleLogin())) return false; u = fb.auth.currentUser; }
+  if(!u || u.isAnonymous || !u.email) return false;
+  try{ return (await sha256hex(String(u.email).trim().toLowerCase())) === ADMIN_MAIL_HASH; }catch(e){ return false; }
+}
+// 계정이 바뀌면(로그아웃·익명 전환·다른 계정) 관리자 모드를 바로 꺼요
+async function adminRecheck(){ if(!document.body.classList.contains('admin')) return; if(await adminOwner(false)) return;
+  ADMIN_PW = ''; GEV_SEND = null; ADMIN_SCOPE = 'me'; try{ syncScope(); scopeNote(); }catch(e){} setAdmin(false); $('adminLogin').hidden = true; toast('관리자 계정이 아니어서 관리자 모드를 껐어요', 3); }
 async function tryAdmin(){ let ok = false; try{ ok = (await sha256hex($('adPw').value)) === ADMIN_HASH; }catch(e){ $('adErr').textContent = '이 브라우저에서는 관리자 모드를 쓸 수 없어요'; return; }
-  if(!ok){ $('adErr').textContent = '비밀번호가 맞지 않아요'; return; } $('adPw').value = ''; $('adminLogin').hidden = true; setAdmin(true); toast('관리자 모드가 켜졌어요', 2.5); }
+  if(!ok){ $('adErr').textContent = '비밀번호가 맞지 않아요'; return; } $('adPw').value = ''; if(!(await adminOwner(true))){ $('adErr').textContent = '관리자 구글 계정으로 로그인해야 켤 수 있어요'; return; } $('adminLogin').hidden = true; setAdmin(true); toast('관리자 모드가 켜졌어요', 2.5); }
 $('adOk').onclick = tryAdmin; $('adPw').addEventListener('keydown', e => { e.stopPropagation(); if(e.key === 'Enter') tryAdmin(); });
 $('adCancel').onclick = () => { $('adminLogin').hidden = true; };
 $('adX').onclick = () => { $('adminPanel').hidden = true; };
-$('bAdmin').onclick = () => { $('adminPanel').hidden = !$('adminPanel').hidden; };
+$('bAdmin').onclick = () => { if(!document.body.classList.contains('admin')){ $('adminPanel').hidden = true; return; } $('adminPanel').hidden = !$('adminPanel').hidden; };
 { let taps = 0, tapT = 0; $('brand').addEventListener('click', () => { const n = performance.now(); taps = n - tapT < 1000 ? taps + 1 : 1; tapT = n; if(taps >= 5){ taps = 0; openAdminLogin(); } }); }   // 왼쪽 위 '능선'을 다섯 번 톡톡
 addEventListener('keydown', e => { if(e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')){ e.preventDefault(); openAdminLogin(); } });
-try{ if(sessionStorage.getItem('neungseon.admin') === '1') setAdmin(true), $('adminPanel').hidden = true; }catch(e){}
+try{ if(sessionStorage.getItem('neungseon.admin') === '1') adminOwner(false).then(ok => { if(ok){ setAdmin(true); $('adminPanel').hidden = true; } else setAdmin(false); }); }catch(e){}
 function adminTeleport(x, z, face){ st.x = x; st.z = z; if(face != null){ st.face = face; st.yaw = face + Math.PI; } st.camInit = false; st.goal = null; st.sitting = false; st.view = null; stopAuto(); }
 function adminBots(){
   if(ADMIN_BOTS.length){ for(const b of ADMIN_BOTS) scene.remove(b.h.group); ADMIN_BOTS.length = 0; toast('가상 야영객을 돌려보냈어요', 2); return false; }
@@ -3556,7 +3632,7 @@ function adminBots(){
     h.group.position.set(q.x, q.y - SIT_HIP, q.z); h.group.rotation.y = face; ADMIN_BOTS.push({h, o, x:q.x, z:q.z, nick:randNick()}); }
   toast('가상 야영객들이 모닥불에 둘러앉았어요', 2.5); return true;
 }
-document.querySelectorAll('#adminPanel [data-ad]').forEach(b => b.addEventListener('click', () => {
+document.querySelectorAll('#adminPanel [data-ad]').forEach(b => b.addEventListener('click', () => { if(!document.body.classList.contains('admin')) return;
   const a = b.dataset.ad, T = trail, top = T[T.length-1];
   const at = i => { const p = T[i], q = T[Math.min(T.length-1, i+4)]; adminTeleport(p.x, p.z, Math.atan2(q.x-p.x, q.z-p.z)); };
   if(!st.started){ toast('먼저 산행을 시작해 주세요', 2); return; }
@@ -4070,7 +4146,7 @@ async function connectFirebase(){
   let skew = 0; D.onValue(D.ref(db, '.info/serverTimeOffset'), s => { skew = s.val() || 0; });
   await D.onDisconnect(meRef).remove();
   // 로그인 계정이 바뀌면 (익명 → 구글) 내 자리도 새 계정으로
-  U.onAuthStateChanged(auth, u => { if(u && u.uid !== uid){ D.remove(meRef).catch(()=>{}); uid = u.uid; meRef = D.ref(db, `rooms/${ROOM_ID}/peers/${uid}`); D.onDisconnect(meRef).remove().catch(()=>{}); pushPresence(true); } refreshLoginUI(); });
+  U.onAuthStateChanged(auth, u => { if(u && u.uid !== uid){ D.remove(meRef).catch(()=>{}); uid = u.uid; meRef = D.ref(db, `rooms/${ROOM_ID}/peers/${uid}`); D.onDisconnect(meRef).remove().catch(()=>{}); pushPresence(true); } refreshLoginUI(); adminRecheck(); });
   FB_SET({ A, U, D, app, auth, db });
   let latest = {};
   const emit = () => { const now = Date.now() + skew;
@@ -4608,6 +4684,49 @@ window.__campNpc = (()=>{ const N = {"name": "가우초 마테오", "outfit": {"
     if(window.__lmSteam){ const S = window.__lmSteam; for(const sp of S.P){ sp.userData.t += dt; const k = (sp.userData.t % 4)/4; sp.position.set(S.s.x + Math.sin(sp.userData.t*0.7)*0.8*k, S.s.y + 0.3 + k*7, S.s.z + Math.cos(sp.userData.t*0.5)*0.8*k); sp.scale.setScalar(1 + k*5); sp.material.opacity = 0.45*Math.sin(k*Math.PI); } }
   } };
 })();
+
+// ---------- 아이폰 최적화 ----------
+const IS_IOS = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+if(IS_IOS) document.body.classList.add('ios');
+if(navigator.standalone || (window.matchMedia && matchMedia('(display-mode: standalone)').matches)) document.body.classList.add('standalone');
+{ const vv = window.visualViewport;
+  const setVH = () => document.documentElement.style.setProperty('--vh', Math.round(vv ? vv.height : innerHeight) + 'px');
+  const reSize = () => { camera.aspect = innerWidth/innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); setVH(); };
+  setVH(); addEventListener('resize', setVH); if(vv) vv.addEventListener('resize', setVH);
+  addEventListener('orientationchange', () => { setTimeout(reSize, 150); setTimeout(reSize, 600); });
+  if(IS_IOS){
+    document.addEventListener('gesturestart', e => e.preventDefault());
+    document.addEventListener('gesturechange', e => e.preventDefault());
+    document.addEventListener('focusout', e => { if(e.target && /^(INPUT|TEXTAREA)$/.test(e.target.tagName)) setTimeout(() => { if(!document.activeElement || !/^(INPUT|TEXTAREA)$/.test(document.activeElement.tagName)) window.scrollTo(0, 0); }, 60); });
+  }
+  try{ if(navigator.audioSession) navigator.audioSession.type = 'ambient'; }catch(e){}
+  const wakeAudio = () => { if(audio && audio.ac.state !== 'running' && !document.hidden) audio.ac.resume().catch(()=>{}); };
+  for(const t of ['touchend', 'pointerup', 'keydown']) addEventListener(t, wakeAudio, {passive:true});
+  document.addEventListener('visibilitychange', () => { if(!audio) return; if(document.hidden) audio.ac.suspend().catch(()=>{}); else wakeAudio(); });
+  addEventListener('pageshow', wakeAudio);
+}
+
+// ---------- 앱으로 설치 ----------
+{ const T_ = window.T || (x=>x), UA = navigator.userAgent, box = $('appInst'), sheet = $('aiSheet');
+  const standalone = document.body.classList.contains('standalone');
+  const inApp = /KAKAOTALK|NAVER\(|Instagram|FBAN|FBAV|Line\/|DaumApps|everytimeApp|Whale\/.*Mobile.*inapp/i.test(UA);
+  let promptEv = null;
+  const show = () => { if(box) box.hidden = standalone || !(IS_IOS || promptEv); };
+  addEventListener('beforeinstallprompt', e => { e.preventDefault(); promptEv = e; show(); });
+  addEventListener('appinstalled', () => { promptEv = null; if(box) box.hidden = true; toast(T_('설치했어요 · 홈 화면의 능선 아이콘으로 열어 보세요'), 3.5); });
+  const close = () => { sheet.hidden = true; };
+  $('aiX').onclick = close; $('aiOk').onclick = close; sheet.addEventListener('click', e => { if(e.target === sheet) close(); });
+  $('aiBtn').onclick = async () => {
+    if(promptEv){ const ev = promptEv; promptEv = null; ev.prompt(); try{ await ev.userChoice; }catch(e){} show(); return; }
+    $('aiOther').hidden = !inApp; sheet.hidden = false; };
+  show();
+  // 아이폰 Safari로 처음 들어온 사람에게 한 번만 살짝 알려 줘요
+  if(IS_IOS && !standalone && !inApp && !store.get('aiHint', false)){ store.set('aiHint', true); setTimeout(() => { if(!st.started) toast(T_('📲 앱으로 설치를 누르면 홈 화면에서 바로 열 수 있어요'), 4); }, 2500); }
+}
+
+// ---------- 야영장 메뉴 접기 ----------
+document.body.classList.toggle('campMini', !!store.get('campMini', false));
+$('cMin').onclick = () => { const v = !document.body.classList.contains('campMini'); document.body.classList.toggle('campMini', v); store.set('campMini', v); };
 window.__game = {standY, heightAt, METEOR, VIEWPOINTS, POOL, restSpots, doRest, st, trail, WPS, heightAt, keys, camera, npcs, remotes, applyPeers, scene, renderer, player, SKY, CAMP, startCamp, startDescent, finish, campCam};
 frame();
 </script>
