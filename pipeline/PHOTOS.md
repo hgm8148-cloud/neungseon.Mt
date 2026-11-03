@@ -55,3 +55,11 @@
 ## 공통 질감 (Poly Haven, CC0)
 
 [polyhaven.com/textures](https://polyhaven.com/textures) 에서 `rock`, `gravel`, `snow`, `scree`, `forest ground` 로 찾아 2K jpg(diffuse)만 받으면 됩니다. 이미 받은 `forest_slope`, `rainforest_trail`, `phalzer_forest`, `autumn_forest` HDRI도 같은 CC0예요.
+
+## 하늘 사진 (2026-11-03, 승연 님 드라이브 하늘 폴더)
+
+`python3 make_sky.py` → `photos/web/sky/milkyway.jpg`(온하늘 은하수 지도), `moon.jpg`, 출처는 `photos/sky_credits.json`.
+
+- 게임 안에 직접 들어가는 사진: lanius 님 은하수(Pixabay 10528056) → 밤하늘 별·은하수, Pexels 님 보름달(Pixabay 1869760) → 달.
+- 색만 참고한 사진(13장): 일출 konevi·21028723, 오전 mustafaelmas·beholz, 오후 bartroman·hias_schell, 일몰 alberto_guevara87·leolo212·tom6667·peggychoucair, 박명·밤 bru-no·manuel-h·stocksnap, 밤 evgenit·kanenori·pexels-camping. 모두 Pixabay Content License.
+- 드라이브 하늘 폴더의 Unsplash `.avif`, pngtree·뉴스·블로그 이미지는 라이선스를 확인할 수 없어 쓰지 않았어요.

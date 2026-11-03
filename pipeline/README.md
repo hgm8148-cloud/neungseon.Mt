@@ -8,6 +8,11 @@ make_terrain.py       설정 → data/<id>.json  (AWS Terrarium 고도 → 가�
 build_site.py         템플릿 + 설정 + 지형 → out/<page>.html  (산 선택 화면 포함)
 PHOTOS.md             산별 저작권 문제없는 사진 모으기 안내
 photos/<id>/          받은 사진, photos/credits.json 에 출처·라이선스
+make_sky.py           하늘 사진 → 밤하늘 은하수·달 텍스처 (photos/web/sky/)
+sky_patch.py          일출·오전·오후·일몰·심야 사진 색 하늘, 사진 밤하늘
+avatar_patch.py       아바타 외형·걸음 모션
+weather_patch.py      계절 날씨(꽃잎·소나기·낙엽·눈)와 게임 중 계절 바꾸기
+release_patch.py      출시 전 점검에서 고친 것들
 ```
 
 ## 새 산 추가하기
