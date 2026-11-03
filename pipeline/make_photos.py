@@ -28,6 +28,7 @@ def credit(title):
 
 
 def find(mid, ref):
+    if isinstance(ref, dict) and 'file' in ref: return os.path.join(RAW, mid, ref['file']), ref['file']   # 채팅으로 받은 사진
     if isinstance(ref, dict): mid, ref = ref['from'], ref['id']
     for f in os.listdir(os.path.join(RAW, mid)):
         if f.startswith(ref): return os.path.join(RAW, mid, f), ref
@@ -53,7 +54,7 @@ def main():
             src, fid = find(mid, ref)
             im = ImageOps.exif_transpose(Image.open(src))
             fn(im, os.path.join(out, role + '.jpg'))
-            c = credit(titles.get(fid, ''))
+            c = ref['credit'] if isinstance(ref, dict) and 'credit' in ref else credit(titles.get(fid, ''))
             if not c: raise SystemExit(f'[photos] {mid} {role}: 라이선스를 확인할 수 없는 사진이에요 ({titles.get(fid)})')
             cr.append(dict(role=role, file=f'photos/{mid}/{role}.jpg', drive=fid, title=titles.get(fid), **c))
         put('hero', P['hero'], lambda im, p: save(ImageOps.fit(im, (480, 300), Image.LANCZOS, centering=(0.5, 0.42)), p, 68))

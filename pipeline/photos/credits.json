@@ -922,5 +922,131 @@
    "license": "Pixabay Content License",
    "url": "https://pixabay.com/photos/travel-7108862/"
   }
+ ],
+ "huangshan": [
+  {
+   "role": "hero",
+   "file": "photos/huangshan/hero.jpg",
+   "drive": "upload_huangshan.jpg",
+   "title": null,
+   "author": "승연 님 제공",
+   "source": "출처 확인 중",
+   "license": "출처 확인 중",
+   "url": ""
+  },
+  {
+   "role": "load",
+   "file": "photos/huangshan/load.jpg",
+   "drive": "upload_huangshan.jpg",
+   "title": null,
+   "author": "승연 님 제공",
+   "source": "출처 확인 중",
+   "license": "출처 확인 중",
+   "url": ""
+  },
+  {
+   "role": "p1",
+   "file": "photos/huangshan/p1.jpg",
+   "drive": "upload_huangshan.jpg",
+   "title": null,
+   "author": "승연 님 제공",
+   "source": "출처 확인 중",
+   "license": "출처 확인 중",
+   "url": ""
+  },
+  {
+   "role": "summit",
+   "file": "photos/huangshan/summit.jpg",
+   "drive": "upload_huangshan.jpg",
+   "title": null,
+   "author": "승연 님 제공",
+   "source": "출처 확인 중",
+   "license": "출처 확인 중",
+   "url": ""
+  }
+ ],
+ "sobaeksan": [
+  {
+   "role": "hero",
+   "file": "photos/sobaeksan/hero.jpg",
+   "drive": "upload_sobaeksan2.jpg",
+   "title": null,
+   "author": "승연 님 제공",
+   "source": "출처 확인 중",
+   "license": "출처 확인 중",
+   "url": ""
+  },
+  {
+   "role": "load",
+   "file": "photos/sobaeksan/load.jpg",
+   "drive": "upload_sobaeksan2.jpg",
+   "title": null,
+   "author": "승연 님 제공",
+   "source": "출처 확인 중",
+   "license": "출처 확인 중",
+   "url": ""
+  },
+  {
+   "role": "p1",
+   "file": "photos/sobaeksan/p1.jpg",
+   "drive": "upload_sobaeksan2.jpg",
+   "title": null,
+   "author": "승연 님 제공",
+   "source": "출처 확인 중",
+   "license": "출처 확인 중",
+   "url": ""
+  },
+  {
+   "role": "summit",
+   "file": "photos/sobaeksan/summit.jpg",
+   "drive": "upload_sobaeksan2.jpg",
+   "title": null,
+   "author": "승연 님 제공",
+   "source": "출처 확인 중",
+   "license": "출처 확인 중",
+   "url": ""
+  }
+ ],
+ "wolchulsan": [
+  {
+   "role": "hero",
+   "file": "photos/wolchulsan/hero.jpg",
+   "drive": "upload_wolchulsan.jpg",
+   "title": null,
+   "author": "승연 님 제공",
+   "source": "출처 확인 중",
+   "license": "출처 확인 중",
+   "url": ""
+  },
+  {
+   "role": "load",
+   "file": "photos/wolchulsan/load.jpg",
+   "drive": "upload_wolchulsan.jpg",
+   "title": null,
+   "author": "승연 님 제공",
+   "source": "출처 확인 중",
+   "license": "출처 확인 중",
+   "url": ""
+  },
+  {
+   "role": "p1",
+   "file": "photos/wolchulsan/p1.jpg",
+   "drive": "upload_wolchulsan.jpg",
+   "title": null,
+   "author": "승연 님 제공",
+   "source": "출처 확인 중",
+   "license": "출처 확인 중",
+   "url": ""
+  },
+  {
+   "role": "summit",
+   "file": "photos/wolchulsan/summit.jpg",
+   "drive": "upload_wolchulsan.jpg",
+   "title": null,
+   "author": "승연 님 제공",
+   "source": "출처 확인 중",
+   "license": "출처 확인 중",
+   "url": ""
+  }
  ]
 }
