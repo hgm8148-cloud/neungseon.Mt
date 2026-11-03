@@ -204,7 +204,7 @@ def selector_js(cur, mts):
       const s = add('span', 'mtSub', ''); const a = document.createElement('span'); a.textContent = m.end; s.appendChild(a); s.appendChild(document.createTextNode(' ' + m.elev.toLocaleString() + 'm'));
       const c = add('span', 'mtSub', ''); const cc = document.createElement('span'); cc.textContent = m.r === 'kr' ? m.course : m.country; c.appendChild(cc); if(m.km) c.appendChild(document.createTextNode(' · ' + m.km + ' km'));
       if(m.id === CUR) add('span', 'mtTag', '지금 이 산'); else if(!m.built){ add('span', 'mtTag', '준비 중'); b.disabled = true; }
-      b.onclick = () => { if(m.id === CUR){ close(); return; } if(m.built) location.href = m.page + '?go=1'; };
+      b.onclick = () => { if(m.id === CUR){ close(); return; } if(m.built){ try{ sessionStorage.setItem('neungseon.go', m.id); }catch(e){} location.href = m.page + '?go=1'; } };
       list.appendChild(b);
     });
   }
@@ -214,7 +214,9 @@ def selector_js(cur, mts):
   document.getElementById('mtStay').onclick = close;
   const ob = document.getElementById('mtOpen'); if(ob) ob.onclick = open;
   window.MT_SELECT = { open, close };
-  if(!/[?&]go=1/.test(location.search)) open();
+  let skip = /[?&]go=1/.test(location.search);
+  try{ if(sessionStorage.getItem('neungseon.go') === CUR){ skip = true; sessionStorage.removeItem('neungseon.go'); } }catch(e){}
+  if(!skip) open();
 })();
 </script>
 ''' % (json.dumps(cur), json.dumps(lst, ensure_ascii=False))
@@ -242,6 +244,7 @@ def build_page(T, m, mts, data):
     if not m.get('legacy'):
         pre, post = patch_mountain(Patch(pre, m['id'] + ':head'), Patch(post, m['id']), m, meta)
     P.t = pre + R + post
+    patch_hike(P, m)
     # 선택 화면
     P.rep('</style>', SEL_CSS + '</style>', 1)
     P.rep('<button class="btn" id="go">', '<button class="btn sec" id="mtOpen" type="button">다른 산 고르기</button>\n    <button class="btn" id="go">', 1)
@@ -250,6 +253,19 @@ def build_page(T, m, mts, data):
     # 데이터
     P.rep('__DATA__', json.dumps(data, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/'), 1)
     return P.t
+
+
+def patch_hike(P, m):
+    """산행 저장을 산마다 따로: 기기 저장 칸은 hike.<id>, 로그인 동기화 값에는 산 id(m)를 붙여 다른 산 기록을 불러오지 않게."""
+    i = m['id']; key = 'hike' if m.get('legacy') else 'hike.' + i
+    P.rep("store.get('hike', null)", f"store.get('{key}', null)")
+    P.rep("store.set('hike', o)", f"store.set('{key}', o)", 1)
+    P.rep("const o = { v:1, ts:Date.now() };", f"const o = {{ v:1, ts:Date.now(), m:'{i}' }};", 1)
+    P.rep("localStorage.removeItem('neungseon.hike')", f"localStorage.removeItem('neungseon.{key}')", 1)
+    ok = "(!c.hike.m || c.hike.m === 'bukhansan')" if m.get('legacy') else f"c.hike.m === '{i}'"
+    if P.t.count("store.set('hike', c.hike)"):
+        P.rep("if(c.hike && c.hike.v === 1 &&", f"if(c.hike && c.hike.v === 1 && {ok} &&", 1)
+        P.rep("store.set('hike', c.hike)", f"store.set('{key}', c.hike)", 1)
 
 
 def patch_mountain(H, B, m, meta):
@@ -294,9 +310,6 @@ def patch_mountain(H, B, m, meta):
         X.rep('const H = (hour - 12.5)*15*Math.PI/180;', f'const H = (hour - {noon:.2f})*15*Math.PI/180;', 1)
         # 함께 걷기 방·저장 칸은 산마다 따로
         X.rep("const ROOM_ID = 'bukhansan';", f"const ROOM_ID = '{m['id']}';", 1)
-        X.rep("store.set('hike', o)", f"store.set('hike.{m['id']}', o)", 1)
-        X.rep("store.get('hike', null)", f"store.get('hike.{m['id']}', null)", 1)
-        X.rep("localStorage.removeItem('neungseon.hike')", f"localStorage.removeItem('neungseon.hike.{m['id']}')", 1)
         # 도시 불빛
         if not m.get('cityLights', True):
             X.rep('sz.length < 9000', 'sz.length < 0', 1)
@@ -321,18 +334,20 @@ def main():
     ap.add_argument('--template', default=os.path.join(PF, 'game.template.html'))
     ap.add_argument('--only', nargs='*')
     ap.add_argument('--to-site', action='store_true')
+    ap.add_argument('--preview', action='store_true', help='모든 페이지를 <id>.html 이름으로 (미리보기 아티팩트용)')
     a = ap.parse_args()
     T = inline_assets(open(a.template).read())
     mts = []
     for f in sorted(os.listdir(os.path.join(HERE, 'mountains'))):
         m = json.load(open(os.path.join(HERE, 'mountains', f)))
         m.setdefault('page', m['id'] + '.html')
+        if a.preview: m['page'] = m['id'] + '.html'
         dp = os.path.join(HERE, 'data', m['id'] + '.json')
         m['_built'] = os.path.exists(dp)
         if m['_built']: m['_km'] = round(json.load(open(dp))['meta']['trail_m'] / 1000, 1)
         mts.append(m)
     mts.sort(key=lambda m: m['order'])
-    out = os.path.dirname(HERE) if a.to_site else os.path.join(HERE, 'out')
+    out = os.path.dirname(HERE) if a.to_site else os.path.join(HERE, 'preview' if a.preview else 'out')
     os.makedirs(out, exist_ok=True)
     for m in mts:
         if not m['_built'] or (a.only and m['id'] not in a.only): continue
