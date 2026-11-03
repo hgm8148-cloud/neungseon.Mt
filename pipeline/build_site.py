@@ -11,6 +11,7 @@
 import argparse, base64, json, math, os, re, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from patches2 import EXTRA_ROWS, SEASON_ROWS, patch_common, thumb_svg
+from photos_patch import patch_photos, copy_photos, hero_url
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PF = '/mnt/project-files/hiking-game'
@@ -187,6 +188,8 @@ SEL_CSS = '''
 .mtItem:hover,.mtItem:focus-visible{transform:translateY(-3px);box-shadow:0 12px 26px rgba(30,45,80,.18);outline:none}
 .mtPic{flex:none;position:relative;aspect-ratio:16/9;width:100%;background:#dde7f3}
 .mtPic svg{width:100%;height:100%;display:block}
+.mtPic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s ease}
+.mtPic img.on{opacity:1}
 .mtPic .mtTag{position:absolute;left:10px;top:10px;font-size:11.5px;padding:3px 10px;border-radius:999px;background:rgba(255,255,255,.92);color:#c8562a;font-weight:700}
 .mtPic .mtElev{position:absolute;right:10px;bottom:8px;font-size:12px;padding:2px 9px;border-radius:999px;background:rgba(20,28,48,.55);color:#fff;font-variant-numeric:tabular-nums}
 .mtBody{display:flex;flex-direction:column;gap:3px;padding:11px 14px 13px}
@@ -202,7 +205,7 @@ SEL_CSS = '''
 
 def selector_js(cur, mts):
     lst = [dict(id=m['id'], r=m['region'], page=m['page'], built=m['_built'], area=m['area']['ko'], end=m['end']['ko'],
-                course=(m.get('course') or {}).get('ko', ''), country=COUNTRY[m['flag']][0], elev=m['elev'], km=m.get('_km'), pic=m.get('_thumb', '')) for m in mts]
+                course=(m.get('course') or {}).get('ko', ''), country=COUNTRY[m['flag']][0], elev=m['elev'], km=m.get('_km'), pic=m.get('_thumb', ''), photo=hero_url(m['id'])) for m in mts]
     key = 'hike' if any(m.get('legacy') and m['id'] == cur for m in mts) else 'hike.' + cur
     return '''
 <script>
@@ -218,6 +221,7 @@ def selector_js(cur, mts):
     MTS.filter(m => m.r === tab).forEach(m => {
       const b = document.createElement('button'); b.type = 'button'; b.className = 'mtItem' + (m.id === CUR ? ' here' : '');
       const pic = document.createElement('div'); pic.className = 'mtPic'; pic.innerHTML = m.pic; b.appendChild(pic);
+      if(m.photo){ const im = document.createElement('img'); im.alt = ''; im.loading = 'lazy'; im.src = m.photo; im.onload = () => im.classList.add('on'); im.onerror = () => im.remove(); pic.appendChild(im); }
       const ev = document.createElement('span'); ev.className = 'mtElev'; ev.textContent = m.elev.toLocaleString() + 'm'; pic.appendChild(ev);
       if(m.id === CUR){ const t = document.createElement('span'); t.className = 'mtTag'; t.textContent = '지금 이 산'; pic.appendChild(t); }
       const body = document.createElement('div'); body.className = 'mtBody'; b.appendChild(body);
@@ -277,6 +281,7 @@ def build_page(T, m, mts, data):
     P.t = pre + R + post
     patch_hike(P, m)
     patch_common(P, m, data)
+    patch_photos(P, m)
     # 선택 화면
     P.rep('</style>', SEL_CSS + '</style>', 1)
     P.rep('<button class="btn" id="go">', '<button class="btn sec" id="mtOpen" type="button">다른 산 고르기</button>\n    <button class="btn" id="go">', 1)
@@ -389,6 +394,7 @@ def main():
         p = os.path.join(out, m['page'])
         open(p, 'w').write(html)
         print(f"{m['id']:>15} → {os.path.relpath(p, os.path.dirname(HERE))} ({len(html)/1024:.0f} KB)")
+    copy_photos(out, [m['id'] for m in mts])
 
 
 if __name__ == '__main__':

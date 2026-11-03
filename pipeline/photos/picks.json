@@ -1,0 +1,23 @@
+{
+  "_note": "승연 님 드라이브(neungseon_img) 사진 중 무료 라이선스(Pixabay Content License·공공누리 제1유형)만 골랐어요. 값은 raw/<산id>/ 안의 파일 이름(드라이브 파일 id). hero=산 고르기 카드, load=첫 로딩 배경, posts=경유지 도착 엽서(순서대로), summit=정상 도착 사진. from=다른 산 폴더 사진을 함께 쓸 때.",
+  "bukhansan":   {"hero": "1IldL5yS9gmszFlP5F1yYp-ID_6iJxVIQ", "load": "1cuvVtfrG5hwyIgUsgGg5MlUdU1zfZ_0o", "posts": ["14jFLNmxxdcioWIk1UW9qreITvzBQ9pMR", "1Zn7LnRM8l9zct71s8R00ip8yYo3CsZKl", "1tsV5my2EVcIl465RnvbHeJeqs_HeR8do"], "summit": "1cuvVtfrG5hwyIgUsgGg5MlUdU1zfZ_0o"},
+  "hallasan":    {"hero": "16HabCrkOeAebXONrAmC9ZqEd-diGxEeO", "load": "12TBqEOAXBjPwaKT6tewHtkHEOUSqJzsg", "posts": ["1THhaop-9wNYaxCx7y4-CXiOKUlzUPJXd", "1kygL6EG5rEFMNCvEsz4_klM8RlrIK80n", "1VBUXOHj-nWCK2syPUxgzbiFazEi_lmRk"], "summit": "12Y0lwvidUkX-pmqZXUNMVwgHqsZmCuXc"},
+  "jirisan":     {"hero": "12YiDSh7WyaRFeL7DscYSrJZtq5Pq2WhW", "load": "1revLxhqCm6pF_aUOIjVYmpemcHRyPgG0", "posts": ["1WiIjChPkzt347XU6YqbiQp3MsXMS9UzJ", "1ztrxhhapnGud5-uBqKSL7tCqcDCrIUrx", "1revLxhqCm6pF_aUOIjVYmpemcHRyPgG0"], "summit": "1Mcwp9uaZbXZqyHQ-a4CwAqM_ll_mcHEZ"},
+  "seoraksan":   {"hero": "1DsnyF5LS08HGddI9unteVff4F4dm_SQM", "load": "1KMOVvCELWpu_OAFxYIyGBCiaT2zoboA3", "posts": ["1O5A6sHofMLyOgYufyMk_0dvKdpV8K9JX", {"from": "huangshan", "id": "19rT_nXF3tLBqaUefnOFzaqU2NZ99rhuG"}, "139swtP4mnK7p1-24VVdPdptgTmOWo4V9"], "summit": "1KMOVvCELWpu_OAFxYIyGBCiaT2zoboA3"},
+  "mudeungsan":  {"hero": "1A8iky07bAhXFPVPdcAK0TQ-hE__M8iOt", "load": "17ik8h-vKvgmah1zbd_JkWd4a_6hvA6P7", "posts": ["1A8iky07bAhXFPVPdcAK0TQ-hE__M8iOt"], "summit": "17ik8h-vKvgmah1zbd_JkWd4a_6hvA6P7"},
+  "naejangsan":  {"hero": "1GyyEyrzhYXKgel-EKrfkCNiWfbGKa4wr", "load": "1GyyEyrzhYXKgel-EKrfkCNiWfbGKa4wr", "posts": ["1SWws6DGhnud17-gfWNYsMdC8yxlCBlPA"], "summit": "1GyyEyrzhYXKgel-EKrfkCNiWfbGKa4wr"},
+  "deogyusan":   {"hero": "1whkiNPIrLW3FhCewwyMdbOpZARVURBMo", "load": "1i6S3W_agG0YoNb48hj9ttg7JjvvUH9pU", "posts": ["1Xj8Bj0GLo7DVHcslD4grn0esrwYchml9", "1i6S3W_agG0YoNb48hj9ttg7JjvvUH9pU"], "summit": "1cvnL10yKCeLifsut2pMjWc7uDtK2UUkT"},
+  "taebaeksan":  {"hero": "1fDs4Cz1DrrPdGKbiznQ49jKnrjBzvqOK", "load": "1LiNyRDh9dZFJaY1ISBuQJdEg0IDUnAoJ", "posts": ["1fDs4Cz1DrrPdGKbiznQ49jKnrjBzvqOK"], "summit": "1LiNyRDh9dZFJaY1ISBuQJdEg0IDUnAoJ"},
+  "everest":     {"hero": "1i3UTHsywcoJXMB2CEHfXICTrT7Bpfiwz", "load": "1fMWmkXjMMDS_di_N8A1TwSxg3NSDZAB6", "posts": ["1idLNK0ks32sARTZsFyhRMR2Mu3P3pXA8", "1kiGFyofFsXlYt04qx3IG3qAj8LzZ3GFK"], "summit": "1fMWmkXjMMDS_di_N8A1TwSxg3NSDZAB6"},
+  "fuji":        {"hero": "1coqcCnIwmeMcxm48yFB_jSE58_sboMHU", "load": "1o3y6qmdoncnX0y2GaUzZvrkM8sfysQdw", "posts": ["15iDKZmd4HDe7oqQuJMXnvEAjzn4plXAi", "1y2mfyC9huQobss2we_N_XTAcZKCvJV69", "1o3y6qmdoncnX0y2GaUzZvrkM8sfysQdw"], "summit": "1SiCHs28OaVakOqpufgpCHqV5WI2lMdFP"},
+  "kilimanjaro": {"hero": "1a3zM-Z8gqSWuZWhdKwKqQOxFgLXj3D9f", "load": "12VOnt0RyFyULtAnTn1WIoVlVErGrsUwd", "posts": ["1QG_zj--kGUOStyisR2TybCtrI4p3TGD6", "1jiUZisCCw3e6aZJ8KS_yT4-jTRtih6ls", "1KOJ88AyNCP4DmT8ZpejtC_biEnamx4eq"], "summit": "1Vv6ops3jTWN0Ye0zV5syW3ZbgDZj3tfe"},
+  "matterhorn":  {"hero": "1FdJeJ22eJgHib2mkpBxRrm1-2q2Qqk-P", "load": "1BsctX87pW7xY-PBmHRXtdetOc8kOQZ5y", "posts": ["1e8d4JjusT91lk5HRA1Rs75xt0jSL4OiX", "13prL6nm8-e6SlDvkbaMTA_LmWgnhqopD"], "summit": "1f-bb9lwP4TOBhQtX7ahw1KvYSRJEZpio"},
+  "montblanc":   {"hero": "1I-ElKzDn4LRFLTGUjNaS0CddhMQOv69E", "load": "1ijWW8sTYE8x6flzhHLB41xY1onQ1-5nh", "posts": ["1yTpm0ttCe_fYHlAgW1c2V6L4WjLljsw6", "18WQOBn5gcnDC7NbAadHuu7flym09NROJ"], "summit": "1zIulzX_QNVDT6Mk_W99dXfQ8xfxhR5m3"},
+  "trecime":     {"hero": "1oGaAn2SLcErF9nYG34J1WHWuuxshWjRI", "load": "19ByqO1rR2siTPEbYNSAth43MWlrccyfp", "posts": ["1zzgIJqXpxasRz2ONX_xiwdmNdZYmDXSx", "1sjvBruvdaddFOPbGdbiBO2DuL7aGenSp"], "summit": "19ByqO1rR2siTPEbYNSAth43MWlrccyfp"},
+  "halfdome":    {"hero": "1tZefOV4qZZ1HiF04po100ZgO17gQdBj0", "load": "1fHQZdxaUh7kLhLdSfc42FNULgc4VdZom", "posts": ["1yPfa9LJX0ZC-hXT7VV7Cau5nDXQaBoLj", "1A2xfhPT8Z7LbnaQWeAhFJKpqwqPbA_sd", "1GqqQbs_D6EyjkhrjCRgxNHGdZ2Eutavr"], "summit": "1tZefOV4qZZ1HiF04po100ZgO17gQdBj0"},
+  "torresdelpaine": {"hero": "1SONyRPkGJ6unM7pHnwuoLjSc0evM-qOW", "load": "194MbIsNHTfNVj13EZ_DFfBpOLWt7J1xU", "posts": ["1kuKootdKqqHpn3OjZSQFATrEmyiKoiPV", "194MbIsNHTfNVj13EZ_DFfBpOLWt7J1xU"], "summit": "1B5MOz7Fr7fHFvjo6-Ml3IUlTmOTaI_Ag"},
+  "tongariro":   {"hero": "1CIcmxw766rRaacGpRgqh-osN3doDa47f", "load": "1KnDKs1R9W5e9udLI69HIFiiZ47TWEr0E", "posts": ["12UMyYJPOzYQNk8XqCsbim6ZWc-XC6NgN", "1lNVWYDoUbZtl3WsSQCNEWg0fOWBE8WBP"], "summit": "1JkGqOtWa-iu8rFNfvIy9Wz_HUj8-4OWe"},
+  "huangshan":   {},
+  "sobaeksan":   {},
+  "wolchulsan":  {}
+}
