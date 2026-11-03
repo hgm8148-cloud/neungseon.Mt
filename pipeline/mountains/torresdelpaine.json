@@ -67,7 +67,11 @@
    "lat": -50.949,
    "lon": -72.951,
    "elev": 620,
-   "snap": "elev"
+   "snap": "elev",
+   "desc": {
+    "ko": "남방 너도밤나무(렝가) 숲 끝이에요. 이제 거대한 바위 비탈이에요.",
+    "en": "The edge of the lenga beech forest; a huge boulder slope lies ahead."
+   }
   },
   {
    "ko": "토레스 전망대",
@@ -80,10 +84,11 @@
    "snap": "elev"
   }
  ],
- "season": {
-  "ko": "가을",
-  "en": "Autumn",
-  "ja": "秋",
-  "zh": "秋天"
+ "biome": {
+  "preset": "lenga",
+  "treeline": 700,
+  "rockline": 740,
+  "plantline": 850,
+  "snow": 1400
  }
 }

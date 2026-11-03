@@ -59,7 +59,8 @@
    "elev": 1280,
    "snap": "elev",
    "desc": {
-    "ko": "영실 들머리. 소나무 숲길로 산행을 시작합니다."
+    "ko": "영실 들머리. 한라산 탐방로 5곳 중 가장 짧은 3.7km 코스예요.",
+    "en": "Yeongsil trailhead: at 3.7 km, the shortest of Hallasan's five trails."
    }
   },
   {
@@ -72,7 +73,8 @@
    "elev": 1600,
    "snap": "elev",
    "desc": {
-    "ko": "오백나한 기암이 병풍처럼 둘러선 곳이에요."
+    "ko": "오백나한이라 불리는 수직 바위기둥이 병풍처럼 둘러선 영실기암이에요.",
+    "en": "The Yeongsil Giam: vertical rock pillars called the 500 Arhats, standing like a folding screen."
    }
   },
   {
@@ -85,7 +87,8 @@
    "elev": 1680,
    "snap": "elev",
    "desc": {
-    "ko": "털진달래와 조릿대가 펼쳐진 고원 평원."
+    "ko": "털진달래와 조릿대가 덮인 고원이에요. 큰부리까마귀를 자주 만나요.",
+    "en": "A highland plateau of azalea and dwarf bamboo. Ravens are common here."
    }
   },
   {
@@ -99,10 +102,12 @@
    "snap": "elev"
   }
  ],
- "season": {
-  "ko": "가을",
-  "en": "Autumn",
-  "ja": "秋",
-  "zh": "秋天"
+ "biome": {
+  "preset": "highland",
+  "treeline": 1560,
+  "rockline": 1640,
+  "plantline": 1950,
+  "pine": 2.4,
+  "grass": 0.35
  }
 }

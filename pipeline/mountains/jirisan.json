@@ -57,7 +57,11 @@
    "lat": 35.295,
    "lon": 127.737,
    "elev": 860,
-   "snap": "elev"
+   "snap": "elev",
+   "desc": {
+    "ko": "지리산은 1967년 우리나라 첫 국립공원으로 지정됐어요. 이제 천왕봉을 향해 올라가요.",
+    "en": "Jirisan became Korea's first national park in 1967. From here the trail climbs to Cheonwangbong."
+   }
   },
   {
    "ko": "법계사",
@@ -69,7 +73,8 @@
    "elev": 1450,
    "snap": "elev",
    "desc": {
-    "ko": "우리나라에서 가장 높은 곳에 있는 절이에요."
+    "ko": "해발 1,450m, 우리나라에서 가장 높은 곳에 자리한 절이에요.",
+    "en": "At 1,450 m, the highest Buddhist temple in Korea."
    }
   },
   {
@@ -83,10 +88,9 @@
    "snap": "peak"
   }
  ],
- "season": {
-  "ko": "가을",
-  "en": "Autumn",
-  "ja": "秋",
-  "zh": "秋天"
+ "biome": {
+  "preset": "conifer",
+  "treeline": 1880,
+  "rockline": 1820
  }
 }

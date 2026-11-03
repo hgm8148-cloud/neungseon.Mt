@@ -57,7 +57,11 @@
    "lat": 37.754,
    "lon": -119.517,
    "elev": 2160,
-   "snap": "elev"
+   "snap": "elev",
+   "desc": {
+    "ko": "존 뮤어 트레일에서 갈라지는 하프돔 길이에요.",
+    "en": "Where the Half Dome trail leaves the John Muir Trail."
+   }
   },
   {
    "ko": "서브돔",
@@ -67,7 +71,11 @@
    "lat": 37.749,
    "lon": -119.527,
    "elev": 2560,
-   "snap": "elev"
+   "snap": "elev",
+   "desc": {
+    "ko": "화강암 계단을 지그재그로 올라요. 다음은 케이블 구간이에요.",
+    "en": "Granite steps zigzag up; next come the cables."
+   }
   },
   {
    "ko": "하프돔 정상",
@@ -80,10 +88,9 @@
    "snap": "peak"
   }
  ],
- "season": {
-  "ko": "가을",
-  "en": "Autumn",
-  "ja": "秋",
-  "zh": "秋天"
+ "biome": {
+  "preset": "sierra",
+  "treeline": 2620,
+  "rockline": 2450
  }
 }

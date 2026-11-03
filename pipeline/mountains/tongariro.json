@@ -67,7 +67,11 @@
    "lat": -39.137,
    "lon": 175.608,
    "elev": 1400,
-   "snap": "elev"
+   "snap": "elev",
+   "desc": {
+    "ko": "화산 지대의 샘이에요. 앞으로 가파른 악마의 계단이 이어져요.",
+    "en": "A spring in the volcanic plateau; the steep Devil's Staircase follows."
+   }
   },
   {
    "ko": "사우스 크레이터",
@@ -77,7 +81,11 @@
    "lat": -39.139,
    "lon": 175.633,
    "elev": 1660,
-   "snap": "elev"
+   "snap": "elev",
+   "desc": {
+    "ko": "평평한 분화구 바닥을 건너요. 오른쪽에 나우루호에가 솟아 있어요.",
+    "en": "Crossing the flat crater floor, with Ngauruhoe rising to the right."
+   }
   },
   {
    "ko": "레드 크레이터",
@@ -90,10 +98,11 @@
    "snap": "peak"
   }
  ],
- "season": {
-  "ko": "가을",
-  "en": "Autumn",
-  "ja": "秋",
-  "zh": "秋天"
+ "biome": {
+  "preset": "volcanic",
+  "treeline": 1150,
+  "rockline": 1250,
+  "plantline": 1700,
+  "snow": 2150
  }
 }

@@ -57,7 +57,11 @@
    "lat": 35.4885,
    "lon": 126.8935,
    "elev": 250,
-   "snap": "elev"
+   "snap": "elev",
+   "desc": {
+    "ko": "500년 넘게 단풍으로 이름난 산이에요. 내장사에서 산행을 시작해요.",
+    "en": "Famous for its autumn colors for over 500 years. The hike starts at Naejangsa Temple."
+   }
   },
   {
    "ko": "연자봉",
@@ -67,7 +71,11 @@
    "lat": 35.48,
    "lon": 126.8915,
    "elev": 675,
-   "snap": "peak"
+   "snap": "peak",
+   "desc": {
+    "ko": "말발굽 모양으로 이어진 아홉 봉우리 가운데 하나예요.",
+    "en": "One of nine peaks on the horseshoe-shaped ridge."
+   }
   },
   {
    "ko": "신선봉 정상",
@@ -80,10 +88,10 @@
    "snap": "peak"
   }
  ],
- "season": {
-  "ko": "가을",
-  "en": "Autumn",
-  "ja": "秋",
-  "zh": "秋天"
+ "biome": {
+  "preset": "autumn",
+  "treeline": 900,
+  "rockline": 740,
+  "pine": 0.6
  }
 }

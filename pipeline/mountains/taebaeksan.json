@@ -67,7 +67,11 @@
    "lat": 37.105,
    "lon": 128.923,
    "elev": 1300,
-   "snap": "elev"
+   "snap": "elev",
+   "desc": {
+    "ko": "여기서부터 오래된 주목이 능선을 따라 자라요.",
+    "en": "Ancient yews grow along the ridge from here."
+   }
   },
   {
    "ko": "장군봉",
@@ -77,7 +81,11 @@
    "lat": 37.0985,
    "lon": 128.9165,
    "elev": 1567,
-   "snap": "peak"
+   "snap": "peak",
+   "desc": {
+    "ko": "겨울이면 뒤틀린 주목에 상고대가 피어요.",
+    "en": "In winter, rime frost blooms on the twisted yews."
+   }
   },
   {
    "ko": "천제단",
@@ -90,10 +98,9 @@
    "snap": "elev"
   }
  ],
- "season": {
-  "ko": "가을",
-  "en": "Autumn",
-  "ja": "秋",
-  "zh": "秋天"
+ "biome": {
+  "preset": "conifer",
+  "treeline": 1600,
+  "rockline": 1560
  }
 }

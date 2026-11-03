@@ -9,6 +9,8 @@
 바꿔 끼울 자리를 못 찾으면 멈추고 어디인지 알려 줘요(템플릿이 바뀌었을 때 여기만 고치면 돼요).
 """
 import argparse, base64, json, math, os, re, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from patches2 import EXTRA_ROWS, patch_common, thumb_svg
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PF = '/mnt/project-files/hiking-game'
@@ -80,12 +82,12 @@ def page_rows(m):
 
 
 def tagline(m, l):
-    s, a, end = L(m['season'], l), L(m['area'], l), L(m['end'], l)
+    a, end = L(m['area'], l), L(m['end'], l)
     both = end.startswith(a)
-    if l == 'ko': return f"{s}, {end if both else a + ' ' + end}에 함께 오르다"
-    if l == 'en': return f"{s}, climbing to {end if both else end + ' on ' + a} together"
-    if l == 'ja': return f"{s}、{end if both else a + '・' + end}へいっしょに登る"
-    return f"{s}，一起登上{end if both else a + end}"
+    if l == 'ko': return f"{end if both else a + ' ' + end}에 함께 오르다"
+    if l == 'en': return f"Climbing to {end if both else end + ' on ' + a} together"
+    if l == 'ja': return f"{end if both else a + '・' + end}へいっしょに登る"
+    return f"一起登上{end if both else a + end}"
 
 
 def wp_desc(m):
@@ -103,7 +105,7 @@ def wp_desc(m):
             se = L(sub, 'en'); se = se[:1].upper() + se[1:]
             out[w['ko']] = [f"{L(sub,'ko')}, 해발 {e}m.", f"{se}, {e} m above sea level.", f"{L(sub,'ja')}、標高{e}m。", f"{L(sub,'zh')}，海拔{e}米。"]
         elif d:
-            out[w['ko']] = [d.get(l) or d['ko'] for l in LANGS]
+            out[w['ko']] = [d.get(l) or d.get('en') or d['ko'] for l in LANGS]
         else:
             out[w['ko']] = UI_ROWS[-1]
     return out
@@ -154,72 +156,100 @@ FLAGS = {'fr': {'t': 'v', 'c': ['#0055a4', '#fff', '#ef4135']}, 'it': {'t': 'v',
 def selector_html():
     return '''
 <div id="mtSel" class="panel" hidden>
-  <div class="card mtCard">
-    <h1>어느 산에 오를까요?<small>실제 고도 데이터로 만든 산길을 골라 보세요</small></h1>
+  <div class="mtCard">
+    <div class="mtHead">
+      <div><h1>어느 산에 오를까요?</h1><p>실제 고도 데이터로 만든 산길을 골라 보세요</p></div>
+      <button type="button" class="mtX" id="mtX" aria-label="닫기">✕</button>
+    </div>
+    <p class="mtSaved" id="mtSaved" hidden>지금까지 걸은 기록을 저장했어요</p>
     <div class="mtTabs" role="tablist"><button type="button" data-r="kr">국내 명산 10</button><button type="button" data-r="world">해외 명산 10</button></div>
     <div class="mtList" id="mtList"></div>
-    <button class="btn" id="mtStay" type="button">이 산으로 계속</button>
   </div>
 </div>
 '''
 
 
 SEL_CSS = '''
-#mtSel{z-index:15}
-.mtCard{max-width:720px;width:100%;max-height:calc(100vh - 32px);display:flex;flex-direction:column}
-.mtTabs{display:flex;gap:6px;margin:12px 0 10px}
-.mtTabs button{flex:1;padding:10px 12px;border-radius:999px;border:1px solid var(--paperLine);background:transparent;color:var(--ink);font-size:15px;cursor:pointer}
-.mtTabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.mtList{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;overflow:auto;padding:2px;margin-bottom:12px;min-height:0}
-.mtItem{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;padding:10px 12px;border-radius:14px;border:1px solid var(--paperLine);background:rgba(255,255,255,.5);color:var(--ink);cursor:pointer;font-size:13px;line-height:1.35}
-.mtItem b{font-family:var(--display);font-size:17px}
-.mtItem .mtSub{opacity:.72}
-.mtItem .mtTag{font-size:11px;padding:1px 8px;border-radius:999px;background:var(--moss);color:#fff;margin-top:3px}
-.mtItem.here{border-color:var(--maple);box-shadow:0 0 0 2px var(--maple) inset}
-.mtItem.here .mtTag{background:var(--maple)}
-.mtItem[disabled]{opacity:.45;cursor:default}
-.mtItem:not([disabled]):hover{background:#fff}
+#mtSel{z-index:15;background:rgba(40,52,74,.35);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.mtCard{width:min(980px,100%);max-height:calc(100vh - 32px);display:flex;flex-direction:column;gap:12px;padding:22px 22px 18px;border-radius:24px;
+  background:linear-gradient(180deg,#fffaf2 0%,#f4f8ff 100%);color:#24304a;box-shadow:0 24px 60px rgba(20,30,60,.28)}
+.mtHead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.mtHead h1{margin:0;font-family:var(--display);font-size:clamp(22px,3.4vw,30px);color:#1f2a44}
+.mtHead p{margin:4px 0 0;font-size:14px;color:#5b6784}
+.mtX{width:38px;height:38px;border-radius:50%;border:none;background:#eef1f8;color:#33405e;font-size:16px;cursor:pointer;flex:none}
+.mtX:hover{background:#e2e7f3}
+.mtTabs{display:flex;gap:4px;padding:4px;border-radius:999px;background:#e9eef7;align-self:flex-start}
+.mtTabs button{padding:9px 18px;border-radius:999px;border:none;background:transparent;color:#4b5877;font-size:15px;cursor:pointer;transition:background .2s,color .2s}
+.mtTabs button.on{background:#fff;color:#1f2a44;box-shadow:0 2px 8px rgba(30,45,80,.14);font-weight:700}
+.mtList{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));grid-auto-rows:max-content;align-content:start;gap:14px;overflow:auto;padding:4px 4px 8px;min-height:0}
+.mtItem{flex:none;height:auto;display:flex;flex-direction:column;text-align:left;padding:0;border-radius:18px;border:none;background:#fff;color:#24304a;cursor:pointer;overflow:hidden;
+  box-shadow:0 4px 14px rgba(30,45,80,.10);transition:transform .18s ease,box-shadow .18s ease;font-family:inherit}
+.mtItem:hover,.mtItem:focus-visible{transform:translateY(-3px);box-shadow:0 12px 26px rgba(30,45,80,.18);outline:none}
+.mtPic{flex:none;position:relative;aspect-ratio:16/9;width:100%;background:#dde7f3}
+.mtPic svg{width:100%;height:100%;display:block}
+.mtPic .mtTag{position:absolute;left:10px;top:10px;font-size:11.5px;padding:3px 10px;border-radius:999px;background:rgba(255,255,255,.92);color:#c8562a;font-weight:700}
+.mtPic .mtElev{position:absolute;right:10px;bottom:8px;font-size:12px;padding:2px 9px;border-radius:999px;background:rgba(20,28,48,.55);color:#fff;font-variant-numeric:tabular-nums}
+.mtBody{display:flex;flex-direction:column;gap:3px;padding:11px 14px 13px}
+.mtBody b{font-family:var(--display);font-size:18px;color:#1f2a44}
+.mtBody .mtSub{font-size:12.5px;color:#66728c;line-height:1.4}
+.mtItem.here{box-shadow:0 0 0 3px #e9a25a,0 8px 22px rgba(200,86,42,.25)}
+.mtSaved{margin:0;font-size:13px;color:#2f7a55;background:#e6f4ec;border-radius:10px;padding:7px 12px;align-self:flex-start}
 #mtOpen{margin-bottom:8px}
+@media (max-width:520px){.mtCard{padding:16px 14px 12px;border-radius:18px}.mtList{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.mtBody b{font-size:16px}.mtBody{padding:9px 10px 11px}}
+@media (prefers-reduced-motion:reduce){.mtItem{transition:none}}
 '''
 
 
 def selector_js(cur, mts):
     lst = [dict(id=m['id'], r=m['region'], page=m['page'], built=m['_built'], area=m['area']['ko'], end=m['end']['ko'],
-                course=(m.get('course') or {}).get('ko', ''), country=COUNTRY[m['flag']][0], elev=m['elev'], km=m.get('_km')) for m in mts]
+                course=(m.get('course') or {}).get('ko', ''), country=COUNTRY[m['flag']][0], elev=m['elev'], km=m.get('_km'), pic=m.get('_thumb', '')) for m in mts]
+    key = 'hike' if any(m.get('legacy') and m['id'] == cur for m in mts) else 'hike.' + cur
     return '''
 <script>
-// ---------- 산 고르기: 오프닝이 끝나면 국내 10 / 해외 10 가운데 고르기 ----------
+// ---------- 산 고르기: 오프닝이 끝나면 국내 10 / 해외 10 가운데 고르기 · 산 이름을 누르면 기록 저장 후 다시 열기 ----------
 (function(){
-  const CUR = %s, MTS = %s;
-  const box = document.getElementById('mtSel'), list = document.getElementById('mtList');
+  const CUR = %s, MTS = %s, KEY = %s;
+  const box = document.getElementById('mtSel'), list = document.getElementById('mtList'), saved = document.getElementById('mtSaved');
   const here = MTS.find(m => m.id === CUR) || MTS[0];
   let tab = here.r;
   function draw(){
-    document.querySelectorAll('.mtTabs button').forEach(b => b.classList.toggle('on', b.dataset.r === tab));
+    document.querySelectorAll('.mtTabs button').forEach(b => { const on = b.dataset.r === tab; b.classList.toggle('on', on); b.setAttribute('aria-selected', on); });
     list.innerHTML = '';
     MTS.filter(m => m.r === tab).forEach(m => {
       const b = document.createElement('button'); b.type = 'button'; b.className = 'mtItem' + (m.id === CUR ? ' here' : '');
-      const add = (tag, cls, txt) => { const e = document.createElement(tag); if(cls) e.className = cls; e.textContent = txt; b.appendChild(e); return e; };
+      const pic = document.createElement('div'); pic.className = 'mtPic'; pic.innerHTML = m.pic; b.appendChild(pic);
+      const ev = document.createElement('span'); ev.className = 'mtElev'; ev.textContent = m.elev.toLocaleString() + 'm'; pic.appendChild(ev);
+      if(m.id === CUR){ const t = document.createElement('span'); t.className = 'mtTag'; t.textContent = '지금 이 산'; pic.appendChild(t); }
+      const body = document.createElement('div'); body.className = 'mtBody'; b.appendChild(body);
+      const add = (tag, cls, txt) => { const e = document.createElement(tag); if(cls) e.className = cls; e.textContent = txt; body.appendChild(e); return e; };
       add('b', '', m.area);
-      const s = add('span', 'mtSub', ''); const a = document.createElement('span'); a.textContent = m.end; s.appendChild(a); s.appendChild(document.createTextNode(' ' + m.elev.toLocaleString() + 'm'));
+      add('span', 'mtSub', m.end);
       const c = add('span', 'mtSub', ''); const cc = document.createElement('span'); cc.textContent = m.r === 'kr' ? m.course : m.country; c.appendChild(cc); if(m.km) c.appendChild(document.createTextNode(' · ' + m.km + ' km'));
-      if(m.id === CUR) add('span', 'mtTag', '지금 이 산'); else if(!m.built){ add('span', 'mtTag', '준비 중'); b.disabled = true; }
+      if(!m.built){ b.disabled = true; add('span', 'mtSub', '준비 중'); }
       b.onclick = () => { if(m.id === CUR){ close(); return; } if(m.built){ try{ sessionStorage.setItem('neungseon.go', m.id); }catch(e){} location.href = m.page + '?go=1'; } };
       list.appendChild(b);
     });
   }
-  function open(){ draw(); box.hidden = false; }
+  function open(withSave){
+    let w = null; if(withSave && window.__saveHike){ try{ w = window.__saveHike(); }catch(e){} }
+    saved.hidden = w == null; if(w != null) saved.textContent = '지금까지 걸은 기록을 저장했어요' + (w > 0 ? ' · ' + (w/1000).toFixed(2) + 'km' : '');
+    tab = here.r; draw(); box.hidden = false;
+  }
   function close(){ box.hidden = true; }
   document.querySelectorAll('.mtTabs button').forEach(b => b.onclick = () => { tab = b.dataset.r; draw(); });
-  document.getElementById('mtStay').onclick = close;
-  const ob = document.getElementById('mtOpen'); if(ob) ob.onclick = open;
+  document.getElementById('mtX').onclick = close;
+  box.addEventListener('click', e => { if(e.target === box) close(); });
+  document.addEventListener('keydown', e => { if(e.key === 'Escape' && !box.hidden) close(); });
+  const ob = document.getElementById('mtOpen'); if(ob) ob.onclick = () => open(false);
+  document.querySelectorAll('#brand .mtName').forEach(n => { const go = e => { e.stopPropagation(); e.preventDefault(); open(true); };
+    n.addEventListener('click', go); n.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' ') go(e); }); });
   window.MT_SELECT = { open, close };
   let skip = /[?&]go=1/.test(location.search);
   try{ if(sessionStorage.getItem('neungseon.go') === CUR){ skip = true; sessionStorage.removeItem('neungseon.go'); } }catch(e){}
-  if(!skip) open();
+  if(!skip) open(false);
 })();
 </script>
-''' % (json.dumps(cur), json.dumps(lst, ensure_ascii=False))
+''' % (json.dumps(cur), json.dumps(lst, ensure_ascii=False), json.dumps(key))
 
 
 def inline_assets(t):
@@ -239,12 +269,14 @@ def build_page(T, m, mts, data):
     rows = list(UI_ROWS)
     for x in mts: rows += mountain_rows(x)
     if m['id'] != 'bukhansan': rows += page_rows(m)
+    rows += EXTRA_ROWS + [[tagline(m, l) for l in LANGS]]
     pre, R, post = split_R(P.t)
     R += ',\n    // 산 고르기·산 이름 (pipeline/build_site.py)\n' + ',\n'.join('    ' + json.dumps(r, ensure_ascii=False) for r in rows)
     if not m.get('legacy'):
         pre, post = patch_mountain(Patch(pre, m['id'] + ':head'), Patch(post, m['id']), m, meta)
     P.t = pre + R + post
     patch_hike(P, m)
+    patch_common(P, m, data)
     # 선택 화면
     P.rep('</style>', SEL_CSS + '</style>', 1)
     P.rep('<button class="btn" id="go">', '<button class="btn sec" id="mtOpen" type="button">다른 산 고르기</button>\n    <button class="btn" id="go">', 1)
@@ -344,7 +376,8 @@ def main():
         if a.preview: m['page'] = m['id'] + '.html'
         dp = os.path.join(HERE, 'data', m['id'] + '.json')
         m['_built'] = os.path.exists(dp)
-        if m['_built']: m['_km'] = round(json.load(open(dp))['meta']['trail_m'] / 1000, 1)
+        if m['_built']:
+            dd = json.load(open(dp)); m['_km'] = round(dd['meta']['trail_m'] / 1000, 1); m['_thumb'] = thumb_svg(m, dd)
         mts.append(m)
     mts.sort(key=lambda m: m['order'])
     out = os.path.dirname(HERE) if a.to_site else os.path.join(HERE, 'preview' if a.preview else 'out')

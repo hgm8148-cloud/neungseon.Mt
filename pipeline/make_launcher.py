@@ -1,6 +1,8 @@
 """미리보기 아티팩트 첫 화면: 20개 산 카드 + 실제 지형으로 그린 고도 단면."""
 import json, os, base64, math
-import numpy as np
+import numpy as np, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from patches2 import thumb_svg
 HERE = os.path.dirname(os.path.abspath(__file__))
 COUNTRY = {'kr':'대한민국','np':'네팔','jp':'일본','tz':'탄자니아','ch':'스위스','fr':'프랑스','it':'이탈리아','us':'미국','cn':'중국','cl':'칠레','nz':'뉴질랜드'}
 def profile(d):
@@ -22,6 +24,7 @@ for f in os.listdir(os.path.join(HERE, 'mountains')):
     line = ' '.join(f'{x:.1f},{y:.1f}' for x, y in pts)
     sub = m['course']['ko'] if m['region'] == 'kr' else f"{COUNTRY[m['flag']]} · {m['course']['ko']}"
     cards[m['region']].append((m['order'], f'''<a class="card" href="{m['id']}.html?go=1" data-id="{m['id']}">
+  <div class="pic">{thumb_svg(m, d)}</div>
   <div class="top"><b>{m['area']['ko']}</b><span class="en">{m['area']['en']}</span></div>
   <div class="sub">{sub}</div>
   <svg viewBox="0 0 {W} {H}" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,{H} {line} {W},{H}" class="fill"/><polyline points="{line}" class="ln"/></svg>
@@ -45,6 +48,7 @@ header p{{margin:0;color:var(--mute);line-height:1.6;max-width:64ch}}
 h2{{font-family:var(--display);font-size:22px;margin:0 0 12px;display:flex;gap:10px;align-items:baseline}}
 h2 small{{font-family:var(--body);font-size:13px;color:var(--mute);font-weight:400}}
 .grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}}
+.pic{{margin:-14px -14px 4px;aspect-ratio:16/9;overflow:hidden;border-radius:13px 13px 0 0}} .pic svg{{width:100%;height:100%;display:block}}
 .card{{display:flex;flex-direction:column;gap:6px;padding:14px 14px 12px;border-radius:14px;background:var(--card);border:1px solid var(--line);color:inherit;text-decoration:none;min-width:0;transition:border-color .15s,transform .15s}}
 .card:hover,.card:focus-visible{{border-color:var(--maple);transform:translateY(-2px);outline:none}}
 .top{{display:flex;gap:8px;align-items:baseline;justify-content:space-between}}

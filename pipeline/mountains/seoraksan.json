@@ -57,7 +57,11 @@
    "lat": 38.085,
    "lon": 128.4728,
    "elev": 470,
-   "snap": "elev"
+   "snap": "elev",
+   "desc": {
+    "ko": "오색 들머리. 대청봉까지 가장 짧고 가파른 길이에요.",
+    "en": "Osaek trailhead: the shortest and steepest way to Daecheongbong."
+   }
   },
   {
    "ko": "설악폭포",
@@ -67,7 +71,11 @@
    "lat": 38.101,
    "lon": 128.466,
    "elev": 950,
-   "snap": "elev"
+   "snap": "elev",
+   "desc": {
+    "ko": "화강암 골짜기를 따라 흐르는 폭포예요. 산양과 반달가슴곰이 사는 숲이에요.",
+    "en": "A waterfall in a granite gorge, in forest home to long-tailed gorals and Asiatic black bears."
+   }
   },
   {
    "ko": "대청봉 정상",
@@ -80,10 +88,9 @@
    "snap": "peak"
   }
  ],
- "season": {
-  "ko": "가을",
-  "en": "Autumn",
-  "ja": "秋",
-  "zh": "秋天"
+ "biome": {
+  "preset": "conifer",
+  "treeline": 1690,
+  "rockline": 1450
  }
 }

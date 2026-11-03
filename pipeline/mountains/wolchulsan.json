@@ -69,7 +69,8 @@
    "elev": 510,
    "snap": "elev",
    "desc": {
-    "ko": "해발 510m에 걸린 붉은 출렁다리예요."
+    "ko": "두 봉우리를 잇는 붉은 출렁다리예요. 호남의 금강산이라 불러요.",
+    "en": "A red suspension bridge between two peaks. Wolchulsan is called the Geumgangsan of Honam."
    }
   },
   {
@@ -83,10 +84,10 @@
    "snap": "peak"
   }
  ],
- "season": {
-  "ko": "가을",
-  "en": "Autumn",
-  "ja": "秋",
-  "zh": "秋天"
+ "biome": {
+  "preset": "autumn",
+  "treeline": 760,
+  "rockline": 560,
+  "flat": 0.2
  }
 }

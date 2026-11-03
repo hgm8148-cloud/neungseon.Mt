@@ -57,7 +57,11 @@
    "lat": 35.395,
    "lon": 138.733,
    "elev": 2305,
-   "snap": "elev"
+   "snap": "elev",
+   "desc": {
+    "ko": "해발 2,305m. 정상 등산객의 절반 이상이 이 길로 올라요.",
+    "en": "2,305 m. More than half of all summit climbers take this route."
+   }
   },
   {
    "ko": "7합목",
@@ -67,7 +71,11 @@
    "lat": 35.376,
    "lon": 138.742,
    "elev": 2700,
-   "snap": "elev"
+   "snap": "elev",
+   "desc": {
+    "ko": "나무가 사라지고 붉은 화산 자갈 지그재그 길이 시작돼요.",
+    "en": "Trees give way to switchbacks of red volcanic scree."
+   }
   },
   {
    "ko": "8합목",
@@ -77,7 +85,11 @@
    "lat": 35.37,
    "lon": 138.738,
    "elev": 3100,
-   "snap": "elev"
+   "snap": "elev",
+   "desc": {
+    "ko": "산장이 모여 있는 곳이에요. 공기가 눈에 띄게 얇아져요.",
+    "en": "A cluster of mountain huts. The air is noticeably thinner."
+   }
   },
   {
    "ko": "후지산 정상",
@@ -90,10 +102,11 @@
    "snap": "peak"
   }
  ],
- "season": {
-  "ko": "가을",
-  "en": "Autumn",
-  "ja": "秋",
-  "zh": "秋天"
+ "biome": {
+  "preset": "larch",
+  "treeline": 2450,
+  "rockline": 2350,
+  "plantline": 2600,
+  "snow": 3350
  }
 }

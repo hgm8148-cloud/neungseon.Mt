@@ -57,7 +57,11 @@
    "lat": 27.9806,
    "lon": 86.8292,
    "elev": 5164,
-   "snap": "elev"
+   "snap": "elev",
+   "desc": {
+    "ko": "해발 5,163m. 예전 에베레스트 베이스캠프 자리예요.",
+    "en": "5,163 m, the former Everest base camp."
+   }
   },
   {
    "ko": "칼라파타르 전망대",
@@ -70,10 +74,11 @@
    "snap": "peak"
   }
  ],
- "season": {
-  "ko": "가을",
-  "en": "Autumn",
-  "ja": "秋",
-  "zh": "秋天"
+ "biome": {
+  "preset": "alpine",
+  "treeline": 3900,
+  "rockline": 4000,
+  "plantline": 5250,
+  "snow": 5550
  }
 }

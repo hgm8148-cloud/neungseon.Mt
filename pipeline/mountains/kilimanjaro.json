@@ -57,7 +57,11 @@
    "lat": -3.07,
    "lon": 37.364,
    "elev": 5685,
-   "snap": "elev"
+   "snap": "elev",
+   "desc": {
+    "ko": "키보 분화구 테두리에 처음 닿는 곳이에요.",
+    "en": "The first point on the rim of the Kibo crater."
+   }
   },
   {
    "ko": "스텔라 포인트",
@@ -67,7 +71,11 @@
    "lat": -3.072,
    "lon": 37.359,
    "elev": 5756,
-   "snap": "elev"
+   "snap": "elev",
+   "desc": {
+    "ko": "분화구 테두리 위, 빙하가 눈앞에 보여요.",
+    "en": "On the crater rim, with glaciers right in front of you."
+   }
   },
   {
    "ko": "우후루 피크",
@@ -80,10 +88,11 @@
    "snap": "peak"
   }
  ],
- "season": {
-  "ko": "가을",
-  "en": "Autumn",
-  "ja": "秋",
-  "zh": "秋天"
+ "biome": {
+  "preset": "volcanic",
+  "treeline": 3000,
+  "rockline": 3100,
+  "plantline": 4300,
+  "snow": 5750
  }
 }

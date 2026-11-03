@@ -67,7 +67,11 @@
    "lat": 46.6155,
    "lon": 12.306,
    "elev": 2344,
-   "snap": "elev"
+   "snap": "elev",
+   "desc": {
+    "ko": "세 봉우리의 남쪽 기슭을 지나요.",
+    "en": "Passing below the south side of the three peaks."
+   }
   },
   {
    "ko": "라바레도 고개",
@@ -77,7 +81,11 @@
    "lat": 46.621,
    "lon": 12.3075,
    "elev": 2454,
-   "snap": "elev"
+   "snap": "elev",
+   "desc": {
+    "ko": "고개를 넘으면 세 봉우리의 북벽이 한꺼번에 나타나요.",
+    "en": "Over the pass, the three north faces appear all at once."
+   }
   },
   {
    "ko": "로카텔리 산장",
@@ -90,10 +98,11 @@
    "snap": "elev"
   }
  ],
- "season": {
-  "ko": "가을",
-  "en": "Autumn",
-  "ja": "秋",
-  "zh": "秋天"
+ "biome": {
+  "preset": "alpine",
+  "treeline": 2150,
+  "rockline": 2250,
+  "plantline": 2550,
+  "snow": 2900
  }
 }

@@ -67,7 +67,11 @@
    "lat": 35.13,
    "lon": 126.981,
    "elev": 586,
-   "snap": "elev"
+   "snap": "elev",
+   "desc": {
+    "ko": "넓은 안부라서 광주 시내가 한눈에 들어와요.",
+    "en": "A broad saddle with a wide view over Gwangju."
+   }
   },
   {
    "ko": "장불재",
@@ -77,7 +81,11 @@
    "lat": 35.1225,
    "lon": 126.996,
    "elev": 900,
-   "snap": "elev"
+   "snap": "elev",
+   "desc": {
+    "ko": "가을이면 억새가 은빛으로 출렁이는 고개예요.",
+    "en": "A pass where silver grass ripples in autumn."
+   }
   },
   {
    "ko": "입석대",
@@ -87,7 +95,11 @@
    "lat": 35.1238,
    "lon": 127.001,
    "elev": 1017,
-   "snap": "elev"
+   "snap": "elev",
+   "desc": {
+    "ko": "천연기념물 제465호 주상절리. 돌기둥이 줄지어 서 있어요.",
+    "en": "Columnar joints, Natural Monument No. 465: rows of standing stone pillars."
+   }
   },
   {
    "ko": "서석대",
@@ -100,10 +112,10 @@
    "snap": "elev"
   }
  ],
- "season": {
-  "ko": "가을",
-  "en": "Autumn",
-  "ja": "秋",
-  "zh": "秋天"
+ "biome": {
+  "preset": "autumn",
+  "treeline": 930,
+  "rockline": 1050,
+  "grass": 0.4
  }
 }

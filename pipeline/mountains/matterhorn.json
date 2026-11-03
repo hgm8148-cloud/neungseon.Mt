@@ -57,7 +57,11 @@
    "lat": 45.9917,
    "lon": 7.709,
    "elev": 2583,
-   "snap": "elev"
+   "snap": "elev",
+   "desc": {
+    "ko": "작은 호수와 예배당이 있는 들머리예요.",
+    "en": "A trailhead with a small lake and chapel."
+   }
   },
   {
    "ko": "회른리 능선 입구",
@@ -67,7 +71,11 @@
    "lat": 45.988,
    "lon": 7.69,
    "elev": 2900,
-   "snap": "elev"
+   "snap": "elev",
+   "desc": {
+    "ko": "바위와 자갈뿐인 능선이에요. 북벽이 머리 위로 솟아요.",
+    "en": "Nothing but rock and scree; the north face towers overhead."
+   }
   },
   {
    "ko": "회른리 산장",
@@ -80,10 +88,11 @@
    "snap": "elev"
   }
  ],
- "season": {
-  "ko": "가을",
-  "en": "Autumn",
-  "ja": "秋",
-  "zh": "秋天"
+ "biome": {
+  "preset": "alpine",
+  "treeline": 2250,
+  "rockline": 2400,
+  "plantline": 2850,
+  "snow": 3150
  }
 }

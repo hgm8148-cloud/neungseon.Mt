@@ -73,10 +73,9 @@
    "snap": "peak"
   }
  ],
- "season": {
-  "ko": "가을",
-  "en": "Autumn",
-  "ja": "秋",
-  "zh": "秋天"
+ "biome": {
+  "preset": "granite-pine",
+  "treeline": 1900,
+  "rockline": 1650
  }
 }

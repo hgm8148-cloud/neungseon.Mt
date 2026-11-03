@@ -67,7 +67,11 @@
    "lat": 36.964,
    "lon": 128.481,
    "elev": 1340,
-   "snap": "elev"
+   "snap": "elev",
+   "desc": {
+    "ko": "나무가 줄고 바람 부는 초원 능선이 시작돼요.",
+    "en": "Trees thin out and the windswept grassy ridge begins."
+   }
   },
   {
    "ko": "비로봉 정상",
@@ -80,10 +84,11 @@
    "snap": "peak"
   }
  ],
- "season": {
-  "ko": "가을",
-  "en": "Autumn",
-  "ja": "秋",
-  "zh": "秋天"
+ "biome": {
+  "preset": "highland",
+  "treeline": 1330,
+  "rockline": 1430,
+  "grass": 0.45,
+  "bare": 0
  }
 }

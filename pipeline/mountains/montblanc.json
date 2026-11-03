@@ -67,7 +67,11 @@
    "lat": 45.9755,
    "lon": 6.893,
    "elev": 2210,
-   "snap": "elev"
+   "snap": "elev",
+   "desc": {
+    "ko": "작은 호수들이 이어져요. 사다리 구간을 조심하세요.",
+    "en": "A chain of small lakes. Watch your step on the ladders."
+   }
   },
   {
    "ko": "락 블랑",
@@ -80,10 +84,11 @@
    "snap": "elev"
   }
  ],
- "season": {
-  "ko": "가을",
-  "en": "Autumn",
-  "ja": "秋",
-  "zh": "秋天"
+ "biome": {
+  "preset": "larch",
+  "treeline": 2150,
+  "rockline": 2200,
+  "plantline": 2700,
+  "snow": 2900
  }
 }

@@ -57,7 +57,11 @@
    "lat": 35.877,
    "lon": 127.756,
    "elev": 920,
-   "snap": "elev"
+   "snap": "elev",
+   "desc": {
+    "ko": "덕유산 깊은 골짜기의 절이에요. 여기서부터 향적봉까지 가파른 길이에요.",
+    "en": "A temple deep in the Deogyusan valley; from here it's a steep climb to Hyangjeokbong."
+   }
   },
   {
    "ko": "향적봉 정상",
@@ -70,10 +74,9 @@
    "snap": "peak"
   }
  ],
- "season": {
-  "ko": "가을",
-  "en": "Autumn",
-  "ja": "秋",
-  "zh": "秋天"
+ "biome": {
+  "preset": "conifer",
+  "treeline": 1640,
+  "rockline": 1590
  }
 }
