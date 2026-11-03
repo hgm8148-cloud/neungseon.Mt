@@ -13,6 +13,7 @@ sky_patch.py          일출·오전·오후·일몰·심야 사진 색 하늘, 
 avatar_patch.py       아바타 외형·걸음 모션
 weather_patch.py      계절 날씨(꽃잎·소나기·낙엽·눈)와 게임 중 계절 바꾸기
 release_patch.py      출시 전 점검에서 고친 것들
+lang_patch.py         해외 산 페이지에 그 나라 말 더하기 (i18n/<언어>.tsv, python3 lang_patch.py 로 표 점검)
 ```
 
 ## 새 산 추가하기

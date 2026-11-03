@@ -16,6 +16,7 @@ from sky_patch import patch_sky, SKY_ROWS
 from avatar_patch import patch_avatar
 from weather_patch import patch_weather, WX_ROWS
 from release_patch import patch_release
+from lang_patch import patch_lang
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PF = '/mnt/project-files/hiking-game'
@@ -290,6 +291,7 @@ def build_page(T, m, mts, data):
     patch_avatar(P)
     patch_weather(P, m)
     patch_release(P, m)
+    patch_lang(P, m)
     # 선택 화면
     P.rep('</style>', SEL_CSS + '</style>', 1)
     P.rep('<button class="btn" id="go">', '<button class="btn sec" id="mtOpen" type="button">다른 산 고르기</button>\n    <button class="btn" id="go">', 1)

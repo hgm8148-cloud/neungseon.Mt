@@ -1,0 +1,509 @@
+0	Neungseon
+1	Neungseon · Escursione senza fretta
+2	Neungseon · Escursione d'autunno
+3	Bukhansan
+4	Bukhansan · Baegundae
+5	Bukhansan · Baegundae 836 m
+6	Baegundae
+7	Vetta del Baegundae
+8	Vetta del Baegundae 836 m
+9	Vetta del Baegundae 360°
+10	Centro visitatori di Baegundae
+11	Passo Harujae
+12	Rifugio Baegun
+13	Porta Wimun
+14	Porta Wimun
+15	→ Passo Harujae → Rifugio Baegun → Porta Wimun →
+16	Partenza dal lato di Ui-dong. La tua escursione inizia qui.
+17	Il primo passo. Riprendi fiato prima di ripartire.
+18	Sosta sotto l'Insubong. La vetta non è lontana.
+19	Oltre la porta della fortezza inizia il tratto roccioso. Segui i corrimano.
+20	La cima più alta del Bukhansan, 836 m sul livello del mare.
+21	Un passo alla volta, insieme su un sentiero d'autunno
+22	Si apre il sentiero
+23	Partenza
+24	Allacciando gli scarponi alla partenza
+25	Si aprono le creste lontane
+26	Si pianta il bosco d'autunno
+27	Si chiamano gli altri escursionisti
+28	Il sentiero raggiunge la vetta
+29	In autunno, insieme al Baegundae sul Bukhansan
+30	Solo andata, circa
+31	km · terreno da veri dati altimetrici
+32	Il tuo nome da escursionista
+33	Nuovo nome
+34	Colori dell'abbigliamento
+35	Giacca
+36	Pantaloni
+37	Cappellino
+38	Zaino
+39	Chi apre questa pagina con te appare sullo stesso sentiero. Saluta (1) passando.
+40	Saluta gli escursionisti che incontri. L'escursione insieme online arriva presto.
+41	Spingi il cerchio in basso a sinistra per camminare · Trascina per guardarti intorno · Tocca il terreno per andarci
+42	cammina ·
+43	più veloce · clicca il terreno per andarci · trascina per guardare ·
+44	cammino automatico ·
+45	prima persona ·
+46	nascondi pulsanti ·
+47	mappa ·
+48	checkpoint
+49	Inizia l'escursione
+50	Puoi anche tenere premuta la foto per salvarla
+51	Condividi
+52	Salva
+53	Chiudi
+54	Foto salvata
+55	La tua foto
+56	Schermo intero
+57	Ruota lo schermo
+58	Orizzontale
+59	Verticale
+60	Su iPhone: Condividi → Aggiungi a Home per giocare a schermo intero senza barra degli indirizzi
+61	Su questo dispositivo disattiva il blocco rotazione e ruota il telefono
+62	Gli escursionisti sullo stesso sentiero appaiono dal vivo. Saluta (1) passando.
+63	La tua ultima escursione è stata salvata
+64	Continua a salire
+65	Ricomincia dalla partenza
+66	Di nuovo sul sentiero
+67	L'escursione si salva da sola. Chiudi quando vuoi e riprendi da dove eri
+68	Altitudine: AWS Terrain Tiles (Mapzen Terrarium, DEM pubblici come SRTM). Con una risoluzione di circa 30 m il terreno è più liscio del reale, e il sentiero collega in modo approssimato i punti principali.
+69	Cambia abbigliamento
+70	Parti così
+71	Alt.
+72	Dist.
+73	Tempo
+74	Pendenza
+75	Energia
+76	Cuore
+77	Acqua
+78	 ripido
+79	Lungo il sentiero
+80	Cammina piano
+81	Camminata lenta
+82	Fermati
+83	Saluta
+84	Riposa
+85	Acqua
+86	Respira
+87	Foto
+88	Inspira
+89	Espira
+90	Offrici uno spuntino
+91	Sacchetto di mandarini
+92	Rotolo di gimbap
+93	Noodle in vetta
+94	≈ 1 $
+95	≈ 1,5 $
+96	≈ 2 $
+97	Un sacchetto di mandarini fa crescere un acero in più nel bosco.
+98	Un rotolo di gimbap tiene acceso un altro giorno il server per camminare insieme.
+99	Dei noodle in vetta aprono un altro tratto di sentiero sulla prossima montagna.
+100	Neungseon è un piccolo gioco di escursionismo creato da una sola persona, una montagna alla volta. Se il sentiero di oggi ti è piaciuto, metti uno spuntino nel nostro zaino.
+101	Il tuo spuntino paga i server e la prossima montagna, e una parte va alla tutela delle montagne coreane, come il recupero dopo gli incendi.
+102	Mostra pulsanti
+103	Punto panoramico
+104	Sosta nella valle
+105	Belvedere a metà costa
+106	Belvedere sulla cresta
+107	Fermati e goditi la vista
+108	Creste autunnali oltre la valle
+109	L'Insubong e creste su creste
+110	Ascolta il ruscello e guarda la valle d'autunno
+111	Seul e le creste a strati sopra il mare di nuvole
+112	Guarda
+113	Guarda tutto intorno
+114	Goditi la vista
+115	Il respiro si calma piano piano
+116	Riprendi a camminare
+117	In pausa
+118	L'energia torna lentamente
+119	Alzati
+120	Senza fiato
+121	Riprendi fiato un momento
+122	Siediti e riposa un po'
+123	Siediti sulla panchina
+124	Siediti sulla roccia
+125	Roccia piatta
+126	Area di sosta
+127	panchina
+128	roccia
+129	Ti siedi a riposare a bordo sentiero
+130	Un sorso d'acqua fresca · Energia +40
+131	Hai finito l'acqua
+132	Fuori sentiero · cammini più lentamente
+133	Lontano dal sentiero · premi R per tornare al checkpoint
+134	La roccia è troppo ripida. Torna sul sentiero.
+135	Guardati intorno con calma · salvalo con Foto (5)
+136	Pulsanti nascosti · premi H o il pulsante in alto a destra per mostrarli
+137	Ciao!
+138	Salve~
+139	Buona salita!
+140	Buona escursione
+141	La vetta è vicina
+142	Piacere di incontrarti!
+143	Escursionista
+144	836 m · cima più alta del Bukhansan
+145	Tempo di cammino
+146	Distanza percorsa
+147	Saluti scambiati
+148	Pause
+149	Se il sentiero ti è piaciuto, offri un piccolo spuntino per la prossima montagna.
+150	Goditi il panorama dalla vetta
+151	⛺ Campeggia in vetta
+152	Scendi
+153	Discesa
+154	Guarda il fuoco
+155	Guarda le stelle
+156	Ramen
+157	Dormi in tenda
+158	Fine
+159	Scendi piano
+160	In discesa…
+161	Lungo la discesa
+162	In discesa
+163	Piano con le ginocchia, un passo alla volta
+164	Campo in vetta
+165	Il sole tramonta e le stelle spuntano una a una
+166	Buongiorno
+167	Alba dal Baegundae
+168	Campeggio in vetta · qui l'energia non cala
+169	⛰ Vetta
+170	Campeggio
+171	Acqua finita · riposa o respira per riempire
+172	Borracce piene 💧
+173	Riempita una borraccia 💧
+174	Borracce riempite al ruscello 💧
+175	Borracce riempite al campeggio 💧
+176	Barra di navigazione fissata · tocca di nuovo schermo intero per nasconderla
+177	Buona escursione!
+178	Stai attento
+179	Bravo per oggi!
+180	Ci vediamo in vetta!
+181	Accedi con Google
+182	Esci
+183	Accedi per continuare l'escursione su altri dispositivi
+184	Accesso con Google · l'escursione si sincronizza tra dispositivi
+185	Disconnesso · questo dispositivo conserva i dati
+186	Accesso Google non riuscito · riprova tra poco
+187	Accesso non disponibile al momento · riprova tra poco
+188	Campeggiare qui o scendere piano?
+189	Altro
+190	Colore della tenda
+191	Montata quando campeggi in vetta
+192	Braccia su, inspira
+193	Braccia giù, espira
+194	⛰ Menu della vetta
+195	Cammina veloce
+196	Camminata veloce
+197	Scendi veloce
+198	Discesa veloce…
+199	Veloce
+200	Lento
+201	Genere
+202	Fuoco, stelle, tenda… prenditi il tuo tempo
+203	Tocca un cerchio luminoso per sederti dove vuoi
+204	Campeggiatori virtuali intorno al fuoco
+205	Monta la tenda
+206	Smonta
+207	Tenda montata
+208	Tenda riposta
+209	Un'aurora danza a nord · una notte rara
+210	L'ora dell'aurora del sabato · guardiamo insieme a nord
+211	M
+212	F
+213	Ricomincia
+214	Neungseon è un piccolo gioco di escursionismo creato da una sola persona, una montagna alla volta. Se il sentiero ti è piaciuto, offri uno spuntino caldo per la prossima montagna.
+215	Il sostegno è sempre facoltativo. Camminare con noi conta già molto.
+216	Torna alla montagna
+217	Le opzioni di sostegno arriveranno presto.
+218	Toss · bonifico rapido coreano
+219	Sostieni con Toss
+220	Inquadra il QR con la fotocamera del telefono
+221	Tocca per inviare con KakaoPay
+222	Apri KakaoPay
+223	Sostegno dall'estero
+224	Lento
+225	Rosso
+226	Quieto
+227	Accogliente
+228	Piccolo
+229	Limpido
+230	Robusto
+231	Fresco
+232	Caldo
+233	Tranquillo
+234	Silenzioso
+235	Scintillante
+236	Scoiattolo
+237	Pigna
+238	Foglia d'acero
+239	Ghianda
+240	Uccellino
+241	Brezza di pini
+242	Muschio
+243	Erba argentata
+244	Nuvola
+245	Sentierino
+246	Astro selvatico
+247	Prima / terza persona (V)
+248	Soprannome
+249	Altro nome
+250	Menu
+251	Apri menu
+252	Mostra di nuovo i pulsanti
+253	Nascondi tutti i pulsanti
+254	Vista escursione
+255	Suono
+256	Suono on/off
+257	Cambia vista
+258	Joystick di movimento
+259	In cammino con te ora
+260	Mappa grande (M)
+261	Mostra mappa grande
+262	Vista pulita: nascondi tutti i pulsanti (H)
+263	Lingua
+264	Quale montagna oggi?
+265	Scegli un sentiero da veri dati altimetrici
+266	Corea · 10 montagne
+267	Mondo · 10 montagne
+268	Scegli un'altra montagna
+269	Sei qui
+270	In arrivo
+271	Resta su questa montagna
+272	Riprendi fiato un momento.
+273	Ui-dong · Sentiero del Baegundae
+274	Ui-dong
+275	Corea
+276	Hallasan
+277	Witse-oreum
+278	Rifugio Witse-oreum
+279	Sentiero Yeongsil
+280	Yeongsil
+281	Partenza Yeongsil
+282	Rocce Byeongpung
+283	Seonjakjiwat
+284	Jirisan
+285	Cheonwangbong
+286	Vetta del Cheonwangbong
+287	Sentiero Jungsan-ri
+288	Jungsan-ri
+289	Bivio Kalbawi
+290	Tempio Beopgyesa
+291	Seoraksan
+292	Daecheongbong
+293	Vetta del Daecheongbong
+294	Sentiero Osaek
+295	Osaek
+296	Centro visitatori Osaek
+297	Cascata di Seorak
+298	Mudeungsan
+299	Seoseokdae
+300	Sentiero Jeungsimsa
+301	Jeungsimsa
+302	Partenza Jeungsimsa
+303	Passo Jungmeorijae
+304	Passo Jangbuljae
+305	Ipseokdae
+306	Wolchulsan
+307	Cheonhwangbong
+308	Vetta del Cheonhwangbong
+309	Cheonhwangsa · Sentiero del ponte delle nuvole
+310	Cheonhwangsa
+311	Centro visitatori Cheonhwangsa
+312	Ponte delle nuvole
+313	Naejangsan
+314	Sinseonbong
+315	Vetta del Sinseonbong
+316	Naejangsa · Sentiero Yeonjabong
+317	Tempio Naejangsa
+318	Yeonjabong
+319	Deogyusan
+320	Hyangjeokbong
+321	Vetta dello Hyangjeokbong
+322	Sentiero Baengnyeonsa
+323	Tempio Baengnyeonsa
+324	Sobaeksan
+325	Birobong
+326	Vetta del Birobong
+327	Sentiero Eouigok
+328	Eouigok
+329	Centro visitatori Eouigok
+330	Bivio Eouigok
+331	Taebaeksan
+332	Altare Cheonjedan
+333	Sentiero Yuilsa
+334	Yuilsa
+335	Partenza Yuilsa
+336	Area di sosta Yuilsa
+337	Janggunbong
+338	Everest
+339	Kala Patthar
+340	Belvedere del Kala Patthar
+341	Gorak Shep · Kala Patthar
+342	Gorak Shep
+343	Nepal
+344	Fuji
+345	Vetta del Fuji
+346	Sentiero Yoshida
+347	5ª stazione Yoshida
+348	7ª stazione
+349	8ª stazione
+350	Giappone
+351	Kilimangiaro
+352	Uhuru Peak
+353	Giro del cratere
+354	Gilman's Point
+355	Stella Point
+356	Tanzania
+357	Cervino
+358	Capanna Hörnli
+359	Sentiero della Capanna Hörnli
+360	Schwarzsee
+361	Attacco della cresta dell'Hörnli
+362	Svizzera
+363	Monte Bianco
+364	Lac Blanc
+365	Sentiero del Lac Blanc
+366	La Flégère
+367	Lacs des Chéserys
+368	Francia
+369	Tre Cime di Lavaredo
+370	Rifugio Locatelli
+371	Giro delle Tre Cime
+372	Rifugio Auronzo
+373	Rifugio Lavaredo
+374	Forcella Lavaredo
+375	Italia
+376	Half Dome
+377	Vetta dell'Half Dome
+378	Sub Dome · Cavi
+379	Bivio Sub Dome
+380	Bivio Half Dome
+381	Sub Dome
+382	Stati Uniti
+383	Huangshan
+384	Picco del Loto
+385	Vetta del Picco del Loto
+386	Torre Yuping · Picco del Loto
+387	Torre Yuping
+388	Cina
+389	Torres del Paine
+390	Mirador Las Torres
+391	Chileno · Mirador Las Torres
+392	Refugio Chileno
+393	Campamento Torres
+394	Cile
+395	Tongariro
+396	Red Crater
+397	Tongariro Alpine Crossing
+398	Mangatepopo
+399	Soda Springs
+400	South Crater
+401	Nuova Zelanda
+402	Cervino · Capanna Hörnli
+403	Cervino · Capanna Hörnli 3260 m
+404	Capanna Hörnli 3260 m
+405	Capanna Hörnli 360°
+406	3260 m · ai piedi della cresta dell'Hörnli del Cervino
+407	La parete nord del Cervino incombe sopra di te
+408	Insieme alla Capanna Hörnli sul Cervino
+409	Alba dalla Capanna Hörnli
+410	Partenza Schwarzsee
+411	→ Attacco della cresta dell'Hörnli →
+412	Una partenza con un laghetto e una cappella.
+413	Solo roccia e ghiaione; la parete nord incombe sopra di te.
+414	Ai piedi della cresta dell'Hörnli del Cervino, 3260 m sul livello del mare.
+415	Un passo alla volta, insieme sul sentiero
+416	I tuoi progressi sono salvati
+417	Scegli un'altra montagna (i progressi sono salvati)
+418	Stagione
+419	Primavera
+420	Estate
+421	Autunno
+422	Inverno
+423	Questa montagna resta tutto l'anno nella sua stagione di neve e roccia
+424	Cambiandola la montagna viene ridisegnata
+425	Alba
+426	Mattino
+427	Pomeriggio
+428	Tramonto
+429	Notte fonda
+430	In tempo reale
+431	🕐 Alba
+432	🕐 Mattino
+433	🕐 Pomeriggio
+434	🕐 Tramonto
+435	🕐 Notte fonda
+436	Petali danzano nella brezza di primavera 🌸
+437	Passa un acquazzone · il cielo si copre per un po' 🌧
+438	Le foglie volteggiano nel vento 🍂
+439	Iniziano a cadere i fiocchi di neve ❄
+440	La pioggia è cessata · il cielo si rasserena
+441	Ha smesso di nevicare
+442	Cambia stagione
+443	Cambia stagione qui · la montagna viene ridisegnata e riparti da questo punto
+444	La stagione è cambiata · continua a camminare
+445	Monte Bianco · Lac Blanc
+446	Monte Bianco · Lac Blanc 2352 m
+447	Lac Blanc 2352 m
+448	Lac Blanc 360°
+449	2352 m · dove il Monte Bianco si specchia nel lago
+450	Il massiccio del Monte Bianco si alza oltre il lago
+451	Insieme al Lac Blanc davanti al Monte Bianco
+452	Alba dal Lac Blanc
+453	Partenza La Flégère
+454	→ Lacs des Chéserys →
+455	Partenza a La Flégère. La tua escursione inizia qui.
+456	Una catena di laghetti. Attenzione sulle scale.
+457	Dove il Monte Bianco si specchia nel lago, 2352 m sul livello del mare.
+458	Tre Cime di Lavaredo · Rifugio Locatelli
+459	Tre Cime di Lavaredo · Rifugio Locatelli 2405 m
+460	Rifugio Locatelli 2405 m
+461	Rifugio Locatelli 360°
+462	2405 m · di fronte alle tre pareti nord
+463	Tre giganteschi torrioni di roccia fianco a fianco
+464	Insieme al Rifugio Locatelli alle Tre Cime di Lavaredo
+465	Alba dal Rifugio Locatelli
+466	Partenza Rifugio Auronzo
+467	→ Rifugio Lavaredo → Forcella Lavaredo →
+468	Partenza al Rifugio Auronzo. La tua escursione inizia qui.
+469	Si passa sotto il versante sud delle tre cime.
+470	Oltre la forcella, le tre pareti nord appaiono tutte insieme.
+471	Di fronte alle tre pareti nord, 2405 m sul livello del mare.
+472	Torres del Paine · Mirador Las Torres
+473	Torres del Paine · Mirador Las Torres 875 m
+474	Mirador Las Torres 875 m
+475	Mirador Las Torres 360°
+476	875 m · lago glaciale sotto tre torri di granito
+477	Tre torri sopra un lago turchese
+478	Insieme al Mirador Las Torres a Torres del Paine
+479	Alba dal Mirador Las Torres
+480	Partenza Refugio Chileno
+481	→ Campamento Torres →
+482	Partenza al Refugio Chileno. La tua escursione inizia qui.
+483	Il margine del bosco di lenga; davanti, un enorme pendio di massi.
+484	Lago glaciale sotto tre torri di granito, 875 m sul livello del mare.
+485	Everest · Kala Patthar
+486	Everest · Kala Patthar 5644 m
+487	Belvedere del Kala Patthar 5644 m
+488	Belvedere del Kala Patthar 360°
+489	5644 m · la collina di fronte all'Everest
+490	L'Everest e il ghiacciaio del Khumbu davanti a te
+491	Insieme al belvedere del Kala Patthar davanti all'Everest
+492	Alba dal Kala Patthar
+493	Partenza Gorak Shep
+494	5.163 m, il vecchio campo base dell'Everest.
+495	La collina di fronte all'Everest, 5644 m sul livello del mare.
+496	Kilimangiaro · Uhuru Peak
+497	Kilimangiaro · Uhuru Peak 5895 m
+498	Uhuru Peak 5895 m
+499	Uhuru Peak 360°
+500	5895 m · la cima più alta dell'Africa
+501	Pianure africane infinite oltre i ghiacciai
+502	Insieme all'Uhuru Peak sul Kilimangiaro
+503	Alba dall'Uhuru Peak
+504	Partenza Gilman's Point
+505	→ Stella Point →
+506	Il primo punto sul bordo del cratere del Kibo.
+507	Sul bordo del cratere, con i ghiacciai davanti a te.
+508	La cima più alta dell'Africa, 5895 m sul livello del mare.
