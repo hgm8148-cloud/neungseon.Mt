@@ -1,0 +1,99 @@
+{
+ "id": "trecime",
+ "region": "world",
+ "order": 16,
+ "flag": "it",
+ "tz": 1,
+ "cityLights": false,
+ "area": {
+  "ko": "트레 치메",
+  "en": "Tre Cime di Lavaredo",
+  "ja": "トレ・チーメ",
+  "zh": "拉瓦雷多三峰"
+ },
+ "peak": {
+  "ko": "로카텔리 산장",
+  "en": "Rifugio Locatelli",
+  "ja": "ロカテッリ小屋",
+  "zh": "洛卡特利小屋"
+ },
+ "end": {
+  "ko": "로카텔리 산장",
+  "en": "Rifugio Locatelli",
+  "ja": "ロカテッリ小屋",
+  "zh": "洛卡特利小屋"
+ },
+ "elev": 2405,
+ "trailheadArea": {
+  "ko": "아우론초 산장",
+  "en": "Rifugio Auronzo",
+  "ja": "アウロンツォ小屋",
+  "zh": "奥龙佐小屋"
+ },
+ "summitSub": {
+  "ko": "세 봉우리 북벽 정면",
+  "en": "facing the three north faces",
+  "ja": "三峰の北壁の正面",
+  "zh": "正对三峰北壁"
+ },
+ "vista": {
+  "ko": "세 개의 거대한 바위 봉우리가 나란히 서 있어요",
+  "en": "Three giant rock towers stand side by side",
+  "ja": "三つの巨大な岩峰が並び立ちます",
+  "zh": "三座巨大岩峰并肩而立"
+ },
+ "course": {
+  "ko": "트레 치메 둘레길",
+  "en": "Tre Cime Circuit",
+  "ja": "トレ・チーメ周回路",
+  "zh": "三峰环线"
+ },
+ "waypoints": [
+  {
+   "ko": "아우론초 산장",
+   "en": "Rifugio Auronzo",
+   "ja": "アウロンツォ小屋",
+   "zh": "奥龙佐小屋",
+   "lat": 46.612,
+   "lon": 12.295,
+   "elev": 2320,
+   "snap": "elev"
+  },
+  {
+   "ko": "라바레도 산장",
+   "en": "Rifugio Lavaredo",
+   "ja": "ラヴァレード小屋",
+   "zh": "拉瓦雷多小屋",
+   "lat": 46.6155,
+   "lon": 12.306,
+   "elev": 2344,
+   "snap": "elev"
+  },
+  {
+   "ko": "라바레도 고개",
+   "en": "Forcella Lavaredo",
+   "ja": "ラヴァレード峠",
+   "zh": "拉瓦雷多垭口",
+   "lat": 46.621,
+   "lon": 12.3075,
+   "elev": 2454,
+   "snap": "elev"
+  },
+  {
+   "ko": "로카텔리 산장",
+   "en": "Rifugio Locatelli",
+   "ja": "ロカテッリ小屋",
+   "zh": "洛卡特利小屋",
+   "lat": 46.629,
+   "lon": 12.311,
+   "elev": 2405,
+   "snap": "elev"
+  }
+ ],
+ "season": {
+  "ko": "가을",
+  "en": "Autumn",
+  "ja": "秋",
+  "zh": "秋天"
+ }
+}

@@ -1,0 +1,108 @@
+{
+ "id": "hallasan",
+ "region": "kr",
+ "order": 2,
+ "flag": "kr",
+ "tz": 9,
+ "cityLights": true,
+ "area": {
+  "ko": "한라산",
+  "en": "Hallasan",
+  "ja": "漢拏山",
+  "zh": "汉拿山"
+ },
+ "peak": {
+  "ko": "윗세오름",
+  "en": "Witse-oreum",
+  "ja": "ウィッセオルム",
+  "zh": "威势岳"
+ },
+ "end": {
+  "ko": "윗세오름 대피소",
+  "en": "Witse-oreum Shelter",
+  "ja": "ウィッセオルム避難所",
+  "zh": "威势岳避难所"
+ },
+ "elev": 1700,
+ "trailheadArea": {
+  "ko": "영실",
+  "en": "Yeongsil",
+  "ja": "霊室",
+  "zh": "灵室"
+ },
+ "summitSub": {
+  "ko": "백록담 남벽이 보이는 고원",
+  "en": "plateau below the south wall of Baengnokdam",
+  "ja": "白鹿潭南壁を望む高原",
+  "zh": "可望白鹿潭南壁的高原"
+ },
+ "vista": {
+  "ko": "구상나무 숲 너머로 제주 바다가 펼쳐져요",
+  "en": "The sea around Jeju opens beyond the Korean fir forest",
+  "ja": "チョウセンシラベの森の向こうに済州の海が広がります",
+  "zh": "朝鲜冷杉林外，济州的大海铺展开来"
+ },
+ "course": {
+  "ko": "영실 코스",
+  "en": "Yeongsil Trail",
+  "ja": "霊室コース",
+  "zh": "灵室路线"
+ },
+ "waypoints": [
+  {
+   "ko": "영실탐방로 입구",
+   "en": "Yeongsil Trailhead",
+   "ja": "霊室登山口",
+   "zh": "灵室登山口",
+   "lat": 33.36,
+   "lon": 126.4952,
+   "elev": 1280,
+   "snap": "elev",
+   "desc": {
+    "ko": "영실 들머리. 소나무 숲길로 산행을 시작합니다."
+   }
+  },
+  {
+   "ko": "병풍바위",
+   "en": "Byeongpung Rocks",
+   "ja": "屏風岩",
+   "zh": "屏风岩",
+   "lat": 33.3592,
+   "lon": 126.5045,
+   "elev": 1600,
+   "snap": "elev",
+   "desc": {
+    "ko": "오백나한 기암이 병풍처럼 둘러선 곳이에요."
+   }
+  },
+  {
+   "ko": "선작지왓",
+   "en": "Seonjakjiwat",
+   "ja": "ソンジャクチワッ",
+   "zh": "仙作地平原",
+   "lat": 33.3622,
+   "lon": 126.5115,
+   "elev": 1680,
+   "snap": "elev",
+   "desc": {
+    "ko": "털진달래와 조릿대가 펼쳐진 고원 평원."
+   }
+  },
+  {
+   "ko": "윗세오름 대피소",
+   "en": "Witse-oreum Shelter",
+   "ja": "ウィッセオルム避難所",
+   "zh": "威势岳避难所",
+   "lat": 33.3632,
+   "lon": 126.5172,
+   "elev": 1700,
+   "snap": "elev"
+  }
+ ],
+ "season": {
+  "ko": "가을",
+  "en": "Autumn",
+  "ja": "秋",
+  "zh": "秋天"
+ }
+}

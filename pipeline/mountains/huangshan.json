@@ -1,0 +1,82 @@
+{
+ "id": "huangshan",
+ "region": "world",
+ "order": 18,
+ "flag": "cn",
+ "tz": 8,
+ "cityLights": false,
+ "area": {
+  "ko": "황산",
+  "en": "Huangshan",
+  "ja": "黄山",
+  "zh": "黄山"
+ },
+ "peak": {
+  "ko": "연화봉",
+  "en": "Lotus Peak",
+  "ja": "蓮花峰",
+  "zh": "莲花峰"
+ },
+ "end": {
+  "ko": "연화봉 정상",
+  "en": "Lotus Peak Summit",
+  "ja": "蓮花峰 山頂",
+  "zh": "莲花峰 山顶"
+ },
+ "elev": 1864,
+ "trailheadArea": {
+  "ko": "옥병루",
+  "en": "Yuping Tower",
+  "ja": "玉屏楼",
+  "zh": "玉屏楼"
+ },
+ "summitSub": {
+  "ko": "황산 최고봉",
+  "en": "highest peak of Huangshan",
+  "ja": "黄山の最高峰",
+  "zh": "黄山最高峰"
+ },
+ "vista": {
+  "ko": "기송과 화강암 봉우리 사이로 운해가 흘러요",
+  "en": "Clouds flow between granite spires and old pines",
+  "ja": "奇松と花崗岩の峰の間を雲海が流れます",
+  "zh": "云海在奇松与花岗岩峰间流动"
+ },
+ "course": {
+  "ko": "옥병루 · 연화봉",
+  "en": "Yuping Tower · Lotus Peak",
+  "ja": "玉屏楼・蓮花峰",
+  "zh": "玉屏楼 · 莲花峰"
+ },
+ "waypoints": [
+  {
+   "ko": "옥병루",
+   "en": "Yuping Tower",
+   "ja": "玉屏楼",
+   "zh": "玉屏楼",
+   "lat": 30.124,
+   "lon": 118.164,
+   "elev": 1680,
+   "snap": "elev",
+   "desc": {
+    "ko": "영객송이 손님을 맞는 곳이에요."
+   }
+  },
+  {
+   "ko": "연화봉 정상",
+   "en": "Lotus Peak Summit",
+   "ja": "蓮花峰 山頂",
+   "zh": "莲花峰 山顶",
+   "lat": 30.13,
+   "lon": 118.166,
+   "elev": 1864,
+   "snap": "peak"
+  }
+ ],
+ "season": {
+  "ko": "가을",
+  "en": "Autumn",
+  "ja": "秋",
+  "zh": "秋天"
+ }
+}

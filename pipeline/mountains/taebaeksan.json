@@ -1,0 +1,99 @@
+{
+ "id": "taebaeksan",
+ "region": "kr",
+ "order": 10,
+ "flag": "kr",
+ "tz": 9,
+ "cityLights": false,
+ "area": {
+  "ko": "태백산",
+  "en": "Taebaeksan",
+  "ja": "太白山",
+  "zh": "太白山"
+ },
+ "peak": {
+  "ko": "천제단",
+  "en": "Cheonjedan",
+  "ja": "天祭壇",
+  "zh": "天祭坛"
+ },
+ "end": {
+  "ko": "천제단",
+  "en": "Cheonjedan Altar",
+  "ja": "天祭壇",
+  "zh": "天祭坛"
+ },
+ "elev": 1561,
+ "trailheadArea": {
+  "ko": "유일사",
+  "en": "Yuilsa",
+  "ja": "唯一寺",
+  "zh": "唯一寺"
+ },
+ "summitSub": {
+  "ko": "하늘에 제사를 지내던 돌 제단",
+  "en": "stone altar for honoring the heavens",
+  "ja": "天を祀った石の祭壇",
+  "zh": "祭天的石坛"
+ },
+ "vista": {
+  "ko": "주목 군락 너머로 백두대간이 굽이쳐요",
+  "en": "The Baekdudaegan winds beyond the yew groves",
+  "ja": "イチイの群落の向こうに白頭大幹がうねります",
+  "zh": "红豆杉林外，白头大干蜿蜒起伏"
+ },
+ "course": {
+  "ko": "유일사 코스",
+  "en": "Yuilsa Trail",
+  "ja": "唯一寺コース",
+  "zh": "唯一寺路线"
+ },
+ "waypoints": [
+  {
+   "ko": "유일사 매표소",
+   "en": "Yuilsa Trailhead",
+   "ja": "唯一寺登山口",
+   "zh": "唯一寺登山口",
+   "lat": 37.115,
+   "lon": 128.942,
+   "elev": 890,
+   "snap": "elev"
+  },
+  {
+   "ko": "유일사 쉼터",
+   "en": "Yuilsa Rest Area",
+   "ja": "唯一寺休憩所",
+   "zh": "唯一寺休息处",
+   "lat": 37.105,
+   "lon": 128.923,
+   "elev": 1300,
+   "snap": "elev"
+  },
+  {
+   "ko": "장군봉",
+   "en": "Janggunbong",
+   "ja": "将軍峰",
+   "zh": "将军峰",
+   "lat": 37.0985,
+   "lon": 128.9165,
+   "elev": 1567,
+   "snap": "peak"
+  },
+  {
+   "ko": "천제단",
+   "en": "Cheonjedan Altar",
+   "ja": "天祭壇",
+   "zh": "天祭坛",
+   "lat": 37.095,
+   "lon": 128.9155,
+   "elev": 1561,
+   "snap": "elev"
+  }
+ ],
+ "season": {
+  "ko": "가을",
+  "en": "Autumn",
+  "ja": "秋",
+  "zh": "秋天"
+ }
+}

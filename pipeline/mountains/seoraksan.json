@@ -1,0 +1,89 @@
+{
+ "id": "seoraksan",
+ "region": "kr",
+ "order": 4,
+ "flag": "kr",
+ "tz": 9,
+ "cityLights": false,
+ "area": {
+  "ko": "설악산",
+  "en": "Seoraksan",
+  "ja": "雪岳山",
+  "zh": "雪岳山"
+ },
+ "peak": {
+  "ko": "대청봉",
+  "en": "Daecheongbong",
+  "ja": "大青峰",
+  "zh": "大青峰"
+ },
+ "end": {
+  "ko": "대청봉 정상",
+  "en": "Daecheongbong Summit",
+  "ja": "大青峰 山頂",
+  "zh": "大青峰 山顶"
+ },
+ "elev": 1708,
+ "trailheadArea": {
+  "ko": "오색",
+  "en": "Osaek",
+  "ja": "五色",
+  "zh": "五色"
+ },
+ "summitSub": {
+  "ko": "설악산 최고봉",
+  "en": "highest peak of Seoraksan",
+  "ja": "雪岳山の最高峰",
+  "zh": "雪岳山最高峰"
+ },
+ "vista": {
+  "ko": "공룡능선과 동해가 한눈에 들어와요",
+  "en": "Dinosaur Ridge and the East Sea in one view",
+  "ja": "恐竜稜線と東海がひと目で見渡せます",
+  "zh": "恐龙岭与东海尽收眼底"
+ },
+ "course": {
+  "ko": "오색 코스",
+  "en": "Osaek Trail",
+  "ja": "五色コース",
+  "zh": "五色路线"
+ },
+ "waypoints": [
+  {
+   "ko": "오색탐방지원센터",
+   "en": "Osaek Visitor Center",
+   "ja": "五色探訪支援センター",
+   "zh": "五色访客中心",
+   "lat": 38.085,
+   "lon": 128.4728,
+   "elev": 470,
+   "snap": "elev"
+  },
+  {
+   "ko": "설악폭포",
+   "en": "Seorak Falls",
+   "ja": "雪岳瀑布",
+   "zh": "雪岳瀑布",
+   "lat": 38.101,
+   "lon": 128.466,
+   "elev": 950,
+   "snap": "elev"
+  },
+  {
+   "ko": "대청봉 정상",
+   "en": "Daecheongbong Summit",
+   "ja": "大青峰 山頂",
+   "zh": "大青峰 山顶",
+   "lat": 38.1194,
+   "lon": 128.4654,
+   "elev": 1708,
+   "snap": "peak"
+  }
+ ],
+ "season": {
+  "ko": "가을",
+  "en": "Autumn",
+  "ja": "秋",
+  "zh": "秋天"
+ }
+}

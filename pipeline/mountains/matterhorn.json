@@ -1,0 +1,89 @@
+{
+ "id": "matterhorn",
+ "region": "world",
+ "order": 14,
+ "flag": "ch",
+ "tz": 1,
+ "cityLights": false,
+ "area": {
+  "ko": "마터호른",
+  "en": "Matterhorn",
+  "ja": "マッターホルン",
+  "zh": "马特洪峰"
+ },
+ "peak": {
+  "ko": "회른리 산장",
+  "en": "Hörnli Hut",
+  "ja": "ヘルンリ小屋",
+  "zh": "霍恩利小屋"
+ },
+ "end": {
+  "ko": "회른리 산장",
+  "en": "Hörnli Hut",
+  "ja": "ヘルンリ小屋",
+  "zh": "霍恩利小屋"
+ },
+ "elev": 3260,
+ "trailheadArea": {
+  "ko": "슈바르츠제",
+  "en": "Schwarzsee",
+  "ja": "シュヴァルツゼー",
+  "zh": "黑湖"
+ },
+ "summitSub": {
+  "ko": "마터호른 북동릉 아래",
+  "en": "at the foot of the Matterhorn's Hörnli ridge",
+  "ja": "マッターホルン北東稜の下",
+  "zh": "马特洪峰东北山脊脚下"
+ },
+ "vista": {
+  "ko": "마터호른 북벽이 머리 위로 솟아 있어요",
+  "en": "The Matterhorn's north face towers overhead",
+  "ja": "マッターホルン北壁が頭上にそびえます",
+  "zh": "马特洪峰北壁高耸头顶"
+ },
+ "course": {
+  "ko": "회른리 산장 길",
+  "en": "Hörnli Hut Trail",
+  "ja": "ヘルンリ小屋への道",
+  "zh": "霍恩利小屋步道"
+ },
+ "waypoints": [
+  {
+   "ko": "슈바르츠제",
+   "en": "Schwarzsee",
+   "ja": "シュヴァルツゼー",
+   "zh": "黑湖",
+   "lat": 45.9917,
+   "lon": 7.709,
+   "elev": 2583,
+   "snap": "elev"
+  },
+  {
+   "ko": "회른리 능선 입구",
+   "en": "Hörnli Ridge Start",
+   "ja": "ヘルンリ稜線入口",
+   "zh": "霍恩利山脊入口",
+   "lat": 45.988,
+   "lon": 7.69,
+   "elev": 2900,
+   "snap": "elev"
+  },
+  {
+   "ko": "회른리 산장",
+   "en": "Hörnli Hut",
+   "ja": "ヘルンリ小屋",
+   "zh": "霍恩利小屋",
+   "lat": 45.9822,
+   "lon": 7.676,
+   "elev": 3260,
+   "snap": "elev"
+  }
+ ],
+ "season": {
+  "ko": "가을",
+  "en": "Autumn",
+  "ja": "秋",
+  "zh": "秋天"
+ }
+}

@@ -1,0 +1,109 @@
+{
+ "id": "mudeungsan",
+ "region": "kr",
+ "order": 5,
+ "flag": "kr",
+ "tz": 9,
+ "cityLights": true,
+ "area": {
+  "ko": "무등산",
+  "en": "Mudeungsan",
+  "ja": "無等山",
+  "zh": "无等山"
+ },
+ "peak": {
+  "ko": "서석대",
+  "en": "Seoseokdae",
+  "ja": "瑞石台",
+  "zh": "瑞石台"
+ },
+ "end": {
+  "ko": "서석대",
+  "en": "Seoseokdae",
+  "ja": "瑞石台",
+  "zh": "瑞石台"
+ },
+ "elev": 1100,
+ "trailheadArea": {
+  "ko": "증심사",
+  "en": "Jeungsimsa",
+  "ja": "証心寺",
+  "zh": "证心寺"
+ },
+ "summitSub": {
+  "ko": "주상절리 병풍",
+  "en": "a screen of columnar joints",
+  "ja": "柱状節理の屏風",
+  "zh": "柱状节理屏风"
+ },
+ "vista": {
+  "ko": "광주 시내와 억새 능선이 내려다보여요",
+  "en": "Gwangju and silver-grass ridges below",
+  "ja": "光州の街とススキの稜線を見下ろします",
+  "zh": "俯瞰光州市区与芒草山脊"
+ },
+ "course": {
+  "ko": "증심사 코스",
+  "en": "Jeungsimsa Trail",
+  "ja": "証心寺コース",
+  "zh": "证心寺路线"
+ },
+ "waypoints": [
+  {
+   "ko": "증심사 입구",
+   "en": "Jeungsimsa Trailhead",
+   "ja": "証心寺入口",
+   "zh": "证心寺入口",
+   "lat": 35.136,
+   "lon": 126.964,
+   "elev": 250,
+   "snap": "elev"
+  },
+  {
+   "ko": "중머리재",
+   "en": "Jungmeorijae Pass",
+   "ja": "チュンモリジェ峠",
+   "zh": "中头岭",
+   "lat": 35.13,
+   "lon": 126.981,
+   "elev": 586,
+   "snap": "elev"
+  },
+  {
+   "ko": "장불재",
+   "en": "Jangbuljae Pass",
+   "ja": "チャンブルジェ峠",
+   "zh": "长佛岭",
+   "lat": 35.1225,
+   "lon": 126.996,
+   "elev": 900,
+   "snap": "elev"
+  },
+  {
+   "ko": "입석대",
+   "en": "Ipseokdae",
+   "ja": "立石台",
+   "zh": "立石台",
+   "lat": 35.1238,
+   "lon": 127.001,
+   "elev": 1017,
+   "snap": "elev"
+  },
+  {
+   "ko": "서석대",
+   "en": "Seoseokdae",
+   "ja": "瑞石台",
+   "zh": "瑞石台",
+   "lat": 35.1262,
+   "lon": 127.0055,
+   "elev": 1100,
+   "snap": "elev"
+  }
+ ],
+ "season": {
+  "ko": "가을",
+  "en": "Autumn",
+  "ja": "秋",
+  "zh": "秋天"
+ }
+}

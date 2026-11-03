@@ -1,0 +1,99 @@
+{
+ "id": "fuji",
+ "region": "world",
+ "order": 12,
+ "flag": "jp",
+ "tz": 9,
+ "cityLights": true,
+ "area": {
+  "ko": "후지산",
+  "en": "Mount Fuji",
+  "ja": "富士山",
+  "zh": "富士山"
+ },
+ "peak": {
+  "ko": "후지산",
+  "en": "Fuji",
+  "ja": "富士山",
+  "zh": "富士山"
+ },
+ "end": {
+  "ko": "후지산 정상",
+  "en": "Fuji Summit",
+  "ja": "富士山 山頂",
+  "zh": "富士山 山顶"
+ },
+ "elev": 3776,
+ "trailheadArea": {
+  "ko": "요시다 5합목",
+  "en": "Yoshida 5th Station",
+  "ja": "吉田口五合目",
+  "zh": "吉田口五合目"
+ },
+ "summitSub": {
+  "ko": "일본 최고봉",
+  "en": "highest peak of Japan",
+  "ja": "日本の最高峰",
+  "zh": "日本最高峰"
+ },
+ "vista": {
+  "ko": "구름 바다 위로 후지 5호가 반짝여요",
+  "en": "The Fuji Five Lakes glint below a sea of clouds",
+  "ja": "雲海の下に富士五湖がきらめきます",
+  "zh": "云海之下，富士五湖闪闪发光"
+ },
+ "course": {
+  "ko": "요시다 루트",
+  "en": "Yoshida Trail",
+  "ja": "吉田ルート",
+  "zh": "吉田路线"
+ },
+ "waypoints": [
+  {
+   "ko": "요시다 5합목",
+   "en": "Yoshida 5th Station",
+   "ja": "吉田口五合目",
+   "zh": "吉田口五合目",
+   "lat": 35.395,
+   "lon": 138.733,
+   "elev": 2305,
+   "snap": "elev"
+  },
+  {
+   "ko": "7합목",
+   "en": "7th Station",
+   "ja": "七合目",
+   "zh": "七合目",
+   "lat": 35.376,
+   "lon": 138.742,
+   "elev": 2700,
+   "snap": "elev"
+  },
+  {
+   "ko": "8합목",
+   "en": "8th Station",
+   "ja": "八合目",
+   "zh": "八合目",
+   "lat": 35.37,
+   "lon": 138.738,
+   "elev": 3100,
+   "snap": "elev"
+  },
+  {
+   "ko": "후지산 정상",
+   "en": "Fuji Summit",
+   "ja": "富士山 山頂",
+   "zh": "富士山 山顶",
+   "lat": 35.3628,
+   "lon": 138.7307,
+   "elev": 3776,
+   "snap": "peak"
+  }
+ ],
+ "season": {
+  "ko": "가을",
+  "en": "Autumn",
+  "ja": "秋",
+  "zh": "秋天"
+ }
+}

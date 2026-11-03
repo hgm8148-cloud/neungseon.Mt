@@ -1,0 +1,89 @@
+{
+ "id": "kilimanjaro",
+ "region": "world",
+ "order": 13,
+ "flag": "tz",
+ "tz": 3,
+ "cityLights": false,
+ "area": {
+  "ko": "킬리만자로",
+  "en": "Kilimanjaro",
+  "ja": "キリマンジャロ",
+  "zh": "乞力马扎罗"
+ },
+ "peak": {
+  "ko": "우후루 피크",
+  "en": "Uhuru Peak",
+  "ja": "ウフル・ピーク",
+  "zh": "乌呼鲁峰"
+ },
+ "end": {
+  "ko": "우후루 피크",
+  "en": "Uhuru Peak",
+  "ja": "ウフル・ピーク",
+  "zh": "乌呼鲁峰"
+ },
+ "elev": 5895,
+ "trailheadArea": {
+  "ko": "길만스 포인트",
+  "en": "Gilman's Point",
+  "ja": "ギルマンズ・ポイント",
+  "zh": "吉尔曼角"
+ },
+ "summitSub": {
+  "ko": "아프리카 최고봉",
+  "en": "highest peak of Africa",
+  "ja": "アフリカの最高峰",
+  "zh": "非洲最高峰"
+ },
+ "vista": {
+  "ko": "빙하 너머로 아프리카 평원이 끝없이 펼쳐져요",
+  "en": "Endless African plains beyond the glaciers",
+  "ja": "氷河の向こうにアフリカの平原が果てしなく",
+  "zh": "冰川之外，非洲平原一望无际"
+ },
+ "course": {
+  "ko": "분화구 테두리 길",
+  "en": "Crater Rim Walk",
+  "ja": "火口縁の道",
+  "zh": "火山口边缘步道"
+ },
+ "waypoints": [
+  {
+   "ko": "길만스 포인트",
+   "en": "Gilman's Point",
+   "ja": "ギルマンズ・ポイント",
+   "zh": "吉尔曼角",
+   "lat": -3.07,
+   "lon": 37.364,
+   "elev": 5685,
+   "snap": "elev"
+  },
+  {
+   "ko": "스텔라 포인트",
+   "en": "Stella Point",
+   "ja": "ステラ・ポイント",
+   "zh": "斯特拉角",
+   "lat": -3.072,
+   "lon": 37.359,
+   "elev": 5756,
+   "snap": "elev"
+  },
+  {
+   "ko": "우후루 피크",
+   "en": "Uhuru Peak",
+   "ja": "ウフル・ピーク",
+   "zh": "乌呼鲁峰",
+   "lat": -3.0758,
+   "lon": 37.3533,
+   "elev": 5895,
+   "snap": "peak"
+  }
+ ],
+ "season": {
+  "ko": "가을",
+  "en": "Autumn",
+  "ja": "秋",
+  "zh": "秋天"
+ }
+}

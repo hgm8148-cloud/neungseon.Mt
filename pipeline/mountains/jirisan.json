@@ -1,0 +1,92 @@
+{
+ "id": "jirisan",
+ "region": "kr",
+ "order": 3,
+ "flag": "kr",
+ "tz": 9,
+ "cityLights": false,
+ "area": {
+  "ko": "지리산",
+  "en": "Jirisan",
+  "ja": "智異山",
+  "zh": "智异山"
+ },
+ "peak": {
+  "ko": "천왕봉",
+  "en": "Cheonwangbong",
+  "ja": "天王峰",
+  "zh": "天王峰"
+ },
+ "end": {
+  "ko": "천왕봉 정상",
+  "en": "Cheonwangbong Summit",
+  "ja": "天王峰 山頂",
+  "zh": "天王峰 山顶"
+ },
+ "elev": 1915,
+ "trailheadArea": {
+  "ko": "중산리",
+  "en": "Jungsan-ri",
+  "ja": "中山里",
+  "zh": "中山里"
+ },
+ "summitSub": {
+  "ko": "지리산 최고봉",
+  "en": "highest peak of Jirisan",
+  "ja": "智異山の最高峰",
+  "zh": "智异山最高峰"
+ },
+ "vista": {
+  "ko": "겹겹의 능선 위로 운해가 흘러요",
+  "en": "A sea of clouds drifts over ridge after ridge",
+  "ja": "幾重もの稜線の上を雲海が流れます",
+  "zh": "云海在层层山脊上流动"
+ },
+ "course": {
+  "ko": "중산리 코스",
+  "en": "Jungsan-ri Trail",
+  "ja": "中山里コース",
+  "zh": "中山里路线"
+ },
+ "waypoints": [
+  {
+   "ko": "칼바위 갈림길",
+   "en": "Kalbawi Junction",
+   "ja": "カルバウィ分岐",
+   "zh": "刀岩岔路",
+   "lat": 35.295,
+   "lon": 127.737,
+   "elev": 860,
+   "snap": "elev"
+  },
+  {
+   "ko": "법계사",
+   "en": "Beopgyesa Temple",
+   "ja": "法界寺",
+   "zh": "法界寺",
+   "lat": 35.3252,
+   "lon": 127.733,
+   "elev": 1450,
+   "snap": "elev",
+   "desc": {
+    "ko": "우리나라에서 가장 높은 곳에 있는 절이에요."
+   }
+  },
+  {
+   "ko": "천왕봉 정상",
+   "en": "Cheonwangbong Summit",
+   "ja": "天王峰 山頂",
+   "zh": "天王峰 山顶",
+   "lat": 35.3369,
+   "lon": 127.7307,
+   "elev": 1915,
+   "snap": "peak"
+  }
+ ],
+ "season": {
+  "ko": "가을",
+  "en": "Autumn",
+  "ja": "秋",
+  "zh": "秋天"
+ }
+}

@@ -1,0 +1,89 @@
+{
+ "id": "naejangsan",
+ "region": "kr",
+ "order": 7,
+ "flag": "kr",
+ "tz": 9,
+ "cityLights": true,
+ "area": {
+  "ko": "내장산",
+  "en": "Naejangsan",
+  "ja": "内蔵山",
+  "zh": "内藏山"
+ },
+ "peak": {
+  "ko": "신선봉",
+  "en": "Sinseonbong",
+  "ja": "神仙峰",
+  "zh": "神仙峰"
+ },
+ "end": {
+  "ko": "신선봉 정상",
+  "en": "Sinseonbong Summit",
+  "ja": "神仙峰 山頂",
+  "zh": "神仙峰 山顶"
+ },
+ "elev": 763,
+ "trailheadArea": {
+  "ko": "내장사",
+  "en": "Naejangsa",
+  "ja": "内蔵寺",
+  "zh": "内藏寺"
+ },
+ "summitSub": {
+  "ko": "내장산 최고봉",
+  "en": "highest peak of Naejangsan",
+  "ja": "内蔵山の最高峰",
+  "zh": "内藏山最高峰"
+ },
+ "vista": {
+  "ko": "말굽 모양 능선이 단풍으로 물들어요",
+  "en": "The horseshoe ridge glows with autumn leaves",
+  "ja": "馬蹄形の稜線が紅葉に染まります",
+  "zh": "马蹄形山脊被红叶染透"
+ },
+ "course": {
+  "ko": "내장사 · 연자봉 코스",
+  "en": "Naejangsa · Yeonjabong Trail",
+  "ja": "内蔵寺・燕子峰コース",
+  "zh": "内藏寺 · 燕子峰路线"
+ },
+ "waypoints": [
+  {
+   "ko": "내장사",
+   "en": "Naejangsa Temple",
+   "ja": "内蔵寺",
+   "zh": "内藏寺",
+   "lat": 35.4885,
+   "lon": 126.8935,
+   "elev": 250,
+   "snap": "elev"
+  },
+  {
+   "ko": "연자봉",
+   "en": "Yeonjabong",
+   "ja": "燕子峰",
+   "zh": "燕子峰",
+   "lat": 35.48,
+   "lon": 126.8915,
+   "elev": 675,
+   "snap": "peak"
+  },
+  {
+   "ko": "신선봉 정상",
+   "en": "Sinseonbong Summit",
+   "ja": "神仙峰 山頂",
+   "zh": "神仙峰 山顶",
+   "lat": 35.477,
+   "lon": 126.8845,
+   "elev": 763,
+   "snap": "peak"
+  }
+ ],
+ "season": {
+  "ko": "가을",
+  "en": "Autumn",
+  "ja": "秋",
+  "zh": "秋天"
+ }
+}
