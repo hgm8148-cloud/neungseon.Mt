@@ -63,3 +63,6 @@
 - 게임 안에 직접 들어가는 사진: lanius 님 은하수(Pixabay 10528056) → 밤하늘 별·은하수, Pexels 님 보름달(Pixabay 1869760) → 달.
 - 색만 참고한 사진(13장): 일출 konevi·21028723, 오전 mustafaelmas·beholz, 오후 bartroman·hias_schell, 일몰 alberto_guevara87·leolo212·tom6667·peggychoucair, 박명·밤 bru-no·manuel-h·stocksnap, 밤 evgenit·kanenori·pexels-camping. 모두 Pixabay Content License.
 - 드라이브 하늘 폴더의 Unsplash `.avif`, pngtree·뉴스·블로그 이미지는 라이선스를 확인할 수 없어 쓰지 않았어요.
+
+
+황산(Pixabay, 승연 님이 직접 받아 올림, 작가 이름 미확인)·소백산·월출산(국립공원공단 누리집, 공공누리 제1유형) 사진은 승연 님이 채팅으로 보낸 것이에요 (2026-11-03). picks.json 의 credit 항목에 출처를 적어 두었어요.
