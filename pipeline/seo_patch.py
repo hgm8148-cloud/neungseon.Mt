@@ -21,6 +21,8 @@ KEYWORDS = ('능선 온라인, 능선, 능선 게임, 온라인 등산, 온라�
             '등산 게임, 산행 게임, 트레킹 게임, 하이킹 게임, 힐링 게임, 브라우저 게임, '
             'online hiking game, Neungseon Online, Neungseon')
 MARK = 'data-seo="neungseon"'
+# Cloudflare Web Analytics (쿠키 없는 방문 집계). 토큰은 공개 값이다.
+CF_TOKEN = '53fa976ecea94716b700fb9d477c7025'
 
 
 def place_of(s):
@@ -66,6 +68,7 @@ def patch(s, page):
     s = re.sub(r'<meta property="og:site_name"[^>]*' + MARK + r'[^>]*>\n?', '', s)
     s = re.sub(r'<meta name="application-name"[^>]*' + MARK + r'[^>]*>\n?', '', s)
     s = re.sub(r'<script type="application/ld\+json" ' + MARK + r'>.*?</script>\n?', '', s, flags=re.S)
+    s = re.sub(r'<script defer src="https://static\.cloudflareinsights\.com/[^>]*' + MARK + r'[^>]*></script>\n?', '', s)
     s = re.sub(r'<noscript ' + MARK + r'>.*?</noscript>\n?', '', s, flags=re.S)
 
     ld = {
@@ -93,6 +96,8 @@ def patch(s, page):
                    f'<meta property="og:image:height" content="{720 if page == "index.html" else 630}" {MARK}>\n' if og_size else '') +
                 f'<meta name="application-name" content="{NAME}" {MARK}>\n'
                 f'<script type="application/ld+json" {MARK}>{json.dumps(ld, ensure_ascii=False)}</script>\n')
+    head_add += (f'<script defer src="https://static.cloudflareinsights.com/beacon.min.js" '
+                 f'data-cf-beacon=\'{{"token": "{CF_TOKEN}"}}\' {MARK}></script>\n')
     if page == 'index.html':
         head_add += f'<script type="application/ld+json" {MARK}>{json.dumps(site, ensure_ascii=False)}</script>\n'
     s = s.replace('</head>', head_add + '</head>', 1)
