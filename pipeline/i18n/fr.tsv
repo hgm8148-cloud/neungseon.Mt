@@ -29,7 +29,7 @@
 28	Le sentier atteint le sommet
 29	En automne, ensemble au Baegundae du Bukhansan
 30	Aller simple, environ
-31	km · relief issu de vraies données d'altitude
+31	km · relief modelé d’après des données d’altitude réelles
 32	Votre nom de randonneur
 33	Nouveau nom
 34	Couleurs de la tenue
@@ -263,7 +263,7 @@
 262	Vue épurée : masquer tous les boutons (H)
 263	Langue
 264	Quelle montagne aujourd'hui ?
-265	Choisissez un sentier issu de vraies données d'altitude
+265	Choisissez un sentier inspiré du relief réel
 266	Corée · 10 montagnes
 267	Monde · 10 montagnes
 268	Choisir une autre montagne

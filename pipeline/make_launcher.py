@@ -67,7 +67,7 @@ footer{{color:var(--mute);font-size:12.5px;line-height:1.7}}
 <header>
   <span class="badge">미리보기 · 아직 배포 전</span>
   <h1>능선, 산길 미리보기</h1>
-  <p>국내와 해외 명산을 실제 고도 데이터로 만들었어요. 카드를 누르면 그 산에서 바로 시작하고, 게임 안 시작 화면의 ‘다른 산 고르기’로 언제든 산을 바꿀 수 있어요. 그래프는 각 코스의 실제 지형 고도 단면이에요.</p>
+  <p>국내와 해외 명산을 실제 지형을 본떠 만들었어요. 카드를 누르면 그 산에서 바로 시작하고, 게임 안 시작 화면의 ‘다른 산 고르기’로 언제든 산을 바꿀 수 있어요. 그래프는 각 코스의 실제 지형 고도 단면이에요.</p>
 </header>
 <section><h2>국내 명산 <small>대한민국</small></h2><div class="grid">{sec('kr')}</div></section>
 <section><h2>해외 명산 <small>6개 대륙</small></h2><div class="grid">{sec('world')}</div></section>

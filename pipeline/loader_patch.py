@@ -16,7 +16,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 
 # ---------- 번역 (ko, en, ja, zh, de, fr, it, es, ne, sw) ----------
 LOADER_FIX = [
-    ['실제 지형 그대로 걷는 명산', 'Great mountains, walked on their real terrain', '実際の地形のまま歩く名山', '按真实地形漫步的名山', 'Große Berge auf echtem Gelände', 'De grandes montagnes, sur leur vrai relief', 'Grandi montagne sul loro vero terreno', 'Grandes montañas sobre su terreno real', 'वास्तविक भू-भागमा हिँडिने प्रसिद्ध हिमाल', 'Milima maarufu kwenye ardhi yake halisi'],
+    ['실제 지형을 본떠 만든 명산 산길', 'Mountain trails modeled on real terrain', '実際の地形をもとに作った名山の山道', '参照真实地形打造的名山步道', 'Bergwege nach dem Vorbild echter Landschaften', 'Des sentiers de montagne inspirés du relief réel', 'Sentieri di montagna ispirati al terreno reale', 'Senderos de montaña inspirados en el terreno real', 'वास्तविक भू-भागबाट प्रेरित हिमाली पदमार्ग', 'Njia za milima zilizoigwa kutoka ardhi halisi'],
+    ['실제 지형을 본떠 만든 산길을 골라 보세요', 'Pick a trail modeled on real terrain', '実際の地形をもとに作った山道を選んでください', '选择一条参照真实地形打造的步道', 'Wähle einen Weg nach dem Vorbild echter Landschaft', 'Choisissez un sentier inspiré du relief réel', 'Scegli un sentiero ispirato al terreno reale', 'Elige un sendero inspirado en el terreno real', 'वास्तविक भू-भागबाट प्रेरित पदमार्ग छान्नुहोस्', 'Chagua njia iliyoigwa kutoka ardhi halisi'],
+    ['km · 실제 고도 데이터를 본떠 만든 지형', 'km · terrain modeled on real elevation data', 'km・実際の標高データをもとに作った地形', '公里 · 参照真实海拔数据打造的地形', 'km · Gelände nach echten Höhendaten modelliert', 'km · relief modelé d’après des données d’altitude réelles', 'km · terreno modellato su dati di quota reali', 'km · terreno modelado a partir de datos de altitud reales', 'km · वास्तविक उचाइ तथ्याङ्कबाट बनाइएको भू-भाग', 'km · ardhi iliyoigwa kutoka data halisi ya mwinuko'],
     ['국내 명산', 'Korea', '韓国の名山', '韩国名山', 'Korea', 'Corée', 'Corea', 'Corea', 'कोरिया', 'Korea'],
     ['해외 명산', 'World', '世界の名山', '世界名山', 'Welt', 'Monde', 'Mondo', 'Mundo', 'विश्व', 'Dunia'],
     ['여유 있는 산행', 'An unhurried hike', 'ゆったりとした山歩き', '从容的山行', 'Eine gemächliche Wanderung', 'Une randonnée sans hâte', 'Un’escursione senza fretta', 'Una caminata sin prisas', 'फुर्सदको पदयात्रा', 'Matembezi ya taratibu mlimani'],
@@ -186,7 +188,7 @@ def brand_html(mts):
             'fill="none" stroke="#ffd9a6" stroke-width="2.2" stroke-linecap="round"/><circle cx="232" cy="8" r="3.2" fill="#fff1dc"/></svg>')
     return (f'<div class="ld2 brand" aria-hidden="false"><div class="bSky"></div><div class="bDawn"></div><div class="bSun"></div>{rs}'
             '<div class="bMist m1"></div><div class="bMist m2"></div><div class="bBirds"><i></i><i></i><i></i></div>'
-            f'<div class="bLogo"><div class="bKick">실제 지형 그대로 걷는 명산</div><div class="bLineWrap">{line}</div><h2>능선</h2><p class="bTag">여유 있는 산행</p></div>'
+            f'<div class="bLogo"><div class="bKick">실제 지형을 본떠 만든 명산 산길</div><div class="bLineWrap">{line}</div><h2>능선</h2><p class="bTag">여유 있는 산행</p></div>'
             f'<div class="bTick"><div class="bTrack">{names}{names}</div></div><div class="bar"><i></i></div></div>')
 
 
@@ -234,7 +236,17 @@ JS = r'''<script>
 '''
 
 
+def patch_honest(P):
+    # 과장 없는 표현: 실제 지형을 '그대로' 옮긴 게 아니라 '본떠' 만든 것 (2026-11-04 승연 님)
+    P.rep('<p>실제 고도 데이터로 만든 산길을 골라 보세요</p>', '<p>실제 지형을 본떠 만든 산길을 골라 보세요</p>', need=False)
+    P.rep('km · 실제 고도 데이터로 만든 지형', 'km · 실제 고도 데이터를 본떠 만든 지형', need=False)
+    for a,b in [('terrain built from real elevation data','terrain modeled on real elevation data'),('実際の標高データで作った地形','実際の標高データをもとに作った地形'),('用真实海拔数据制作的地形','参照真实海拔数据制作的地形')]:
+        P.rep(a, b, need=False)
+    P.rep('content="실제 고도 데이터로 만든 ', 'content="실제 지형을 본떠 만든 ', need=False)
+
+
 def patch_loader(P, m, mts, data):
+    patch_honest(P)
     P.rep('</style>', CSS + '</style>', 1)
     prof, tot = profile(m, data)
     P.rep('<div class="status"><span id="ldMsg">산길을 여는 중</span><b id="ldAlt">해발 0m</b></div>\n</div>\n',

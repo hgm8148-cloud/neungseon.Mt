@@ -44,7 +44,7 @@ COUNTRY = {
 # 선택 화면 등 공통 문구 [ko, en, ja, zh]
 UI_ROWS = [
     ['어느 산에 오를까요?', 'Which mountain today?', 'どの山に登りますか？', '今天爬哪座山？'],
-    ['실제 고도 데이터로 만든 산길을 골라 보세요', 'Pick a trail built from real elevation data', '実際の標高データで作った山道を選んでください', '选择一条用真实海拔数据制作的山路'],
+    ['실제 지형을 본떠 만든 산길을 골라 보세요', 'Pick a trail modelled on real terrain', '実際の地形をもとに作った山道を選んでください', '选择一条参照真实地形制作的山路'],
     ['국내 명산', 'Korea', '韓国の名山', '韩国名山'],
     ['해외 명산', 'World', '世界の名山', '世界名山'],
     ['다른 산 고르기', 'Choose another mountain', '別の山を選ぶ', '选择其他山'],
@@ -177,7 +177,7 @@ def selector_html():
 <div id="mtSel" class="panel" hidden>
   <div class="mtCard">
     <div class="mtHead">
-      <div><h1>어느 산에 오를까요?</h1><p>실제 고도 데이터로 만든 산길을 골라 보세요</p></div>
+      <div><h1>어느 산에 오를까요?</h1><p>실제 지형을 본떠 만든 산길을 골라 보세요</p></div>
       <button type="button" class="mtX" id="mtX" aria-label="닫기">✕</button>
     </div>
     <p class="mtSaved" id="mtSaved" hidden>지금까지 걸은 기록을 저장했어요</p>
