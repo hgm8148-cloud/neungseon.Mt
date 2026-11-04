@@ -109,5 +109,23 @@
   "snow": 5750
  },
  "seasons": [],
- "climate": "fixed"
+ "climate": "fixed",
+ "vista3d": {
+  "_note": "구름바다는 해발 3,700m쯤(실제 킬리만자로 구름띠), 마웬지·멀리 산줄기에 눈",
+  "cloudSea": 3700,
+  "farSnow": 4500,
+  "ridges": {
+   "base": 3900,
+   "amp": 2900,
+   "snow": 5150,
+   "peaks": [
+    {
+     "name": "Mount Meru",
+     "lat": -3.2467,
+     "lon": 36.7483,
+     "elev": 4566
+    }
+   ]
+  }
+ }
 }

@@ -2119,7 +2119,8 @@ function toonFarMaterial(uvScale){
       vec3 rk = texture2D(tRock, tw/(S*0.35)).rgb * vec3(1.05,1.02,0.98);
       float steep = 1.0 - smoothstep(0.62, 0.8, vWN.y);
       float rock = clamp(max(steep, smoothstep(760.0, 830.0, vTW3.y)) * (0.75 + 0.5*f3.g), 0.0, 1.0);
-      diffuseColor.rgb = mix(forest*1.5, rk*1.1, rock);`).replace('#include <color_fragment>', '');
+      diffuseColor.rgb = mix(forest*1.5, rk*1.1, rock);
+      { float sn = smoothstep(-592.0, -372.0, vTW3.y + (f3.g-0.5)*180.0) * (0.5 + 0.5*smoothstep(0.35, 0.75, vWN.y)); diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.92,0.94,0.97)*(0.86 + 0.18*f3.g), sn); }`).replace('#include <color_fragment>', '');
   };
   return m;
 }
@@ -2150,7 +2151,8 @@ function toonColor(x,z,h,ny,o){
   if(h > BIO.r0-180) o.lerp(TOON_PAL[1], THREE.MathUtils.smoothstep(h,BIO.r0-180,BIO.r0)*0.4);
   const rock = Math.max(1 - THREE.MathUtils.smoothstep(ny, 0.72, 0.84), h>BIO.tt-15 ? THREE.MathUtils.smoothstep(h,BIO.tt-15,BIO.tt+45) : 0);
   if(rock > 0.35) o.copy(vnoise(x/120,z/120) > 0.5 ? TOON_ROCK : TOON_ROCK2);
-  if(h > BIO.snow - 120){ const s = THREE.MathUtils.smoothstep(h + (vnoise(x/300,z/300)-0.5)*160, BIO.snow-120, BIO.snow+80) * (0.55 + 0.45*THREE.MathUtils.smoothstep(ny, 0.55, 0.8)); if(s > 0) o.lerp(SNOW_C, Math.min(1, s)); }
+  const SNL = Math.max(Math.abs(x), Math.abs(z)) > HALF - 20 ? -472 : BIO.snow;
+  if(h > SNL - 120){ const s = THREE.MathUtils.smoothstep(h + (vnoise(x/300,z/300)-0.5)*160, SNL-120, SNL+80) * (0.55 + 0.45*THREE.MathUtils.smoothstep(ny, 0.55, 0.8)); if(s > 0) o.lerp(SNOW_C, Math.min(1, s)); }
   return o;
 }
 await ldStep('먼 산줄기를 펼치는 중', 0.3);
@@ -2425,9 +2427,10 @@ const treeShade = new Float32Array(M*M);   // 나무 그늘 (지면을 어둡게
   for(const m of meshes){ m.instanceMatrix.needsUpdate=true; if(m.instanceColor) m.instanceColor.needsUpdate=true; scene.add(m); }
 
   // 지평선 너머 겹겹이 이어지는 능선 (멀수록 옅고 푸르게) — 밤에는 하늘빛에 맞춰 어둡게
+  const VPEAKS = [{"a": 2.86155309413538, "d": 71208.74801889042, "h": -406}], VSNOW = 178, VLOW = -2572;
   const layers = [
-    {R:36000, amp:1500, base:-100, col:[0.56,0.63,0.70], top:[0.64,0.70,0.76], seed:3},
-    {R:46000, amp:2000, base:-200, col:[0.68,0.74,0.80], top:[0.74,0.79,0.84], seed:4}
+    {R:36000, amp:2900, base:-1072, col:[0.56,0.63,0.70], top:[0.64,0.70,0.76], seed:3},
+    {R:46000, amp:3625, base:-1222, col:[0.68,0.74,0.80], top:[0.74,0.79,0.84], seed:4}
   ];
   for(const L of layers){
     const segs = 720, pos = [], cols = [], idx = [];
@@ -2436,11 +2439,13 @@ const treeShade = new Float32Array(M*M);   // 나무 그늘 (지면을 어둡게
       let n = 0, f = 1, w = 1, tw = 0;
       for(let o=0;o<5;o++){ n += w*vnoise(Math.cos(a)*3*f + L.seed*7, Math.sin(a)*3*f + L.seed*3); tw += w; w *= 0.5; f *= 2.1; }
       n /= tw; const ridge = 1 - Math.abs(n*2-1);
-      const hgt = L.base + Math.pow(ridge,1.6)*L.amp + n*L.amp*0.25;
-      const x = Math.cos(a)*L.R, z = Math.sin(a)*L.R;
-      pos.push(x, -400, z, x, hgt, z);
-      cols.push(...L.col.map(v=>v*1.08), ...L.top);
-      if(i>0){ const k=i*2; idx.push(k-2,k,k-1, k-1,k,k+1); }
+      let hgt = L.base + Math.pow(ridge,1.6)*L.amp + n*L.amp*0.25;
+      if(L.seed === 3) for(const p of VPEAKS){ let da = Math.abs(a - p.a); da = Math.min(da, Math.PI*2 - da); hgt = Math.max(hgt, p.h*L.R/p.d - da*L.R*0.42); }
+      const x = Math.cos(a)*L.R, z = Math.sin(a)*L.R, sl = VSNOW - (L.seed === 3 ? 450 : 0) + (vnoise(Math.cos(a)*40, Math.sin(a)*40)-0.5)*420, mid = Math.max(VLOW, Math.min(hgt, sl));
+      pos.push(x, VLOW, z, x, mid, z, x, mid, z, x, hgt, z);
+      const rk = L.col.map(v=>v*0.5), rk2 = L.top.map(v=>v*0.56), snowT = [1.22,1.2,1.16];
+      cols.push(...rk, ...rk2, ...snowT.map(v=>v*0.92), ...snowT);
+      if(i>0){ const k=i*4; idx.push(k-4,k,k-3, k-3,k,k+1, k-2,k+2,k-1, k-1,k+2,k+3); }
     }
     const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos,3)); g.setAttribute('color', new THREE.Float32BufferAttribute(cols,3)); g.setIndex(idx);
     const m = new THREE.Mesh(g, new THREE.MeshBasicMaterial({vertexColors:true, fog:false, side:THREE.DoubleSide}));
@@ -2449,8 +2454,8 @@ const treeShade = new Float32Array(M*M);   // 나무 그늘 (지면을 어둡게
   // 원경 지면과 능선 사이를 잇는 바닥
   {
     const g = new THREE.RingGeometry(23500, 46000, 128, 1); g.rotateX(-Math.PI/2);
-    const m = new THREE.Mesh(g, new THREE.MeshBasicMaterial({color:0x6f7468, fog:true}));
-    m.position.y = -20; scene.add(m);
+    const m = new THREE.Mesh(g, new THREE.MeshBasicMaterial({color:0xeef1f5, fog:true}));
+    m.position.y = -1292; scene.add(m);
   }
   // 골짜기에 깔린 옅은 운해
   {
@@ -2710,14 +2715,14 @@ const CLOUDSEA = [];
 {
   const ct = toTex(pixelCanvas(512, (u,v) => { const n = pfbm(u*6, v*6, 6, 5); const a = THREE.MathUtils.smoothstep(n, 0.36, 0.6); return [255, 255, 255, a*255]; }));
   ct.wrapS = ct.wrapT = THREE.RepeatWrapping;
-  for(const L of [{y:205, op:0.97, rep:4, sp:0.0016}, {y:250, op:0.6, rep:7, sp:-0.0011}, {y:300, op:0.3, rep:11, sp:0.0008}]){
+  for(const L of [{y:-1272, op:0.97, rep:4, sp:0.0016}, {y:-1212, op:0.6, rep:7, sp:-0.0011}, {y:-1142, op:0.3, rep:11, sp:0.0008}]){
     const t = ct.clone(); t.needsUpdate = true; t.repeat.set(L.rep, L.rep);
     const m = new THREE.MeshLambertMaterial({map:t, transparent:true, opacity:L.op, depthWrite:false, emissive:0xfff4e6, emissiveIntensity:0.55, fog:false});
     m.onBeforeCompile = sh => {
       sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nvarying vec2 vCW;').replace('#include <begin_vertex>', '#include <begin_vertex>\nvCW = (modelMatrix*vec4(position,1.0)).xz;');
-      sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nvarying vec2 vCW;').replace('#include <alphamap_fragment>', '#include <alphamap_fragment>\n  diffuseColor.a *= smoothstep(1100.0, 2600.0, length(vCW)) * (1.0 - smoothstep(16000.0, 28000.0, length(vCW))); diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.86,0.9,0.96)*diffuse, smoothstep(4000.0, 20000.0, length(vCW - cameraPosition.xz))*0.5);');
+      sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nvarying vec2 vCW;').replace('#include <alphamap_fragment>', '#include <alphamap_fragment>\n  diffuseColor.a *= smoothstep(1100.0, 2600.0, length(vCW)) * (1.0 - smoothstep(42000.0, 52000.0, length(vCW))); diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.86,0.9,0.96)*diffuse, smoothstep(4000.0, 20000.0, length(vCW - cameraPosition.xz))*0.5);');
     };
-    const mesh = new THREE.Mesh(new THREE.PlaneGeometry(60000, 60000), m);
+    const mesh = new THREE.Mesh(new THREE.PlaneGeometry(110000, 110000), m);
     mesh.rotation.x = -Math.PI/2; mesh.position.y = L.y; mesh.renderOrder = 1; scene.add(mesh);
     CLOUDSEA.push({t, sp:L.sp, m, op:L.op});
   }
