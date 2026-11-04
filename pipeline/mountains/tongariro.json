@@ -520,5 +520,24 @@
   ],
   "shrinkAbove": 1300,
   "shrink": 0.45
+ },
+ "relief": {
+  "xex": 1.3,
+  "crags": {
+   "color": "#4d3a32",
+   "n": 60,
+   "h": [
+    3,
+    9
+   ],
+   "w": [
+    2,
+    4
+   ],
+   "zone": 800,
+   "sharp": 0.2,
+   "ridge": 1.2,
+   "minH": 0.3
+  }
  }
 }

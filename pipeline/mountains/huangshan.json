@@ -501,5 +501,24 @@
   ],
   "haze": 0.12,
   "src": "Drive 대표 사진을 보고 그린 실루엣 (make_peaks.py)"
+ },
+ "relief": {
+  "xex": 1.3,
+  "crags": {
+   "color": "#cfc9bd",
+   "n": 420,
+   "h": [
+    15,
+    45
+   ],
+   "w": [
+    2.5,
+    6
+   ],
+   "zone": 950,
+   "sharp": 0,
+   "ridge": 1.2,
+   "minH": 0.3
+  }
  }
 }

@@ -56,12 +56,12 @@ SCENE_JS = r"""
   // 기암 봉우리: 둥근 머리 + 세로 절리 + 가로 마디를 가진 화강암 기둥 원형 6개를 돌려 써요
   if(RC.crags){ const C = RC.crags, protos = [];
     for(let k = 0; k < 6; k++){ const g = new THREE.CylinderGeometry(1, 1, 1, 14, 14, false); g.translate(0, 0.5, 0);
-      const P = g.attributes.position, col = [], sd = k*17.3 + 3, lean = (rnd() - 0.5)*0.25, ribs = 5 + (k % 3)*2, tip = 0.62 + rnd()*0.2;
+      const P = g.attributes.position, col = [], sd = k*17.3 + 3, lean = (rnd() - 0.5)*0.25, ribs = 5 + (k % 3)*2, tip = (C.sharp ? 0.35 : 0.62) + rnd()*0.2;
       for(let v = 0; v < P.count; v++){ let x = P.getX(v), y = P.getY(v), z = P.getZ(v); const a = Math.atan2(z, x), r0 = Math.hypot(x, z);
         let r = 1 + 0.16*Math.sin(a*2 + sd) + 0.1*Math.sin(a*3.3 + sd*1.7 + y*3) + 0.07*Math.sin(y*9 + a*2 + sd);
         const groove = Math.pow(Math.abs(Math.sin(a*ribs*0.5 + sd + y*0.6)), 10); r *= 1 - 0.13*groove;
         const joint = Math.pow(Math.abs(Math.sin(y*Math.PI*3.2 + sd)), 18); r *= 1 - 0.035*joint;
-        if(y > tip){ const f = (y - tip)/(1 - tip); r *= Math.sqrt(Math.max(0, 1 - f*f*0.96)); }
+        if(y > tip){ const f = (y - tip)/(1 - tip), sp = C.sharp || 0; r *= (1 - sp)*Math.sqrt(Math.max(0, 1 - f*f*0.96)) + sp*Math.max(0.02, 1 - f); }
         r *= 1 - 0.18*y;
         x = (r0 > 1e-4 ? x/r0 : 0)*r*r0; z = (r0 > 1e-4 ? z/r0 : 0)*r*r0; x += lean*y*y;
         P.setXYZ(v, x, y, z);

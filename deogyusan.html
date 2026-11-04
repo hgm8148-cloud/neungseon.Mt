@@ -18,7 +18,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="능선">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&display=swap">
 <style>
@@ -31,7 +31,7 @@
 }
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;overflow:hidden;background:#20241f;color:var(--text);font-family:var(--body)}
-canvas#gl{display:block;width:100vw;height:100vh;outline:none;touch-action:none}
+canvas#gl{display:block;width:100vw;height:var(--vh,100vh);outline:none;touch-action:none}
 .hud{position:fixed;pointer-events:none;z-index:2}
 .glass{background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .pill{border-radius:999px}
@@ -167,7 +167,7 @@ body.touch #tr.open #tools > .touchOnly{display:grid}
 /* 간식 보태기: 스크롤 없이 한 화면에 */
 #supportPanel{z-index:14}
 .card{position:relative}.pX{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;border:0;background:rgba(0,0,0,.07);color:inherit;font-size:16px;line-height:34px;text-align:center;cursor:pointer;z-index:2}.pX:hover{background:rgba(0,0,0,.14)}
-#supportPanel .card{max-width:520px;padding:18px 22px 16px;max-height:calc(100vh - 16px);overflow:auto}
+#supportPanel .card{max-width:520px;padding:18px 22px 16px;max-height:calc(var(--vh,100vh) - 16px);overflow:auto}
 #supportPanel .spHead{display:flex;align-items:center;justify-content:center;gap:10px}
 #supportPanel .spIcon .oni{width:40px;height:40px;margin:0}
 #supportPanel h1{font-size:22px!important}
@@ -194,7 +194,7 @@ body.touch #tr.open #tools > .touchOnly{display:grid}
 #supportPanel #spClose{margin-top:10px;padding:10px}
 body.touch #supportPanel .spToss{flex-direction:row;align-items:center}
 @media (max-height:640px){#supportPanel .spText,#supportPanel .note{display:none}#supportPanel .spToss .tQR,#supportPanel .spKakao .kQR{width:84px;height:84px}}
-#adminPanel{position:fixed;left:max(12px,env(safe-area-inset-left,0px));top:150px;width:min(330px,calc(100vw - 24px));max-height:calc(100vh - 170px);overflow:auto;padding:10px 12px 12px;border-radius:18px;font-size:12.5px;z-index:30;pointer-events:auto}
+#adminPanel{position:fixed;left:max(12px,env(safe-area-inset-left,0px));top:150px;width:min(330px,calc(100vw - 24px));max-height:calc(var(--vh,100vh) - 170px);overflow:auto;padding:10px 12px 12px;border-radius:18px;font-size:12.5px;z-index:30;pointer-events:auto}
 #adminPanel .adHead{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}#adminPanel .adHead button{border:0;background:transparent;color:inherit;font-size:15px;cursor:pointer}
 #adminPanel .adSec{margin:8px 0 4px;opacity:.7;font-size:11.5px}#adminPanel .adSec small{opacity:.8;font-size:10.5px}#adminPanel .adRow button[data-tg].on::after{content:' ON';font-size:10px;font-weight:700}#adminPanel .adRow{display:flex;flex-wrap:wrap;gap:4px}
 #adminPanel .adRow button{border:0;background:rgba(255,255,255,.12);color:inherit;border-radius:10px;padding:6px 9px;font-size:12px;cursor:pointer}#adminPanel .adRow button:hover{background:rgba(255,255,255,.22)}#adminPanel .adRow button.on{background:rgba(227,176,79,.45)}
@@ -343,7 +343,7 @@ body.touch #tr{z-index:6}
   body.touch #banner{top:10%}
   body.touch #toast{top:auto;bottom:calc(76px + env(safe-area-inset-bottom,0px))}
   body.touch #joy{width:104px;height:104px}
-  body.touch .card{max-height:calc(100vh - 24px);overflow:auto}
+  body.touch .card{max-height:calc(var(--vh,100vh) - 24px);overflow:auto}
   .psCard{padding:14px 16px!important}
   .psCard img{max-height:58vh;width:auto;max-width:100%;margin:0 auto}
   .psCard .note{margin:6px 0 0}
@@ -399,6 +399,147 @@ body.touch #pcard{bottom:150px;left:10px;width:min(260px,58vw)}
 #seasonPop .seasonRow button{color:inherit;border-color:rgba(255,255,255,.35)}
 #seasonPop .seasonRow button.on{background:#fff;color:#1d2230;border-color:#fff}
 
+html{touch-action:manipulation;-webkit-text-size-adjust:100%}
+html,body{overscroll-behavior:none}
+body{-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+input,textarea{-webkit-user-select:text;user-select:text;-webkit-touch-callout:default}
+body.ios .field input,body.ios #adminPanel .adMsg input,body.ios #adPw{font-size:16px}
+body.standalone:not(.desk) #bFull{display:none!important}
+
+#appInst{display:flex;align-items:center;gap:10px;margin-top:10px;font-size:12.5px;opacity:.85;flex-wrap:wrap}#appInst[hidden]{display:none}
+#aiSheet{z-index:40}.aiCard{max-width:400px;padding:20px 22px 18px;max-height:calc(var(--vh,100vh) - 32px);overflow:auto}
+.aiH{margin:0 30px 10px 0;font-size:18px}.aiSteps{margin:0 0 10px;padding-left:22px;font-size:14.5px;line-height:1.55}.aiSteps li{margin:7px 0}
+.aiIc{width:20px;height:20px;vertical-align:-4px;margin:0 3px;fill:none;stroke:#2f7cf6;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.aiNote{font-size:12.5px;opacity:.75;margin:8px 0}#aiSheet .btn{width:100%;margin-top:6px}
+#start .card h1 .aiTop{display:inline-block;vertical-align:middle;margin:0 0 6px 12px;padding:6px 13px;border-radius:999px;border:1px solid rgba(255,214,150,.55);background:rgba(255,214,150,.16);color:inherit;font-family:var(--body);font-size:13px;font-weight:600;letter-spacing:0;cursor:pointer}#start .card h1 .aiTop:hover{background:rgba(255,214,150,.3)}
+#walkPill .dirSeg{display:inline-flex;padding:2px;margin-right:6px;border-radius:999px;background:rgba(0,0,0,.18)}#walkPill .dirSeg button{padding:6px 12px;background:transparent}#walkPill .dirSeg button.on{background:rgba(255,255,255,.22);font-weight:700}
+#walkPill,#walkPill span,#walkPill button{white-space:nowrap}
+.tentPv3{width:88px;height:56px;flex:none;border-radius:10px;background:linear-gradient(#dfe7ec,#cdbfa8)}
+.preview canvas{background:radial-gradient(120% 90% at 50% 30%,#eef3f6 0%,#d5dfe6 55%,#c7b9a2 100%)}
+
+body:not(.admin) #bAdmin{display:none!important}
+#tr{flex-direction:row-reverse;align-items:flex-start}
+body.touch #supportBtn{display:flex;font-size:12px;height:42px;box-sizing:border-box;padding:4px 12px 4px 5px!important}
+body.touch #supportBtn .oni{width:30px;height:30px}
+body.touch #tr.open #supportBtn{display:flex;font-size:12px;padding:4px 12px 4px 5px!important}
+body.clean #tr#tr#tr#tr#tr#tr{opacity:1!important;pointer-events:none!important;top:calc(54px + env(safe-area-inset-top,0px))}
+body.clean #tools#tools#tools#tools#tools#tools{display:none!important}
+body.clean #supportBtn#supportBtn#supportBtn#supportBtn#supportBtn#supportBtn{display:flex!important;pointer-events:auto!important;padding:4px!important;height:auto;opacity:.8}
+body.clean #supportBtn span{display:none!important}
+@media (orientation:portrait){
+  body.touch #tr.open #tools{align-items:stretch}
+  body.touch #tr.open #tools > .ib:not(#bMenu){width:auto;grid-template-columns:24px auto;justify-content:start;gap:8px;padding:0 14px 0 8px;border-radius:20px;color:inherit;font-size:12.5px;white-space:nowrap}
+  body.touch #tr.open #tools > .ib:not(#bMenu)::after{content:attr(aria-label)}
+  body.touch #tr.open #supportBtn{padding:4px!important}body.touch #tr.open #supportBtn span{display:none!important}
+}
+#supportBtn .sShort{display:none}
+@media (max-width:480px){ body.touch #supportBtn .sLong{display:none} body.touch #supportBtn .sShort{display:inline} }
+#cMin .mOpen{display:none}body.campMini #supportBtn .sShort{display:none}
+@media (max-width:480px){ body.touch #supportBtn .sLong{display:none} body.touch #supportBtn .sShort{display:inline} }
+#cMin .mOpen{display:inline}body.campMini #cMin .mClose{display:none}
+body.campMini #campBar button:not(#cMin){display:none!important}
+body.campMini #campBar .cTitle{border-right:0}
+body.inSummit:not(.camping) #summitBtn#summitBtn#summitBtn{display:inline-flex!important}
+
+#tpAsk{position:fixed;inset:0;z-index:60;display:grid;place-items:center;background:rgba(10,12,10,.28)}
+#tpAsk[hidden]{display:none}
+#tpAsk .box{background:var(--paper,#fbf7ef);color:var(--ink,#2a2620);border-radius:18px;padding:18px 20px 16px;min-width:260px;max-width:min(88vw,360px);box-shadow:0 18px 50px rgba(0,0,0,.35);text-align:center}
+#tpAsk .nm{font-size:19px;font-weight:700;margin:2px 0 4px}
+#tpAsk .q{font-size:15px;margin:0}
+#tpAsk small{display:block;opacity:.65;font-size:12.5px;margin:6px 0 14px}
+#tpAsk .row{display:flex;gap:8px;justify-content:center}
+#tpAsk button{border:0;border-radius:999px;padding:9px 20px;font:inherit;font-size:14px;font-weight:600;cursor:pointer}
+#tpAsk .go{background:#3f6e48;color:#fff}#tpAsk .no{background:rgba(0,0,0,.07);color:inherit}
+#prog.tight{display:none!important}
+#pcard .pk{font-size:11.5px;font-weight:700;letter-spacing:.04em;color:#b5562c;margin:1px 3px 6px}
+
+/* ---------- 로딩 화면 (pipeline/loader_patch.py) ---------- */
+#loading .ld2{display:none}
+#loading.mBrand .ld2.brand, #loading.mMtn .ld2.mtn{display:block}
+#loading.mBrand > .scene, #loading.mBrand > .copy, #loading.mBrand > .ldPhoto, #loading.mBrand > .ldCredit{display:none !important}
+#loading.mBrand::before{display:none !important}
+#loading.mMtn > .scene, #loading.mMtn > .copy{display:none !important}
+/* 모드가 정해지기 전 찰나에 옛 오프닝(점선 능선·해)이 비치지 않게 */
+#loading > .scene, #loading > .copy{display:none !important}
+#loading:not(.mBrand):not(.mMtn){background:#141833 !important}
+#loading:not(.mBrand):not(.mMtn) > *, #loading:not(.mBrand):not(.mMtn)::before{visibility:hidden !important}
+#loading .ld2{position:absolute;inset:0;overflow:hidden}
+@keyframes ld2Fade{from{opacity:0}to{opacity:1}}
+@keyframes ld2Up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+/* 브랜드 */
+#loading.mBrand{background:#141833}
+.ld2.brand .bSky{position:absolute;inset:0;background:linear-gradient(180deg,#0f1430 0%,#252a55 38%,#5b4b78 62%,#c98a78 82%,#f2c08a 100%)}
+.ld2.brand .bDawn{position:absolute;inset:0;background:linear-gradient(180deg,#1d2a5c 0%,#4f6aa8 40%,#e7a88a 72%,#ffd9a3 100%);opacity:0;animation:ld2Fade 9s 1s ease-in-out forwards;will-change:opacity}
+.ld2.brand .bSun{position:absolute;left:50%;top:68%;width:44vmin;height:44vmin;margin:-22vmin 0 0 -22vmin;border-radius:50%;
+  background:radial-gradient(circle,#fff3d6 0 9%,rgba(255,222,170,.75) 13%,rgba(255,196,140,.28) 34%,rgba(255,170,120,0) 68%);transform:translateY(16vmin);animation:bSun 10s .3s cubic-bezier(.25,.1,.25,1) forwards;will-change:transform}
+@keyframes bSun{to{transform:translateY(0)}}
+.ld2.brand .bR{position:absolute;left:0;bottom:0;width:150%;height:100%;will-change:transform}
+.ld2.brand .bR.r0{animation:bDrift 60s linear infinite alternate}
+.ld2.brand .bR.r1{animation:bDrift 46s linear infinite alternate-reverse}
+.ld2.brand .bR.r2{animation:bDrift 34s linear infinite alternate}
+.ld2.brand .bR.r3{animation:bDrift 26s linear infinite alternate-reverse}
+@keyframes bDrift{from{transform:translateX(0)}to{transform:translateX(-30%)}}
+.ld2.brand .bMist{position:absolute;left:-30%;width:160%;height:16vh;border-radius:50%;background:radial-gradient(ellipse at center,rgba(255,236,214,.34),rgba(255,236,214,0) 70%);will-change:transform;filter:blur(2px)}
+.ld2.brand .bMist.m1{top:62%;animation:bMist 22s ease-in-out infinite alternate}
+.ld2.brand .bMist.m2{top:72%;opacity:.8;animation:bMist 30s ease-in-out infinite alternate-reverse}
+@keyframes bMist{from{transform:translateX(-6%)}to{transform:translateX(8%)}}
+.ld2.brand .bBirds{position:absolute;left:0;top:34%;width:100%;height:60px;animation:bFly 26s 2s linear infinite;will-change:transform;opacity:.75}
+.ld2.brand .bBirds i{position:absolute;width:14px;height:6px;border-top:2px solid #1d2140;border-radius:50% 50% 0 0;animation:bFlap 1.1s ease-in-out infinite}
+.ld2.brand .bBirds i:nth-child(1){left:0;top:10px}.ld2.brand .bBirds i:nth-child(2){left:22px;top:0;animation-delay:.3s;transform:scale(.8)}.ld2.brand .bBirds i:nth-child(3){left:40px;top:16px;animation-delay:.6s;transform:scale(.7)}
+@keyframes bFly{from{transform:translate(-80px,20px)}to{transform:translate(110vw,-30px)}}
+@keyframes bFlap{50%{transform:scaleY(.4)}}
+.ld2.brand .bLogo{position:absolute;left:0;right:0;top:19vh;text-align:center;padding:0 16px}
+.ld2.brand .bKick{font-family:var(--body);font-size:12.5px;letter-spacing:.32em;color:rgba(255,240,222,.72);opacity:0;animation:ld2Up 1.2s .4s ease forwards}
+.ld2.brand .bLineWrap{position:relative;width:min(420px,78vw);height:52px;margin:18px auto 0;opacity:0;animation:ld2Up 1.8s .8s ease forwards}
+.ld2.brand .bLineWrap svg{display:block;width:100%;height:100%;overflow:visible}
+.ld2.brand h2{margin:2px 0 0;font-family:var(--display);font-weight:700;font-size:clamp(52px,10vw,92px);letter-spacing:.42em;padding-left:.42em;color:#fff6e8;text-shadow:0 4px 34px rgba(255,190,130,.45);opacity:0;animation:ld2Up 1.6s 1.4s ease forwards}
+.ld2.brand .bTag{margin:12px 0 0;font-family:var(--display);font-size:16px;letter-spacing:.3em;color:rgba(255,240,222,.88);opacity:0;animation:ld2Up 1.4s 2.1s ease forwards}
+.ld2.brand .bTick{position:absolute;left:0;right:0;bottom:15vh;overflow:hidden;opacity:0;animation:ld2Fade 1.6s 2.6s ease forwards;-webkit-mask-image:linear-gradient(90deg,transparent,#000 18%,#000 82%,transparent);mask-image:linear-gradient(90deg,transparent,#000 18%,#000 82%,transparent)}
+.ld2.brand .bTrack{display:flex;width:max-content;animation:bTick 70s linear infinite;will-change:transform}
+.ld2.brand .bTrack span{font-family:var(--display);font-size:14px;letter-spacing:.14em;color:rgba(255,244,230,.7);white-space:nowrap;padding:0 14px}
+.ld2.brand .bTrack span.dot{padding:0;width:4px;height:4px;border-radius:50%;background:rgba(255,214,160,.55);align-self:center}
+@keyframes bTick{to{transform:translateX(-50%)}}
+#loading.mBrand > .status{bottom:7vh}
+#loading.mBrand #ldAlt{display:none}
+.ld2 .bar{position:absolute;left:50%;bottom:calc(7vh - 14px);width:min(220px,60vw);height:2px;transform:translateX(-50%);background:rgba(255,240,222,.18);border-radius:2px;overflow:hidden}
+.ld2 .bar i{position:absolute;inset:0;background:linear-gradient(90deg,#ffd9a6,#fff1dc);transform-origin:0 50%;transform:scaleX(.02);transition:transform 2.4s cubic-bezier(.2,.7,.3,1);will-change:transform}
+/* 산 입장 */
+#loading.mMtn .ldPhoto{animation:ld2Ken 30s cubic-bezier(.3,0,.25,1) forwards !important;will-change:transform,opacity;transition:opacity 1.8s ease}
+@keyframes ld2Ken{from{transform:scale(1.14) translate(-1.6%,1.2%)}to{transform:scale(1.02) translate(0,0)}}
+#loading.mMtn::before{background:linear-gradient(180deg,rgba(10,14,28,.62) 0%,rgba(10,14,28,.1) 30%,rgba(10,14,28,.05) 50%,rgba(10,14,28,.78) 100%) !important}
+.ld2.mtn{z-index:3}
+.ld2.mtn .mMist{position:absolute;left:-40%;width:180%;height:30vh;background:radial-gradient(ellipse at center,rgba(255,255,255,.2),rgba(255,255,255,0) 66%);will-change:transform}
+.ld2.mtn .mMist.a{top:44%;animation:bMist 24s ease-in-out infinite alternate}
+.ld2.mtn .mMist.b{top:58%;animation:bMist 33s ease-in-out infinite alternate-reverse;opacity:.7}
+.ld2.mtn .mBeam{position:absolute;inset:-20%;background:linear-gradient(115deg,rgba(255,236,200,0) 35%,rgba(255,236,200,.16) 48%,rgba(255,236,200,0) 60%);opacity:0;animation:mBeam 9s 1.2s ease-in-out infinite alternate;will-change:opacity,transform}
+@keyframes mBeam{from{opacity:0;transform:translateX(-4%)}to{opacity:1;transform:translateX(4%)}}
+.ld2.mtn .mCopy{position:absolute;left:0;right:0;top:13vh;text-align:center;padding:0 16px;color:#fff6ea;text-shadow:0 2px 20px rgba(0,0,0,.45)}
+.ld2.mtn .mKick{font-family:var(--body);font-size:12.5px;letter-spacing:.3em;opacity:0;animation:ld2Up 1s .2s ease forwards;color:rgba(255,240,224,.82)}
+.ld2.mtn .mKick b{font-weight:700;letter-spacing:.36em;color:#ffd9a6;margin-right:.6em}
+.ld2.mtn h2{margin:12px 0 0;font-family:var(--display);font-weight:700;font-size:clamp(40px,8.4vw,80px);letter-spacing:.14em;opacity:0;animation:ld2Up 1.4s .45s ease forwards}
+.ld2.mtn .mSub{margin-top:10px;font-family:var(--display);font-size:clamp(15px,2.2vw,19px);letter-spacing:.1em;opacity:0;animation:ld2Up 1.2s .8s ease forwards}
+.ld2.mtn .mSub b{font-weight:700;color:#ffe0b0;margin-left:.4em}
+.ld2.mtn .mVista{margin:14px auto 0;max-width:560px;font-family:var(--display);font-size:14.5px;line-height:1.6;color:rgba(255,244,230,.88);opacity:0;animation:ld2Up 1.2s 1.2s ease forwards}
+.ld2.mtn .mPanel{position:absolute;left:50%;bottom:calc(7vh + 34px);width:min(560px,calc(100% - 32px));transform:translateX(-50%);padding:14px 16px 12px;border-radius:18px;background:rgba(14,18,32,.38);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:0;animation:ld2Fade 1.2s 1s ease forwards}
+.ld2.mtn .pfHead{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--body);font-size:12px;color:rgba(255,244,230,.8);letter-spacing:.04em;gap:8px}
+.ld2.mtn .pfHead b{font-weight:700;color:#fff2de;font-variant-numeric:tabular-nums;margin-left:4px}
+.ld2.mtn .pfHead .mid{text-align:center;flex:1;opacity:.85;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ld2.mtn .pf{position:relative;height:70px;margin-top:8px}
+.ld2.mtn .pf svg{position:absolute;inset:0;width:100%;height:100%}
+.ld2.mtn .pfMask{position:absolute;inset:0;-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.ld2.mtn .pfFill{position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,214,160,.85),rgba(255,214,160,.25));transform-origin:0 50%;transform:scaleX(.02);transition:transform 2.4s cubic-bezier(.2,.7,.3,1);will-change:transform}
+.ld2.mtn .pfRun{position:absolute;left:0;top:0;width:100%;height:100%;transform:translateX(2%);transition:transform 2.4s cubic-bezier(.2,.7,.3,1);will-change:transform;pointer-events:none}
+.ld2.mtn .pfDot{position:absolute;left:-7px;top:-7px;width:14px;height:14px;border-radius:50%;background:#fff3de;box-shadow:0 0 0 5px rgba(255,217,166,.28),0 0 18px rgba(255,217,166,.8);transition:transform 2.4s cubic-bezier(.2,.7,.3,1);will-change:transform}
+.ld2.mtn .pfFlag{position:absolute;right:-2px;top:-20px;width:2px;height:20px;background:#fff1dc}
+.ld2.mtn .pfFlag::after{content:'';position:absolute;left:2px;top:0;border-left:13px solid #ff9f5a;border-top:4px solid transparent;border-bottom:4px solid transparent}
+#loading.mMtn > .status{bottom:7vh;z-index:4}
+html:not([lang=ko]) .ld2.brand h2{letter-spacing:.1em;padding-left:.1em;font-size:clamp(40px,11vw,88px)}
+html:not([lang=ko]) .ld2.brand .bKick, html:not([lang=ko]) .ld2.brand .bTag{letter-spacing:.12em}
+html:not([lang=ko]) .ld2.mtn h2{letter-spacing:.04em}
+@media (max-width:480px){.ld2.mtn .pfHead .mid{display:none}}
+@media (max-height:620px){.ld2.mtn .mVista{display:none} .ld2.mtn .mCopy{top:8vh}}
+@media (prefers-reduced-motion:reduce){.ld2 *{animation-duration:.01s !important;animation-iteration-count:1 !important}}
+
 #mtSel{z-index:15;background:rgba(40,52,74,.35);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 .mtCard{width:min(980px,100%);max-height:calc(100vh - 32px);display:flex;flex-direction:column;gap:12px;padding:22px 22px 18px;border-radius:24px;
   background:linear-gradient(180deg,#fffaf2 0%,#f4f8ff 100%);color:#24304a;box-shadow:0 24px 60px rgba(20,30,60,.28)}
@@ -416,7 +557,7 @@ body.touch #pcard{bottom:150px;left:10px;width:min(260px,58vw)}
 .mtItem:hover,.mtItem:focus-visible{transform:translateY(-3px);box-shadow:0 12px 26px rgba(30,45,80,.18);outline:none}
 .mtPic{flex:none;position:relative;aspect-ratio:16/9;width:100%;background:#dde7f3}
 .mtPic svg{width:100%;height:100%;display:block}
-.mtPic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s ease}
+.mtPic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.3s ease}
 .mtPic img.on{opacity:1}
 .mtPic .mtTag{position:absolute;left:10px;top:10px;font-size:11.5px;padding:3px 10px;border-radius:999px;background:rgba(255,255,255,.92);color:#c8562a;font-weight:700}
 .mtPic .mtElev{position:absolute;right:10px;bottom:8px;font-size:12px;padding:2px 9px;border-radius:999px;background:rgba(20,28,48,.55);color:#fff;font-variant-numeric:tabular-nums}
@@ -429,6 +570,7 @@ body.touch #pcard{bottom:150px;left:10px;width:min(260px,58vw)}
 @media (max-width:520px){.mtCard{padding:16px 14px 12px;border-radius:18px}.mtList{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.mtBody b{font-size:16px}.mtBody{padding:9px 10px 11px}}
 @media (prefers-reduced-motion:reduce){.mtItem{transition:none}}
 </style>
+<meta name="naver-site-verification" content="8f0f6c4eff38edcc794467af0cae44d70eb60f67" />
 <meta name="keywords" content="능선 온라인, 능선, 능선 게임, 온라인 등산, 온라인 산행, 온라인 트레킹, 온라인 하이킹, 등산 게임, 산행 게임, 트레킹 게임, 하이킹 게임, 힐링 게임, 브라우저 게임, online hiking game, Neungseon Online, Neungseon" data-seo="neungseon">
 <link rel="canonical" href="https://neungseon.com/deogyusan.html" data-seo="neungseon">
 <meta property="og:site_name" content="능선 온라인" data-seo="neungseon">
@@ -480,7 +622,7 @@ body.touch #pcard{bottom:150px;left:10px;width:min(260px,58vw)}
     // 시작 화면
     ['북한산 백운대에 함께 오르다','Autumn, climbing Baegundae on Bukhansan together','秋、北漢山・白雲台へいっしょに登る','秋天，一起登上北汉山白云台'],
     ['편도 약','One way, about','片道 約','单程约'],
-    ['km · 실제 고도 데이터로 만든 지형','km · terrain built from real elevation data','km・実際の標高データで作った地形','公里 · 用真实海拔数据制作的地形'],
+    ['km · 실제 고도 데이터를 본떠 만든 지형','km · terrain modeled on real elevation data','km・実際の標高データをもとに作った地形','公里 · 参照真实海拔数据制作的地形'],
     ['산에서 불릴 이름','Your trail name','山での呼び名','你在山上的名字'],
     ['다시 짓기','New name','別の名前','换一个'],
     ['옷 색','Outfit colors','服の色','衣服颜色'],
@@ -618,9 +760,9 @@ body.touch #pcard{bottom:150px;left:10px;width:min(260px,58vw)}
     ['화면 정리: 버튼 모두 숨기기 (H)','Clean view: hide all buttons (H)','画面すっきり: ボタンをすべて隠す (H)','清爽画面：隐藏所有按钮 (H)'],['언어','Language','言語','语言'],
     // 산 고르기·산 이름 (pipeline/build_site.py)
     ["어느 산에 오를까요?", "Which mountain today?", "どの山に登りますか？", "今天爬哪座山？"],
-    ["실제 고도 데이터로 만든 산길을 골라 보세요", "Pick a trail built from real elevation data", "実際の標高データで作った山道を選んでください", "选择一条用真实海拔数据制作的山路"],
-    ["국내 명산 10", "Korea · 10 mountains", "韓国の名山 10", "韩国名山 10"],
-    ["해외 명산 10", "World · 10 mountains", "世界の名山 10", "世界名山 10"],
+    ["실제 지형을 본떠 만든 산길을 골라 보세요", "Pick a trail modelled on real terrain", "実際の地形をもとに作った山道を選んでください", "选择一条参照真实地形制作的山路"],
+    ["국내 명산", "Korea", "韓国の名山", "韩国名山"],
+    ["해외 명산", "World", "世界の名山", "世界名山"],
     ["다른 산 고르기", "Choose another mountain", "別の山を選ぶ", "选择其他山"],
     ["지금 이 산", "You are here", "いまの山", "当前所在"],
     ["준비 중", "Coming soon", "準備中", "准备中"],
@@ -873,6 +1015,93 @@ body.touch #pcard{bottom:150px;left:10px;width:min(260px,58vw)}
     ["🏕 향적봉 대피소지기 · 겨울엔 주목에 상고대가 하얗게 피어요", "🏕 Hyangjeokbong Shelter Keeper · In winter, rime frost blooms white on the yews", "🏕 香積峰避難所の番人 · 冬にはイチイに霧氷が白く咲きます", "🏕 香积峰避难所管理员 · 冬天紫杉上会结满白色雾凇"],
     ["🏕 향적봉 대피소지기 · 곤돌라 소리가 들리면 설천봉이 가까운 거예요", "🏕 Hyangjeokbong Shelter Keeper · When you hear the gondola, Seolcheonbong is near", "🏕 香積峰避難所の番人 · ゴンドラの音が聞こえたら雪川峰は近いです", "🏕 香积峰避难所管理员 · 听到缆车声就离雪川峰不远了"],
     ["향적봉 대피소지기", "Hyangjeokbong Shelter Keeper", "香積峰避難所の番人", "香积峰避难所管理员"],
+    ["야영을 마쳤어요. 시간이 지금 시각으로 돌아가요", "Camp is over. The clock returns to the current time", "キャンプを終えました。時間が今の時刻に戻ります", "露营结束了，时间回到现在"],
+    ["타닥타닥… 불멍 중", "Crackle, crackle… gazing into the fire", "パチパチ…焚き火をぼんやり眺め中", "噼啪噼啪…正在发呆看火"],
+    ["은하수가 머리 위로 흘러요 · 가끔 별똥별도 떨어져요", "The Milky Way flows overhead · a shooting star falls now and then", "天の川が頭上を流れます · ときどき流れ星も", "银河在头顶流淌 · 偶尔还有流星划过"],
+    ["해가 지면 은하수가 보여요", "The Milky Way appears after sunset", "日が沈むと天の川が見えます", "太阳落山后就能看到银河"],
+    ["지금 시각 그대로", "Real time", "今の時刻のまま", "跟随当前时间"],
+    ["야영 중에는 밤하늘이 이어져요", "The night sky stays while you camp", "キャンプ中は夜空が続きます", "露营时一直是夜空"],
+    ["지금 밤하늘에 별똥별이 쏟아져요 ☄️", "Shooting stars are pouring across the night sky ☄️", "今、夜空に流れ星が降り注いでいます ☄️", "此刻夜空中流星如雨 ☄️"],
+    ["지금 북쪽 하늘에 오로라가 떴어요", "An aurora has appeared in the northern sky", "今、北の空にオーロラが出ています", "此刻北方天空出现了极光"],
+    ["📣 능선 소식", "📣 Neungseon news", "📣 稜線からのお知らせ", "📣 稜线消息"],
+    ["텐트에 들어가 잠을 청해요…", "You crawl into the tent to sleep…", "テントに入って眠ります…", "钻进帐篷睡觉…"],
+    ["하산 완료", "Descent complete", "下山完了", "下山完成"],
+    ["오늘 산행 끝!", "that’s today’s hike!", "今日の山行はおしまい！", "今天的登山结束啦！"],
+    ["하산 중", "Descending", "下山中", "下山中"],
+    ["낮과 밤", "Day & night", "昼と夜", "白天与夜晚"],
+    ["구글 계정", "Google account", "Googleアカウント", "Google 账号"],
+    ["산행 기록이 여러 기기에 저장돼요", "your hikes are saved across devices", "山行の記録が複数の端末に保存されます", "登山记录会保存到多台设备"],
+    ["📲 앱으로 설치", "📲 Install as app", "📲 アプリとして追加", "📲 安装为应用"],
+    ["홈 화면에 두고 앱처럼 꽉 찬 화면으로 즐겨요", "Keep it on your home screen and play full screen like an app", "ホーム画面に置いて、アプリのように全画面で", "放到主屏幕，像应用一样全屏游玩"],
+    ["아이폰에 앱으로 설치하기", "Install on iPhone", "iPhoneにアプリとして追加", "在 iPhone 上安装"],
+    ["Safari 주소창 옆 공유 버튼을 눌러요. 안 보이면 ⋯ 버튼을 먼저 눌러요.", "Tap the Share button next to Safari’s address bar. If you can’t see it, tap ⋯ first.", "Safariのアドレスバー横の共有ボタンを押します。見えなければ先に ⋯ を押します。", "点击 Safari 地址栏旁的分享按钮。看不到的话先点 ⋯。"],
+    ["목록을 내려 ‘홈 화면에 추가’를 눌러요.", "Scroll down the list and tap “Add to Home Screen”.", "リストを下にスクロールして「ホーム画面に追加」を押します。", "向下滑动列表，点击“添加到主屏幕”。"],
+    ["‘웹 앱으로 열기’가 켜져 있으면 그대로 두고 ‘추가’를 눌러요.", "Leave “Open as Web App” on and tap “Add”.", "「Webアプリとして開く」がオンならそのままで「追加」を押します。", "保持“作为网页应用打开”开启，然后点“添加”。"],
+    ["홈 화면의 능선 아이콘으로 열면 주소창 없이 꽉 찬 화면이에요.", "Open it from the Neungseon icon on your home screen for full screen without the address bar.", "ホーム画面の稜線アイコンから開くと、アドレスバーのない全画面になります。", "从主屏幕的稜线图标打开，就是没有地址栏的全屏。"],
+    ["카카오톡·네이버 같은 앱 안에서 연 화면에서는 설치할 수 없어요. 메뉴에서 ‘Safari로 열기’를 누른 뒤 다시 해 주세요.", "You can’t install from inside apps like KakaoTalk or Naver. Choose “Open in Safari” from the menu and try again.", "カカオトークやNAVERなどのアプリ内からは追加できません。メニューの「Safariで開く」を押してからもう一度どうぞ。", "在 KakaoTalk、Naver 等应用内打开时无法安装。请在菜单中选择“在 Safari 中打开”后再试。"],
+    ["앱과 Safari는 기록을 따로 저장해요. 구글로 로그인하면 산행 기록이 앱으로 이어져요.", "The app and Safari keep separate records. Sign in with Google to carry your hikes over.", "アプリとSafariは記録を別々に保存します。Googleでログインすると記録が引き継がれます。", "应用和 Safari 分开保存记录。用 Google 登录即可同步登山记录。"],
+    ["알겠어요", "Got it", "わかりました", "知道了"],
+    ["설치했어요 · 홈 화면의 능선 아이콘으로 열어 보세요", "Installed · open it from the Neungseon icon on your home screen", "インストールしました · ホーム画面の稜線アイコンから開いてください", "已安装 · 请从主屏幕的稜线图标打开"],
+    ["📲 앱으로 설치를 누르면 홈 화면에서 바로 열 수 있어요", "📲 Tap “Install as app” to open it right from your home screen", "📲「アプリとして追加」でホーム画面からすぐ開けます", "📲 点“安装为应用”，就能从主屏幕直接打开"],
+    ["후원", "Support", "応援", "支持"],
+    ["접기", "Fold", "たたむ", "收起"],
+    ["펼치기", "Open", "ひらく", "展开"],
+    ["야영장 메뉴 접기·펼치기", "Fold or open the camp menu", "キャンプメニューをたたむ・ひらく", "收起或展开营地菜单"],
+    ["언어 바꾸기", "Change language", "言語を変える", "切换语言"],
+    ["낮과 밤 바꾸기", "Change day & night", "昼と夜を切り替える", "切换白天与夜晚"],
+    ["낮과 밤: 지금 시각", "Day & night: real time", "昼と夜：今の時刻", "白天与夜晚：当前时间"],
+    ["실제 지형을 본떠 만든 명산 산길", "Mountain trails modeled on real terrain", "実際の地形をもとに作った名山の山道", "参照真实地形打造的名山步道"],
+    ["실제 지형을 본떠 만든 산길을 골라 보세요", "Pick a trail modeled on real terrain", "実際の地形をもとに作った山道を選んでください", "选择一条参照真实地形打造的步道"],
+    ["km · 실제 고도 데이터를 본떠 만든 지형", "km · terrain modeled on real elevation data", "km・実際の標高データをもとに作った地形", "公里 · 参照真实海拔数据打造的地形"],
+    ["국내 명산", "Korea", "韓国の名山", "韩国名山"],
+    ["해외 명산", "World", "世界の名山", "世界名山"],
+    ["여유 있는 산행", "An unhurried hike", "ゆったりとした山歩き", "从容的山行"],
+    ["오늘의 산행", "Today's hike", "今日の山歩き", "今天的山行"],
+    ["정상", "Summit", "山頂", "山顶"],
+    ["들머리", "Trailhead", "登山口", "登山口"],
+    ["편도", "One way", "片道", "单程"],
+    ["바위와 자갈길을 다듬는 중", "Smoothing the rocks and gravel path", "岩と砂利道を整えています", "正在整理岩石与碎石路"],
+    ["숲을 심는 중", "Planting the forest", "森を植えています", "正在种植森林"],
+    ["산의 결을 빚는 중", "Shaping the folds of the mountain", "山のひだを形づくっています", "正在塑造山的纹理"],
+    ["바위와 흙의 결을 고르는 중", "Choosing the textures of rock and soil", "岩と土の質感を選んでいます", "正在挑选岩石与泥土的质感"],
+    ["구름바다를 띄우는 중", "Floating the sea of clouds", "雲海を浮かべています", "正在铺开云海"],
+    ["돌계단을 놓는 중", "Laying the stone steps", "石段を据えています", "正在铺设石阶"],
+    ["정상 야영장을 꾸리는 중", "Setting up the summit campsite", "山頂キャンプ場を整えています", "正在布置山顶营地"],
+    ["배낭을 챙기는 중", "Packing your backpack", "リュックを詰めています", "正在收拾背包"],
+    ["산새를 깨우는 중", "Waking the mountain birds", "山の鳥を起こしています", "正在唤醒山鸟"],
+    ["하늘에 해와 별을 거는 중", "Hanging the sun and stars in the sky", "空に太陽と星を掛けています", "正在把太阳和星星挂上天空"],
+    ["골짜기 너머로 신록 능선이 펼쳐져요", "Fresh green ridges stretch beyond the valley", "谷の向こうに新緑の稜線が広がります", "山谷那头，新绿山脊绵延"],
+    ["골짜기 너머로 푸른 능선이 펼쳐져요", "Green ridges stretch beyond the valley", "谷の向こうに緑の稜線が広がります", "山谷那头，青翠山脊绵延"],
+    ["골짜기 너머로 눈 덮인 능선이 펼쳐져요", "Snowy ridges stretch beyond the valley", "谷の向こうに雪の稜線が広がります", "山谷那头，白雪山脊绵延"],
+    ["골짜기 너머로 겹겹의 능선이 펼쳐져요", "Layer upon layer of ridges stretch beyond the valley", "谷の向こうに幾重もの稜線が広がります", "山谷那头，层层山脊绵延"],
+    ["정상으로 이어지는 겹겹의 능선이 보여요", "Ridge after ridge leads up to the summit", "山頂へ続く幾重もの稜線が見えます", "层层山脊一路通向山顶"],
+    ["물소리를 들으며 신록 계곡을 바라봐요", "Listen to the stream and gaze at the fresh green valley", "水の音を聞きながら新緑の渓谷を眺めましょう", "听着水声，看看新绿溪谷"],
+    ["물소리를 들으며 푸른 계곡을 바라봐요", "Listen to the stream and gaze at the green valley", "水の音を聞きながら緑の渓谷を眺めましょう", "听着水声，看看青翠溪谷"],
+    ["물소리를 들으며 눈 덮인 계곡을 바라봐요", "Listen to the stream and gaze at the snowy valley", "水の音を聞きながら雪の渓谷を眺めましょう", "听着水声，看看白雪溪谷"],
+    ["물소리를 들으며 계곡을 바라봐요", "Listen to the stream and gaze at the valley", "水の音を聞きながら渓谷を眺めましょう", "听着水声，看看溪谷"],
+    ["이곳으로 순간이동할까요?", "Teleport here?", "ここへ移動しますか？", "要瞬间移动到这里吗？"],
+    ["이미 지나온 곳이라 바로 갈 수 있어요", "You have been here, so you can jump straight back", "一度通った場所なので、すぐに戻れます", "这里你已经来过，可以直接回去"],
+    ["이동하기", "Go", "移動する", "前往"],
+    ["취소", "Cancel", "キャンセル", "取消"],
+    ["순간이동했어요", "Teleported", "移動しました", "已瞬间移动"],
+    ["아직 가 보지 않은 곳이에요 · 걸어서 먼저 들러 보세요", "You haven’t been here yet · walk there first", "まだ行っていない場所です · まずは歩いて訪れてみましょう", "这里还没去过 · 先走过去看看吧"],
+    ["📮 경유지 도착 · 이 산의 사진 엽서", "📮 Checkpoint reached · a postcard from this mountain", "📮 経由地に到着 · この山の写真はがき", "📮 抵达途经点 · 这座山的明信片"],
+    ["천천히", "Slow", "ゆっくり", "慢走"],
+    ["빠르게", "Fast", "速く", "快走"],
+    ["오르는 중", "Climbing", "登っています", "上山中"],
+    ["내려가는 중", "Descending", "下っています", "下山中"],
+    ["등산", "Up", "登り", "上山"],
+    ["하산", "Down", "下り", "下山"],
+    ["💻 PC에 설치", "💻 Install on PC", "💻 PCにインストール", "💻 安装到电脑"],
+    ["바탕화면 아이콘으로 바로, 전체 화면으로 즐겨요", "Open it from a desktop icon and play full screen", "デスクトップのアイコンからすぐ、全画面で", "从桌面图标直接打开，全屏畅玩"],
+    ["PC에 능선 설치하기", "Install 능선 on your computer", "PCに능선をインストール", "在电脑上安装 능선"],
+    ["설치했어요 · 바탕화면이나 Dock의 능선 아이콘으로 열어 보세요", "Installed · open it from the 능선 icon on your desktop or Dock", "インストールしました · デスクトップやDockの능선アイコンから開いてください", "已安装 · 请从桌面或 Dock 上的 능선 图标打开"],
+    ["이 브라우저는 앱 설치를 지원하지 않아요. 크롬이나 엣지(맥은 Safari)로 neungseon.com 을 열고 다시 눌러 주세요.", "This browser can’t install apps. Open neungseon.com in Chrome or Edge (Safari on Mac) and try again.", "このブラウザはアプリのインストールに対応していません。Chrome か Edge(Macは Safari)で neungseon.com を開いて、もう一度押してください。", "此浏览器不支持安装应用。请用 Chrome 或 Edge（Mac 用 Safari）打开 neungseon.com 后再试。"],
+    ["설치한 앱과 브라우저는 기록을 따로 저장해요. 구글로 로그인하면 산행 기록이 이어져요.", "The installed app and the browser keep separate records. Sign in with Google to carry your hikes over.", "インストールしたアプリとブラウザは記録を別々に保存します。Googleでログインすると記録が引き継がれます。", "已安装的应用和浏览器分开保存记录。用 Google 登录即可同步登山记录。"],
+    ["알겠어요", "Got it", "わかりました", "知道了"],
+    ["덕유산", "Deogyusan", "徳裕山", "德裕山"],
+    ["향적봉", "Hyangjeokbong", "香積峰", "香积峰"],
+    ["백련사 코스", "Baengnyeonsa Trail", "白蓮寺コース", "白莲寺路线"],
     ["덕유산 향적봉 정상에 함께 오르다", "Climbing to Hyangjeokbong Summit on Deogyusan together", "徳裕山・香積峰 山頂へいっしょに登る", "一起登上德裕山香积峰 山顶"]
   ];
   const IDX = { en:1, ja:2, zh:3 };
@@ -973,6 +1202,7 @@ body.touch #pcard{bottom:150px;left:10px;width:min(260px,58vw)}
     <p class="ldTag">산길을 한 걸음씩, 함께 오르다</p>
   </div>
   <div class="status"><span id="ldMsg">산길을 여는 중</span><b id="ldAlt">해발 0m</b></div>
+<div class="ld2 brand" aria-hidden="false"><div class="bSky"></div><div class="bDawn"></div><div class="bSun"></div><svg class="bR r0" viewBox="0 0 2400 900" preserveAspectRatio="xMinYMax slice"><path d="M0 900 L0 508 L24 503 L48 497 L72 492 L96 487 L120 483 L144 480 L168 477 L192 476 L216 475 L240 475 L264 476 L288 477 L312 478 L336 479 L360 480 L384 480 L408 479 L432 478 L456 477 L480 476 L504 475 L528 474 L552 474 L576 475 L600 478 L624 481 L648 486 L672 493 L696 500 L720 509 L744 518 L768 528 L792 537 L816 546 L840 554 L864 561 L888 567 L912 571 L936 574 L960 576 L984 576 L1008 576 L1032 576 L1056 575 L1080 574 L1104 573 L1128 572 L1152 573 L1176 573 L1200 574 L1224 575 L1248 576 L1272 577 L1296 577 L1320 576 L1344 575 L1368 572 L1392 569 L1416 565 L1440 559 L1464 554 L1488 548 L1512 542 L1536 536 L1560 532 L1584 528 L1608 526 L1632 525 L1656 525 L1680 526 L1704 529 L1728 532 L1752 536 L1776 540 L1800 543 L1824 546 L1848 549 L1872 550 L1896 550 L1920 549 L1944 548 L1968 545 L1992 542 L2016 538 L2040 535 L2064 531 L2088 528 L2112 526 L2136 524 L2160 522 L2184 521 L2208 521 L2232 520 L2256 519 L2280 517 L2304 515 L2328 512 L2352 508 L2376 503 L2400 497 L2400 900 Z" fill="#3b3f66"/></svg><svg class="bR r1" viewBox="0 0 2400 900" preserveAspectRatio="xMinYMax slice"><path d="M0 900 L0 528 L24 529 L48 531 L72 532 L96 533 L120 533 L144 531 L168 529 L192 526 L216 524 L240 523 L264 524 L288 528 L312 533 L336 539 L360 547 L384 554 L408 560 L432 564 L456 565 L480 564 L504 559 L528 553 L552 545 L576 537 L600 530 L624 524 L648 521 L672 521 L696 524 L720 529 L744 535 L768 542 L792 548 L816 554 L840 559 L864 562 L888 565 L912 567 L936 571 L960 575 L984 582 L1008 591 L1032 602 L1056 614 L1080 627 L1104 641 L1128 652 L1152 662 L1176 668 L1200 671 L1224 670 L1248 666 L1272 660 L1296 652 L1320 643 L1344 635 L1368 628 L1392 623 L1416 619 L1440 616 L1464 613 L1488 611 L1512 608 L1536 603 L1560 596 L1584 589 L1608 580 L1632 571 L1656 562 L1680 555 L1704 551 L1728 549 L1752 550 L1776 554 L1800 560 L1824 567 L1848 573 L1872 579 L1896 582 L1920 583 L1944 581 L1968 576 L1992 570 L2016 562 L2040 554 L2064 546 L2088 540 L2112 536 L2136 533 L2160 532 L2184 531 L2208 530 L2232 528 L2256 526 L2280 521 L2304 516 L2328 509 L2352 502 L2376 496 L2400 492 L2400 900 Z" fill="#2e3256"/></svg><svg class="bR r2" viewBox="0 0 2400 900" preserveAspectRatio="xMinYMax slice"><path d="M0 900 L0 572 L24 573 L48 575 L72 575 L96 574 L120 572 L144 569 L168 568 L192 570 L216 576 L240 585 L264 598 L288 612 L312 625 L336 636 L360 642 L384 643 L408 640 L432 633 L456 625 L480 618 L504 613 L528 612 L552 614 L576 620 L600 627 L624 635 L648 641 L672 645 L696 647 L720 647 L744 649 L768 652 L792 659 L816 670 L840 684 L864 701 L888 718 L912 732 L936 742 L960 747 L984 745 L1008 739 L1032 729 L1056 717 L1080 705 L1104 695 L1128 688 L1152 682 L1176 676 L1200 671 L1224 663 L1248 652 L1272 639 L1296 625 L1320 610 L1344 597 L1368 588 L1392 584 L1416 586 L1440 592 L1464 601 L1488 611 L1512 619 L1536 624 L1560 626 L1584 623 L1608 618 L1632 611 L1656 605 L1680 600 L1704 599 L1728 599 L1752 601 L1776 603 L1800 604 L1824 602 L1848 596 L1872 589 L1896 580 L1920 572 L1944 568 L1968 568 L1992 574 L2016 586 L2040 602 L2064 620 L2088 638 L2112 655 L2136 669 L2160 679 L2184 685 L2208 690 L2232 694 L2256 699 L2280 706 L2304 714 L2328 722 L2352 730 L2376 734 L2400 734 L2400 900 Z" fill="#222644"/></svg><svg class="bR r3" viewBox="0 0 2400 900" preserveAspectRatio="xMinYMax slice"><path d="M0 900 L0 758 L24 752 L48 741 L72 729 L96 718 L120 712 L144 707 L168 703 L192 697 L216 685 L240 669 L264 652 L288 637 L312 628 L336 629 L360 639 L384 656 L408 674 L432 690 L456 702 L480 710 L504 716 L528 723 L552 733 L576 746 L600 760 L624 772 L648 777 L672 775 L696 767 L720 754 L744 743 L768 737 L792 737 L816 745 L840 755 L864 765 L888 772 L912 774 L936 772 L960 770 L984 770 L1008 774 L1032 780 L1056 787 L1080 788 L1104 783 L1128 769 L1152 747 L1176 723 L1200 700 L1224 683 L1248 672 L1272 667 L1296 666 L1320 664 L1344 661 L1368 656 L1392 651 L1416 650 L1440 655 L1464 667 L1488 685 L1512 703 L1536 718 L1560 726 L1584 727 L1608 721 L1632 713 L1656 707 L1680 706 L1704 710 L1728 717 L1752 724 L1776 728 L1800 729 L1824 727 L1848 726 L1872 730 L1896 740 L1920 757 L1944 777 L1968 797 L1992 811 L2016 818 L2040 816 L2064 807 L2088 796 L2112 786 L2136 778 L2160 772 L2184 766 L2208 757 L2232 743 L2256 724 L2280 704 L2304 686 L2328 673 L2352 670 L2376 674 L2400 684 L2400 900 Z" fill="#171a31"/></svg><div class="bMist m1"></div><div class="bMist m2"></div><div class="bBirds"><i></i><i></i><i></i></div><div class="bLogo"><div class="bKick">실제 지형을 본떠 만든 명산 산길</div><div class="bLineWrap"><svg viewBox="0 0 420 52" preserveAspectRatio="none"><path d="M0 46 C40 44 60 30 92 28 S140 40 168 30 S206 6 232 8 S262 30 290 26 S330 12 356 20 S396 40 420 38" fill="none" stroke="#ffd9a6" stroke-width="2.2" stroke-linecap="round"/><circle cx="232" cy="8" r="3.2" fill="#fff1dc"/></svg></div><h2>능선</h2><p class="bTag">여유 있는 산행</p></div><div class="bTick"><div class="bTrack"><span>북한산</span><span class="dot"></span><span>한라산</span><span class="dot"></span><span>지리산</span><span class="dot"></span><span>설악산</span><span class="dot"></span><span>무등산</span><span class="dot"></span><span>월출산</span><span class="dot"></span><span>내장산</span><span class="dot"></span><span>덕유산</span><span class="dot"></span><span>소백산</span><span class="dot"></span><span>태백산</span><span class="dot"></span><span>에베레스트</span><span class="dot"></span><span>후지산</span><span class="dot"></span><span>킬리만자로</span><span class="dot"></span><span>마터호른</span><span class="dot"></span><span>몽블랑</span><span class="dot"></span><span>트레 치메</span><span class="dot"></span><span>하프돔</span><span class="dot"></span><span>황산</span><span class="dot"></span><span>토레스 델 파이네</span><span class="dot"></span><span>통가리로</span><span class="dot"></span><span>북한산</span><span class="dot"></span><span>한라산</span><span class="dot"></span><span>지리산</span><span class="dot"></span><span>설악산</span><span class="dot"></span><span>무등산</span><span class="dot"></span><span>월출산</span><span class="dot"></span><span>내장산</span><span class="dot"></span><span>덕유산</span><span class="dot"></span><span>소백산</span><span class="dot"></span><span>태백산</span><span class="dot"></span><span>에베레스트</span><span class="dot"></span><span>후지산</span><span class="dot"></span><span>킬리만자로</span><span class="dot"></span><span>마터호른</span><span class="dot"></span><span>몽블랑</span><span class="dot"></span><span>트레 치메</span><span class="dot"></span><span>하프돔</span><span class="dot"></span><span>황산</span><span class="dot"></span><span>토레스 델 파이네</span><span class="dot"></span><span>통가리로</span><span class="dot"></span></div></div><div class="bar"><i></i></div></div><div class="ld2 mtn"><div class="mMist a"></div><div class="mMist b"></div><div class="mBeam"></div><div class="mCopy"><div class="mKick"><b>능선</b><span>오늘의 산행</span></div><h2>덕유산</h2><div class="mSub"><span>향적봉</span><b>1,614m</b></div><p class="mVista">주목과 구상나무 너머로 덕유 능선이 길게 이어져요</p></div><div class="mPanel"><div class="pfHead"><span><span>들머리</span><b>882m</b></span><span class="mid"><span>백련사 코스</span> · <span>편도</span> 4.9 km</span><span><span>정상</span><b>1,614m</b></span></div><div class="pf"><svg viewBox="0 0 1000 140" preserveAspectRatio="none"><path d="M0 127.2 L11 126.0 L22 124.6 L33 122.8 L44 121.2 L56 119.4 L67 117.6 L78 115.7 L89 113.9 L100 112.2 L111 110.8 L122 109.8 L133 108.9 L144 108.3 L156 107.6 L167 106.7 L178 106.1 L189 106.1 L200 106.0 L211 106.4 L222 107.3 L233 108.0 L244 108.9 L256 109.8 L267 110.4 L278 110.7 L289 110.7 L300 110.7 L311 110.5 L322 110.2 L333 109.9 L344 110.1 L356 110.4 L367 111.0 L378 111.7 L389 112.6 L400 113.3 L411 113.9 L422 114.2 L433 114.4 L444 114.1 L456 113.3 L467 112.3 L478 110.8 L489 109.1 L500 107.3 L511 105.4 L522 103.5 L533 101.5 L544 99.6 L556 97.7 L567 95.6 L578 93.6 L589 91.5 L600 89.6 L611 87.5 L622 85.6 L633 83.8 L644 81.7 L656 79.8 L667 77.9 L678 75.8 L689 73.9 L700 72.0 L711 69.9 L722 68.0 L733 65.8 L744 63.7 L756 61.7 L767 59.6 L778 57.5 L789 55.3 L800 53.1 L811 50.9 L822 48.7 L833 46.5 L844 44.5 L856 42.6 L867 40.7 L878 38.9 L889 37.0 L900 35.1 L911 33.0 L922 31.0 L933 29.0 L944 27.1 L956 25.3 L967 23.7 L978 22.1 L989 20.9 L1000 20.0 L1000 140 L0 140 Z" fill="rgba(255,255,255,.1)"/></svg><div class="pfMask" style="-webkit-mask-image:url('data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1000 140%22 preserveAspectRatio=%22none%22%3E%3Cpath d=%22M0 127.2 L11 126.0 L22 124.6 L33 122.8 L44 121.2 L56 119.4 L67 117.6 L78 115.7 L89 113.9 L100 112.2 L111 110.8 L122 109.8 L133 108.9 L144 108.3 L156 107.6 L167 106.7 L178 106.1 L189 106.1 L200 106.0 L211 106.4 L222 107.3 L233 108.0 L244 108.9 L256 109.8 L267 110.4 L278 110.7 L289 110.7 L300 110.7 L311 110.5 L322 110.2 L333 109.9 L344 110.1 L356 110.4 L367 111.0 L378 111.7 L389 112.6 L400 113.3 L411 113.9 L422 114.2 L433 114.4 L444 114.1 L456 113.3 L467 112.3 L478 110.8 L489 109.1 L500 107.3 L511 105.4 L522 103.5 L533 101.5 L544 99.6 L556 97.7 L567 95.6 L578 93.6 L589 91.5 L600 89.6 L611 87.5 L622 85.6 L633 83.8 L644 81.7 L656 79.8 L667 77.9 L678 75.8 L689 73.9 L700 72.0 L711 69.9 L722 68.0 L733 65.8 L744 63.7 L756 61.7 L767 59.6 L778 57.5 L789 55.3 L800 53.1 L811 50.9 L822 48.7 L833 46.5 L844 44.5 L856 42.6 L867 40.7 L878 38.9 L889 37.0 L900 35.1 L911 33.0 L922 31.0 L933 29.0 L944 27.1 L956 25.3 L967 23.7 L978 22.1 L989 20.9 L1000 20.0 L1000 140 L0 140 Z%22 fill=%22white%22/%3E%3C/svg%3E');mask-image:url('data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1000 140%22 preserveAspectRatio=%22none%22%3E%3Cpath d=%22M0 127.2 L11 126.0 L22 124.6 L33 122.8 L44 121.2 L56 119.4 L67 117.6 L78 115.7 L89 113.9 L100 112.2 L111 110.8 L122 109.8 L133 108.9 L144 108.3 L156 107.6 L167 106.7 L178 106.1 L189 106.1 L200 106.0 L211 106.4 L222 107.3 L233 108.0 L244 108.9 L256 109.8 L267 110.4 L278 110.7 L289 110.7 L300 110.7 L311 110.5 L322 110.2 L333 109.9 L344 110.1 L356 110.4 L367 111.0 L378 111.7 L389 112.6 L400 113.3 L411 113.9 L422 114.2 L433 114.4 L444 114.1 L456 113.3 L467 112.3 L478 110.8 L489 109.1 L500 107.3 L511 105.4 L522 103.5 L533 101.5 L544 99.6 L556 97.7 L567 95.6 L578 93.6 L589 91.5 L600 89.6 L611 87.5 L622 85.6 L633 83.8 L644 81.7 L656 79.8 L667 77.9 L678 75.8 L689 73.9 L700 72.0 L711 69.9 L722 68.0 L733 65.8 L744 63.7 L756 61.7 L767 59.6 L778 57.5 L789 55.3 L800 53.1 L811 50.9 L822 48.7 L833 46.5 L844 44.5 L856 42.6 L867 40.7 L878 38.9 L889 37.0 L900 35.1 L911 33.0 L922 31.0 L933 29.0 L944 27.1 L956 25.3 L967 23.7 L978 22.1 L989 20.9 L1000 20.0 L1000 140 L0 140 Z%22 fill=%22white%22/%3E%3C/svg%3E')"><div class="pfFill"></div></div><svg viewBox="0 0 1000 140" preserveAspectRatio="none"><path d="M0 127.2 L11 126.0 L22 124.6 L33 122.8 L44 121.2 L56 119.4 L67 117.6 L78 115.7 L89 113.9 L100 112.2 L111 110.8 L122 109.8 L133 108.9 L144 108.3 L156 107.6 L167 106.7 L178 106.1 L189 106.1 L200 106.0 L211 106.4 L222 107.3 L233 108.0 L244 108.9 L256 109.8 L267 110.4 L278 110.7 L289 110.7 L300 110.7 L311 110.5 L322 110.2 L333 109.9 L344 110.1 L356 110.4 L367 111.0 L378 111.7 L389 112.6 L400 113.3 L411 113.9 L422 114.2 L433 114.4 L444 114.1 L456 113.3 L467 112.3 L478 110.8 L489 109.1 L500 107.3 L511 105.4 L522 103.5 L533 101.5 L544 99.6 L556 97.7 L567 95.6 L578 93.6 L589 91.5 L600 89.6 L611 87.5 L622 85.6 L633 83.8 L644 81.7 L656 79.8 L667 77.9 L678 75.8 L689 73.9 L700 72.0 L711 69.9 L722 68.0 L733 65.8 L744 63.7 L756 61.7 L767 59.6 L778 57.5 L789 55.3 L800 53.1 L811 50.9 L822 48.7 L833 46.5 L844 44.5 L856 42.6 L867 40.7 L878 38.9 L889 37.0 L900 35.1 L911 33.0 L922 31.0 L933 29.0 L944 27.1 L956 25.3 L967 23.7 L978 22.1 L989 20.9 L1000 20.0" fill="none" stroke="rgba(255,240,222,.85)" stroke-width="2.4" vector-effect="non-scaling-stroke"/></svg><div class="pfFlag" style="top:calc(14.3% - 20px)"></div><div class="pfRun"><div class="pfDot"></div></div></div></div><div class="bar" style="display:none"><i></i></div></div><script>window.__PF=[0.9087, 0.9003, 0.8898, 0.8771, 0.8655, 0.8528, 0.8402, 0.8265, 0.8138, 0.8012, 0.7917, 0.7843, 0.778, 0.7737, 0.7685, 0.7621, 0.7579, 0.7579, 0.7569, 0.76, 0.7664, 0.7716, 0.778, 0.7843, 0.7885, 0.7906, 0.7906, 0.7906, 0.7896, 0.7875, 0.7853, 0.7864, 0.7885, 0.7927, 0.798, 0.8043, 0.8096, 0.8138, 0.8159, 0.817, 0.8149, 0.8096, 0.8022, 0.7917, 0.779, 0.7664, 0.7527, 0.7389, 0.7252, 0.7115, 0.6978, 0.683, 0.6683, 0.6535, 0.6398, 0.625, 0.6113, 0.5987, 0.5839, 0.5702, 0.5565, 0.5417, 0.528, 0.5143, 0.4995, 0.4858, 0.47, 0.4553, 0.4405, 0.4257, 0.411, 0.3951, 0.3793, 0.3635, 0.3477, 0.3319, 0.3181, 0.3044, 0.2907, 0.2781, 0.2644, 0.2507, 0.2359, 0.2211, 0.2074, 0.1937, 0.181, 0.1694, 0.1578, 0.1494, 0.1431];</script>
 </div>
 <script>
 // 오프닝: 겹겹의 능선을 그리고, 맨 앞 능선 위로 탐방로가 정상까지 이어지며 로딩 진행을 보여 줘요
@@ -998,6 +1228,23 @@ body.touch #pcard{bottom:150px;left:10px;width:min(260px,58vw)}
   window.__ldProgress = (f) => { f=Math.max(0,Math.min(1,f)); line.style.strokeDashoffset = len*(1-f); const pt=line.getPointAtLength(len*f); hk.style.transform=`translate(${pt.x}px,${pt.y}px)`;
     root.style.setProperty('--p', f); alt.textContent = '해발 ' + Math.round(874 + f*740) + 'm'; if(f>=1) flag.setAttribute('opacity','1'); };
   window.__ldProgress(0.02);
+})();
+</script>
+<script>
+// 로딩 화면 고르기 + 진행 표시 (pipeline/loader_patch.py) — 움직임은 transform만 써서 무거운 계산 중에도 부드럽게
+(function(){ const root = document.getElementById('loading'); if(!root) return;
+  let skip = /[?&]go=1/.test(location.search); try{ if(sessionStorage.getItem('neungseon.go') === 'deogyusan') skip = true; }catch(e){}
+  root.classList.add(skip ? 'mMtn' : 'mBrand');
+  const sel = skip ? '.ld2.mtn' : '.ld2.brand', box = root.querySelector(sel);
+  const bar = box && box.querySelector('.bar i'), fill = box && box.querySelector('.pfFill'), run = box && box.querySelector('.pfRun'), dot = box && box.querySelector('.pfDot'), pf = box && box.querySelector('.pf');
+  const P = window.__PF || [];
+  const set = f => { f = Math.max(0.02, Math.min(1, f));
+    if(bar) bar.style.transform = `scaleX(${f})`;
+    if(fill) fill.style.transform = `scaleX(${f})`;
+    if(run) run.style.transform = `translateX(${(f*100).toFixed(2)}%)`;
+    if(dot && pf && P.length){ const k = f*(P.length-1), i = Math.min(P.length-2, Math.floor(k)), t = k - i, y = (P[i]*(1-t) + P[i+1]*t) * pf.clientHeight; dot.style.transform = `translateY(${y.toFixed(1)}px)`; } };
+  const old = window.__ldProgress; window.__ldProgress = f => { try{ old && old(f); }catch(e){} set(f); };
+  set(0.04);
 })();
 </script>
 <script>if(matchMedia('(pointer:coarse)').matches || Math.min(innerWidth,innerHeight) < 600) document.body.classList.add('touch');</script>
@@ -1029,13 +1276,13 @@ body.touch #pcard{bottom:150px;left:10px;width:min(260px,58vw)}
     <button class="ib" id="bLang" title="언어 바꾸기" aria-label="언어 바꾸기"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.6 2.6 3.6 5.4 3.6 8.5s-1 5.9-3.6 8.5c-2.6-2.6-3.6-5.4-3.6-8.5s1-5.9 3.6-8.5z"/></svg></button>
     <button class="ib" id="bMap" title="지도 크게 (M)" aria-label="지도 크게 보기"><svg viewBox="0 0 24 24"><path d="M3 6.5 9 4l6 2.5L21 4v13.5L15 20l-6-2.5L3 20z"/><path d="M9 4v13.5M15 6.5V20"/></svg></button>
   </div>
-  <button id="supportBtn" class="glass pill"><svg class="oni" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2c-1.5 0-2.6.9-3.5 2.4l-4.3 7.6c-1.3 2.4.3 6.3 3.4 6.3h8.8c3.1 0 4.7-3.9 3.4-6.3l-4.3-7.6c-.9-1.5-2-2.4-3.5-2.4z" fill="#f6f1e6" stroke="#3a2c1e" stroke-width="1.3" stroke-linejoin="round"/><path d="M8.6 14h6.8v5.5H8.6z" fill="#2c3a2a"/><circle cx="9.6" cy="10.4" r=".75" fill="#3a2c1e"/><circle cx="14.4" cy="10.4" r=".75" fill="#3a2c1e"/><path d="M11 11.6q1 .8 2 0" fill="none" stroke="#3a2c1e" stroke-width=".9" stroke-linecap="round"/><circle cx="8.3" cy="11.8" r=".9" fill="#f2a28a" opacity=".7"/><circle cx="15.7" cy="11.8" r=".9" fill="#f2a28a" opacity=".7"/></svg><span>산행 간식 보태기</span></button>
+  <button id="supportBtn" class="glass pill"><svg class="oni" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2c-1.5 0-2.6.9-3.5 2.4l-4.3 7.6c-1.3 2.4.3 6.3 3.4 6.3h8.8c3.1 0 4.7-3.9 3.4-6.3l-4.3-7.6c-.9-1.5-2-2.4-3.5-2.4z" fill="#f6f1e6" stroke="#3a2c1e" stroke-width="1.3" stroke-linejoin="round"/><path d="M8.6 14h6.8v5.5H8.6z" fill="#2c3a2a"/><circle cx="9.6" cy="10.4" r=".75" fill="#3a2c1e"/><circle cx="14.4" cy="10.4" r=".75" fill="#3a2c1e"/><path d="M11 11.6q1 .8 2 0" fill="none" stroke="#3a2c1e" stroke-width=".9" stroke-linecap="round"/><circle cx="8.3" cy="11.8" r=".9" fill="#f2a28a" opacity=".7"/><circle cx="15.7" cy="11.8" r=".9" fill="#f2a28a" opacity=".7"/></svg><span class="sLong">산행 간식 보태기</span><span class="sShort">후원</span></button>
 </div>
 <div id="toast" class="hud glass pill"></div>
 <div id="banner" class="hud"><div class="big"></div><div class="small"></div></div>
 <div id="warn" class="hud pill"></div>
 <div id="bottom" class="hud">
-  <div id="walkPill" class="glass pill"><span id="walkTxt">탐방로를 따라</span><button id="bSlow" class="pz">천천히 걷기</button><button id="bFast" class="pz">빠르게 걷기</button><button id="bWalk">멈추기</button></div>
+  <div id="walkPill" class="glass pill"><span class="dirSeg"><button id="bUp" class="on" type="button">등산</button><button id="bDown" type="button">하산</button></span><span id="walkTxt">탐방로를 따라</span><button id="bSlow" class="pz">천천히</button><button id="bFast" class="pz">빠르게</button><button id="bWalk">멈추기</button></div>
   <button id="summitBtn" class="glass pill">⛰ 정상 메뉴</button>
   <div id="card"><div><div class="t" id="cardT"></div><div class="s" id="cardS"></div></div><button id="cardB"></button></div>
   <div id="campBar" class="glass">
@@ -1047,6 +1294,7 @@ body.touch #pcard{bottom:150px;left:10px;width:min(260px,58vw)}
     <button id="cSleep"><span class="e">😴</span>텐트에서 자기</button>
     <button id="cDown"><span class="e">🥾</span>하산</button>
     <button id="cEnd"><span class="e">↩</span>마치기</button>
+    <button id="cMin" aria-label="야영장 메뉴 접기·펼치기"><span class="e mClose">▾</span><span class="e mOpen">▴</span><span class="mClose">접기</span><span class="mOpen">펼치기</span></button>
   </div>
   <div id="actions" class="glass">
     <button id="aWave"><svg viewBox="0 0 24 24"><path d="M8 13V6.5a1.5 1.5 0 0 1 3 0V12m0-6.5V4.5a1.5 1.5 0 0 1 3 0V12m0-6a1.5 1.5 0 0 1 3 0v7.5c0 4-2.5 6.5-6 6.5-2.6 0-4-1.2-5.5-3.3L3.8 13.6a1.5 1.5 0 0 1 2.4-1.8L8 14"/></svg>인사<kbd>1</kbd></button>
@@ -1057,13 +1305,13 @@ body.touch #pcard{bottom:150px;left:10px;width:min(260px,58vw)}
   </div>
 </div>
 <button id="cleanOff" class="glass pill" aria-label="버튼 다시 보이기">버튼 보이기</button>
-<div id="mapWrap" class="hud glass click"><canvas id="map" width="500" height="500"></canvas></div>
+<div id="mapWrap" class="hud glass click"><canvas id="map" width="500" height="500"></canvas></div><div id="tpAsk" hidden><div class="box"><div class="nm" id="tpName"></div><p class="q">이곳으로 순간이동할까요?</p><small>이미 지나온 곳이라 바로 갈 수 있어요</small><div class="row"><button class="no" id="tpNo">취소</button><button class="go" id="tpGo">이동하기</button></div></div></div>
 
 <div id="start" class="panel">
   <div class="card">
     <label class="langRow"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.6 2.6 3.6 5.4 3.6 8.5s-1 5.9-3.6 8.5c-2.6-2.6-3.6-5.4-3.6-8.5s1-5.9 3.6-8.5z"/></svg><select class="langSel" aria-label="Language" onchange="I18N.setLang(this.value)"><option value="ko">한국어</option><option value="en">English</option><option value="ja">日本語</option><option value="zh">中文</option></select></label>
     <h1>능선<small>덕유산 향적봉 정상에 함께 오르다</small></h1>
-    <div class="route"><b>구천동 계곡</b> → 백련사 → <b>향적봉 정상 1614m</b><br>편도 약 <span id="routeLen">2.6</span>km · 실제 고도 데이터로 만든 지형</div>
+    <div class="route"><b>구천동 계곡</b> → 백련사 → <b>향적봉 정상 1614m</b><br>편도 약 <span id="routeLen">2.6</span>km · 실제 고도 데이터를 본떠 만든 지형</div>
     <h2>산에서 불릴 이름</h2>
     <div class="field"><input id="nickIn" maxlength="10" autocomplete="off" aria-label="닉네임"><button id="nickRnd" title="다른 이름">다시 짓기</button></div>
     <h2>옷 색</h2>
@@ -1077,22 +1325,23 @@ body.touch #pcard{bottom:150px;left:10px;width:min(260px,58vw)}
     <div class="keys deskKeys"><kbd>W A S D</kbd> 걷기 · <kbd>Shift</kbd> 빠르게 · 땅 클릭으로 이동 · 마우스 드래그 시점 · <kbd>F</kbd> 천천히 걷기 · <kbd>V</kbd> 1인칭 · <kbd>H</kbd> 버튼 숨기기 · <kbd>M</kbd> 지도 · <kbd>R</kbd> 체크포인트</div>
     <div id="gLogin" hidden><button id="gBtn" class="gBtn" type="button">Google로 로그인</button><span id="gTxt">로그인하면 다른 기기에서도 이어서 오를 수 있어요</span></div>
     <div id="resume" hidden><div class="resHead">지난 산행이 저장되어 있어요</div><div class="resTxt" id="resTxt"></div><button class="btn" id="goResume">이어서 오르기</button></div>
+        <div id="appInst" hidden><button id="aiBtn" class="gBtn" type="button">📲 앱으로 설치</button><span id="aiTxt">홈 화면에 두고 앱처럼 꽉 찬 화면으로 즐겨요</span></div>
     <button class="btn sec" id="mtOpen" type="button">다른 산 고르기</button>
     <button class="btn" id="go">산행 시작</button>
     <div class="credit">지형 고도: AWS Terrain Tiles (Mapzen Terrarium, SRTM 등 공개 DEM). 약 30m 해상도라 실제보다 부드럽고, 탐방로는 주요 지점을 지형에 맞춰 이은 근사치입니다.</div>
   </div>
 </div>
-<div id="pcard" aria-live="polite"><button type="button" aria-label="닫기">✕</button><img alt=""><div class="cap"><b></b><small></small></div></div>
+<div id="pcard" aria-live="polite"><button type="button" aria-label="닫기">✕</button><div class="pk">📮 경유지 도착 · 이 산의 사진 엽서</div><img alt=""><div class="cap"><b></b><small></small></div></div>
 <div id="seasonPop" class="glass" hidden><p>이 자리에서 계절을 바꿔요 · 산을 새로 그린 뒤 이어서 걸어요</p><div class="seasonRow" id="seasonRow2"></div></div>
 
 <div id="mtSel" class="panel" hidden>
   <div class="mtCard">
     <div class="mtHead">
-      <div><h1>어느 산에 오를까요?</h1><p>실제 고도 데이터로 만든 산길을 골라 보세요</p></div>
+      <div><h1>어느 산에 오를까요?</h1><p>실제 지형을 본떠 만든 산길을 골라 보세요</p></div>
       <button type="button" class="mtX" id="mtX" aria-label="닫기">✕</button>
     </div>
     <p class="mtSaved" id="mtSaved" hidden>지금까지 걸은 기록을 저장했어요</p>
-    <div class="mtTabs" role="tablist"><button type="button" data-r="kr">국내 명산 10</button><button type="button" data-r="world">해외 명산 10</button></div>
+    <div class="mtTabs" role="tablist"><button type="button" data-r="kr">국내 명산</button><button type="button" data-r="world">해외 명산</button></div>
     <div class="mtList" id="mtList"></div>
   </div>
 </div>
@@ -1149,6 +1398,39 @@ body.touch #pcard{bottom:150px;left:10px;width:min(260px,58vw)}
 </div>
 <div id="fade"></div>
 <div id="waveMenu" class="glass" hidden></div>
+<div id="aiSheet" class="panel" hidden><div class="card aiCard"><button class="pX" id="aiX" aria-label="닫기">✕</button>
+  <h3 class="aiH">아이폰에 앱으로 설치하기</h3>
+  <ol class="aiSteps" id="aiSafari">
+    <li><svg class="aiIc" viewBox="0 0 24 24"><path d="M12 3v12M7.5 7.5 12 3l4.5 4.5M6 11H5v10h14V11h-1"/></svg> Safari 주소창 옆 공유 버튼을 눌러요. 안 보이면 ⋯ 버튼을 먼저 눌러요.</li>
+    <li>목록을 내려 ‘홈 화면에 추가’를 눌러요.</li>
+    <li>‘웹 앱으로 열기’가 켜져 있으면 그대로 두고 ‘추가’를 눌러요.</li>
+    <li>홈 화면의 능선 아이콘으로 열면 주소창 없이 꽉 찬 화면이에요.</li>
+  </ol>
+  <p class="aiNote" id="aiOther" hidden>카카오톡·네이버 같은 앱 안에서 연 화면에서는 설치할 수 없어요. 메뉴에서 ‘Safari로 열기’를 누른 뒤 다시 해 주세요.</p>
+  <p class="aiNote">앱과 Safari는 기록을 따로 저장해요. 구글로 로그인하면 산행 기록이 앱으로 이어져요.</p>
+  <button class="btn" id="aiOk" type="button">알겠어요</button>
+</div></div>
+<div id="pcSheet" class="panel" hidden><div class="card aiCard"><button class="pX" id="pcX" aria-label="닫기">✕</button>
+  <h3 class="aiH">PC에 능선 설치하기</h3>
+  <ol class="aiSteps" id="pcChrome" hidden>
+    <li>주소창 오른쪽 끝의 설치 아이콘(모니터에 ↓ 모양)을 눌러요. 안 보이면 ⋮ 메뉴 → ‘전송, 저장, 공유’ → ‘페이지를 앱으로 설치’를 눌러요.</li>
+    <li>‘설치’를 누르면 바탕화면·시작 메뉴(맥은 Dock·응용 프로그램)에 능선 아이콘이 생겨요.</li>
+    <li>아이콘으로 열면 주소창 없이 열리고, 시작을 누르면 전체 화면이 돼요.</li>
+  </ol>
+  <ol class="aiSteps" id="pcEdge" hidden>
+    <li>주소창 오른쪽의 앱 설치 아이콘을 누르거나, ⋯ 메뉴 → ‘앱’ → ‘이 사이트를 앱으로 설치’를 눌러요.</li>
+    <li>‘설치’를 누르면 바탕화면·시작 메뉴에 능선 아이콘이 생겨요.</li>
+    <li>아이콘으로 열면 주소창 없이 열리고, 시작을 누르면 전체 화면이 돼요.</li>
+  </ol>
+  <ol class="aiSteps" id="pcSafari" hidden>
+    <li>화면 맨 위 메뉴 막대에서 ‘파일’ → ‘Dock에 추가’를 눌러요. (macOS Sonoma 이상)</li>
+    <li>‘추가’를 누르면 Dock과 응용 프로그램 폴더에 능선 아이콘이 생겨요.</li>
+    <li>아이콘으로 열면 주소창 없이 열리고, 시작을 누르면 전체 화면이 돼요.</li>
+  </ol>
+  <p class="aiNote" id="pcOther" hidden>이 브라우저는 앱 설치를 지원하지 않아요. 크롬이나 엣지(맥은 Safari)로 neungseon.com 을 열고 다시 눌러 주세요.</p>
+  <p class="aiNote">설치한 앱과 브라우저는 기록을 따로 저장해요. 구글로 로그인하면 산행 기록이 이어져요.</p>
+  <button class="btn" id="pcOk" type="button">알겠어요</button>
+</div></div>
 <div id="adminLogin" class="panel" hidden><div class="card adCard">
   <h1 style="font-size:22px">관리자 모드<small>정상 이벤트를 바로 시험해 볼 수 있어요</small></h1>
   <input id="adPw" type="password" autocomplete="off" placeholder="비밀번호" style="width:100%;padding:12px 14px;border-radius:12px;border:1.5px solid rgba(0,0,0,.15);font-size:16px;margin-top:12px">
@@ -1219,9 +1501,22 @@ const SZ = ({
     floor:[0xd8dee6,0xe6ebf0,0xcfd6df], bareAll:true,
     sp:{} },
 })[SEASON] || { green:0, snow:0 };
-const seasonGLSL = () => `lit = mix(lit, lit.g*vec3(0.62,1.0,0.5) + vec3(0.03,0.06,0.0), ${(SZ.green||0).toFixed(2)}); lit = mix(lit, vec3(0.9,0.93,0.97)*(0.86+0.14*lit.g), ${(SZ.snow||0).toFixed(2)});`;
+const seasonGLSL = () => (SEASON === 'autumn' && BIO.leaf ? `{ float gr = clamp((lit.g - max(lit.r, lit.b))*5.0, 0.0, 1.0); float h = fract(sin(dot(floor(vWP.xz/9.0), vec2(12.9898, 78.233)))*43758.5453); vec3 au = lit.g*mix(vec3(1.45, 0.55, 0.22), vec3(1.25, 0.95, 0.3), h); lit = mix(lit, au, gr*0.65); } ` : '') + `lit = mix(lit, lit.g*vec3(0.62,1.0,0.5) + vec3(0.03,0.06,0.0), ${(SZ.green||0).toFixed(2)}); lit = mix(lit, vec3(0.9,0.93,0.97)*(0.86+0.14*lit.g), ${(SZ.snow||0).toFixed(2)});`;
 const SZX = {"spring": {"flower": [[214, 82, 150], [232, 120, 180], [196, 60, 130], [240, 160, 200]], "flowerAmt": 0.45}, "summer": {"flower": [[236, 150, 60], [250, 196, 80], [230, 230, 236]], "flowerAmt": 0.12}, "winter": {"snowAmt": 0.92, "rime": 1}};
 Object.assign(SZ, SZX[SEASON] || {});
+{ const FL = {"summer":[[[250,150,50],[240,128,40]],[[176,150,220],[156,128,206]],[[120,150,228],[150,176,236]],[[246,246,240],[236,236,226]],[[236,120,160],[246,156,186]],[[250,214,80],[244,196,60]],[[228,84,60],[240,110,70]],[[232,96,56],[244,128,80]]],"spring":[[[232,120,170],[244,160,196]],[[214,82,150],[226,110,170]],[[246,240,236],[250,230,236]],[[250,220,90],[240,200,70]],[[180,140,220],[200,170,232]]]};
+  const G = [[70,120,52],[84,136,60],[58,104,44]], S = [[110,160,70],[126,174,80],[96,146,60]];
+  const L = SEASON === 'summer' ? G : S;
+  if(FL[SEASON]){
+    SZ.flowerSets = FL[SEASON].map(f => [...L, ...f]).concat([L.concat([[96,150,66]])]);   // + 꽃 없는 초록 덤불
+    if(SEASON === 'summer') SZ.flowerAmt = Math.max(SZ.flowerAmt || 0, 0.16);
+    else SZ.flowerAmt = Math.max(SZ.flowerAmt || 0, 0.1);
+  }
+  SZ.fern = { spring: [[[120,170,70],[140,186,84],[104,150,60]], [[150,192,92],[130,176,76],[166,202,104]]],
+              summer: [[[56,112,44],[70,128,52],[46,98,38]], [[82,140,58],[64,122,48],[98,154,68]]],
+              winter: [[[150,128,100],[170,148,118],[128,110,88]], [[160,140,110],[140,120,96],[182,162,132]]] }[SEASON] || null;
+}
+
 if(SZ.notCherry && SZ.sp && SZ.sp.mapleOrange) SZ.sp = Object.assign({}, SZ.sp, {mapleRed: SZ.sp.mapleOrange});
 if(SZ.snowAmt != null) SZ.snow = SZ.snowAmt;
 if(SZ.rime){ SZ.bareAll = false; SZ.sp = {}; for(const k of ['mapleRed','mapleOrange','oak','oakGold','yellow','birch','green','bare']) SZ.sp[k] = [[236,240,246],[222,230,240],[248,250,253],[210,220,232],[240,244,250]]; }
@@ -1233,7 +1528,8 @@ function decode(b64, scale){
   for(let i=0;i<n;i++) out[i] = (bin.charCodeAt(2*i) | (bin.charCodeAt(2*i+1)<<8)) / scale;
   return out;
 }
-const H0 = 279.6, VEX = 1.015, ALT0 = 594;               // 정상 1614m에 맞춘 미세 수직 보정
+const H0 = 279.6, VEX = 1.3195, ALT0 = 594, XEX = 1.3;
+const realH = y => H0 + (y - H0) / XEX + ALT0;               // 정상 1614m에 맞춘 미세 수직 보정
 const vs = h => H0 + (h - H0) * VEX;
 const NC = D.N, S = D.size, HALF = S/2, CC = S/(NC-1);
 const coarse = decode(D.h, 10);
@@ -1312,6 +1608,23 @@ const WP_DESC = {
   '향적봉 정상':'덕유산 최고봉, 해발 1614m.'
 };
 
+
+// ---------- 구름다리 구간: 다리 위는 평평하게 (pipeline/relief_patch.py) ----------
+const RELIEF = {"xex": 1.3, "crags": {"color": "#a9a59c", "n": 40, "h": [4, 9], "w": [2.5, 5], "zone": 600, "sharp": 0, "ridge": 1.2, "minH": 0.3}};
+const BRIDGE = (() => { const B = RELIEF.bridge; if(!B || !WPS[B.wp]) return null;
+  const L = B.len|0, c0 = WPS[B.wp].i; let best = null;
+  // 양 끝 높이가 비슷하고, 곧게 뻗고, 주변(협곡 자리)에 다른 탐방로 구간이 지나가지 않는 곳
+  for(let c = Math.max(L, c0 - 90); c <= Math.min(trail.length - 1 - L, c0 + 90); c += 2){
+    const i0 = c - (L>>1), i1 = c + (L>>1), a = trail[i0], b = trail[i1]; if(!a || !b) continue;
+    const chord = Math.hypot(b.x - a.x, b.z - a.z), mx = (a.x + b.x)/2, mz = (a.z + b.z)/2; let other = 0;
+    for(let j = 0; j < trail.length; j += 3){ if(j > i0 - 40 && j < i1 + 40) continue; const d = Math.hypot(trail[j].x - mx, trail[j].z - mz); if(d < 95) other += (95 - d); }
+    const sc = Math.abs(a.h - b.h) + Math.abs(c - c0)*0.02 + (L - chord)*0.8 + other*0.05; if(!best || sc < best.sc) best = {sc, i0, i1}; }
+  if(!best) return null; const ha = trail[best.i0].h, hb = trail[best.i1].h, A = trail[best.i0], Bp = trail[best.i1];
+  // 다리 위 구간은 곧은 직선으로 (다리 바닥과 걷는 길이 정확히 겹치게)
+  const ax = A.x, az = A.z, bx = Bp.x, bz = Bp.z;
+  for(let i = best.i0; i <= best.i1; i++){ const f = (i - best.i0)/(best.i1 - best.i0); trail[i].h = ha + (hb - ha)*f; trail[i].x = ax + (bx - ax)*f; trail[i].z = az + (bz - az)*f; }
+  return { i0:best.i0, i1:best.i1, depth:B.depth || 24, color:B.color || '#b4332a' }; })();
+await ldStep('산의 결을 빚는 중', 0.14);
 // ---------- fine terrain ----------
 const M = 513, FC = S/(M-1);
 const fineH = new Float32Array(M*M), trailD = new Float32Array(M*M);
@@ -1326,6 +1639,22 @@ for(let j=0;j<M;j++) for(let i=0;i<M;i++){
   if(ts>0) h = h*(1-ts) + (trail[nt.i].h - 0.15)*ts;
   fineH[j*M+i] = h;
 }
+
+// ---------- 구름다리 아래 협곡 파기 (pipeline/relief_patch.py) ----------
+if(BRIDGE){ const {i0, i1, depth} = BRIDGE, n = i1 - i0; let x0 = 1e9, x1 = -1e9, z0 = 1e9, z1 = -1e9;
+  for(let i = i0; i <= i1; i++){ const p = trail[i]; x0 = Math.min(x0, p.x); x1 = Math.max(x1, p.x); z0 = Math.min(z0, p.z); z1 = Math.max(z1, p.z); }
+  const pad = 90, sst = (a, b, v) => { const t = Math.min(1, Math.max(0, (v - a)/(b - a))); return t*t*(3 - 2*t); };
+  const ta = trail[i0], tb = trail[i1], ux = (tb.x - ta.x)/Math.hypot(tb.x - ta.x, tb.z - ta.z), uz = (tb.z - ta.z)/Math.hypot(tb.x - ta.x, tb.z - ta.z), Lb = Math.hypot(tb.x - ta.x, tb.z - ta.z);
+  for(let j = 0; j < M; j++){ const z = -HALF + j*FC; if(z < z0 - pad || z > z1 + pad) continue;
+    for(let i = 0; i < M; i++){ const x = -HALF + i*FC; if(x < x0 - pad || x > x1 + pad) continue;
+      const al = ((x - ta.x)*ux + (z - ta.z)*uz)/Lb, lat = Math.abs(-(x - ta.x)*uz + (z - ta.z)*ux);
+      if(al < -0.1 || al > 1.1) continue;
+      const along = sst(0.02, 0.2, al) * (1 - sst(0.8, 0.98, al)), side = 1 - sst(28, 60, lat);
+      let k = along*side; if(k <= 0) continue;
+      { const nt = nearTrail(x, z, 1); if(nt.i < i0 - 30 || nt.i > i1 + 30) k *= sst(6, 22, nt.d); if(k <= 0) continue; }   // 다른 탐방로 구간은 그대로 두기
+      const deck = ta.h + (tb.h - ta.h)*Math.min(1, Math.max(0, al)), jag = (vnoise(x/9, z/9) - 0.5)*5;
+      const floor = deck - depth*(0.75 + 0.25*side) + jag;
+      fineH[j*M + i] = Math.min(fineH[j*M + i], fineH[j*M + i]*(1 - k) + floor*k); } } }
 function heightAt(x,z){
   let fx=(x+HALF)/FC, fz=(z+HALF)/FC;
   fx=Math.min(Math.max(fx,0),M-1.0001); fz=Math.min(Math.max(fz,0),M-1.0001);
@@ -1469,12 +1798,12 @@ const NIGHTGLOW = (()=>{
 })();
 // 달: 사진 달 + 실제 날짜의 위상 (차고 기우는 모양) + 달무리
 const MOON = (()=>{
-  const mat = new THREE.ShaderMaterial({ uniforms:{ map:{value:null}, phase:{value:Math.PI}, op:{value:0} }, transparent:true, depthWrite:false, depthTest:true, fog:false,
+  const mat = new THREE.ShaderMaterial({ uniforms:{ map:{value:null}, phase:{value:Math.PI}, op:{value:0}, earth:{value:0} }, transparent:true, depthWrite:false, depthTest:true, fog:false,
     vertexShader:'varying vec2 vU; void main(){ vU = uv; gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.0); }',
-    fragmentShader:`uniform sampler2D map; uniform float phase, op; varying vec2 vU;
+    fragmentShader:`uniform sampler2D map; uniform float phase, op, earth; varying vec2 vU;
       void main(){ vec2 p = vU*2.0 - 1.0; float r2 = dot(p,p); if(r2 > 1.0) discard; vec4 t = texture2D(map, vU);
-        vec3 n = vec3(p, sqrt(1.0 - r2)); vec3 L = vec3(sin(phase), 0.0, -cos(phase)); float lit = smoothstep(-0.05, 0.07, dot(n, L));
-        vec3 c = t.rgb*(0.035 + lit*1.3)*vec3(1.0, 0.98, 0.93); gl_FragColor = vec4(c, op*smoothstep(1.0, 0.94, r2)); }` });
+        vec3 n = vec3(p, sqrt(1.0 - r2)); vec3 L = vec3(sin(phase), 0.0, -cos(phase)); float lit = smoothstep(-0.03, 0.09, dot(n, L));
+        float lum = dot(t.rgb, vec3(0.299, 0.587, 0.114)); vec3 tc = clamp((mix(vec3(lum), t.rgb, 0.5) - 0.5)*1.6 + 0.56, 0.0, 1.0); vec3 c = tc*(0.8 + 0.2*n.z)*1.2*vec3(1.0, 0.98, 0.93)*(lit + (1.0 - lit)*0.3); gl_FragColor = vec4(c, op*smoothstep(1.0, 0.96, r2)*(lit + (1.0 - lit)*earth)); }` });
   new THREE.TextureLoader().load(MOON_URL, tx => { mat.uniforms.map.value = tx; });
   const mesh = new THREE.Mesh(new THREE.PlaneGeometry(1,1), mat); mesh.frustumCulled = false; mesh.visible = false; scene.add(mesh);
   const c = document.createElement('canvas'); c.width = c.height = 128; const x = c.getContext('2d'); const g = x.createRadialGradient(64,64,0,64,64,64);
@@ -1554,10 +1883,10 @@ function updateSky(dt, px, py, pz, forest){
     if(SKY.moonForce) md.set(0.55, 0.5, 0.67).normalize(); else md.copy(sunAtHour(SKY.h - age*0.8127, dayOfYear() + age*12.37));
     const up = THREE.MathUtils.smoothstep(md.y, -0.02, 0.08), frac = (1 - Math.cos(ph))/2; MOON.amt = up*frac*night;
     if(md.y > 0.12) SKY.moon.copy(md);
-    MOON.mat.uniforms.phase.value = ph; MOON.mat.uniforms.op.value = up*THREE.MathUtils.smoothstep(night, 0.0, 0.5)*0.97 + up*0.25*(1-night);
+    MOON.mat.uniforms.phase.value = ph; MOON.mat.uniforms.op.value = up*THREE.MathUtils.smoothstep(night, 0.0, 0.5)*0.97 + up*0.6*(1-night); MOON.mat.uniforms.earth.value = 0.14*night;
     const on = up > 0.001; MOON.mesh.visible = on; MOON.glow.visible = on && night > 0.05;
-    if(on){ MOON.mesh.position.copy(camera.position).addScaledVector(md, 9000); MOON.mesh.lookAt(camera.position); MOON.mesh.scale.setScalar(250);
-      MOON.glow.position.copy(camera.position).addScaledVector(md, 8900); MOON.glow.scale.setScalar(2600); MOON.glow.material.opacity = MOON.amt*0.9; }
+    if(on){ MOON.mesh.position.copy(camera.position).addScaledVector(md, 9000); MOON.mesh.lookAt(camera.position); MOON.mesh.scale.setScalar(380);
+      MOON.glow.position.copy(camera.position).addScaledVector(md, 8900); MOON.glow.scale.setScalar(3400); MOON.glow.material.opacity = MOON.amt*0.9; }
     NIGHTGLOW.material.uniforms.moonDir.value.copy(md); NIGHTGLOW.material.uniforms.moonAmt.value = MOON.amt; }
   sun.intensity = 3.1*sunAmt*(1 - gold*0.2) + 0.9*night*(0.7 + 0.45*MOON.amt);
   if(s > -0.02) sun.color.copy(SKYC.sunD).lerp(SKYC.sunG, gold); else sun.color.copy(SKYC.moon);
@@ -1624,6 +1953,7 @@ function updateSky(dt, px, py, pz, forest){
 }
 
 
+await ldStep('바위와 흙의 결을 고르는 중', 0.2);
 // ---------- procedural textures (사실적 질감) ----------
 function phash(x,y){ const s=Math.sin(x*127.1+y*311.7+7.3)*43758.5453; return s-Math.floor(s); }
 function pnoise(x,y,P){
@@ -1644,6 +1974,7 @@ function toTex(c, rep=true){ const t=new THREE.CanvasTexture(c); t.colorSpace=TH
 const rgbStr = (r,g,b,a=1) => `rgba(${r|0},${g|0},${b|0},${a})`;
 const LEAF_COLS = [[150,52,30],[176,82,32],[190,120,45],[150,104,52],[112,72,40],[96,58,34],[168,140,70],[130,40,28]];
 if(SZ.leaf) LEAF_COLS.splice(0, LEAF_COLS.length, ...SZ.leaf);
+else if(BIO.leaf < 0.05) LEAF_COLS.splice(0, LEAF_COLS.length, [120,112,104],[96,90,86],[150,142,132],[80,74,70],[136,124,110],[110,100,92],[228,232,238]);
 
 // 잎 모양 그리기: 0 단풍잎(손바닥 5갈래), 1 끝이 뾰족한 타원 잎(벚·느티), 2 은행잎(부채꼴), 3 참나무잎(물결 가장자리)
 function leafPath(x, kind, s){
@@ -1721,7 +2052,7 @@ function makeTrailTex(){
   const c=pixelCanvas(W,(u,v)=>{
     const n=pfbm(u*6,v*6,6), f=pfbm(u*30,v*30,30,3), e=pfbm(3.3,v*12,12,4);
     let k=0.68+n*0.35+f*0.2;
-    let r=138*k, g=113*k, b=86*k;
+    let r=(BIO.leaf < 0.05 ? 116 : 138)*k, g=(BIO.leaf < 0.05 ? 107 : 113)*k, b=(BIO.leaf < 0.05 ? 99 : 86)*k;
     const edge=Math.abs(u-0.5)*2, br=pfbm(u*24+7,v*24,24,3), lim=0.42+e*0.3+(br-0.5)*0.35;
     const a = 255*(1 - THREE.MathUtils.smoothstep(edge, lim-0.12, lim+0.3));
     return [r,g,b,a];
@@ -1729,7 +2060,19 @@ function makeTrailTex(){
   const x=c.getContext('2d');
   for(let i=0;i<220;i++){ const px=W*(0.2+trnd()*0.6), py=trnd()*W, r=0.6+trnd()*1.8, l=0.78+trnd()*0.3;
     wrapDraw(W,px,py,r+2,(X,Y)=>{ x.fillStyle='rgba(30,20,10,.2)'; x.beginPath(); x.arc(X+0.6,Y+0.6,r,0,7); x.fill(); x.fillStyle=rgbStr(140*l,128*l,112*l); x.beginPath(); x.arc(X,Y,r,0,7); x.fill(); }); }
-  for(let i=0;i<80;i++){ const px=W*(0.1+trnd()*0.8), py=trnd()*W, c0=LEAF_COLS[(trnd()*LEAF_COLS.length)|0], t=0.4+trnd()*0.3, col=[c0[0]*(1-t)+112*t, c0[1]*(1-t)+80*t, c0[2]*(1-t)+50*t], a=trnd()*6.28;
+  if(BIO.leaf < 0.05){
+    for(let i=0;i<260;i++){ const px=W*(0.08+trnd()*0.84), py=trnd()*W, r=1.2+trnd()*3.2, l=0.55+trnd()*0.55, dk=trnd()<0.35, a=trnd()*6.28, n=5+((trnd()*3)|0);
+      const col = dk ? [62*l,56*l,54*l] : [150*l,142*l,132*l];
+      wrapDraw(W,px,py,r+3,(X,Y)=>{ x.save(); x.translate(X,Y); x.rotate(a);
+        x.fillStyle='rgba(20,16,12,.28)'; x.beginPath(); for(let k=0;k<n;k++){ const t=k/n*6.28, rr=r*(0.7+0.3*Math.sin(k*2.3+i)); x.lineTo(Math.cos(t)*rr+0.8, Math.sin(t)*rr*0.75+0.8); } x.fill();
+        x.fillStyle=rgbStr(col[0],col[1],col[2]); x.beginPath(); for(let k=0;k<n;k++){ const t=k/n*6.28, rr=r*(0.7+0.3*Math.sin(k*2.3+i)); x.lineTo(Math.cos(t)*rr, Math.sin(t)*rr*0.75); } x.fill();
+        x.fillStyle='rgba(255,255,255,.18)'; x.fillRect(-r*0.4,-r*0.45,r*0.5,r*0.25); x.restore(); }); }
+    if(SEASON === 'winter' || SEASON === 'fixed'){
+      for(let i=0;i<26;i++){ const px=W*(0.06+trnd()*0.88), py=trnd()*W, r=3+trnd()*7, m=3+((trnd()*4)|0), rot=trnd()*3;
+        wrapDraw(W,px,py,r*3,(X,Y)=>{ for(let k=0;k<m;k++){ const ox=(trnd()-0.5)*r*2.2, oy=(trnd()-0.5)*r*1.2, rr=r*(0.4+trnd()*0.6);
+          const g=x.createRadialGradient(X+ox,Y+oy,0,X+ox,Y+oy,rr); g.addColorStop(0,'rgba(246,248,251,.7)'); g.addColorStop(0.6,'rgba(238,242,247,.45)'); g.addColorStop(1,'rgba(238,242,247,0)');
+          x.fillStyle=g; x.beginPath(); x.ellipse(X+ox,Y+oy,rr*1.3,rr*0.7,rot,0,7); x.fill(); } }); } }
+  } else for(let i=0;i<80;i++){ const px=W*(0.1+trnd()*0.8), py=trnd()*W, c0=LEAF_COLS[(trnd()*LEAF_COLS.length)|0], t=0.4+trnd()*0.3, col=[c0[0]*(1-t)+112*t, c0[1]*(1-t)+80*t, c0[2]*(1-t)+50*t], a=trnd()*6.28;
     wrapDraw(W,px,py,8,(X,Y)=>{ x.save(); x.translate(X,Y); x.rotate(a); x.fillStyle=rgbStr(col[0],col[1],col[2],0.8); x.beginPath(); x.ellipse(0,0,5,2.6,0,0,7); x.fill(); x.restore(); }); }
   return toTex(c);
 }
@@ -1821,7 +2164,7 @@ const SPECIES = {
   bare:       {pal:[[110,72,40],[96,64,36]], trunk:'#4a3a2e', bare:true}
 };
 if(SZ.sp) for(const k in SZ.sp) if(SPECIES[k]) SPECIES[k].pal = SZ.sp[k];
-if(SZ.bareAll) for(const k in SPECIES) SPECIES[k].bare = true;
+if(SZ.bareAll) for(const k in SPECIES){ SPECIES[k].bare = true; SPECIES[k].pal = [[226,232,238],[214,222,230],[240,244,248],[150,136,120],[200,208,216]]; }   // 겨울: 남은 잎 대신 눈송이·마른 잎만 (단풍색 점 없음)
 function makeBroadleaf(sp, variant){
   const c=document.createElement('canvas'); c.width=256; c.height=512; const x=c.getContext('2d');
   const shape = variant % 3; // 0 둥근, 1 길쭉, 2 비대칭
@@ -1872,13 +2215,13 @@ function makePlant(kind, v){
     strokes(80,[[150,140,96],[170,156,104],[120,112,76]],1.6,90,200,40,0.6);
     for(let i=0;i<9;i++){ const bx=128+(trnd()-0.5)*50, top=20+trnd()*70, lean=(trnd()-0.5)*50; x.strokeStyle='rgba(160,150,120,1)'; x.lineWidth=1.4; x.beginPath(); x.moveTo(bx,256); x.quadraticCurveTo(bx+lean*0.3,140,bx+lean,top+30); x.stroke();
       for(let k=0;k<26;k++){ const t=trnd(); x.strokeStyle=rgbStr(186+trnd()*30,172+trnd()*28,146+trnd()*26,0.8); x.lineWidth=1.1; x.beginPath(); const px=bx+lean*(0.85+t*0.15), py=top+30-t*34; x.moveTo(px,py); x.lineTo(px+(trnd()-0.5)*20+lean*0.2,py-6-trnd()*14); x.stroke(); } } }
-  else if(kind==='fern'){ const cols = v? [[132,92,44],[150,104,50],[110,76,38]] : [[96,104,50],[120,110,52],[80,88,42]];
+  else if(kind==='fern'){ const cols = SZ.fern ? SZ.fern[v ? 1 : 0] : (v? [[132,92,44],[150,104,50],[110,76,38]] : [[96,104,50],[120,110,52],[80,88,42]]);
     for(let f=0; f<9; f++){ const a=-Math.PI/2+(f-4)*0.3+(trnd()-0.5)*0.2, L=110+trnd()*90; const ex=128+Math.cos(a)*L, ey=256+Math.sin(a)*L*0.9;
       x.strokeStyle=rgbStr(...cols[0]); x.lineWidth=1.6; x.beginPath(); x.moveTo(128,256); x.quadraticCurveTo(128+Math.cos(a)*L*0.5,256+Math.sin(a)*L*0.7,ex,ey); x.stroke();
       for(let k=0;k<16;k++){ const t=k/16, px=128+(ex-128)*t, py=256+(ey-256)*t - Math.sin(t*Math.PI)*12, w=(1-t)*22+4, col=cols[(trnd()*3)|0], l=0.7+trnd()*0.5;
         x.strokeStyle=rgbStr(col[0]*l,col[1]*l,col[2]*l); x.lineWidth=2.2; for(const s of [-1,1]){ x.beginPath(); x.moveTo(px,py); x.lineTo(px+Math.cos(a+s*1.3)*w, py+Math.sin(a+s*1.3)*w); x.stroke(); } } } }
   else { // 관목: 진달래·철쭉(붉은), 어린 참나무(갈색), 조릿대(초록)
-    const pal = kind==='bushRed' ? (SZ.flower || SZ.bushRed || [[160,38,28],[186,66,34],[138,30,26],[120,48,30],[200,90,40]]) : kind==='bushOak' ? (SZ.bushOak || [[140,96,48],[160,112,54],[118,80,40],[176,128,60]]) : [[70,92,44],[86,108,52],[60,80,40],[110,116,56]];
+    const pal = kind==='bushRed' ? ((SZ.flowerSets && SZ.flowerSets[v % SZ.flowerSets.length]) || SZ.flower || SZ.bushRed || [[160,38,28],[186,66,34],[138,30,26],[120,48,30],[200,90,40]]) : kind==='bushOak' ? (SZ.bushOak || [[140,96,48],[160,112,54],[118,80,40],[176,128,60]]) : [[70,92,44],[86,108,52],[60,80,40],[110,116,56]];
     x.strokeStyle='#3a2a1e'; for(let i=0;i<7;i++) branchTo(x,128+(trnd()-0.5)*20,256,40+trnd()*176,90+trnd()*90,2);
     const n = 3+((trnd()*3)|0); for(let i=0;i<n;i++) leafCluster(x, 70+trnd()*116, 110+trnd()*80, 40+trnd()*30, 34+trnd()*24, pal, 120, 2, 4.5, {x:-0.5,y:-0.8});
   }
@@ -1945,6 +2288,7 @@ function buildGrid(n, cell, getH, colorFn){
   return g;
 }
 const TEX = { litter: makeLitter(), litter2: makeLitter2(), canopy: makeCanopy(), granite: makeGranite(), trail: makeTrailTex() };
+{ const im = new Image(); im.onload = () => { TEX.canopy.image = im; TEX.canopy.needsUpdate = true; }; im.src = 'photos/' + ({"spring": "jirisan", "summer": "jirisan", "autumn": "jirisan"}[SEASON] || 'deogyusan') + '/canopy.jpg'; }
 const terrainGeo = buildGrid(M, FC, (i,j)=>fineH[j*M+i], (v,x,z,h,ny,o)=>{
   const n = vnoise(x/60,z/60), n2 = vnoise(x/17+40,z/17);
   o.setRGB(1,1,1).lerp(new THREE.Color(0.9,0.84,0.72), n*0.5).lerp(new THREE.Color(0.86,0.9,0.78), n2*0.25).multiplyScalar(0.8+n2*0.25);
@@ -2116,6 +2460,7 @@ function standY(x, z, ni){
   const R = RIB[ni], p = trail[ni];
   if(R && p){ const lat = (x-p.x)*R.nx + (z-p.z)*R.nz; if(Math.abs(lat) <= R.w){ const f = lat/R.w, ry = f < 0 ? R.yc + (R.yl-R.yc)*(-f) : R.yc + (R.yr-R.yc)*f; y = Math.max(y, ry - 0.02); } }
   if(ROCKC){ const ry = ROCKC.top(x, z, y); if(ry > y) y = ry - 0.01; }
+  if(window.__deckY){ const dy = window.__deckY(x, z); if(dy != null) y = dy; }
   return y;
 }
 // trail ribbon (흙길)
@@ -2145,7 +2490,7 @@ function standY(x, z, ni){
 // seeded rng
 let seed = 12345; const rnd = () => (seed = (seed*16807) % 2147483647) / 2147483647;
 
-await ldStep('단풍 숲을 심는 중', 0.5);
+await ldStep(BIO.dens < 0.05 ? '바위와 자갈길을 다듬는 중' : SEASON === 'autumn' ? '단풍 숲을 심는 중' : '숲을 심는 중', 0.5);
 // trees v3: 종류·모양 변형이 많은 나무 + 군락 배치 + 다양한 하층 식생
 function crossGeo(planes=3){
   const gs=[]; for(let i=0;i<planes;i++){ const p=new THREE.PlaneGeometry(1,1); p.translate(0,0.5,0); p.rotateY(i*Math.PI/planes); gs.push(p);
@@ -2163,7 +2508,7 @@ const treeShade = new Float32Array(M*M);   // 나무 그늘 (지면을 어둡게
   const VAR = { mapleRed:3, mapleOrange:3, oak:3, oakGold:2, yellow:3, birch:2, green:2, bare:2, pine:4 };
   const T = {}; const CAP = 12000;
   for(const [k,n] of Object.entries(VAR)){ T[k]=[]; for(let v=0; v<n; v++) T[k].push(spriteMesh(k==='pine'?makePine(v):makeBroadleaf(SPECIES[k], v), CAP, treeGeo)); }
-  const PV = { grass:2, reed:2, fern:2, bushRed:2, bushOak:2, bushGreen:1 };
+  const PV = { grass:2, reed:2, fern:2, bushRed:(SZ.flowerSets ? SZ.flowerSets.length : 2), bushOak:2, bushGreen:1 };
   const P = {}; for(const [k,n] of Object.entries(PV)){ P[k]=[]; for(let v=0; v<n; v++) P[k].push(spriteMesh(makePlant(k.startsWith('bush')?k:k, v), 9000, plantGeo)); }
   const d = new THREE.Object3D(), col = new THREE.Color();
   function put(m, x, y, z, w, h, tilt=0.03, tint=0.12){
@@ -2298,6 +2643,7 @@ const treeShade = new Float32Array(M*M);   // 나무 그늘 (지면을 어둡게
   }
   piles.count = nl; piles.receiveShadow = true; scene.add(piles);
 }
+await ldStep('구름바다를 띄우는 중', 0.56);
 // ---------- 먼 산 풍경: 숲 무리, 겹겹이 옅어지는 능선, 운해 ----------
 {
   const F = D.far, fh = decode(F.h, 2).map(v => v - ALT0), fc = F.size/(F.N-1), fhalf = F.size/2;
@@ -2305,7 +2651,7 @@ const treeShade = new Float32Array(M*M);   // 나무 그늘 (지면을 어둡게
   // 멀리서 본 나무 무리 스프라이트
   function makeClump(v){
     const c=document.createElement('canvas'); c.width=256; c.height=256; const x=c.getContext('2d');
-    const pals=[[[150,40,26],[176,74,32],[124,32,22],[96,56,32]],[[190,110,40],[160,80,30],[206,146,58],[110,80,40]],[[52,74,40],[40,60,34],[66,86,46],[88,96,50]],[[150,110,50],[124,90,44],[176,136,60],[96,70,38]]];
+    const pals=SEASON === 'fixed' ? [[[44,66,40],[36,56,34],[58,80,48],[30,46,28]],[[52,74,44],[40,62,36],[66,88,52],[34,50,30]],[[40,62,36],[34,54,30],[56,78,42],[30,48,28]],[[70,84,52],[56,72,44],[82,96,60],[46,60,38]]] : SZ.pals ? (SZ.notCherry ? [1,2,3,2].map(i => SZ.pals[i]) : SZ.pals.slice(0, 4)) : (BIO.leaf < 0.5 && SEASON === 'autumn') ? [[[196,150,52],[214,176,70],[176,128,44],[150,110,40]],[[52,74,40],[40,60,34],[66,86,46],[88,96,50]],[[40,62,36],[34,54,30],[56,78,42],[30,48,28]],[[150,96,48],[124,80,40],[170,118,58],[110,76,40]]] : [[[150,40,26],[176,74,32],[124,32,22],[96,56,32]],[[190,110,40],[160,80,30],[206,146,58],[110,80,40]],[[52,74,40],[40,60,34],[66,86,46],[88,96,50]],[[150,110,50],[124,90,44],[176,136,60],[96,70,38]]];
     const n = 5+((trnd()*4)|0);
     for(let i=0;i<n;i++){ const cx=40+trnd()*176, cy=120+trnd()*70, rx=30+trnd()*30, ry=50+trnd()*50; const pal = pals[(v+i)%pals.length];
       leafCluster(x,cx,cy,rx,ry,pal,Math.round(rx*ry*0.12),3,7,{x:-0.5,y:-0.8}); }
@@ -2320,7 +2666,7 @@ const treeShade = new Float32Array(M*M);   // 나무 그늘 (지면을 어둡게
     if(Math.abs(x) < HALF+20 && Math.abs(z) < HALF+20) continue;
     if(Math.abs(x) > fhalf-100 || Math.abs(z) > fhalf-100) continue;
     const h = farAt(x,z), sl = Math.hypot(farAt(x+60,z)-farAt(x-60,z), farAt(x,z+60)-farAt(x,z-60))/120;
-    if(sl > 0.9 || (h > 600 && sl > 0.55)) continue;
+    if(sl > 0.9 || (h > 600 && sl > 0.55) || h > BIO.tt + 60) continue;
     const m = meshes[(rnd()*meshes.length)|0]; if(m.count >= m.instanceMatrix.count) continue; const hh = 22 + rnd()*16;
     d.position.set(x, h - 4, z); d.rotation.set(0, rnd()*6.28, 0); d.scale.set(hh*1.8, hh, hh*1.8); d.updateMatrix();
     m.setMatrixAt(m.count, d.matrix); col.setRGB(1,1,1).offsetHSL((rnd()-0.5)*0.04,0,(rnd()-0.5)*0.15); m.setColorAt(m.count, col); m.count++; placed++;
@@ -2376,6 +2722,7 @@ const SKY_CLOUDS = [];
   }
 }
 
+const VP_SZ = (a, b, c, d, e) => (BIO.leaf < 0.05 || SEASON === 'fixed') ? e : ({spring:a, summer:b, autumn:c, winter:d})[SEASON] || e;
 // rocks
 const restSpots = [];
 {
@@ -2463,6 +2810,7 @@ WPS.forEach((w, wi) => {
   for(const L of [lineL,lineR]){ if(L.length>1){ const tube = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(L), L.length*2, 0.025, 4), steel); scene.add(tube);} }
 }
 
+await ldStep('돌계단을 놓는 중', 0.62);
 // ---------- 오르막 구간: 돌계단·나무계단, 밧줄 난간, 전망 포인트 ----------
 const trailGrade = new Float32Array(trail.length);
 for(let i=0;i<trail.length;i++){ const a=trail[Math.max(0,i-3)], b=trail[Math.min(trail.length-1,i+3)]; trailGrade[i] = (b.h-a.h)/Math.max(1,(b.s-a.s)); }
@@ -2513,7 +2861,7 @@ const VIEWPOINTS = [];
     let best=ci, bestDrop=-1e9;
     for(let i=ci-120;i<ci+120;i+=6){ const p=trail[i]; if(!p) continue; let drop=0; for(let a=0;a<8;a++){ const an=a/8*Math.PI*2; drop = Math.max(drop, p.h - heightAt(p.x+Math.sin(an)*150, p.z+Math.cos(an)*150)); } if(drop>bestDrop){ bestDrop=drop; best=i; } }
     const p = trail[best]; let dir=0, dd=-1e9; for(let a=0;a<16;a++){ const an=a/16*Math.PI*2; const dr = p.h - heightAt(p.x+Math.sin(an)*200, p.z+Math.cos(an)*200); if(dr>dd){ dd=dr; dir=an; } }
-    VIEWPOINTS.push({i:best, x:p.x, z:p.z, dir, name: VIEWPOINTS.length ? '능선 전망대' : '중턱 전망대', sub: VIEWPOINTS.length ? '인수봉과 겹겹의 능선이 보여요' : '골짜기 너머로 단풍 능선이 펼쳐져요'});
+    VIEWPOINTS.push({i:best, x:p.x, z:p.z, dir, name: VIEWPOINTS.length ? '능선 전망대' : '중턱 전망대', sub: VIEWPOINTS.length ? '정상으로 이어지는 겹겹의 능선이 보여요' : VP_SZ('골짜기 너머로 신록 능선이 펼쳐져요', '골짜기 너머로 푸른 능선이 펼쳐져요', '골짜기 너머로 단풍 능선이 펼쳐져요', '골짜기 너머로 눈 덮인 능선이 펼쳐져요', '골짜기 너머로 겹겹의 능선이 펼쳐져요')});
     // 표지판
     const sx=p.x+Math.sin(dir)*2.2, sz=p.z+Math.cos(dir)*2.2, g=new THREE.Group(); g.position.set(sx, heightAt(sx,sz), sz); g.rotation.y = dir;
     const post=new THREE.Mesh(new THREE.BoxGeometry(0.12,1.5,0.12), wood); post.position.y=0.75; g.add(post);
@@ -2652,6 +3000,7 @@ let FLAG = null;
   flag.position.set(fx, fh+5.1, fz); flag.castShadow = true; scene.add(flag);
   FLAG = {mesh:flag, base: Float32Array.from(fg.attributes.position.array), x:fx, z:fz};
 }
+await ldStep('정상 야영장을 꾸리는 중', 0.68);
 // ---------- 정상 야영장: 가운데 모닥불, 둘레에 통나무 의자와 1인용 텐트 ----------
 const SUMMIT_R = 13.5;   // 정상 야영장 반지름 (이 안은 체력이 닳지 않는 특별한 공간)
 const CAMP = (()=>{
@@ -2841,7 +3190,7 @@ function animScenic(dt, time){
 
 // 계곡 쉼터와 정상 360° 전망도 풍경 포인트로
 if(POOL){ const ti = (()=>{ let b=0, bd=1e9; for(let i=0;i<trail.length;i++){ const d=Math.hypot(trail[i].x-POOL.x, trail[i].z-POOL.z); if(d<bd){ bd=d; b=i; } } return b; })();
-  const p = trail[ti]; VIEWPOINTS.unshift({i:ti, x:p.x, z:p.z, dir: Math.atan2(POOL.x-p.x, POOL.z-p.z), near:true, name:'계곡 쉼터', sub:'물소리를 들으며 단풍 계곡을 바라봐요'}); }
+  const p = trail[ti]; VIEWPOINTS.unshift({i:ti, x:p.x, z:p.z, dir: Math.atan2(POOL.x-p.x, POOL.z-p.z), near:true, name:'계곡 쉼터', sub:VP_SZ('물소리를 들으며 신록 계곡을 바라봐요', '물소리를 들으며 푸른 계곡을 바라봐요', '물소리를 들으며 단풍 계곡을 바라봐요', '물소리를 들으며 눈 덮인 계곡을 바라봐요', '물소리를 들으며 계곡을 바라봐요')}); }
 // 전망 포인트 앞을 가리는 나무·풀 정리 (시야 확보)
 {
   const m4 = new THREE.Matrix4(), v3 = new THREE.Vector3(), zero = new THREE.Matrix4().makeScale(0,0,0);
@@ -2866,6 +3215,7 @@ const $ = id => document.getElementById(id);
 const store = { get(k,d){ try{ const v=localStorage.getItem('neungseon.'+k); return v?JSON.parse(v):d; }catch(e){ return d; } }, set(k,v){ try{ localStorage.setItem('neungseon.'+k, JSON.stringify(v)); }catch(e){} } };
 let PACE = store.get('pace', 2), ADMIN_TURBO = false;   // 빠르게 = 2배 (정상까지 시간 절반), 천천히 = 1배
 
+await ldStep('배낭을 챙기는 중', 0.74);
 // ---------- 아바타 ----------
 const PALETTE = {
   jacket:[0xc8452a,0xe08a2c,0xe2c044,0x4f8a5b,0x2f6f8f,0x3b4f8f,0x7a4b8f,0xd9d4c8,0x2b2b2b],
@@ -3095,7 +3445,63 @@ function animHiker(h, phase, amt, sitting, waveT, grade=0, pose=null){
   applyPose(h, pose, t);
 }
 // 옷 색 미리보기 (2D)
+
+// ---------- 의상 창 3D 미리보기 (pipeline/preview_patch.py) ----------
+const PV3 = { r:null, sc:null, cam:null, h:null, tent:null, tm:null };
+function pv3Init(){
+  if(PV3.r) return true;
+  try{
+    const c = document.createElement('canvas');
+    PV3.r = new THREE.WebGLRenderer({canvas:c, antialias:true, alpha:true, preserveDrawingBuffer:true});
+    PV3.r.setPixelRatio(1); PV3.r.outputColorSpace = THREE.SRGBColorSpace;
+    PV3.r.toneMapping = THREE.ACESFilmicToneMapping; PV3.r.toneMappingExposure = 1.05;
+    PV3.sc = new THREE.Scene();
+    PV3.sc.add(new THREE.HemisphereLight(0xeef4ff, 0x8a7458, 1.25));
+    const k = new THREE.DirectionalLight(0xfff1de, 2.1); k.position.set(2.2, 3.2, 3.0); PV3.sc.add(k);
+    const f = new THREE.DirectionalLight(0xbcd2ff, 0.7); f.position.set(-3, 1.5, -1.5); PV3.sc.add(f);
+    PV3.cam = new THREE.PerspectiveCamera(24, 1, 0.05, 50);
+    return true;
+  }catch(e){ PV3.r = null; return false; }
+}
+function pv3Shot(cv, obj, az, el, pad){
+  const W = cv.width * 2, H = cv.height * 2; PV3.r.setSize(W, H, false);
+  PV3.sc.add(obj); obj.updateMatrixWorld(true);
+  const bb = new THREE.Box3().setFromObject(obj), ctr = bb.getCenter(new THREE.Vector3()), sz = bb.getSize(new THREE.Vector3());
+  PV3.cam.aspect = W / H; const fv = THREE.MathUtils.degToRad(PV3.cam.fov);
+  const need = Math.max(sz.y * pad, Math.max(sz.x, sz.z) * pad / PV3.cam.aspect);
+  const d = need / 2 / Math.tan(fv / 2) + Math.max(sz.x, sz.z) / 2;
+  PV3.cam.position.set(ctr.x + Math.sin(az) * Math.cos(el) * d, ctr.y + Math.sin(el) * d, ctr.z + Math.cos(az) * Math.cos(el) * d);
+  PV3.cam.lookAt(ctr); PV3.cam.updateProjectionMatrix();
+  PV3.r.render(PV3.sc, PV3.cam); PV3.sc.remove(obj);
+  const x = cv.getContext('2d'); x.clearRect(0, 0, cv.width, cv.height); x.imageSmoothingQuality = 'high';
+  x.drawImage(PV3.r.domElement, 0, 0, cv.width, cv.height);
+}
+function pv3(cv, o){
+  if(!cv || !pv3Init()) return false;
+  try{
+    if(!PV3.h){ PV3.h = makeHiker(o); }
+    PV3.h.setOutfit(o);
+    pv3Shot(cv, PV3.h.group, 0.42, 0.10, 0.9);
+    return true;
+  }catch(e){ return false; }
+}
+function tent3(svg){
+  if(!svg || !pv3Init()) return;
+  try{
+    const host = svg.ownerSVGElement || svg; let cv = host.previousElementSibling;
+    if(!cv || !cv.classList.contains('tentPv3')){ cv = document.createElement('canvas'); cv.className = 'tentPv3'; cv.width = 176; cv.height = 112; host.before(cv); }
+    if(!PV3.tent){ const src = CAMP && CAMP.tents && CAMP.tents[0]; if(!src){ setTimeout(() => tent3(svg), 800); return; }
+      PV3.tent = src.g.clone(true); PV3.tent.visible = true; PV3.tent.position.set(0, 0, 0); PV3.tent.rotation.set(0, 0, 0); PV3.tent.scale.set(1, 1, 1);
+      PV3.tm = src.m.clone(); PV3.tm.emissiveIntensity = 0;
+      PV3.tent.traverse(n => { if(n.isMesh && n.material === src.m) n.material = PV3.tm; if(n.isMesh && n.material === src.doorM){ n.material = src.doorM.clone(); n.material.emissiveIntensity = 0; } });
+    }
+    PV3.tm.color.setHex(me.tent);
+    pv3Shot(cv, PV3.tent, 0.75, 0.30, 0.6);
+    host.style.display = 'none';
+  }catch(e){ setTimeout(() => tent3(svg), 800); }
+}
 function drawPreview(cv, o){
+  if(pv3(cv, o)) return;
   const x=cv.getContext('2d'), W=cv.width, H=cv.height, hx=c=>'#'+c.toString(16).padStart(6,'0');
   x.clearRect(0,0,W,H); const cx=W/2;
   const rr=(X,Y,w,h,r,col)=>{ x.fillStyle=col; x.beginPath(); x.roundRect(X,Y,w,h,r); x.fill(); };
@@ -3147,7 +3553,7 @@ const me = { nick: store.get('nick', randNick()), outfit: store.get('outfit', ra
 if(!me.outfit.g) me.outfit.g = 'm';
 const TENT_COLS = [0xe0763a, 0xd9b34a, 0xb8483c, 0x3f7f6a, 0x7a8a4a, 0x4b6aa8, 0x8a5aa0, 0xe8e2d4, 0x55595f];
 function buildTentUI(){ const hex = c => '#'+c.toString(16).padStart(6,'0');
-  for(const [sw, pv] of [['tentSw','tentPvBody'], ['tentSw2','tentPvBody2']]){ const el = $(sw); if(!el) continue; el.innerHTML = ''; $(pv).setAttribute('fill', hex(me.tent));
+  for(const [sw, pv] of [['tentSw','tentPvBody'], ['tentSw2','tentPvBody2']]){ const el = $(sw); if(!el) continue; el.innerHTML = ''; $(pv).setAttribute('fill', hex(me.tent)); tent3($(pv));
     for(const c of TENT_COLS){ const b = document.createElement('button'); b.style.background = hex(c); b.setAttribute('aria-label','텐트 색'); if(c === me.tent) b.classList.add('sel');
       b.onclick = () => { me.tent = c; store.set('tent', c); store.set('profTs', Date.now()); buildTentUI(); if(st.myTent) pushPresence(true); }; el.appendChild(b); } } }
 buildTentUI();
@@ -3436,10 +3842,10 @@ function say(text){ st.say = text; st.sayT = 2.6; }
 function toCheckpoint(){ const p = trail[Math.min(WPS[st.cp].i+2, trail.length-1)]; st.x=p.x; st.z=p.z; st.sitting=false; st.goal=null; toast(`${WPS[st.cp].name}(으)로 돌아왔어요`, 2); }
 function toggleAuto(){ st.auto = !st.auto; st.goal=null; goalRing.visible=false; st.sitting=false; st.breathing=0; refreshWalk(); }
 function refreshWalk(){ const d = st.descending, fast = PACE > 1.5;
-  $('walkTxt').textContent = st.auto ? (fast ? (d?'빠르게 내려가는 중':'빠르게 걷는 중') : (d?'천천히 내려가는 중':'천천히 걷는 중')) : (d?'하산길을 따라':'탐방로를 따라');
-  $('bSlow').textContent = d ? '천천히 내려가기' : '천천히 걷기'; $('bFast').textContent = d ? '빠르게 내려가기' : '빠르게 걷기';
+  $('walkTxt').textContent = st.auto ? (d?'내려가는 중':'오르는 중') : (d?'하산길을 따라':'탐방로를 따라');
+  $('bSlow').textContent = '천천히'; $('bFast').textContent = '빠르게';
   $('bSlow').classList.toggle('on', st.auto && !fast); $('bFast').classList.toggle('on', st.auto && fast);
-  document.body.classList.toggle('walking', !!st.auto); }
+  document.body.classList.toggle('walking', !!st.auto); $('bUp').classList.toggle('on', !d); $('bDown').classList.toggle('on', !!d); }
 function toggleView(){ st.fp = !st.fp; $('bView').classList.toggle('on', st.fp); }
 function loadQR(){ return window.qrcode ? Promise.resolve(window.qrcode) : new Promise((res,rej)=>{ const sc=document.createElement('script'); sc.src='https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js'; sc.onload=()=>res(window.qrcode); sc.onerror=rej; document.head.appendChild(sc); }); }
 let snackAmt = 2000;
@@ -3481,7 +3887,7 @@ function takePhoto(){
   const x = c.getContext('2d'); x.drawImage(src, 0, 0);
   const k = c.height / 720; x.font = `700 ${Math.round(24*k)}px "Gowun Batang", serif`; x.textAlign = 'right'; x.textBaseline = 'bottom';
   x.shadowColor = 'rgba(0,0,0,.55)'; x.shadowBlur = 8*k; x.fillStyle = 'rgba(255,255,255,.9)';
-  x.fillText(`${T_('능선')} · ${T_('덕유산 향적봉')} · ${Math.round(heightAt(st.x,st.z)+ALT0)}m`, c.width - 26*k, c.height - 22*k);
+  x.fillText(`${T_('능선')} · ${T_('덕유산 향적봉')} · ${Math.round(realH(heightAt(st.x,st.z)))}m`, c.width - 26*k, c.height - 22*k);
   const fl = $('flash'); fl.classList.add('on'); requestAnimationFrame(() => requestAnimationFrame(() => fl.classList.remove('on')));
   sfx.shutter && sfx.shutter();
   const d = new Date(), p2 = n => String(n).padStart(2,'0'), name = `neungseon-${d.getFullYear()}${p2(d.getMonth()+1)}${p2(d.getDate())}-${p2(d.getHours())}${p2(d.getMinutes())}${p2(d.getSeconds())}.png`;
@@ -3536,7 +3942,7 @@ const joy = {x:0, y:0, id:null};
   const end = e => { if(e.pointerId!==joy.id) return; joy.id=null; joy.x=joy.y=0; knob.style.transform=''; J.classList.remove('on'); };
   J.addEventListener('pointerup', end); J.addEventListener('pointercancel', end); }
 { const order = ['real','dawn','morning','afternoon','dusk','night'], label = { real:'지금 시각 그대로', dawn:'일출', morning:'오전', afternoon:'오후', day:'오후', dusk:'일몰', night:'심야' };
-  $('bTime').onclick = () => { if(st.camp){ toast('야영 중에는 밤하늘이 이어져요', 2); return; } SKY.mode = order[(order.indexOf(SKY.mode)+1) % order.length]; $('bTime').title = '낮과 밤: ' + label[SKY.mode]; toast('🕐 ' + label[SKY.mode], 2); }; }
+  $('bTime').onclick = () => { if(st.camp){ toast('야영 중에는 밤하늘이 이어져요', 2); return; } SKY.mode = order[(order.indexOf(SKY.mode)+1) % order.length]; $('bTime').title = (window.T||(x=>x))('낮과 밤') + ': ' + (window.T||(x=>x))(label[SKY.mode]); toast('🕐 ' + label[SKY.mode], 2); }; }
 $('camp').onclick = startCamp;
 // ---------- 관리자 모드: 비밀번호는 원문 대신 해시로만 비교 ----------
 const ADMIN_HASH = '44d2f55925cd111297e12db2e965e3f5368c1694029c3bfe48c82b9549235b7d';
@@ -3544,15 +3950,29 @@ const ADMIN_BOTS = [];
 async function sha256hex(s){ const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(v=>v.toString(16).padStart(2,'0')).join(''); }
 function openAdminLogin(){ if(document.body.classList.contains('admin')){ $('adminPanel').hidden = false; return; } $('adErr').textContent = ''; $('adPw').value = ''; $('adminLogin').hidden = false; setTimeout(()=>$('adPw').focus(), 50); }
 function setAdmin(on){ document.body.classList.toggle('admin', on); $('adminPanel').hidden = !on; try{ on ? sessionStorage.setItem('neungseon.admin','1') : sessionStorage.removeItem('neungseon.admin'); }catch(e){} }
+
+const ADMIN_MAIL_HASH = '0b19424c6645eae9d3b1c6ec9c821674a39dbbabe57e61371dbeb7694bb20acf';
+// 지금 로그인한 계정이 관리자(승연 님) 구글 계정인지. login=true면 필요할 때 구글 로그인 창을 띄워요
+async function adminOwner(login){
+  if(window.claude && window.claude.use) return true;
+  const fb = await Promise.race([FB_READY, new Promise(r => setTimeout(() => r(null), 8000))]); if(!fb) return false;
+  let u = fb.auth.currentUser;
+  if((!u || u.isAnonymous) && login){ toast('관리자 구글 계정으로 로그인해 주세요', 2.5); if(!(await googleLogin())) return false; u = fb.auth.currentUser; }
+  if(!u || u.isAnonymous || !u.email) return false;
+  try{ return (await sha256hex(String(u.email).trim().toLowerCase())) === ADMIN_MAIL_HASH; }catch(e){ return false; }
+}
+// 계정이 바뀌면(로그아웃·익명 전환·다른 계정) 관리자 모드를 바로 꺼요
+async function adminRecheck(){ if(!document.body.classList.contains('admin')) return; if(await adminOwner(false)) return;
+  ADMIN_PW = ''; GEV_SEND = null; ADMIN_SCOPE = 'me'; try{ syncScope(); scopeNote(); }catch(e){} setAdmin(false); $('adminLogin').hidden = true; toast('관리자 계정이 아니어서 관리자 모드를 껐어요', 3); }
 async function tryAdmin(){ let ok = false; try{ ok = (await sha256hex($('adPw').value)) === ADMIN_HASH; }catch(e){ $('adErr').textContent = '이 브라우저에서는 관리자 모드를 쓸 수 없어요'; return; }
-  if(!ok){ $('adErr').textContent = '비밀번호가 맞지 않아요'; return; } $('adPw').value = ''; $('adminLogin').hidden = true; setAdmin(true); toast('관리자 모드가 켜졌어요', 2.5); }
+  if(!ok){ $('adErr').textContent = '비밀번호가 맞지 않아요'; return; } $('adPw').value = ''; if(!(await adminOwner(true))){ $('adErr').textContent = '관리자 구글 계정으로 로그인해야 켤 수 있어요'; return; } $('adminLogin').hidden = true; setAdmin(true); toast('관리자 모드가 켜졌어요', 2.5); }
 $('adOk').onclick = tryAdmin; $('adPw').addEventListener('keydown', e => { e.stopPropagation(); if(e.key === 'Enter') tryAdmin(); });
 $('adCancel').onclick = () => { $('adminLogin').hidden = true; };
 $('adX').onclick = () => { $('adminPanel').hidden = true; };
-$('bAdmin').onclick = () => { $('adminPanel').hidden = !$('adminPanel').hidden; };
+$('bAdmin').onclick = () => { if(!document.body.classList.contains('admin')){ $('adminPanel').hidden = true; return; } $('adminPanel').hidden = !$('adminPanel').hidden; };
 { let taps = 0, tapT = 0; $('brand').addEventListener('click', () => { const n = performance.now(); taps = n - tapT < 1000 ? taps + 1 : 1; tapT = n; if(taps >= 5){ taps = 0; openAdminLogin(); } }); }   // 왼쪽 위 '능선'을 다섯 번 톡톡
 addEventListener('keydown', e => { if(e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')){ e.preventDefault(); openAdminLogin(); } });
-try{ if(sessionStorage.getItem('neungseon.admin') === '1') setAdmin(true), $('adminPanel').hidden = true; }catch(e){}
+try{ if(sessionStorage.getItem('neungseon.admin') === '1') adminOwner(false).then(ok => { if(ok){ setAdmin(true); $('adminPanel').hidden = true; } else setAdmin(false); }); }catch(e){}
 function adminTeleport(x, z, face){ st.x = x; st.z = z; if(face != null){ st.face = face; st.yaw = face + Math.PI; } st.camInit = false; st.goal = null; st.sitting = false; st.view = null; stopAuto(); }
 function adminBots(){
   if(ADMIN_BOTS.length){ for(const b of ADMIN_BOTS) scene.remove(b.h.group); ADMIN_BOTS.length = 0; toast('가상 야영객을 돌려보냈어요', 2); return false; }
@@ -3561,7 +3981,7 @@ function adminBots(){
     h.group.position.set(q.x, q.y - SIT_HIP, q.z); h.group.rotation.y = face; ADMIN_BOTS.push({h, o, x:q.x, z:q.z, nick:randNick()}); }
   toast('가상 야영객들이 모닥불에 둘러앉았어요', 2.5); return true;
 }
-document.querySelectorAll('#adminPanel [data-ad]').forEach(b => b.addEventListener('click', () => {
+document.querySelectorAll('#adminPanel [data-ad]').forEach(b => b.addEventListener('click', () => { if(!document.body.classList.contains('admin')) return;
   const a = b.dataset.ad, T = trail, top = T[T.length-1];
   const at = i => { const p = T[i], q = T[Math.min(T.length-1, i+4)]; adminTeleport(p.x, p.z, Math.atan2(q.x-p.x, q.z-p.z)); };
   if(!st.started){ toast('먼저 산행을 시작해 주세요', 2); return; }
@@ -3660,7 +4080,7 @@ function refreshPace(){ refreshWalk(); }
 function walkAt(pace){ const same = st.auto && PACE === pace; PACE = pace; store.set('pace', PACE); if(same){ st.auto = false; refreshWalk(); return; } if(!st.auto) toggleAuto(); else refreshWalk(); }
 $('bSlow').onclick = () => walkAt(1); $('bFast').onclick = () => walkAt(2);
 refreshPace();
-$('bWalk').onclick=toggleAuto; $('bView').onclick=toggleView; $('bMap').onclick=()=>{ if(document.body.classList.contains('touch')){ document.body.classList.toggle('mapOn'); $('tr').classList.remove('open'); } else $('mapWrap').classList.toggle('big'); }; $('mapWrap').onclick=()=>$('mapWrap').classList.toggle('big');
+$('bWalk').onclick=toggleAuto; $('bView').onclick=toggleView; $('bMap').onclick=()=>{ if(document.body.classList.contains('touch')){ document.body.classList.toggle('mapOn'); $('tr').classList.remove('open'); } else $('mapWrap').classList.toggle('big'); }; $('mapWrap').onclick=e=>{ if(tpClick(e)) return; $('mapWrap').classList.toggle('big'); };
 $('endX').onclick = () => { $('end').hidden = true; canvas.focus(); };
 $('end').addEventListener('click', e => { if(e.target === $('end')) $('end').hidden = true; });
 addEventListener('keydown', e => { if(e.key !== 'Escape') return; if(!$('supportPanel').hidden){ $('supportPanel').hidden = true; return; } if(!$('end').hidden) $('end').hidden = true; });
@@ -3698,7 +4118,7 @@ function drawMap(){
   if(!drawMap.tb){ let x0=1e9,x1=-1e9,z0=1e9,z1=-1e9; for(const p of trail){ x0=Math.min(x0,p.x); x1=Math.max(x1,p.x); z0=Math.min(z0,p.z); z1=Math.max(z1,p.z); } drawMap.tb={cx:(x0+x1)/2, cz:(z0+z1)/2, w:Math.min(S, Math.max(x1-x0, z1-z0)*1.3+300)}; }
   const tb = drawMap.tb, win = big ? tb.w : 700, k = MAPN/win;
   const cx = big ? tb.cx : st.x, cz = big ? tb.cz : st.z, ox = cx - win/2, oz = cz - win/2;
-  const toU = x => (x-ox)*k, toV = z => (z-oz)*k;
+  const toU = x => (x-ox)*k, toV = z => (z-oz)*k; drawMap.tf = { u: toU, v: toV };
   mctx.fillStyle='#3a2c1e'; mctx.fillRect(0,0,MAPN,MAPN);
   mctx.drawImage(mapBg, (ox+HALF)/S*MAPN, (oz+HALF)/S*MAPN, win/S*MAPN, win/S*MAPN, 0, 0, MAPN, MAPN);
   const fs = big ? 15 : 34, r = big ? 6 : 13;
@@ -3707,6 +4127,8 @@ function drawMap(){
     if(u<-60||v<-60||u>MAPN+60||v>MAPN+60) return;
     mctx.fillStyle = i===WPS.length-1?'#e8452a':(i<=st.cp?'#e3b04f':'#fff'); mctx.beginPath(); mctx.arc(u,v,r,0,7); mctx.fill(); mctx.strokeStyle='#2b2118'; mctx.lineWidth=big?2:4; mctx.stroke();
     const lab = (window.T||(x=>x))(w.name.replace(/\(.*\)/,'')); mctx.fillStyle='#fff'; mctx.strokeStyle='rgba(0,0,0,.75)'; mctx.lineWidth=big?4:8; mctx.strokeText(lab,u,v-r-6); mctx.fillText(lab,u,v-r-6); });
+  for(const vp of VIEWPOINTS){ if(vp.spin) continue; const p = trail[vp.i], u = toU(p.x), v = toV(p.z); if(u<-20||v<-20||u>MAPN+20||v>MAPN+20) continue; const rr = big ? 5 : 10, ok = vp.i <= TP_REACH + 3;
+    mctx.save(); mctx.translate(u, v); mctx.rotate(Math.PI/4); mctx.fillStyle = ok ? '#f1c862' : 'rgba(200,200,200,.9)'; mctx.strokeStyle = '#2b2118'; mctx.lineWidth = big ? 1.6 : 3; mctx.fillRect(-rr*0.75, -rr*0.75, rr*1.5, rr*1.5); mctx.strokeRect(-rr*0.75, -rr*0.75, rr*1.5, rr*1.5); mctx.restore(); }
   const dot = (x,z,col,rad) => { mctx.fillStyle=col; mctx.strokeStyle='#fff'; mctx.lineWidth=big?1.5:3; mctx.beginPath(); mctx.arc(toU(x),toV(z),rad,0,7); mctx.fill(); mctx.stroke(); };
   for(const n of npcs) dot(n.x, n.z, 'rgba(230,225,215,.85)', big?3:6);
   for(const a of remotes.values()) dot(a.x, a.z, hexCss(a.outfit.jacket), big?5:10);
@@ -3716,6 +4138,7 @@ function drawMap(){
   mctx.fillStyle='rgba(255,255,255,.9)'; mctx.font=`bold ${big?14:30}px sans-serif`; mctx.textAlign='right'; mctx.fillText('N ▲', MAPN-10, big?22:40);
 }
 
+await ldStep('산새를 깨우는 중', 0.8);
 // ---------- 소리: 바람·나뭇잎·계곡물·새 여러 종·딱따구리·까마귀·발소리(표면별)·숨소리·심장 ----------
 let audio = null, soundOn = store.get('sound', true);
 const sfx = { step(){}, gulp(){}, update(){} };
@@ -4050,7 +4473,7 @@ async function googleLogout(){ const fb = await FB_READY; if(!fb) return; await 
 const isGoogleUser = fb => { const u = fb && fb.auth.currentUser; return !!(u && !u.isAnonymous); };
 function refreshLoginUI(){ const box = $('gLogin'); if(!box) return; FB_READY.then(fb => { if(!fb) return; box.hidden = false; const u = fb.auth.currentUser, g = isGoogleUser(fb);
   $('gBtn').textContent = g ? '로그아웃' : 'Google로 로그인'; $('gBtn').classList.toggle('out', g);
-  $('gTxt').textContent = g ? `${(u.displayName || u.email || '구글 계정').slice(0,20)}님 · 산행 기록이 여러 기기에 저장돼요` : '로그인하면 다른 기기에서도 이어서 오를 수 있어요'; }); }
+  $('gTxt').textContent = g ? `${(u.displayName || u.email || (window.T||(x=>x))('구글 계정')).slice(0,20)} · ${(window.T||(x=>x))('산행 기록이 여러 기기에 저장돼요')}` : '로그인하면 다른 기기에서도 이어서 오를 수 있어요'; }); }
 const cleanOutfit = o => { if(!o || typeof o !== 'object') return null; const c = {}; for(const k of ['jacket','pants','hat','pack']) c[k] = num(o[k], 0x888888) & 0xffffff; c.g = o.g === 'f' ? 'f' : 'm'; return c; };
 // 클라우드 기록 받아오기: 더 최근 것만
 async function cloudPull(){ const fb = await FB_READY; if(!isGoogleUser(fb)) return false;
@@ -4075,7 +4498,7 @@ async function connectFirebase(){
   let skew = 0; D.onValue(D.ref(db, '.info/serverTimeOffset'), s => { skew = s.val() || 0; });
   await D.onDisconnect(meRef).remove();
   // 로그인 계정이 바뀌면 (익명 → 구글) 내 자리도 새 계정으로
-  U.onAuthStateChanged(auth, u => { if(u && u.uid !== uid){ D.remove(meRef).catch(()=>{}); uid = u.uid; meRef = D.ref(db, `rooms/${ROOM_ID}/peers/${uid}`); D.onDisconnect(meRef).remove().catch(()=>{}); pushPresence(true); } refreshLoginUI(); });
+  U.onAuthStateChanged(auth, u => { if(u && u.uid !== uid){ D.remove(meRef).catch(()=>{}); uid = u.uid; meRef = D.ref(db, `rooms/${ROOM_ID}/peers/${uid}`); D.onDisconnect(meRef).remove().catch(()=>{}); pushPresence(true); } refreshLoginUI(); adminRecheck(); });
   FB_SET({ A, U, D, app, auth, db });
   let latest = {};
   const emit = () => { const now = Date.now() + skew;
@@ -4124,6 +4547,7 @@ function updateTags(){
   for(const [k,el] of tagEls){ if(!el._used){ el.remove(); tagEls.delete(k); } }
 }
 
+await ldStep('하늘에 해와 별을 거는 중', 0.92);
 // ---------- 루프 ----------
 const clock = new THREE.Clock();
 const camPos = new THREE.Vector3(), camLook = new THREE.Vector3();
@@ -4209,13 +4633,13 @@ function update(dt){
     for(let i=st.cp+1;i<WPS.length;i++){
       if(Math.abs(nt.i - WPS[i].i) < 10){
         st.cp = i; WPS[i].el.classList.add('done');
-        if(i===WPS.length-1) finish(); else if((window.__postcard && window.__postcard(i)), true) banner(WPS[i].name.replace(/\(.*\)/,''), `${WP_DESC[WPS[i].name]||''} · 해발 ${Math.round(heightAt(st.x,st.z)+ALT0)}m`, 4.5);
+        if(i===WPS.length-1) finish(); else if((window.__postcard && window.__postcard(i)), true) banner(WPS[i].name.replace(/\(.*\)/,''), `${WP_DESC[WPS[i].name]||''} · 해발 ${Math.round(realH(heightAt(st.x,st.z)))}m`, 4.5);
         break;
       }
     }
     if(nt.i > st.lastProg) st.lastProg = nt.i;
     if(st.descending){
-      for(let i=st.dcp-1;i>=0;i--){ if(Math.abs(nt.i - WPS[i].i) < 10){ st.dcp = i; if(i>0) banner(WPS[i].name.replace(/\(.*\)/,''), `하산 중 · 해발 ${Math.round(heightAt(st.x,st.z)+ALT0)}m`, 4); break; } }
+      for(let i=st.dcp-1;i>=0;i--){ if(Math.abs(nt.i - WPS[i].i) < 10){ st.dcp = i; if(i>0) banner(WPS[i].name.replace(/\(.*\)/,''), `하산 중 · 해발 ${Math.round(realH(heightAt(st.x,st.z)))}m`, 4); break; } }
       if(trail[nt.i].s < 14) finishDescent();
     }
   }
@@ -4270,7 +4694,14 @@ function update(dt){
     const cy = Math.cos(pc), sy = Math.sin(pc);
     camLook.set(fX, yC+1.1 + Math.tan(Math.min(1.35, lookUp*1.45))*st.dist, fZ);
     camPos.set(fX + Math.sin(st.yaw)*cy*st.dist, yC + 1.1 + sy*st.dist, fZ + Math.cos(st.yaw)*cy*st.dist);
-    { const need = Math.max(0, heightAt(camPos.x, camPos.z) + 0.8 - camPos.y); st.lift = (dt === 0 || !st.camInit) ? need : st.lift + (need - st.lift)*Math.min(1, dt*(need > st.lift ? 6 : 1.5)); camPos.y += Math.max(st.lift, need - 0.35); }   // 땅 밑으로 안 들어가게, 그러나 출렁이지 않게
+    { const need = Math.max(0, heightAt(camPos.x, camPos.z) + 0.8 - camPos.y); let los = 0;
+      // 드론처럼 멀리 뺀 카메라: 아바타와 카메라 사이를 언덕이 가리면 카메라를 그만큼 위로 (시야 확보)
+      if(st.dist > 9){ const ly = camLook.y, cy0 = camPos.y + need; let want = cy0; for(let t = 0.2; t < 0.99; t += 0.08){ const x = camLook.x + (camPos.x - camLook.x)*t, z = camLook.z + (camPos.z - camLook.z)*t, g = heightAt(x, z) + 1.6; if(ly + (want - ly)*t < g) want = ly + (g - ly)/t; } los = Math.min(want - cy0, st.dist*0.9); }
+      const tgt = need + los; st.lift = (dt === 0 || !st.camInit || st.lift == null) ? tgt : st.lift + (tgt - st.lift)*Math.min(1, dt*(tgt > st.lift ? 4 : 1.2)); camPos.y += Math.max(st.lift, need - 0.35); }   // 땅 밑으로 안 들어가게, 그러나 출렁이지 않게
+    if(!st.view && !st.camp){ const fx = -Math.sin(st.yaw), fz = -Math.cos(st.yaw); let rise = 0;
+      for(const d of [12, 24, 40]) rise = Math.max(rise, (heightAt(fX + fx*d, fZ + fz*d) - yC) * (20/(d+8)));
+      const want = Math.min(1, Math.max(0, rise - 1.5)/7) * (st.dist > 4 ? 1 : 0); st.upk = st.upk == null ? want : st.upk + (want - st.upk)*Math.min(1, dt*1.5);
+      if(st.upk > 0.01){ const k = st.upk; camLook.x += fx*st.dist*0.9*k; camLook.z += fz*st.dist*0.9*k; camLook.y += Math.min(st.dist*1.2, rise*0.45 + st.dist*0.45)*k; } }
     if(dt===0 || !st.camInit){ camera.position.copy(camPos); st.camInit = true; } else camera.position.lerp(camPos, Math.min(1, dt*14));
   }
   if(st.camp && st.campCam && !moving){
@@ -4280,7 +4711,15 @@ function update(dt){
     camera.position.lerp(camPos, Math.min(1, dt*2.5));
   }
   if(st.camp && moving) st.campCam = null;
+  if(window.__deckClamp) window.__deckClamp();
   camera.lookAt(camLook);
+  { const U = window.__vegCut || (window.__vegCut = {value:0}); U.value = (!st.fp && st.dist > 9) ? Math.max(0, Math.min(st.dist*0.45, camera.position.distanceTo(camLook) - 5)) : 0;
+    if(camera.near !== 0.3){ camera.near = 0.3; camera.updateProjectionMatrix(); }
+    const tn = performance.now(); if(!(tn < (st.cutT || 0))){ st.cutT = tn + 2000; scene.traverse(o => { if(!o.isInstancedMesh) return; for(const m of (Array.isArray(o.material) ? o.material : [o.material])){ if(!m || m.__cut || m.isShaderMaterial) continue; m.__cut = 1; const pb = m.onBeforeCompile, pk = m.customProgramCacheKey;
+      m.onBeforeCompile = function(sh, r){ if(pb) pb.call(this, sh, r); if(!sh.vertexShader.includes('#include <project_vertex>')) return; sh.uniforms.uVegCut = U;
+        sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nvarying float vCutZ;').replace('#include <project_vertex>', '#include <project_vertex>\n  vCutZ = -mvPosition.z;');
+        sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nvarying float vCutZ; uniform float uVegCut;').replace(/void main\(\) \{/, 'void main() {\n  if(vCutZ < uVegCut) discard;'); };
+      m.customProgramCacheKey = function(){ return (pk ? pk.call(this) : '') + '|vegcut'; }; m.needsUpdate = true; } }); } }
 
   sun.position.set(st.x + SUN_DIR.x*300, y + SUN_DIR.y*300, st.z + SUN_DIR.z*300); sun.target.position.set(st.x, y, st.z);
   window.__sky.position.copy(camera.position);
@@ -4297,7 +4736,7 @@ function update(dt){
   animScenic(dt, performance.now()/1000);
 
   // HUD
-  $('alt').textContent = Math.round(y + ALT0) + ' m';
+  $('alt').textContent = Math.round(realH(y)) + ' m';
   $('dist').textContent = (st.walked/1000).toFixed(2) + ' km';
   $('time').textContent = fmtClock(st.gameSec);
   $('grade').textContent = moving ? Math.round(grade*100) + '%' + (grade>0.3?' 가파름':'') : '—'; $('hr').textContent = Math.round(st.hr);
@@ -4343,7 +4782,7 @@ function startDescent(){ if(st.myTent) strikeTent();
 function finishDescent(){
   if(!st.descending) return; st.descending = false; stopAuto(); refreshWalk();
   const d0 = st.down0 || { sec:0, walked:0 };
-  $('endT').innerHTML = '하산 완료<small>백련사 들머리 · 오늘 산행 끝!</small>';
+  $('endT').innerHTML = (window.T||(x=>x))('하산 완료') + '<small>' + (window.T||(x=>x))('백련사 들머리') + ' · ' + (window.T||(x=>x))('오늘 산행 끝!') + '</small>';
   $('sTime').textContent = fmtTime(st.gameSec); $('sDist').textContent = (st.walked/1000).toFixed(2)+' km';
   $('sWave').textContent = st.waves + '번'; $('sRest').textContent = st.rests + '번';
   document.body.classList.add('downDone');
@@ -4401,17 +4840,96 @@ $('loading').classList.add('out'); setTimeout(() => $('loading')?.remove(), 1700
   if(SZ_RESUME){ if(SZ_RESUME.mode) SKY.mode = SZ_RESUME.mode; if(SZ_RESUME.started){ try{ window.MT_SELECT && window.MT_SELECT.close(); }catch(e){} beginHike(!!savedHike); setTimeout(() => toast('계절이 바뀌었어요 · 이어서 걸어요', 3), 3800); } }
 }
 
+
+// ---------- 기암 봉우리 + 구름다리 (pipeline/relief_patch.py) ----------
+{ const RC = RELIEF, rnd = (() => { let s = 7331; return () => (s = (s*16807) % 2147483647)/2147483647; })();
+  const SUM = trail[trail.length - 1];
+  // 기암 봉우리: 둥근 머리 + 세로 절리 + 가로 마디를 가진 화강암 기둥 원형 6개를 돌려 써요
+  if(RC.crags){ const C = RC.crags, protos = [];
+    for(let k = 0; k < 6; k++){ const g = new THREE.CylinderGeometry(1, 1, 1, 14, 14, false); g.translate(0, 0.5, 0);
+      const P = g.attributes.position, col = [], sd = k*17.3 + 3, lean = (rnd() - 0.5)*0.25, ribs = 5 + (k % 3)*2, tip = (C.sharp ? 0.35 : 0.62) + rnd()*0.2;
+      for(let v = 0; v < P.count; v++){ let x = P.getX(v), y = P.getY(v), z = P.getZ(v); const a = Math.atan2(z, x), r0 = Math.hypot(x, z);
+        let r = 1 + 0.16*Math.sin(a*2 + sd) + 0.1*Math.sin(a*3.3 + sd*1.7 + y*3) + 0.07*Math.sin(y*9 + a*2 + sd);
+        const groove = Math.pow(Math.abs(Math.sin(a*ribs*0.5 + sd + y*0.6)), 10); r *= 1 - 0.13*groove;
+        const joint = Math.pow(Math.abs(Math.sin(y*Math.PI*3.2 + sd)), 18); r *= 1 - 0.035*joint;
+        if(y > tip){ const f = (y - tip)/(1 - tip), sp = C.sharp || 0; r *= (1 - sp)*Math.sqrt(Math.max(0, 1 - f*f*0.96)) + sp*Math.max(0.02, 1 - f); }
+        r *= 1 - 0.18*y;
+        x = (r0 > 1e-4 ? x/r0 : 0)*r*r0; z = (r0 > 1e-4 ? z/r0 : 0)*r*r0; x += lean*y*y;
+        P.setXYZ(v, x, y, z);
+        const sh = (0.74 + 0.26*Math.min(1, y*1.6)) * (1 - 0.35*groove) * (1 - 0.08*joint); col.push(sh, sh, sh); }
+      g.setAttribute('color', new THREE.Float32BufferAttribute(col, 3)); g.computeVertexNormals(); protos.push(g); }
+    const tex = TEX.granite.clone(); tex.wrapS = tex.wrapT = THREE.RepeatWrapping; tex.repeat.set(2, 3); tex.needsUpdate = true;
+    const mat = new THREE.MeshStandardMaterial({ color:new THREE.Color(C.color || '#cfc8bc'), map:tex, vertexColors:true, roughness:0.96, metalness:0 });
+    if(SZ && SZ.snow){ mat.color.lerp(new THREE.Color(0xf2f4f7), 0.25); }
+    const items = protos.map(() => []), R = C.zone || 700, step = C.step || 15, hr = C.h || [8, 24], wr = C.w || [3, 7];
+    const ring = (x, z, d) => (heightAt(x + d, z) + heightAt(x - d, z) + heightAt(x, z + d) + heightAt(x, z - d))/4;
+    // 후보를 영역 전체에서 모아 점수 순으로 골라요 (정상 가까이·능선 위일수록 먼저)
+    const cand = [];
+    for(let gz = SUM.z - R; gz <= SUM.z + R; gz += step) for(let gx = SUM.x - R; gx <= SUM.x + R; gx += step){
+      const x = gx + (rnd() - 0.5)*step, z = gz + (rnd() - 0.5)*step, ds = Math.hypot(x - SUM.x, z - SUM.z);
+      if(ds > R || ds < SUMMIT_R + 12 || Math.abs(x) > HALF - 30 || Math.abs(z) > HALF - 30) continue;
+      const h = heightAt(x, z), ridge = h - ring(x, z, 32), near = 1 - ds/R;
+      const hf = (h - trail[0].h)/Math.max(1, SUM.h - trail[0].h);
+      const sc = ridge/(C.ridge || 1.2)*0.5 + near*0.8 + hf*0.6 + rnd()*0.5;
+      if(ridge < -1.5 || hf < (C.minH || 0.35)) continue;
+      cand.push({x, z, sc, ridge, near}); }
+    cand.sort((p, q) => q.sc - p.sc);
+    let placed = 0;
+    for(const cd of cand){ if(placed >= (C.n || 240)) break; const {x, z, ridge, near} = cd;
+      if(nearTrail(x, z, 1).d < 10) continue;
+      if(BRIDGE){ const nb = nearTrail(x, z, 1); if(nb.i >= BRIDGE.i0 - 10 && nb.i <= BRIDGE.i1 + 10 && nb.d < 40) continue; }
+      const kk = 2 + (rnd()*4|0), big = Math.min(1.25, 0.65 + near*0.5 + Math.max(0, ridge)/14);
+      for(let c = 0; c < kk; c++){ const ox = x + (rnd() - 0.5)*9, oz = z + (rnd() - 0.5)*9; if(nearTrail(ox, oz, 1).d < 9) continue;
+        const ht = (hr[0] + (hr[1] - hr[0])*rnd()*rnd()) * big * (c === 0 ? 1 : 0.55 + rnd()*0.4), w = wr[0] + (wr[1] - wr[0])*rnd();
+        const base = Math.min(heightAt(ox + w, oz), heightAt(ox - w, oz), heightAt(ox, oz + w), heightAt(ox, oz - w)) - 1.5;
+        const m4 = new THREE.Matrix4().compose(new THREE.Vector3(ox, base, oz), new THREE.Quaternion().setFromEuler(new THREE.Euler((rnd() - 0.5)*0.12, rnd()*6.28, (rnd() - 0.5)*0.12)), new THREE.Vector3(w, ht + 1.5, w*(0.7 + rnd()*0.5)));
+        items[(rnd()*protos.length)|0].push(m4); }
+      placed++; }
+    protos.forEach((g, k) => { if(!items[k].length) return; const im = new THREE.InstancedMesh(g, mat, items[k].length); items[k].forEach((m4, i) => im.setMatrixAt(i, m4));
+      im.castShadow = true; im.receiveShadow = true; im.frustumCulled = false; scene.add(im); });
+    window.__crags = placed; }
+  // 구름다리: 붉은 철 트러스 + 철망 바닥 + 난간
+  if(BRIDGE){ const {i0, i1} = BRIDGE, red = new THREE.MeshStandardMaterial({ color:new THREE.Color(BRIDGE.color), roughness:0.55, metalness:0.35 });
+    const grate = new THREE.MeshStandardMaterial({ color:0x5d5a55, roughness:0.8, metalness:0.4 }), G = new THREE.Group();
+    const a = trail[i0], b = trail[i1], len = Math.hypot(b.x - a.x, b.z - a.z), yaw = Math.atan2(b.x - a.x, b.z - a.z), slope = Math.atan2(b.h - a.h, len);
+    const W = 1.7, mk = (geo, m, x, y, z) => { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = true; G.add(o); return o; };
+    mk(new THREE.BoxGeometry(W, 0.12, len + 2), grate, 0, -0.06, 0);
+    for(const s of [-1, 1]){ mk(new THREE.BoxGeometry(0.16, 0.5, len + 2), red, s*W/2, -0.3, 0);   // 옆 거더
+      mk(new THREE.CylinderGeometry(0.045, 0.045, len + 2, 8).rotateX(Math.PI/2), red, s*W/2, 1.15, 0);   // 손잡이
+      mk(new THREE.CylinderGeometry(0.03, 0.03, len + 2, 6).rotateX(Math.PI/2), red, s*W/2, 0.6, 0);
+      for(let t = -len/2 - 1; t <= len/2 + 1.01; t += 2){ mk(new THREE.BoxGeometry(0.07, 1.2, 0.07), red, s*W/2, 0.55, t); } }
+    // 아래 트러스: 아치형 하현재 + 사선 부재
+    const arch = t => -0.6 - 2.4*(1 - Math.pow(2*t/len, 2));
+    for(const s of [-1, 1]){ let prev = null; for(let k = 0; k <= 16; k++){ const t = -len/2 + len*k/16, y = arch(t), p = new THREE.Vector3(s*W/2, y, t);
+        if(prev){ const d = p.clone().sub(prev), seg = mk(new THREE.CylinderGeometry(0.09, 0.09, d.length(), 6), red, (p.x + prev.x)/2, (p.y + prev.y)/2, (p.z + prev.z)/2); seg.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), d.normalize());
+          const q = new THREE.Vector3(s*W/2, -0.5, k % 2 ? prev.z : p.z), r2 = (k % 2 ? p : prev), d2 = r2.clone().sub(q), dg = mk(new THREE.CylinderGeometry(0.05, 0.05, d2.length(), 5), red, (q.x + r2.x)/2, (q.y + r2.y)/2, (q.z + r2.z)/2); dg.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), d2.normalize()); }
+        prev = p; } }
+    G.rotation.order = 'YXZ'; G.rotation.y = yaw; G.rotation.x = -slope; G.position.set((a.x + b.x)/2, (a.h + b.h)/2 + 0.18, (a.z + b.z)/2); scene.add(G);
+    // 발 높이: 다리 직사각형 위에 있으면 다리 바닥 (탐방로 번호와 상관없이 위치로 판단)
+    const ux = (b.x - a.x)/len, uz = (b.z - a.z)/len, half = W/2;
+    const onDeck = (x, z) => { const al = (x - a.x)*ux + (z - a.z)*uz, lt = -(x - a.x)*uz + (z - a.z)*ux; return { al, lt, f: al/len }; };
+    window.__deckY = (x, z) => { const o = onDeck(x, z); if(o.f < -0.03 || o.f > 1.03 || Math.abs(o.lt) > half + 0.3) return null; return a.h + (b.h - a.h)*Math.min(1, Math.max(0, o.f)) + 0.18; };
+    // 난간 밖으로 나가지 않게: 다리 위에서는 옆으로 밀려나면 다시 안쪽으로
+    window.__deckClamp = () => { const o = onDeck(st.x, st.z); if(o.f < 0.01 || o.f > 0.99) return; const lim = half - 0.3;
+      if(Math.abs(o.lt) > lim && Math.abs(o.lt) < half + 2.5){ const t = Math.sign(o.lt)*lim; st.x = a.x + ux*o.al - uz*t; st.z = a.z + uz*o.al + ux*t; } };
+    window.__bridge = BRIDGE; }
+}
 // ---------- 바위·통나무·돌계단 충돌 (pipeline/camera_patch.py) ----------
-// 야영장 안의 바위는 치워요 (앉을 자리·텐트와 겹치지 않게)
+// 야영장 안·탐방로 위의 바위는 치워요 (앉을 자리·텐트·길과 겹치지 않게)
 { const M = new THREE.Matrix4(), Z = new THREE.Matrix4().makeScale(0,0,0), v = new THREE.Vector3();
   scene.traverse(o => { if(!o.isInstancedMesh || o.geometry.type !== 'IcosahedronGeometry') return; let ch = false;
-    for(let n=0;n<o.count;n++){ o.getMatrixAt(n, M); v.setFromMatrixPosition(M); if(Math.hypot(v.x-CAMP.x, v.z-CAMP.z) < 8.5){ o.setMatrixAt(n, Z); ch = true; } }
+    const R0 = (o.geometry.parameters && o.geometry.parameters.radius) || 1;
+    for(let n=0;n<o.count;n++){ o.getMatrixAt(n, M); v.setFromMatrixPosition(M); if(Math.hypot(v.x-CAMP.x, v.z-CAMP.z) < 8.5){ o.setMatrixAt(n, Z); ch = true; continue; }
+      // 탐방로 위·바로 옆 바위도 치워요 (물가 바위 줄이 길을 가로막아 제자리걸음 하던 문제)
+      const e = M.elements, rr = R0*Math.max(Math.hypot(e[0], e[1], e[2]), Math.hypot(e[8], e[9], e[10])), nt = nearTrail(v.x, v.z, 2);
+      if(nt.i >= 0 && nt.d < rr + 0.6){ o.setMatrixAt(n, Z); ch = true; } }
     if(ch) o.instanceMatrix.needsUpdate = true; }); }
 ROCKC = (()=>{
   const ok = im => { const g = im.geometry, t = g.type, p = g.parameters || {};
     return t === 'IcosahedronGeometry' || t === 'BoxGeometry' || (t === 'CylinderGeometry' && (p.radiusBottom||0) >= 0.1); };
   const list = [], G = new Map(), C = 4, key = (i, j) => i*100003 + j, M4 = new THREE.Matrix4();
   scene.traverse(o => { if(!o.isInstancedMesh || !ok(o) || o === window.__skipRock) return; o.updateMatrixWorld(true);
+    const ZERO_M = new THREE.Matrix4().makeScale(0,0,0);
     const tmp = new THREE.Mesh(o.geometry); tmp.matrixAutoUpdate = false; if(!o.geometry.boundingBox) o.geometry.computeBoundingBox(); const bb = o.geometry.boundingBox;
     for(let n = 0; n < o.count; n++){ o.getMatrixAt(n, M4); M4.premultiply(o.matrixWorld); const e = M4.elements;
       const hx = Math.hypot(e[0], e[4], e[8]) * Math.max(Math.abs(bb.min.x), Math.abs(bb.max.x), Math.abs(bb.min.y), Math.abs(bb.max.y), Math.abs(bb.min.z), Math.abs(bb.max.z));
@@ -4419,6 +4937,9 @@ ROCKC = (()=>{
       const rx = (Math.abs(e[0]) + Math.abs(e[4]) + Math.abs(e[8])) * 1.0, rz = (Math.abs(e[2]) + Math.abs(e[6]) + Math.abs(e[10])) * 1.0, ry = (Math.abs(e[1]) + Math.abs(e[5]) + Math.abs(e[9]));
       const r = { x:e[12], y:e[13], z:e[14], rx:rx*Math.max(Math.abs(bb.min.x),bb.max.x), rz:rz*Math.max(Math.abs(bb.min.z),bb.max.z), top:e[13] + ry*Math.max(Math.abs(bb.min.y),bb.max.y), m:M4.clone(), mesh:tmp };
       if(r.top < heightAt(r.x, r.z) + 0.12) continue;   // 땅속에 잠긴 것
+      // 탐방로를 가로막는 키 큰 바위는 치워요 (황산 등에서 길 위 바위에 막혀 제자리걸음 하던 문제)
+      if(o.geometry.type !== 'CylinderGeometry' && o.geometry.type !== 'BoxGeometry' && r.top - heightAt(r.x, r.z) > 0.9){ const nt = nearTrail(r.x, r.z, 2);
+        if(nt.i >= 0 && nt.d < Math.max(r.rx, r.rz) + 1.0){ o.setMatrixAt(n, ZERO_M); o.instanceMatrix.needsUpdate = true; continue; } }
       list.push(r); const i0 = Math.floor((r.x - r.rx)/C), i1 = Math.floor((r.x + r.rx)/C), j0 = Math.floor((r.z - r.rz)/C), j1 = Math.floor((r.z + r.rz)/C);
       for(let i = i0; i <= i1; i++) for(let j = j0; j <= j1; j++){ const k = key(i, j); let a = G.get(k); if(!a) G.set(k, a = []); a.push(r); } } });
   const ray = new THREE.Raycaster(), down = new THREE.Vector3(0, -1, 0), o = new THREE.Vector3(), hits = [];
@@ -4432,9 +4953,11 @@ ROCKC = (()=>{
   return {
     n: list.length, list,
     // 올라설 수 있는 높이면 그 위에 서요
-    top(x, z, gy){ let y = -Infinity; for(const [a, b] of [[0,0],[FOOT,0],[-FOOT,0],[0,FOOT],[0,-FOOT]]){ const s = surf(x+a, z+b); if(s > y) y = s; } return y - gy <= STEP ? y : -Infinity; },
+    // 탐방로 위(가운데서 2.4m 안)에서는 더 높은 바위도 타고 올라 넘어가요
+    top(x, z, gy){ let y = -Infinity; for(const [a, b] of [[0,0],[FOOT,0],[-FOOT,0],[0,FOOT],[0,-FOOT]]){ const s = surf(x+a, z+b); if(s > y) y = s; } const lim = nearTrail(x, z, 1).d < 2.4 ? 3.2 : STEP; return y - gy <= lim ? y : -Infinity; },
     // 너무 높은 바위면 막혀요
-    blocked(x, z){ const g = heightAt(x, z); for(const [a, b] of [[0,0],[0.22,0],[-0.22,0],[0,0.22],[0,-0.22]]){ if(surf(x+a, z+b) - g > STEP) return true; } return false; },
+    blocked(x, z){ if(nearTrail(x, z, 1).d < 2.4) return false;   // 탐방로 위는 절대 막히지 않아요
+      const g = heightAt(x, z); for(const [a, b] of [[0,0],[0.22,0],[-0.22,0],[0,0.22],[0,-0.22]]){ if(surf(x+a, z+b) - g > STEP) return true; } return false; },
   };
 })(); window.__ROCKC = ROCKC;
 // 가까운 바위 색도 사진 쪽으로
@@ -4613,6 +5136,128 @@ window.__campNpc = (()=>{ const N = {"name": "향적봉 대피소지기", "outfi
     if(window.__lmSteam){ const S = window.__lmSteam; for(const sp of S.P){ sp.userData.t += dt; const k = (sp.userData.t % 4)/4; sp.position.set(S.s.x + Math.sin(sp.userData.t*0.7)*0.8*k, S.s.y + 0.3 + k*7, S.s.z + Math.cos(sp.userData.t*0.5)*0.8*k); sp.scale.setScalar(1 + k*5); sp.material.opacity = 0.45*Math.sin(k*Math.PI); } }
   } };
 })();
+
+// ---------- 아이폰 최적화 ----------
+const IS_IOS = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+if(IS_IOS) document.body.classList.add('ios');
+if(navigator.standalone || (window.matchMedia && matchMedia('(display-mode: standalone)').matches)) document.body.classList.add('standalone');
+{ const vv = window.visualViewport;
+  const setVH = () => document.documentElement.style.setProperty('--vh', Math.round(vv ? vv.height : innerHeight) + 'px');
+  const reSize = () => { camera.aspect = innerWidth/innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); setVH(); };
+  setVH(); addEventListener('resize', setVH); if(vv) vv.addEventListener('resize', setVH);
+  addEventListener('orientationchange', () => { setTimeout(reSize, 150); setTimeout(reSize, 600); });
+  if(IS_IOS){
+    document.addEventListener('gesturestart', e => e.preventDefault());
+    document.addEventListener('gesturechange', e => e.preventDefault());
+    document.addEventListener('focusout', e => { if(e.target && /^(INPUT|TEXTAREA)$/.test(e.target.tagName)) setTimeout(() => { if(!document.activeElement || !/^(INPUT|TEXTAREA)$/.test(document.activeElement.tagName)) window.scrollTo(0, 0); }, 60); });
+  }
+  try{ if(navigator.audioSession) navigator.audioSession.type = 'ambient'; }catch(e){}
+  const wakeAudio = () => { if(audio && audio.ac.state !== 'running' && !document.hidden) audio.ac.resume().catch(()=>{}); };
+  for(const t of ['touchend', 'pointerup', 'keydown']) addEventListener(t, wakeAudio, {passive:true});
+  document.addEventListener('visibilitychange', () => { if(!audio) return; if(document.hidden) audio.ac.suspend().catch(()=>{}); else wakeAudio(); });
+  addEventListener('pageshow', wakeAudio);
+}
+
+// ---------- 앱으로 설치 ----------
+{ const T_ = window.T || (x=>x), UA = navigator.userAgent, box = $('appInst'), sheet = $('aiSheet');
+  const standalone = document.body.classList.contains('standalone');
+  const inApp = /KAKAOTALK|NAVER\(|Instagram|FBAN|FBAV|Line\/|DaumApps|everytimeApp|Whale\/.*Mobile.*inapp/i.test(UA);
+  let promptEv = null;
+  const show = () => { if(box) box.hidden = standalone || !(IS_IOS || promptEv); };
+  addEventListener('beforeinstallprompt', e => { e.preventDefault(); promptEv = e; show(); });
+  addEventListener('appinstalled', () => { promptEv = null; if(box) box.hidden = true; toast(T_('설치했어요 · 홈 화면의 능선 아이콘으로 열어 보세요'), 3.5); });
+  const close = () => { sheet.hidden = true; };
+  $('aiX').onclick = close; $('aiOk').onclick = close; sheet.addEventListener('click', e => { if(e.target === sheet) close(); });
+  $('aiBtn').onclick = async () => {
+    if(promptEv){ const ev = promptEv; promptEv = null; ev.prompt(); try{ await ev.userChoice; }catch(e){} show(); return; }
+    $('aiOther').hidden = !inApp; sheet.hidden = false; };
+  show();
+  // 아이폰 Safari로 처음 들어온 사람에게 한 번만 살짝 알려 줘요
+  if(IS_IOS && !standalone && !inApp && !store.get('aiHint', false)){ store.set('aiHint', true); setTimeout(() => { if(!st.started) toast(T_('📲 앱으로 설치를 누르면 홈 화면에서 바로 열 수 있어요'), 4); }, 2500); }
+}
+
+// ---------- PC에 설치 + 설치한 앱은 전체 화면으로 (pipeline/app_patch.py) ----------
+{ const T_ = window.T || (x=>x), UA = navigator.userAgent, box = $('appInst');
+  const DESK = !document.body.classList.contains('touch') && !IS_IOS && !/Android|Mobile/i.test(UA);
+  const isApp = () => !!(window.matchMedia && (matchMedia('(display-mode: standalone)').matches || matchMedia('(display-mode: fullscreen)').matches || matchMedia('(display-mode: window-controls-overlay)').matches));
+  if(isApp()) document.body.classList.add('standalone');
+  if(DESK) document.body.classList.add('desk');
+  try{ if('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(()=>{}); }catch(e){}
+  let pev = null; addEventListener('beforeinstallprompt', e => { pev = e; });
+  if(DESK && box && !isApp()){
+    box.hidden = false; const b = $('aiBtn'); b.textContent = T_('💻 PC에 설치'); $('aiTxt').textContent = T_('바탕화면 아이콘으로 바로, 전체 화면으로 즐겨요');
+    const sh = $('pcSheet'), close = () => { sh.hidden = true; };
+    $('pcX').onclick = close; $('pcOk').onclick = close; sh.addEventListener('click', e => { if(e.target === sh) close(); });
+    b.onclick = async (ev) => { ev.stopImmediatePropagation();
+      if(pev){ const e = pev; pev = null; e.prompt(); try{ const c = await e.userChoice; if(c && c.outcome === 'accepted') return; }catch(_){} }
+      const edge = /Edg\//.test(UA), chrome = /Chrome\//.test(UA) && !edge && !/OPR\//.test(UA), safari = /Safari\//.test(UA) && !/Chrome|Chromium|Edg/.test(UA) && /Macintosh/.test(UA);
+      $('pcChrome').hidden = !chrome; $('pcEdge').hidden = !edge; $('pcSafari').hidden = !safari; $('pcOther').hidden = chrome || edge || safari;
+      sh.hidden = false; };
+    // 기존(모바일용) 버튼 처리보다 먼저 받도록 캡처 단계에서
+    b.addEventListener('click', b.onclick, true);
+  }
+  // 설치 유도 버튼을 여러 곳에: 시작 창 '능선' 제목 오른쪽 + 게임 메뉴 지도 아이콘 옆 (누르면 위 설치 버튼과 같은 동작)
+  if(box && !box.hidden){ const go = () => $('aiBtn').click(), lab = $('aiBtn').textContent;
+    const h = document.querySelector('#start .card h1');
+    if(h){ const t = document.createElement('button'); t.type = 'button'; t.id = 'aiTop'; t.className = 'aiTop'; t.textContent = lab; t.onclick = go;
+      const sm = h.querySelector('small'); h.insertBefore(t, sm); }
+    const bm = $('bMap');
+    if(bm){ const d = document.createElement('button'); d.className = 'ib'; d.id = 'bInst'; d.title = lab.replace(/^\S+\s/, ''); d.setAttribute('aria-label', d.title);
+      d.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M5 19.5h14"/></svg>'; d.onclick = go; bm.after(d); }
+  }
+  addEventListener('appinstalled', () => { toast(T_('설치했어요 · 바탕화면이나 Dock의 능선 아이콘으로 열어 보세요'), 4); if(box) box.hidden = true; ['aiTop','bInst'].forEach(i => { const e = $(i); if(e) e.remove(); }); });
+  // 설치한 앱으로 열면: 첫 클릭에서 전체 화면 (브라우저 규칙상 클릭이 있어야 해요)
+  if(isApp() && DESK){ const go = () => { if(!document.fullscreenElement && document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(()=>{}); };
+    addEventListener('pointerdown', go, {once:true, capture:true}); addEventListener('keydown', go, {once:true, capture:true}); }
+}
+
+// ---------- 탐방로 방향: 등산 / 하산 (pipeline/app_patch.py) ----------
+function setTrailDir(down){
+  if(!st.started){ toast('먼저 산행을 시작해 주세요', 2); return; }
+  if(down && !st.descending){ if(st.camp && typeof endCamp === 'function') endCamp(true);
+    const ci = nearTrail(st.x, st.z, 1).i; let k = 0; while(k < WPS.length && WPS[k].i <= ci + 10) k++;
+    st.descending = true; st.dcp = Math.max(1, k); st.down0 = { sec: st.gameSec, walked: st.walked }; st.sitting = false; st.view = null; }
+  else if(!down && st.descending){ st.descending = false; }
+  st.goal = null; refreshWalk(); canvas.focus(); }
+$('bUp').onclick = () => setTrailDir(false); $('bDown').onclick = () => setTrailDir(true);
+
+// ---------- 야영장 메뉴 접기 ----------
+document.body.classList.toggle('campMini', !!store.get('campMini', false));
+$('cMin').onclick = () => { const v = !document.body.classList.contains('campMini'); document.body.classList.toggle('campMini', v); store.set('campMini', v); };
+
+// ---------- 지도: 지나온 체크포인트·전망 스팟을 눌러 순간이동 (pipeline/trail_patch.py) ----------
+const TP_KEY = 'neungseon.reach.deogyusan';
+let TP_REACH = 0; try{ TP_REACH = +localStorage.getItem(TP_KEY) || 0; }catch(e){}
+setInterval(() => { if(!st || st.x == null) return; const nt = nearTrail(st.x, st.z, 1); if(nt.i >= 0 && nt.d < 6 && nt.i > TP_REACH){ TP_REACH = nt.i; try{ localStorage.setItem(TP_KEY, TP_REACH); }catch(e){} } }, 700);
+const tpSpots = () => { const out = []; const T_ = window.T || (x => x);
+  WPS.forEach((w, k) => out.push({ i: w.i, name: T_(w.name.replace(/\(.*\)/, '')), wp: k }));
+  for(const v of VIEWPOINTS) if(!v.spin) out.push({ i: v.i, name: T_(v.name), vp: true });
+  return out; };
+let tpPick = null;
+function tpGo(){ const s = tpPick; $('tpAsk').hidden = true; if(!s) return; const p = trail[Math.min(trail.length - 1, s.i)], q = trail[Math.min(trail.length - 1, s.i + 4)];
+  st.x = p.x; st.z = p.z; st.face = Math.atan2(q.x - p.x, q.z - p.z); st.yaw = st.face + Math.PI; st.goal = null; st.sitting = false; st.breathing = 0; st.auto = false; refreshWalk();
+  goalRing.visible = false; st.camInit = false; st.cf = null; toast('순간이동했어요', 2); canvas.focus(); }
+$('tpGo').onclick = tpGo; $('tpNo').onclick = () => { $('tpAsk').hidden = true; tpPick = null; };
+$('tpAsk').addEventListener('click', e => { if(e.target === $('tpAsk')){ $('tpAsk').hidden = true; tpPick = null; } });
+function tpClick(e){ const W = $('mapWrap'); const big = W.classList.contains('big') || document.body.classList.contains('mapOn');
+  if(!big || !drawMap.tf) return false;
+  const r = mapC.getBoundingClientRect(), mx = (e.clientX - r.left) / r.width * MAPN, my = (e.clientY - r.top) / r.height * MAPN;
+  let best = null, bd = 26; for(const s of tpSpots()){ const p = trail[s.i]; const d = Math.hypot(drawMap.tf.u(p.x) - mx, drawMap.tf.v(p.z) - my); if(d < bd){ bd = d; best = s; } }
+  if(!best) return false;
+  if(best.i > TP_REACH + 3){ toast('아직 가 보지 않은 곳이에요 · 걸어서 먼저 들러 보세요', 2.6); return true; }
+  tpPick = best; $('tpName').textContent = best.name; $('tpAsk').hidden = false; return true; }
+window.__tp = { spots: tpSpots, tf: () => drawMap.tf, reach: () => TP_REACH };
+
+// ---------- 경로 안내 바 자리 맞추기 (pipeline/trail_patch.py) ----------
+{ const fit = () => { const pg = $('prog'), tl = $('brand'), tr = $('tr'); if(!pg || !tl || !tr) return;
+    pg.style.left = ''; pg.style.width = ''; pg.classList.remove('tight');
+    if(getComputedStyle(pg).display === 'none') return;
+    let right = innerWidth; for(const el of [tr, $('supportBtn')]){ if(!el) continue; const r = el.getBoundingClientRect(); if(r.width > 0 && r.top < 80) right = Math.min(right, r.left); }
+    const left = tl.getBoundingClientRect().right, gap = 16, room = right - left - gap*2;
+    if(room < 240){ pg.classList.add('tight'); return; }
+    const w = Math.min(460, room), c = left + gap + room/2;
+    pg.style.width = w + 'px'; pg.style.left = (Math.abs(c - innerWidth/2) < 4 ? innerWidth/2 : c) + 'px'; };
+  addEventListener('resize', fit); setInterval(fit, 1500); setTimeout(fit, 300); window.__progFit = fit; }
 window.__game = {standY, heightAt, METEOR, VIEWPOINTS, POOL, restSpots, doRest, st, trail, WPS, heightAt, keys, camera, npcs, remotes, applyPeers, scene, renderer, player, SKY, CAMP, startCamp, startDescent, finish, campCam};
 frame();
 </script>
@@ -4657,10 +5302,11 @@ frame();
   function draw(){
     document.querySelectorAll('.mtTabs button').forEach(b => { const on = b.dataset.r === tab; b.classList.toggle('on', on); b.setAttribute('aria-selected', on); });
     list.innerHTML = '';
-    MTS.filter(m => m.r === tab).forEach(m => {
+    const T0 = performance.now(), RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    MTS.filter(m => m.r === tab).forEach((m, k) => {
       const b = document.createElement('button'); b.type = 'button'; b.className = 'mtItem' + (m.id === CUR ? ' here' : '');
       const pic = document.createElement('div'); pic.className = 'mtPic'; pic.innerHTML = m.pic; b.appendChild(pic);
-      if(m.photo){ const im = document.createElement('img'); im.alt = ''; im.loading = 'lazy'; im.src = m.photo; im.onload = () => im.classList.add('on'); im.onerror = () => im.remove(); pic.appendChild(im); }
+      if(m.photo){ const im = document.createElement('img'); im.alt = ''; im.loading = 'lazy'; im.src = m.photo; im.onload = () => setTimeout(() => im.classList.add('on'), RM ? 0 : Math.max(0, 1100 + k * 140 - (performance.now() - T0))); im.onerror = () => im.remove(); pic.appendChild(im); }
       const ev = document.createElement('span'); ev.className = 'mtElev'; ev.textContent = m.elev.toLocaleString() + 'm'; pic.appendChild(ev);
       if(m.id === CUR){ const t = document.createElement('span'); t.className = 'mtTag'; t.textContent = '지금 이 산'; pic.appendChild(t); }
       const body = document.createElement('div'); body.className = 'mtBody'; b.appendChild(body);
