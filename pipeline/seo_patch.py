@@ -35,7 +35,7 @@ def patch(s, page):
     place = place_of(s)
     url = SITE + ('' if page == 'index.html' else page)
     if page == 'index.html':
-        title = f'{NAME} | 온라인 등산·산행·트레킹 게임 · {place}'
+        title = f'{NAME} | 온라인 등산·산행·트레킹 게임'
     else:
         title = f'{place} 온라인 등산 | {NAME}'
     desc = (f'{place} 코스를 본떠 만든 산길을 브라우저에서 천천히 걷는 온라인 등산·산행 게임, 능선 온라인. '
