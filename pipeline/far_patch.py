@@ -89,6 +89,14 @@ FLORA_JS = r"""
 """
 
 
+def patch_far_clumps(P, m):
+    # 먼 숲 무리: 수목한계선 위(고산 바위·눈밭)엔 심지 않아요 — 킬리만자로 비탈에 단풍 숲 무늬가 깔리던 것
+    # 늘 겨울인 산(에베레스트·킬리만자로)의 숲은 짙은 상록 숲 색으로
+    if m['id'] not in FAR_READY: return
+    P.rep("if(sl > 0.9 || (h > 600 && sl > 0.55)) continue;", "if(sl > 0.9 || (h > 600 && sl > 0.55) || h > BIO.tt + 60) continue;", 1)
+    P.rep("const pals=SZ.pals ? (", "const pals=SEASON === 'fixed' ? [[[44,66,40],[36,56,34],[58,80,48],[30,46,28]],[[52,74,44],[40,62,36],[66,88,52],[34,50,30]],[[40,62,36],[34,54,30],[56,78,42],[30,48,28]],[[70,84,52],[56,72,44],[82,96,60],[46,60,38]]] : SZ.pals ? (", 1)
+
+
 def patch_flora(P, m):
     if m['id'] not in FAR_READY: return
     fl = FLOWERS.get(m.get('climate', 'kr'), {})

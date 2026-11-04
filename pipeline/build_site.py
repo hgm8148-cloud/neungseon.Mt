@@ -25,7 +25,7 @@ from admin_patch import patch_admin
 from ios_patch import patch_ios, patch_install, INST_ROWS
 from ui_patch import patch_ui, UIX_ROWS
 from moon_patch import patch_moon
-from far_patch import patch_far, patch_flora
+from far_patch import patch_far, patch_flora, patch_far_clumps
 from vista_patch import patch_vista
 from trail_patch import patch_trail
 from loader_patch import patch_loader, loader_rows
@@ -315,6 +315,7 @@ def build_page(T, m, mts, data):
     patch_moon(P, m)
     patch_far(P, m)
     patch_flora(P, m)
+    patch_far_clumps(P, m)
     patch_vista(P, m, meta)
     patch_trail(P, m)
     patch_loader(P, m, mts, data)
