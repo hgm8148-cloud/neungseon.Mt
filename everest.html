@@ -1300,9 +1300,22 @@ const SZ = ({
     floor:[0xd8dee6,0xe6ebf0,0xcfd6df], bareAll:true,
     sp:{} },
 })[SEASON] || { green:0, snow:0 };
-const seasonGLSL = () => `lit = mix(lit, lit.g*vec3(0.62,1.0,0.5) + vec3(0.03,0.06,0.0), ${(SZ.green||0).toFixed(2)}); lit = mix(lit, vec3(0.9,0.93,0.97)*(0.86+0.14*lit.g), ${(SZ.snow||0).toFixed(2)});`;
+const seasonGLSL = () => (SEASON === 'autumn' && BIO.leaf ? `{ float gr = clamp((lit.g - max(lit.r, lit.b))*5.0, 0.0, 1.0); float h = fract(sin(dot(floor(vWP.xz/9.0), vec2(12.9898, 78.233)))*43758.5453); vec3 au = lit.g*mix(vec3(1.45, 0.55, 0.22), vec3(1.25, 0.95, 0.3), h); lit = mix(lit, au, gr*0.65); } ` : '') + `lit = mix(lit, lit.g*vec3(0.62,1.0,0.5) + vec3(0.03,0.06,0.0), ${(SZ.green||0).toFixed(2)}); lit = mix(lit, vec3(0.9,0.93,0.97)*(0.86+0.14*lit.g), ${(SZ.snow||0).toFixed(2)});`;
 const SZX = {};
 Object.assign(SZ, SZX[SEASON] || {});
+{ const FL = {};
+  const G = [[70,120,52],[84,136,60],[58,104,44]], S = [[110,160,70],[126,174,80],[96,146,60]];
+  const L = SEASON === 'summer' ? G : S;
+  if(FL[SEASON]){
+    SZ.flowerSets = FL[SEASON].map(f => [...L, ...f]).concat([L.concat([[96,150,66]])]);   // + 꽃 없는 초록 덤불
+    if(SEASON === 'summer') SZ.flowerAmt = Math.max(SZ.flowerAmt || 0, 0.16);
+    else SZ.flowerAmt = Math.max(SZ.flowerAmt || 0, 0.1);
+  }
+  SZ.fern = { spring: [[[120,170,70],[140,186,84],[104,150,60]], [[150,192,92],[130,176,76],[166,202,104]]],
+              summer: [[[56,112,44],[70,128,52],[46,98,38]], [[82,140,58],[64,122,48],[98,154,68]]],
+              winter: [[[150,128,100],[170,148,118],[128,110,88]], [[160,140,110],[140,120,96],[182,162,132]]] }[SEASON] || null;
+}
+
 if(SZ.notCherry && SZ.sp && SZ.sp.mapleOrange) SZ.sp = Object.assign({}, SZ.sp, {mapleRed: SZ.sp.mapleOrange});
 if(SZ.snowAmt != null) SZ.snow = SZ.snowAmt;
 if(SZ.rime){ SZ.bareAll = false; SZ.sp = {}; for(const k of ['mapleRed','mapleOrange','oak','oakGold','yellow','birch','green','bare']) SZ.sp[k] = [[236,240,246],[222,230,240],[248,250,253],[210,220,232],[240,244,250]]; }
@@ -1953,13 +1966,13 @@ function makePlant(kind, v){
     strokes(80,[[150,140,96],[170,156,104],[120,112,76]],1.6,90,200,40,0.6);
     for(let i=0;i<9;i++){ const bx=128+(trnd()-0.5)*50, top=20+trnd()*70, lean=(trnd()-0.5)*50; x.strokeStyle='rgba(160,150,120,1)'; x.lineWidth=1.4; x.beginPath(); x.moveTo(bx,256); x.quadraticCurveTo(bx+lean*0.3,140,bx+lean,top+30); x.stroke();
       for(let k=0;k<26;k++){ const t=trnd(); x.strokeStyle=rgbStr(186+trnd()*30,172+trnd()*28,146+trnd()*26,0.8); x.lineWidth=1.1; x.beginPath(); const px=bx+lean*(0.85+t*0.15), py=top+30-t*34; x.moveTo(px,py); x.lineTo(px+(trnd()-0.5)*20+lean*0.2,py-6-trnd()*14); x.stroke(); } } }
-  else if(kind==='fern'){ const cols = v? [[132,92,44],[150,104,50],[110,76,38]] : [[96,104,50],[120,110,52],[80,88,42]];
+  else if(kind==='fern'){ const cols = SZ.fern ? SZ.fern[v ? 1 : 0] : (v? [[132,92,44],[150,104,50],[110,76,38]] : [[96,104,50],[120,110,52],[80,88,42]]);
     for(let f=0; f<9; f++){ const a=-Math.PI/2+(f-4)*0.3+(trnd()-0.5)*0.2, L=110+trnd()*90; const ex=128+Math.cos(a)*L, ey=256+Math.sin(a)*L*0.9;
       x.strokeStyle=rgbStr(...cols[0]); x.lineWidth=1.6; x.beginPath(); x.moveTo(128,256); x.quadraticCurveTo(128+Math.cos(a)*L*0.5,256+Math.sin(a)*L*0.7,ex,ey); x.stroke();
       for(let k=0;k<16;k++){ const t=k/16, px=128+(ex-128)*t, py=256+(ey-256)*t - Math.sin(t*Math.PI)*12, w=(1-t)*22+4, col=cols[(trnd()*3)|0], l=0.7+trnd()*0.5;
         x.strokeStyle=rgbStr(col[0]*l,col[1]*l,col[2]*l); x.lineWidth=2.2; for(const s of [-1,1]){ x.beginPath(); x.moveTo(px,py); x.lineTo(px+Math.cos(a+s*1.3)*w, py+Math.sin(a+s*1.3)*w); x.stroke(); } } } }
   else { // 관목: 진달래·철쭉(붉은), 어린 참나무(갈색), 조릿대(초록)
-    const pal = kind==='bushRed' ? (SZ.flower || SZ.bushRed || [[160,38,28],[186,66,34],[138,30,26],[120,48,30],[200,90,40]]) : kind==='bushOak' ? (SZ.bushOak || [[140,96,48],[160,112,54],[118,80,40],[176,128,60]]) : [[70,92,44],[86,108,52],[60,80,40],[110,116,56]];
+    const pal = kind==='bushRed' ? ((SZ.flowerSets && SZ.flowerSets[v % SZ.flowerSets.length]) || SZ.flower || SZ.bushRed || [[160,38,28],[186,66,34],[138,30,26],[120,48,30],[200,90,40]]) : kind==='bushOak' ? (SZ.bushOak || [[140,96,48],[160,112,54],[118,80,40],[176,128,60]]) : [[70,92,44],[86,108,52],[60,80,40],[110,116,56]];
     x.strokeStyle='#3a2a1e'; for(let i=0;i<7;i++) branchTo(x,128+(trnd()-0.5)*20,256,40+trnd()*176,90+trnd()*90,2);
     const n = 3+((trnd()*3)|0); for(let i=0;i<n;i++) leafCluster(x, 70+trnd()*116, 110+trnd()*80, 40+trnd()*30, 34+trnd()*24, pal, 120, 2, 4.5, {x:-0.5,y:-0.8});
   }
@@ -2026,6 +2039,7 @@ function buildGrid(n, cell, getH, colorFn){
   return g;
 }
 const TEX = { litter: makeLitter(), litter2: makeLitter2(), canopy: makeCanopy(), granite: makeGranite(), trail: makeTrailTex() };
+{ const im = new Image(); im.onload = () => { TEX.canopy.image = im; TEX.canopy.needsUpdate = true; }; im.src = 'photos/' + ({}[SEASON] || 'everest') + '/canopy.jpg'; }
 const terrainGeo = buildGrid(M, FC, (i,j)=>fineH[j*M+i], (v,x,z,h,ny,o)=>{
   const n = vnoise(x/60,z/60), n2 = vnoise(x/17+40,z/17);
   o.setRGB(1,1,1).lerp(new THREE.Color(0.9,0.84,0.72), n*0.5).lerp(new THREE.Color(0.86,0.9,0.78), n2*0.25).multiplyScalar(0.8+n2*0.25);
@@ -2244,7 +2258,7 @@ const treeShade = new Float32Array(M*M);   // 나무 그늘 (지면을 어둡게
   const VAR = { mapleRed:3, mapleOrange:3, oak:3, oakGold:2, yellow:3, birch:2, green:2, bare:2, pine:4 };
   const T = {}; const CAP = 12000;
   for(const [k,n] of Object.entries(VAR)){ T[k]=[]; for(let v=0; v<n; v++) T[k].push(spriteMesh(k==='pine'?makePine(v):makeBroadleaf(SPECIES[k], v), CAP, treeGeo)); }
-  const PV = { grass:2, reed:2, fern:2, bushRed:2, bushOak:2, bushGreen:1 };
+  const PV = { grass:2, reed:2, fern:2, bushRed:(SZ.flowerSets ? SZ.flowerSets.length : 2), bushOak:2, bushGreen:1 };
   const P = {}; for(const [k,n] of Object.entries(PV)){ P[k]=[]; for(let v=0; v<n; v++) P[k].push(spriteMesh(makePlant(k.startsWith('bush')?k:k, v), 9000, plantGeo)); }
   const d = new THREE.Object3D(), col = new THREE.Color();
   function put(m, x, y, z, w, h, tilt=0.03, tint=0.12){
@@ -2386,7 +2400,7 @@ const treeShade = new Float32Array(M*M);   // 나무 그늘 (지면을 어둡게
   // 멀리서 본 나무 무리 스프라이트
   function makeClump(v){
     const c=document.createElement('canvas'); c.width=256; c.height=256; const x=c.getContext('2d');
-    const pals=[[[150,40,26],[176,74,32],[124,32,22],[96,56,32]],[[190,110,40],[160,80,30],[206,146,58],[110,80,40]],[[52,74,40],[40,60,34],[66,86,46],[88,96,50]],[[150,110,50],[124,90,44],[176,136,60],[96,70,38]]];
+    const pals=SZ.pals ? (SZ.notCherry ? [1,2,3,2].map(i => SZ.pals[i]) : SZ.pals.slice(0, 4)) : (BIO.leaf < 0.5 && SEASON === 'autumn') ? [[[196,150,52],[214,176,70],[176,128,44],[150,110,40]],[[52,74,40],[40,60,34],[66,86,46],[88,96,50]],[[40,62,36],[34,54,30],[56,78,42],[30,48,28]],[[150,96,48],[124,80,40],[170,118,58],[110,76,40]]] : [[[150,40,26],[176,74,32],[124,32,22],[96,56,32]],[[190,110,40],[160,80,30],[206,146,58],[110,80,40]],[[52,74,40],[40,60,34],[66,86,46],[88,96,50]],[[150,110,50],[124,90,44],[176,136,60],[96,70,38]]];
     const n = 5+((trnd()*4)|0);
     for(let i=0;i<n;i++){ const cx=40+trnd()*176, cy=120+trnd()*70, rx=30+trnd()*30, ry=50+trnd()*50; const pal = pals[(v+i)%pals.length];
       leafCluster(x,cx,cy,rx,ry,pal,Math.round(rx*ry*0.12),3,7,{x:-0.5,y:-0.8}); }
