@@ -1,0 +1,10 @@
+const { chromium } = require('playwright');
+(async()=>{ const b=await chromium.launch({args:['--allow-file-access-from-files']});
+  const p=await b.newPage({viewport:{width:1200,height:630}, deviceScaleFactor:1});
+  await p.route('**/*', r=>{ const u=r.request().url(); if(u.startsWith('file:')) return r.continue(); if(/fonts\.(googleapis|gstatic)/.test(u)) return r.continue(); return r.abort(); });
+  await p.addInitScript(()=>{ localStorage.setItem('neungseon.lang','ko'); });
+  await p.goto('file:///home/claude/neungseon.mt/pipeline/preview/bukhansan.html');
+  await p.waitForTimeout(9000);
+  await p.addStyleTag({content:'.ld2.brand .bar,.ld2.brand .bTick{display:none!important} #mtSel,#loading > :not(.ld2){display:none!important} .ld2.brand *{animation-play-state:paused!important}'});
+  await p.evaluate(()=>{ const d=document.createElement('div'); d.textContent='국내·해외 명산을 한 걸음씩 · neungseon.com'; d.style.cssText='position:fixed;left:0;right:0;bottom:46px;text-align:center;color:rgba(255,241,220,.82);font:500 19px Pretendard,system-ui,sans-serif;letter-spacing:.14em;z-index:99999'; document.body.appendChild(d); }); await p.waitForTimeout(300);
+  await p.screenshot({path:'og_new.png'}); await b.close(); })();

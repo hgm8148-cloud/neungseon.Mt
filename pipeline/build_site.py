@@ -297,6 +297,7 @@ def build_page(T, m, mts, data):
     if not m.get('legacy'):
         pre, post = patch_mountain(Patch(pre, m['id'] + ':head'), Patch(post, m['id']), m, meta)
     P.t = pre + R + post
+    patch_og(P, m['page'])
     patch_hike(P, m)
     patch_common(P, m, data)
     patch_photos(P, m)
@@ -342,6 +343,14 @@ def patch_hike(P, m):
     if P.t.count("store.set('hike', c.hike)"):
         P.rep("if(c.hike && c.hike.v === 1 &&", f"if(c.hike && c.hike.v === 1 && {ok} &&", 1)
         P.rep("store.set('hike', c.hike)", f"store.set('{key}', c.hike)", 1)
+
+
+def patch_og(H, page):
+    H.sub(r'(og:image" content="https://neungseon\.com/og\.png)(\?v=\d+)?', r'\g<1>?v=2', need=False)   # 메신저 미리보기 캐시를 새로
+    if page in ('', 'index.html'):   # 대표 주소(neungseon.com) 공유 미리보기는 한 산이 아니라 '능선' 브랜드로
+        H.sub(r'(og:title" content=")[^"]*', r'\g<1>능선, 여유 있는 산행')
+        H.sub(r'(og:description" content=")[^"]*', r'\g<1>국내·해외 명산의 산길을 한 걸음씩. 실제 지형을 본떠 만든 산길을 브라우저에서 바로 오르는 산행 게임.')
+        H.sub(r'(<meta name="description" content=")[^"]*', r'\g<1>국내·해외 명산의 산길을 한 걸음씩 걷는 웹 산행 게임. 실제 지형을 본떠 만들었어요. 한국어·English·日本語·中文')
 
 
 def patch_mountain(H, B, m, meta):
