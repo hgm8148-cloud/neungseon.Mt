@@ -16,7 +16,31 @@ GRAVEL_JS = r"""if(BIO.leaf < 0.05){
   } else """
 
 
+VP_FIX = [
+    ['골짜기 너머로 신록 능선이 펼쳐져요','Fresh green ridges stretch beyond the valley','谷の向こうに新緑の稜線が広がります','山谷那头，新绿山脊绵延','Hinter dem Tal erstrecken sich frühlingsgrüne Grate','Au-delà de la vallée s’étendent des crêtes vert tendre','Oltre la valle si stendono creste di verde novello','Más allá del valle se extienden crestas de verde tierno','उपत्यकापारि नयाँ हरियो पहाडी रेखाहरू फैलिएका छन्','Ng’ambo ya bonde matuta ya kijani kibichi yanaenea'],
+    ['골짜기 너머로 푸른 능선이 펼쳐져요','Green ridges stretch beyond the valley','谷の向こうに緑の稜線が広がります','山谷那头，青翠山脊绵延','Hinter dem Tal erstrecken sich grüne Grate','Au-delà de la vallée s’étendent des crêtes verdoyantes','Oltre la valle si stendono creste verdi','Más allá del valle se extienden crestas verdes','उपत्यकापारि हरिया पहाडी रेखाहरू फैलिएका छन्','Ng’ambo ya bonde matuta ya kijani yanaenea'],
+    ['골짜기 너머로 눈 덮인 능선이 펼쳐져요','Snowy ridges stretch beyond the valley','谷の向こうに雪の稜線が広がります','山谷那头，白雪山脊绵延','Hinter dem Tal erstrecken sich verschneite Grate','Au-delà de la vallée s’étendent des crêtes enneigées','Oltre la valle si stendono creste innevate','Más allá del valle se extienden crestas nevadas','उपत्यकापारि हिउँले ढाकिएका पहाडी रेखाहरू फैलिएका छन्','Ng’ambo ya bonde matuta yenye theluji yanaenea'],
+    ['골짜기 너머로 겹겹의 능선이 펼쳐져요','Layer upon layer of ridges stretch beyond the valley','谷の向こうに幾重もの稜線が広がります','山谷那头，层层山脊绵延','Hinter dem Tal erstrecken sich Grat um Grat','Au-delà de la vallée s’étendent des crêtes à perte de vue','Oltre la valle si stendono creste su creste','Más allá del valle se extienden crestas y más crestas','उपत्यकापारि तह-तह पहाडी रेखाहरू फैलिएका छन्','Ng’ambo ya bonde matuta mengi yanaenea'],
+    ['정상으로 이어지는 겹겹의 능선이 보여요','Ridge after ridge leads up to the summit','山頂へ続く幾重もの稜線が見えます','层层山脊一路通向山顶','Grat um Grat führt hinauf zum Gipfel','Les crêtes s’enchaînent jusqu’au sommet','Creste su creste salgono verso la vetta','Cresta tras cresta sube hacia la cumbre','शिखरसम्म पुग्ने तह-तह पहाडी रेखाहरू देखिन्छन्','Matuta mengi yanaelekea kileleni'],
+    ['물소리를 들으며 신록 계곡을 바라봐요','Listen to the stream and gaze at the fresh green valley','水の音を聞きながら新緑の渓谷を眺めましょう','听着水声，看看新绿溪谷','Lausche dem Bach und blicke ins frühlingsgrüne Tal','Écoutez le ruisseau et contemplez la vallée vert tendre','Ascolta il torrente e guarda la valle di verde novello','Escucha el arroyo y contempla el valle de verde tierno','खोलाको आवाज सुन्दै नयाँ हरियो उपत्यका हेर्नुहोस्','Sikiliza kijito na utazame bonde la kijani kibichi'],
+    ['물소리를 들으며 푸른 계곡을 바라봐요','Listen to the stream and gaze at the green valley','水の音を聞きながら緑の渓谷を眺めましょう','听着水声，看看青翠溪谷','Lausche dem Bach und blicke ins grüne Tal','Écoutez le ruisseau et contemplez la vallée verdoyante','Ascolta il torrente e guarda la valle verde','Escucha el arroyo y contempla el valle verde','खोलाको आवाज सुन्दै हरियो उपत्यका हेर्नुहोस्','Sikiliza kijito na utazame bonde la kijani'],
+    ['물소리를 들으며 눈 덮인 계곡을 바라봐요','Listen to the stream and gaze at the snowy valley','水の音を聞きながら雪の渓谷を眺めましょう','听着水声，看看白雪溪谷','Lausche dem Bach und blicke ins verschneite Tal','Écoutez le ruisseau et contemplez la vallée enneigée','Ascolta il torrente e guarda la valle innevata','Escucha el arroyo y contempla el valle nevado','खोलाको आवाज सुन्दै हिउँले ढाकिएको उपत्यका हेर्नुहोस्','Sikiliza kijito na utazame bonde lenye theluji'],
+    ['물소리를 들으며 계곡을 바라봐요','Listen to the stream and gaze at the valley','水の音を聞きながら渓谷を眺めましょう','听着水声，看看溪谷','Lausche dem Bach und blicke ins Tal','Écoutez le ruisseau et contemplez la vallée','Ascolta il torrente e guarda la valle','Escucha el arroyo y contempla el valle','खोलाको आवाज सुन्दै उपत्यका हेर्नुहोस्','Sikiliza kijito na utazame bonde'],
+]
+VP_JS = "const VP_SZ = (a, b, c, d, e) => (BIO.leaf < 0.05 || SEASON === 'fixed') ? e : ({spring:a, summer:b, autumn:c, winter:d})[SEASON] || e;\n"
+
+
+def patch_vp_text(P, m):
+    # 전망 안내 문구가 계절·산과 맞게 (겨울에 '단풍 계곡', 다른 산에서 '인수봉'이 나오던 문제)
+    P.rep("// rocks\nconst restSpots = [];", VP_JS + "// rocks\nconst restSpots = [];", 1)
+    P.rep(": '골짜기 너머로 단풍 능선이 펼쳐져요'}", ": VP_SZ('골짜기 너머로 신록 능선이 펼쳐져요', '골짜기 너머로 푸른 능선이 펼쳐져요', '골짜기 너머로 단풍 능선이 펼쳐져요', '골짜기 너머로 눈 덮인 능선이 펼쳐져요', '골짜기 너머로 겹겹의 능선이 펼쳐져요')}", 1)
+    if m['id'] != 'bukhansan':
+        P.rep("? '인수봉과 겹겹의 능선이 보여요' :", "? '정상으로 이어지는 겹겹의 능선이 보여요' :", 1)
+    P.rep("sub:'물소리를 들으며 단풍 계곡을 바라봐요'", "sub:VP_SZ('물소리를 들으며 신록 계곡을 바라봐요', '물소리를 들으며 푸른 계곡을 바라봐요', '물소리를 들으며 단풍 계곡을 바라봐요', '물소리를 들으며 눈 덮인 계곡을 바라봐요', '물소리를 들으며 계곡을 바라봐요')", need=False)
+
+
 def patch_trail(P, m):
+    patch_vp_text(P, m)
     # 바닥 낙엽 무늬(LEAF_COLS)도 나무 없는 산에선 돌 조각 색으로
     P.rep("if(SZ.leaf) LEAF_COLS.splice(0, LEAF_COLS.length, ...SZ.leaf);",
           "if(SZ.leaf) LEAF_COLS.splice(0, LEAF_COLS.length, ...SZ.leaf);\n"

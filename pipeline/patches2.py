@@ -333,7 +333,7 @@ def patch_season(P, m, meta):
     P.rep("  bare:       {pal:[[110,72,40],[96,64,36]], trunk:'#4a3a2e', bare:true}\n};",
           "  bare:       {pal:[[110,72,40],[96,64,36]], trunk:'#4a3a2e', bare:true}\n};\n"
           "if(SZ.sp) for(const k in SZ.sp) if(SPECIES[k]) SPECIES[k].pal = SZ.sp[k];\n"
-          "if(SZ.bareAll) for(const k in SPECIES) SPECIES[k].bare = true;", 1)
+          "if(SZ.bareAll) for(const k in SPECIES){ SPECIES[k].bare = true; SPECIES[k].pal = [[226,232,238],[214,222,230],[240,244,248],[150,136,120],[200,208,216]]; }   // 겨울: 남은 잎 대신 눈송이·마른 잎만 (단풍색 점 없음)", 1)
     P.rep("[[176,70,32],[150,52,28],[196,100,40],[120,60,30]] ];", "[[176,70,32],[150,52,28],[196,100,40],[120,60,30]] ];\n  if(SZ.pals) pals.splice(0, pals.length, ...SZ.pals);", 1)
     P.rep("const LEAF_COLS = [[150,52,30],[176,82,32],[190,120,45],[150,104,52],[112,72,40],[96,58,34],[168,140,70],[130,40,28]];",
           "const LEAF_COLS = [[150,52,30],[176,82,32],[190,120,45],[150,104,52],[112,72,40],[96,58,34],[168,140,70],[130,40,28]];\n"

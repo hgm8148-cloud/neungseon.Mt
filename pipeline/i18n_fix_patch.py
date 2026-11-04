@@ -46,7 +46,8 @@ FIX = [
 ]
 LOCAL = ['de', 'fr', 'it', 'es', 'ne', 'sw']
 from loader_patch import LOADER_FIX
-FIX = FIX + LOADER_FIX
+from trail_patch import VP_FIX
+FIX = FIX + LOADER_FIX + VP_FIX
 FIX_ROWS = [r[:4] for r in FIX]
 FIX_LOCAL = {l: {r[0]: r[4 + i] for r in FIX} for i, l in enumerate(LOCAL)}
 

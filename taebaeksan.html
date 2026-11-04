@@ -1040,6 +1040,15 @@ html:not([lang=ko]) .ld2.mtn h2{letter-spacing:.04em}
     ["배낭을 챙기는 중", "Packing your backpack", "リュックを詰めています", "正在收拾背包"],
     ["산새를 깨우는 중", "Waking the mountain birds", "山の鳥を起こしています", "正在唤醒山鸟"],
     ["하늘에 해와 별을 거는 중", "Hanging the sun and stars in the sky", "空に太陽と星を掛けています", "正在把太阳和星星挂上天空"],
+    ["골짜기 너머로 신록 능선이 펼쳐져요", "Fresh green ridges stretch beyond the valley", "谷の向こうに新緑の稜線が広がります", "山谷那头，新绿山脊绵延"],
+    ["골짜기 너머로 푸른 능선이 펼쳐져요", "Green ridges stretch beyond the valley", "谷の向こうに緑の稜線が広がります", "山谷那头，青翠山脊绵延"],
+    ["골짜기 너머로 눈 덮인 능선이 펼쳐져요", "Snowy ridges stretch beyond the valley", "谷の向こうに雪の稜線が広がります", "山谷那头，白雪山脊绵延"],
+    ["골짜기 너머로 겹겹의 능선이 펼쳐져요", "Layer upon layer of ridges stretch beyond the valley", "谷の向こうに幾重もの稜線が広がります", "山谷那头，层层山脊绵延"],
+    ["정상으로 이어지는 겹겹의 능선이 보여요", "Ridge after ridge leads up to the summit", "山頂へ続く幾重もの稜線が見えます", "层层山脊一路通向山顶"],
+    ["물소리를 들으며 신록 계곡을 바라봐요", "Listen to the stream and gaze at the fresh green valley", "水の音を聞きながら新緑の渓谷を眺めましょう", "听着水声，看看新绿溪谷"],
+    ["물소리를 들으며 푸른 계곡을 바라봐요", "Listen to the stream and gaze at the green valley", "水の音を聞きながら緑の渓谷を眺めましょう", "听着水声，看看青翠溪谷"],
+    ["물소리를 들으며 눈 덮인 계곡을 바라봐요", "Listen to the stream and gaze at the snowy valley", "水の音を聞きながら雪の渓谷を眺めましょう", "听着水声，看看白雪溪谷"],
+    ["물소리를 들으며 계곡을 바라봐요", "Listen to the stream and gaze at the valley", "水の音を聞きながら渓谷を眺めましょう", "听着水声，看看溪谷"],
     ["태백산", "Taebaeksan", "太白山", "太白山"],
     ["천제단", "Cheonjedan", "天祭壇", "天祭坛"],
     ["유일사 코스", "Yuilsa Trail", "唯一寺コース", "唯一寺路线"],
@@ -2052,7 +2061,7 @@ const SPECIES = {
   bare:       {pal:[[110,72,40],[96,64,36]], trunk:'#4a3a2e', bare:true}
 };
 if(SZ.sp) for(const k in SZ.sp) if(SPECIES[k]) SPECIES[k].pal = SZ.sp[k];
-if(SZ.bareAll) for(const k in SPECIES) SPECIES[k].bare = true;
+if(SZ.bareAll) for(const k in SPECIES){ SPECIES[k].bare = true; SPECIES[k].pal = [[226,232,238],[214,222,230],[240,244,248],[150,136,120],[200,208,216]]; }   // 겨울: 남은 잎 대신 눈송이·마른 잎만 (단풍색 점 없음)
 function makeBroadleaf(sp, variant){
   const c=document.createElement('canvas'); c.width=256; c.height=512; const x=c.getContext('2d');
   const shape = variant % 3; // 0 둥근, 1 길쭉, 2 비대칭
@@ -2609,6 +2618,7 @@ const SKY_CLOUDS = [];
   }
 }
 
+const VP_SZ = (a, b, c, d, e) => (BIO.leaf < 0.05 || SEASON === 'fixed') ? e : ({spring:a, summer:b, autumn:c, winter:d})[SEASON] || e;
 // rocks
 const restSpots = [];
 {
@@ -2747,7 +2757,7 @@ const VIEWPOINTS = [];
     let best=ci, bestDrop=-1e9;
     for(let i=ci-120;i<ci+120;i+=6){ const p=trail[i]; if(!p) continue; let drop=0; for(let a=0;a<8;a++){ const an=a/8*Math.PI*2; drop = Math.max(drop, p.h - heightAt(p.x+Math.sin(an)*150, p.z+Math.cos(an)*150)); } if(drop>bestDrop){ bestDrop=drop; best=i; } }
     const p = trail[best]; let dir=0, dd=-1e9; for(let a=0;a<16;a++){ const an=a/16*Math.PI*2; const dr = p.h - heightAt(p.x+Math.sin(an)*200, p.z+Math.cos(an)*200); if(dr>dd){ dd=dr; dir=an; } }
-    VIEWPOINTS.push({i:best, x:p.x, z:p.z, dir, name: VIEWPOINTS.length ? '능선 전망대' : '중턱 전망대', sub: VIEWPOINTS.length ? '인수봉과 겹겹의 능선이 보여요' : '골짜기 너머로 단풍 능선이 펼쳐져요'});
+    VIEWPOINTS.push({i:best, x:p.x, z:p.z, dir, name: VIEWPOINTS.length ? '능선 전망대' : '중턱 전망대', sub: VIEWPOINTS.length ? '정상으로 이어지는 겹겹의 능선이 보여요' : VP_SZ('골짜기 너머로 신록 능선이 펼쳐져요', '골짜기 너머로 푸른 능선이 펼쳐져요', '골짜기 너머로 단풍 능선이 펼쳐져요', '골짜기 너머로 눈 덮인 능선이 펼쳐져요', '골짜기 너머로 겹겹의 능선이 펼쳐져요')});
     // 표지판
     const sx=p.x+Math.sin(dir)*2.2, sz=p.z+Math.cos(dir)*2.2, g=new THREE.Group(); g.position.set(sx, heightAt(sx,sz), sz); g.rotation.y = dir;
     const post=new THREE.Mesh(new THREE.BoxGeometry(0.12,1.5,0.12), wood); post.position.y=0.75; g.add(post);
@@ -3076,7 +3086,7 @@ function animScenic(dt, time){
 
 // 계곡 쉼터와 정상 360° 전망도 풍경 포인트로
 if(POOL){ const ti = (()=>{ let b=0, bd=1e9; for(let i=0;i<trail.length;i++){ const d=Math.hypot(trail[i].x-POOL.x, trail[i].z-POOL.z); if(d<bd){ bd=d; b=i; } } return b; })();
-  const p = trail[ti]; VIEWPOINTS.unshift({i:ti, x:p.x, z:p.z, dir: Math.atan2(POOL.x-p.x, POOL.z-p.z), near:true, name:'계곡 쉼터', sub:'물소리를 들으며 단풍 계곡을 바라봐요'}); }
+  const p = trail[ti]; VIEWPOINTS.unshift({i:ti, x:p.x, z:p.z, dir: Math.atan2(POOL.x-p.x, POOL.z-p.z), near:true, name:'계곡 쉼터', sub:VP_SZ('물소리를 들으며 신록 계곡을 바라봐요', '물소리를 들으며 푸른 계곡을 바라봐요', '물소리를 들으며 단풍 계곡을 바라봐요', '물소리를 들으며 눈 덮인 계곡을 바라봐요', '물소리를 들으며 계곡을 바라봐요')}); }
 // 전망 포인트 앞을 가리는 나무·풀 정리 (시야 확보)
 {
   const m4 = new THREE.Matrix4(), v3 = new THREE.Vector3(), zero = new THREE.Matrix4().makeScale(0,0,0);
@@ -4522,7 +4532,10 @@ function update(dt){
     const cy = Math.cos(pc), sy = Math.sin(pc);
     camLook.set(fX, yC+1.1 + Math.tan(Math.min(1.35, lookUp*1.45))*st.dist, fZ);
     camPos.set(fX + Math.sin(st.yaw)*cy*st.dist, yC + 1.1 + sy*st.dist, fZ + Math.cos(st.yaw)*cy*st.dist);
-    { const need = Math.max(0, heightAt(camPos.x, camPos.z) + 0.8 - camPos.y); st.lift = (dt === 0 || !st.camInit) ? need : st.lift + (need - st.lift)*Math.min(1, dt*(need > st.lift ? 6 : 1.5)); camPos.y += Math.max(st.lift, need - 0.35); }   // 땅 밑으로 안 들어가게, 그러나 출렁이지 않게
+    { const need = Math.max(0, heightAt(camPos.x, camPos.z) + 0.8 - camPos.y); let los = 0;
+      // 드론처럼 멀리 뺀 카메라: 아바타와 카메라 사이를 언덕이 가리면 카메라를 그만큼 위로 (시야 확보)
+      if(st.dist > 9){ const ly = camLook.y, cy0 = camPos.y + need; let want = cy0; for(let t = 0.2; t < 0.99; t += 0.08){ const x = camLook.x + (camPos.x - camLook.x)*t, z = camLook.z + (camPos.z - camLook.z)*t, g = heightAt(x, z) + 1.6; if(ly + (want - ly)*t < g) want = ly + (g - ly)/t; } los = Math.min(want - cy0, st.dist*0.9); }
+      const tgt = need + los; st.lift = (dt === 0 || !st.camInit || st.lift == null) ? tgt : st.lift + (tgt - st.lift)*Math.min(1, dt*(tgt > st.lift ? 4 : 1.2)); camPos.y += Math.max(st.lift, need - 0.35); }   // 땅 밑으로 안 들어가게, 그러나 출렁이지 않게
     if(dt===0 || !st.camInit){ camera.position.copy(camPos); st.camInit = true; } else camera.position.lerp(camPos, Math.min(1, dt*14));
   }
   if(st.camp && st.campCam && !moving){
@@ -4533,6 +4546,7 @@ function update(dt){
   }
   if(st.camp && moving) st.campCam = null;
   camera.lookAt(camLook);
+  { const n2 = (!st.fp && st.dist > 9) ? Math.max(0.3, Math.min(st.dist*0.45, camera.position.distanceTo(camLook) - 5)) : 0.3; if(Math.abs(camera.near - n2) > 0.05){ camera.near = n2; camera.updateProjectionMatrix(); } }   // 드론 시점: 카메라 바로 앞 나무·바위는 잘라내 시야를 가리지 않게
 
   sun.position.set(st.x + SUN_DIR.x*300, y + SUN_DIR.y*300, st.z + SUN_DIR.z*300); sun.target.position.set(st.x, y, st.z);
   window.__sky.position.copy(camera.position);
@@ -4668,6 +4682,7 @@ ROCKC = (()=>{
     return t === 'IcosahedronGeometry' || t === 'BoxGeometry' || (t === 'CylinderGeometry' && (p.radiusBottom||0) >= 0.1); };
   const list = [], G = new Map(), C = 4, key = (i, j) => i*100003 + j, M4 = new THREE.Matrix4();
   scene.traverse(o => { if(!o.isInstancedMesh || !ok(o) || o === window.__skipRock) return; o.updateMatrixWorld(true);
+    const ZERO_M = new THREE.Matrix4().makeScale(0,0,0);
     const tmp = new THREE.Mesh(o.geometry); tmp.matrixAutoUpdate = false; if(!o.geometry.boundingBox) o.geometry.computeBoundingBox(); const bb = o.geometry.boundingBox;
     for(let n = 0; n < o.count; n++){ o.getMatrixAt(n, M4); M4.premultiply(o.matrixWorld); const e = M4.elements;
       const hx = Math.hypot(e[0], e[4], e[8]) * Math.max(Math.abs(bb.min.x), Math.abs(bb.max.x), Math.abs(bb.min.y), Math.abs(bb.max.y), Math.abs(bb.min.z), Math.abs(bb.max.z));
@@ -4675,6 +4690,9 @@ ROCKC = (()=>{
       const rx = (Math.abs(e[0]) + Math.abs(e[4]) + Math.abs(e[8])) * 1.0, rz = (Math.abs(e[2]) + Math.abs(e[6]) + Math.abs(e[10])) * 1.0, ry = (Math.abs(e[1]) + Math.abs(e[5]) + Math.abs(e[9]));
       const r = { x:e[12], y:e[13], z:e[14], rx:rx*Math.max(Math.abs(bb.min.x),bb.max.x), rz:rz*Math.max(Math.abs(bb.min.z),bb.max.z), top:e[13] + ry*Math.max(Math.abs(bb.min.y),bb.max.y), m:M4.clone(), mesh:tmp };
       if(r.top < heightAt(r.x, r.z) + 0.12) continue;   // 땅속에 잠긴 것
+      // 탐방로를 가로막는 키 큰 바위는 치워요 (황산 등에서 길 위 바위에 막혀 제자리걸음 하던 문제)
+      if(o.geometry.type !== 'CylinderGeometry' && o.geometry.type !== 'BoxGeometry' && r.top - heightAt(r.x, r.z) > 0.9){ const nt = nearTrail(r.x, r.z, 2);
+        if(nt.i >= 0 && nt.d < Math.max(r.rx, r.rz) + 1.0){ o.setMatrixAt(n, ZERO_M); o.instanceMatrix.needsUpdate = true; continue; } }
       list.push(r); const i0 = Math.floor((r.x - r.rx)/C), i1 = Math.floor((r.x + r.rx)/C), j0 = Math.floor((r.z - r.rz)/C), j1 = Math.floor((r.z + r.rz)/C);
       for(let i = i0; i <= i1; i++) for(let j = j0; j <= j1; j++){ const k = key(i, j); let a = G.get(k); if(!a) G.set(k, a = []); a.push(r); } } });
   const ray = new THREE.Raycaster(), down = new THREE.Vector3(0, -1, 0), o = new THREE.Vector3(), hits = [];
@@ -4688,9 +4706,11 @@ ROCKC = (()=>{
   return {
     n: list.length, list,
     // 올라설 수 있는 높이면 그 위에 서요
-    top(x, z, gy){ let y = -Infinity; for(const [a, b] of [[0,0],[FOOT,0],[-FOOT,0],[0,FOOT],[0,-FOOT]]){ const s = surf(x+a, z+b); if(s > y) y = s; } return y - gy <= STEP ? y : -Infinity; },
+    // 탐방로 위(가운데서 2.4m 안)에서는 더 높은 바위도 타고 올라 넘어가요
+    top(x, z, gy){ let y = -Infinity; for(const [a, b] of [[0,0],[FOOT,0],[-FOOT,0],[0,FOOT],[0,-FOOT]]){ const s = surf(x+a, z+b); if(s > y) y = s; } const lim = nearTrail(x, z, 1).d < 2.4 ? 3.2 : STEP; return y - gy <= lim ? y : -Infinity; },
     // 너무 높은 바위면 막혀요
-    blocked(x, z){ const g = heightAt(x, z); for(const [a, b] of [[0,0],[0.22,0],[-0.22,0],[0,0.22],[0,-0.22]]){ if(surf(x+a, z+b) - g > STEP) return true; } return false; },
+    blocked(x, z){ if(nearTrail(x, z, 1).d < 2.4) return false;   // 탐방로 위는 절대 막히지 않아요
+      const g = heightAt(x, z); for(const [a, b] of [[0,0],[0.22,0],[-0.22,0],[0,0.22],[0,-0.22]]){ if(surf(x+a, z+b) - g > STEP) return true; } return false; },
   };
 })(); window.__ROCKC = ROCKC;
 // 가까운 바위 색도 사진 쪽으로
