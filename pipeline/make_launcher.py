@@ -67,11 +67,12 @@ footer{{color:var(--mute);font-size:12.5px;line-height:1.7}}
 <header>
   <span class="badge">미리보기 · 아직 배포 전</span>
   <h1>능선, 산길 미리보기</h1>
-  <p>국내와 해외 명산을 실제 지형을 본떠 만들었어요. 카드를 누르면 그 산에서 바로 시작하고, 게임 안 시작 화면의 ‘다른 산 고르기’로 언제든 산을 바꿀 수 있어요. 그래프는 각 코스의 실제 지형 고도 단면이에요.</p>
+  <p>국내와 해외 명산을 실제 지형을 본떠 만들었어요. 카드를 누르면 그 산에서 바로 시작하고, 게임 안 시작 화면의 ‘다른 산 고르기’로 언제든 산을 바꿀 수 있어요. 그래프는 각 코스의 고도 단면이에요.</p>
+  <p><a class="badge" href="bukhansan.html" style="text-decoration:none">▶ 실제 사이트처럼 첫 화면(능선 로딩)부터 보기</a></p>
 </header>
 <section><h2>국내 명산 <small>대한민국</small></h2><div class="grid">{sec('kr')}</div></section>
 <section><h2>해외 명산 <small>6개 대륙</small></h2><div class="grid">{sec('world')}</div></section>
-<footer>지형 고도: AWS Terrain Tiles (Mapzen Terrarium, SRTM 등 공개 DEM, 약 30m 해상도). 탐방로는 주요 지점을 지형에 맞춰 이은 근사치예요. 지금은 모든 산이 북한산 가을 숲으로 그려져요(산별 식생은 다음 단계). 페이지 하나가 약 2MB라 처음 열 때 몇 초 걸려요.</footer>
+<footer>지형 고도: AWS Terrain Tiles (Mapzen Terrarium, SRTM 등 공개 DEM, 약 30m 해상도). 탐방로는 주요 지점을 지형에 맞춰 이은 근사치예요. 페이지 하나가 약 2MB라 처음 열 때 몇 초 걸려요.</footer>
 </main>
 <script>document.querySelectorAll('.card').forEach(a=>a.addEventListener('click',()=>{{try{{sessionStorage.setItem('neungseon.go',a.dataset.id);}}catch(e){{}}}}));</script>
 '''

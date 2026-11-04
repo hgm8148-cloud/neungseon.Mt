@@ -64,7 +64,16 @@ PC_JS = r"""
     // 기존(모바일용) 버튼 처리보다 먼저 받도록 캡처 단계에서
     b.addEventListener('click', b.onclick, true);
   }
-  addEventListener('appinstalled', () => { toast(T_('설치했어요 · 바탕화면이나 Dock의 능선 아이콘으로 열어 보세요'), 4); if(box) box.hidden = true; });
+  // 설치 유도 버튼을 여러 곳에: 시작 창 '능선' 제목 오른쪽 + 게임 메뉴 지도 아이콘 옆 (누르면 위 설치 버튼과 같은 동작)
+  if(box && !box.hidden){ const go = () => $('aiBtn').click(), lab = $('aiBtn').textContent;
+    const h = document.querySelector('#start .card h1');
+    if(h){ const t = document.createElement('button'); t.type = 'button'; t.id = 'aiTop'; t.className = 'aiTop'; t.textContent = lab; t.onclick = go;
+      const sm = h.querySelector('small'); h.insertBefore(t, sm); }
+    const bm = $('bMap');
+    if(bm){ const d = document.createElement('button'); d.className = 'ib'; d.id = 'bInst'; d.title = lab.replace(/^\S+\s/, ''); d.setAttribute('aria-label', d.title);
+      d.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M5 19.5h14"/></svg>'; d.onclick = go; bm.after(d); }
+  }
+  addEventListener('appinstalled', () => { toast(T_('설치했어요 · 바탕화면이나 Dock의 능선 아이콘으로 열어 보세요'), 4); if(box) box.hidden = true; ['aiTop','bInst'].forEach(i => { const e = $(i); if(e) e.remove(); }); });
   // 설치한 앱으로 열면: 첫 클릭에서 전체 화면 (브라우저 규칙상 클릭이 있어야 해요)
   if(isApp() && DESK){ const go = () => { if(!document.fullscreenElement && document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(()=>{}); };
     addEventListener('pointerdown', go, {once:true, capture:true}); addEventListener('keydown', go, {once:true, capture:true}); }
@@ -86,6 +95,7 @@ def patch_app(P, m):
     P.rep('<div id="adminLogin" class="panel" hidden>', PC_SHEET.lstrip('\n') + '\n<div id="adminLogin" class="panel" hidden>', 1)
     # 설치한 PC 앱은 창 모드로 열릴 수 있어서 전체 화면 버튼은 남겨요 (휴대폰 앱만 숨김)
     P.rep('body.standalone #bFull{display:none!important}', 'body.standalone:not(.desk) #bFull{display:none!important}', need=False)
+    P.rep('</style>', '#start .card h1 .aiTop{display:inline-block;vertical-align:middle;margin:0 0 6px 12px;padding:6px 13px;border-radius:999px;border:1px solid rgba(255,214,150,.55);background:rgba(255,214,150,.16);color:inherit;font-family:var(--body);font-size:13px;font-weight:600;letter-spacing:0;cursor:pointer}#start .card h1 .aiTop:hover{background:rgba(255,214,150,.3)}\n</style>', 1)
     P.rep("window.__game = {", PC_JS + "window.__game = {", 1)
 
 

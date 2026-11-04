@@ -101,6 +101,10 @@ CSS = r'''
 #loading.mBrand > .scene, #loading.mBrand > .copy, #loading.mBrand > .ldPhoto, #loading.mBrand > .ldCredit{display:none !important}
 #loading.mBrand::before{display:none !important}
 #loading.mMtn > .scene, #loading.mMtn > .copy{display:none !important}
+/* 모드가 정해지기 전 찰나에 옛 오프닝(점선 능선·해)이 비치지 않게 */
+#loading > .scene, #loading > .copy{display:none !important}
+#loading:not(.mBrand):not(.mMtn){background:#141833 !important}
+#loading:not(.mBrand):not(.mMtn) > *, #loading:not(.mBrand):not(.mMtn)::before{visibility:hidden !important}
 #loading .ld2{position:absolute;inset:0;overflow:hidden}
 @keyframes ld2Fade{from{opacity:0}to{opacity:1}}
 @keyframes ld2Up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}

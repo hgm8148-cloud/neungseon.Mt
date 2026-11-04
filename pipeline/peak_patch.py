@@ -21,7 +21,7 @@ PEAK_JS = r'''
   const SN = CFG.snow || {}; const snowAmt = (SN[SEASON] != null ? SN[SEASON] : SN.all != null ? SN.all : 0);
   const C = c => new THREE.Color(c);
   const mat = new THREE.ShaderMaterial({ transparent: true, depthWrite: false, fog: false, toneMapped: false,
-    uniforms: { uProf: {value: tex}, uRock: {value: C(CFG.rock || '#5d5048')}, uRock2: {value: C(CFG.rock2 || CFG.rock || '#77685c')}, uForest: {value: C(CFG.forest || CFG.rock2 || CFG.rock || '#4a5a40')},
+    uniforms: { uProf: {value: tex}, uRock: {value: C(CFG.rock || '#5d5048')}, uRock2: {value: C(CFG.rock2 || CFG.rock || '#77685c')}, uForest: {value: C((CFG.forestBy && CFG.forestBy[SEASON]) || CFG.forest || CFG.rock2 || CFG.rock || '#4a5a40')},
       uForestTop: {value: CFG.forestTop != null ? CFG.forestTop : (CFG.forest ? 0.32 : -1)}, uSnow: {value: snowAmt}, uStreak: {value: CFG.streak != null ? CFG.streak : 1}, uFog: {value: new THREE.Color(0xc8d4e2)},
       uHaze: {value: CFG.haze != null ? CFG.haze : 0.32}, uDay: {value: 1}, uSunX: {value: 0.5}, uSunCol: {value: new THREE.Color(0xffffff)}, uA: {value: 1}, uMax: {value: smax} },
     vertexShader: `varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
