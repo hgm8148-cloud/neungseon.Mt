@@ -18,11 +18,16 @@ PRE_JS = r"""
 const RELIEF = __CFG__;
 const BRIDGE = (() => { const B = RELIEF.bridge; if(!B || !WPS[B.wp]) return null;
   const L = B.len|0, c0 = WPS[B.wp].i; let best = null;
-  for(let c = Math.max(L, c0 - 70); c <= Math.min(trail.length - 1 - L, c0 + 70); c++){
-    const a = trail[c - (L>>1)], b = trail[c + (L>>1)]; if(!a || !b) continue;
-    const sc = Math.abs(a.h - b.h) + Math.abs(c - c0)*0.02; if(!best || sc < best.sc) best = {sc, i0:c - (L>>1), i1:c + (L>>1)}; }
-  if(!best) return null; const ha = trail[best.i0].h, hb = trail[best.i1].h;
-  for(let i = best.i0; i <= best.i1; i++){ const f = (i - best.i0)/(best.i1 - best.i0); trail[i].h = ha + (hb - ha)*f; }
+  // 양 끝 높이가 비슷하고, 곧게 뻗고, 주변(협곡 자리)에 다른 탐방로 구간이 지나가지 않는 곳
+  for(let c = Math.max(L, c0 - 90); c <= Math.min(trail.length - 1 - L, c0 + 90); c += 2){
+    const i0 = c - (L>>1), i1 = c + (L>>1), a = trail[i0], b = trail[i1]; if(!a || !b) continue;
+    const chord = Math.hypot(b.x - a.x, b.z - a.z), mx = (a.x + b.x)/2, mz = (a.z + b.z)/2; let other = 0;
+    for(let j = 0; j < trail.length; j += 3){ if(j > i0 - 40 && j < i1 + 40) continue; const d = Math.hypot(trail[j].x - mx, trail[j].z - mz); if(d < 95) other += (95 - d); }
+    const sc = Math.abs(a.h - b.h) + Math.abs(c - c0)*0.02 + (L - chord)*0.8 + other*0.05; if(!best || sc < best.sc) best = {sc, i0, i1}; }
+  if(!best) return null; const ha = trail[best.i0].h, hb = trail[best.i1].h, A = trail[best.i0], Bp = trail[best.i1];
+  // 다리 위 구간은 곧은 직선으로 (다리 바닥과 걷는 길이 정확히 겹치게)
+  const ax = A.x, az = A.z, bx = Bp.x, bz = Bp.z;
+  for(let i = best.i0; i <= best.i1; i++){ const f = (i - best.i0)/(best.i1 - best.i0); trail[i].h = ha + (hb - ha)*f; trail[i].x = ax + (bx - ax)*f; trail[i].z = az + (bz - az)*f; }
   return { i0:best.i0, i1:best.i1, depth:B.depth || 24, color:B.color || '#b4332a' }; })();
 """
 
@@ -36,8 +41,9 @@ if(BRIDGE){ const {i0, i1, depth} = BRIDGE, n = i1 - i0; let x0 = 1e9, x1 = -1e9
     for(let i = 0; i < M; i++){ const x = -HALF + i*FC; if(x < x0 - pad || x > x1 + pad) continue;
       const al = ((x - ta.x)*ux + (z - ta.z)*uz)/Lb, lat = Math.abs(-(x - ta.x)*uz + (z - ta.z)*ux);
       if(al < -0.1 || al > 1.1) continue;
-      const along = sst(0.02, 0.2, al) * (1 - sst(0.8, 0.98, al)), side = 1 - sst(35, 85, lat);
-      const k = along*side; if(k <= 0) continue;
+      const along = sst(0.02, 0.2, al) * (1 - sst(0.8, 0.98, al)), side = 1 - sst(28, 60, lat);
+      let k = along*side; if(k <= 0) continue;
+      { const nt = nearTrail(x, z, 1); if(nt.i < i0 - 30 || nt.i > i1 + 30) k *= sst(6, 22, nt.d); if(k <= 0) continue; }   // 다른 탐방로 구간은 그대로 두기
       const deck = ta.h + (tb.h - ta.h)*Math.min(1, Math.max(0, al)), jag = (vnoise(x/9, z/9) - 0.5)*5;
       const floor = deck - depth*(0.75 + 0.25*side) + jag;
       fineH[j*M + i] = Math.min(fineH[j*M + i], fineH[j*M + i]*(1 - k) + floor*k); } } }
@@ -108,7 +114,13 @@ SCENE_JS = r"""
           const q = new THREE.Vector3(s*W/2, -0.5, k % 2 ? prev.z : p.z), r2 = (k % 2 ? p : prev), d2 = r2.clone().sub(q), dg = mk(new THREE.CylinderGeometry(0.05, 0.05, d2.length(), 5), red, (q.x + r2.x)/2, (q.y + r2.y)/2, (q.z + r2.z)/2); dg.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), d2.normalize()); }
         prev = p; } }
     G.rotation.order = 'YXZ'; G.rotation.y = yaw; G.rotation.x = -slope; G.position.set((a.x + b.x)/2, (a.h + b.h)/2 + 0.18, (a.z + b.z)/2); scene.add(G);
-    window.__deckY = (x, z, ni) => { if(ni == null || ni < i0 - 1 || ni > i1 + 1) return null; const p = trail[Math.min(i1, Math.max(i0, ni))]; if(Math.hypot(x - p.x, z - p.z) > W/2 + 0.2) return null; return p.h + 0.18; };
+    // 발 높이: 다리 직사각형 위에 있으면 다리 바닥 (탐방로 번호와 상관없이 위치로 판단)
+    const ux = (b.x - a.x)/len, uz = (b.z - a.z)/len, half = W/2;
+    const onDeck = (x, z) => { const al = (x - a.x)*ux + (z - a.z)*uz, lt = -(x - a.x)*uz + (z - a.z)*ux; return { al, lt, f: al/len }; };
+    window.__deckY = (x, z) => { const o = onDeck(x, z); if(o.f < -0.03 || o.f > 1.03 || Math.abs(o.lt) > half + 0.3) return null; return a.h + (b.h - a.h)*Math.min(1, Math.max(0, o.f)) + 0.18; };
+    // 난간 밖으로 나가지 않게: 다리 위에서는 옆으로 밀려나면 다시 안쪽으로
+    window.__deckClamp = () => { const o = onDeck(st.x, st.z); if(o.f < 0.01 || o.f > 0.99) return; const lim = half - 0.3;
+      if(Math.abs(o.lt) > lim && Math.abs(o.lt) < half + 2.5){ const t = Math.sign(o.lt)*lim; st.x = a.x + ux*o.al - uz*t; st.z = a.z + uz*o.al + ux*t; } };
     window.__bridge = BRIDGE; }
 }
 """
@@ -119,11 +131,12 @@ def patch_relief(P, m):
     if not R:
         return
     P.rep("// ---------- fine terrain ----------", PRE_JS.replace('__CFG__', json.dumps(R)) + "// ---------- fine terrain ----------", 1)
+    P.rep("\n  camera.lookAt(camLook);", "\n  if(window.__deckClamp) window.__deckClamp();\n  camera.lookAt(camLook);", 1)
     P.rep("function heightAt(x,z){", CARVE_JS + "function heightAt(x,z){", 1)
     P.rep("// ---------- 바위·통나무·돌계단 충돌", SCENE_JS + "// ---------- 바위·통나무·돌계단 충돌", 1)
     # 다리 위에서는 발을 다리 바닥에
     P.rep("  if(ROCKC){ const ry = ROCKC.top(x, z, y); if(ry > y) y = ry - 0.01; }\n  return y;",
-          "  if(ROCKC){ const ry = ROCKC.top(x, z, y); if(ry > y) y = ry - 0.01; }\n  if(window.__deckY){ const dy = window.__deckY(x, z, ni); if(dy != null) y = dy; }\n  return y;", 1)
+          "  if(ROCKC){ const ry = ROCKC.top(x, z, y); if(ry > y) y = ry - 0.01; }\n  if(window.__deckY){ const dy = window.__deckY(x, z); if(dy != null) y = dy; }\n  return y;", 1)
 
 
 # 오르막에서는 시선을 앞쪽 비탈·정상 쪽으로 들어 올려요 (카메라가 아바타 발밑만 내려다보지 않게)
