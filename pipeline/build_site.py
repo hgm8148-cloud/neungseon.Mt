@@ -457,6 +457,8 @@ def main():
         print(f"{m['id']:>15} → {os.path.relpath(p, os.path.dirname(HERE))} ({len(html)/1024:.0f} KB)")
     copy_photos(out, [m['id'] for m in mts] + ['sky'])
     write_sw(out)
+    if a.to_site:   # 검색 엔진용 머리말(제목·설명·canonical·JSON-LD) — seo_patch.py
+        import seo_patch; seo_patch.patch_dir(out)
     if a.to_site and not a.only:   # 검색 엔진용 사이트맵: 산을 더하면 자동으로 늘어나요 (robots.txt는 그대로 둬요)
         import datetime
         day = datetime.date.today().isoformat()
