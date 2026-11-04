@@ -445,6 +445,8 @@ body.inSummit:not(.camping) #summitBtn#summitBtn#summitBtn{display:inline-flex!i
 #tpAsk .row{display:flex;gap:8px;justify-content:center}
 #tpAsk button{border:0;border-radius:999px;padding:9px 20px;font:inherit;font-size:14px;font-weight:600;cursor:pointer}
 #tpAsk .go{background:#3f6e48;color:#fff}#tpAsk .no{background:rgba(0,0,0,.07);color:inherit}
+#prog.tight{display:none!important}
+#pcard .pk{font-size:11.5px;font-weight:700;letter-spacing:.04em;color:#b5562c;margin:1px 3px 6px}
 
 /* ---------- 로딩 화면 (pipeline/loader_patch.py) ---------- */
 #loading .ld2{display:none}
@@ -1066,6 +1068,7 @@ html:not([lang=ko]) .ld2.mtn h2{letter-spacing:.04em}
     ["취소", "Cancel", "キャンセル", "取消"],
     ["순간이동했어요", "Teleported", "移動しました", "已瞬间移动"],
     ["아직 가 보지 않은 곳이에요 · 걸어서 먼저 들러 보세요", "You haven’t been here yet · walk there first", "まだ行っていない場所です · まずは歩いて訪れてみましょう", "这里还没去过 · 先走过去看看吧"],
+    ["📮 경유지 도착 · 이 산의 사진 엽서", "📮 Checkpoint reached · a postcard from this mountain", "📮 経由地に到着 · この山の写真はがき", "📮 抵达途经点 · 这座山的明信片"],
     ["후지산", "Mount Fuji", "富士山", "富士山"],
     ["후지산", "Fuji", "富士山", "富士山"],
     ["요시다 루트", "Yoshida Trail", "吉田ルート", "吉田路线"],
@@ -1298,7 +1301,7 @@ html:not([lang=ko]) .ld2.mtn h2{letter-spacing:.04em}
     <div class="credit">지형 고도: AWS Terrain Tiles (Mapzen Terrarium, SRTM 등 공개 DEM). 약 30m 해상도라 실제보다 부드럽고, 탐방로는 주요 지점을 지형에 맞춰 이은 근사치입니다.</div>
   </div>
 </div>
-<div id="pcard" aria-live="polite"><button type="button" aria-label="닫기">✕</button><img alt=""><div class="cap"><b></b><small></small></div></div>
+<div id="pcard" aria-live="polite"><button type="button" aria-label="닫기">✕</button><div class="pk">📮 경유지 도착 · 이 산의 사진 엽서</div><img alt=""><div class="cap"><b></b><small></small></div></div>
 <div id="seasonPop" class="glass" hidden><p>이 자리에서 계절을 바꿔요 · 산을 새로 그린 뒤 이어서 걸어요</p><div class="seasonRow" id="seasonRow2"></div></div>
 
 <div id="mtSel" class="panel" hidden>
@@ -2175,6 +2178,7 @@ const C = {
   rock: new THREE.Color(0xa29d93), rockDark: new THREE.Color(0x7c776f), trail: new THREE.Color(0xb39a72)
 };
 if(SZ.floor){ C.floor1.setHex(SZ.floor[0]); C.floor2.setHex(SZ.floor[1]); C.floor3.setHex(SZ.floor[2]); }
+C.rock.set("#6a4a40"); C.rockDark.set("#3e2c28");
 if(SZ.snow){ C.rock.lerp(new THREE.Color(0xe8edf2), SZ.snow*0.6); C.rockDark.lerp(new THREE.Color(0xc8d0da), SZ.snow*0.5); }
 function groundColor(x,z,h,ny,td,out){
   const n = vnoise(x/30,z/30), n2 = vnoise(x/9+40,z/9);
@@ -2241,6 +2245,7 @@ function groundMaterial(far=false){
         ${seasonGLSL()}
         vec3 rk  = mix(texture2D(tRock, vWP.xz/7.0).rgb, texture2D(tRock, vec2(vWP.x - vWP.z, vWP.y*1.6)/9.0).rgb, 0.5);
         vec3 dt  = texture2D(tDirt, vec2(0.5, 0.0) + vWP.xz/6.0 * vec2(0.0, 1.0) + vec2(fract(vWP.x/6.0)*0.3, 0.0)).rgb;
+        rk *= vec3(0.780, 0.560, 0.480);
         rk = mix(rk, vec3(0.92,0.94,0.97), ${((SZ.snow||0)*0.45).toFixed(2)});
         vec3 alb = lit * vSplat.x + rk * vSplat.y + dt * vSplat.z;
         diffuseColor.rgb *= alb * 1.12;`);
@@ -4565,6 +4570,7 @@ function update(dt){
   }
   if(st.camp && moving) st.campCam = null;
   camera.lookAt(camLook);
+  if(window.__peakUpdate) window.__peakUpdate();
   { const n2 = (!st.fp && st.dist > 9) ? Math.max(0.3, Math.min(st.dist*0.45, camera.position.distanceTo(camLook) - 5)) : 0.3; if(Math.abs(camera.near - n2) > 0.05){ camera.near = n2; camera.updateProjectionMatrix(); } }   // 드론 시점: 카메라 바로 앞 나무·바위는 잘라내 시야를 가리지 않게
 
   sun.position.set(st.x + SUN_DIR.x*300, y + SUN_DIR.y*300, st.z + SUN_DIR.z*300); sun.target.position.set(st.x, y, st.z);
@@ -4686,6 +4692,14 @@ $('loading').classList.add('out'); setTimeout(() => $('loading')?.remove(), 1700
   if(SZ_RESUME){ if(SZ_RESUME.mode) SKY.mode = SZ_RESUME.mode; if(SZ_RESUME.started){ try{ window.MT_SELECT && window.MT_SELECT.close(); }catch(e){} beginHike(!!savedHike); setTimeout(() => toast('계절이 바뀌었어요 · 이어서 걸어요', 3), 3800); } }
 }
 
+
+// ---------- 이 산의 땅·바위 색 (pipeline/peak_patch.py · 산 설정 ground) ----------
+{ const G = {"rock": ["#6a4a40", "#3e2c28"], "rockTint": "#8a6656", "shrinkAbove": 425, "shrink": 0.35, "rkTint": [0.78, 0.56, 0.48]}; const rocks = window.__rocks;
+  if(rocks && G.rockTint){ rocks.material.color.set(G.rockTint); if(rocks.material.map){ rocks.material.map = rocks.material.map.clone(); rocks.material.map.needsUpdate = true; } }
+  if(rocks && G.shrinkAbove != null){ const M = new THREE.Matrix4(), p = new THREE.Vector3(), q = new THREE.Quaternion(), sc = new THREE.Vector3();
+    for(let n = 0; n < rocks.count; n++){ rocks.getMatrixAt(n, M); M.decompose(p, q, sc); if(sc.x < 1e-4) continue; if(heightAt(p.x, p.z) > G.shrinkAbove){ const k = G.shrink || 0.4; sc.multiplyScalar(k); p.y = heightAt(p.x, p.z) + (p.y - heightAt(p.x, p.z)) * k; M.compose(p, q, sc); rocks.setMatrixAt(n, M); } }
+    rocks.instanceMatrix.needsUpdate = true; }
+}
 // ---------- 바위·통나무·돌계단 충돌 (pipeline/camera_patch.py) ----------
 // 야영장 안·탐방로 위의 바위는 치워요 (앉을 자리·텐트·길과 겹치지 않게)
 { const M = new THREE.Matrix4(), Z = new THREE.Matrix4().makeScale(0,0,0), v = new THREE.Vector3();
@@ -4974,6 +4988,92 @@ function tpClick(e){ const W = $('mapWrap'); const big = W.classList.contains('b
   if(best.i > TP_REACH + 3){ toast('아직 가 보지 않은 곳이에요 · 걸어서 먼저 들러 보세요', 2.6); return true; }
   tpPick = best; $('tpName').textContent = best.name; $('tpAsk').hidden = false; return true; }
 window.__tp = { spots: tpSpots, tf: () => drawMap.tf, reach: () => TP_REACH };
+
+// ---------- 경로 안내 바 자리 맞추기 (pipeline/trail_patch.py) ----------
+{ const fit = () => { const pg = $('prog'), tl = $('brand'), tr = $('tr'); if(!pg || !tl || !tr) return;
+    pg.style.left = ''; pg.style.width = ''; pg.classList.remove('tight');
+    if(getComputedStyle(pg).display === 'none') return;
+    let right = innerWidth; for(const el of [tr, $('supportBtn')]){ if(!el) continue; const r = el.getBoundingClientRect(); if(r.width > 0 && r.top < 80) right = Math.min(right, r.left); }
+    const left = tl.getBoundingClientRect().right, gap = 16, room = right - left - gap*2;
+    if(room < 240){ pg.classList.add('tight'); return; }
+    const w = Math.min(460, room), c = left + gap + room/2;
+    pg.style.width = w + 'px'; pg.style.left = (Math.abs(c - innerWidth/2) < 4 ? innerWidth/2 : c) + 'px'; };
+  addEventListener('resize', fit); setInterval(fit, 1500); setTimeout(fit, 300); window.__progFit = fit; }
+
+// ---------- 정상 실루엣: 올려다보면 이 산의 대표 모습 (pipeline/peak_patch.py) ----------
+{ const CFG = {"profile": [[0, 0], [0.1, 0.14], [0.2, 0.3], [0.3, 0.5], [0.37, 0.68], [0.42, 0.84], [0.455, 0.965], [0.47, 1.0], [0.49, 0.985], [0.51, 0.99], [0.53, 1.0], [0.545, 0.965], [0.58, 0.84], [0.63, 0.68], [0.7, 0.5], [0.8, 0.3], [0.9, 0.14], [1, 0]], "aspect": 3.4, "ang": 17, "rock": "#5a3e36", "rock2": "#7d5040", "forest": "#2b3d2c", "forestTop": 0.2, "snow": {"spring": 0.36, "summer": 0.03, "autumn": 0.12, "winter": 0.62}, "streak": 1.2, "haze": 0.1, "src": "photos/fuji/hero.jpg (thuanjapan, Pixabay) \uc2e4\ub8e8\uc5e3 \ucc38\uace0"};
+  const N = 256, prof = new Uint8Array(N * 4); let smax = 0;
+  const P = CFG.profile; const at = u => { for(let k = 1; k < P.length; k++){ if(u <= P[k][0]){ const a = P[k-1], b = P[k], t = (u - a[0]) / Math.max(1e-6, b[0] - a[0]); const s = t*t*(3 - 2*t); return a[1] + (b[1] - a[1]) * (CFG.smooth ? s : t); } } return P[P.length-1][1]; };
+  for(let i = 0; i < N; i++){ const y = Math.max(0, Math.min(1, at(i / (N - 1)))); smax = Math.max(smax, y); prof[i*4] = Math.round(y * 255); prof[i*4+3] = 255; }
+  const tex = new THREE.DataTexture(prof, N, 1, THREE.RGBAFormat); tex.magFilter = THREE.LinearFilter; tex.minFilter = THREE.LinearFilter; tex.needsUpdate = true;
+  const SN = CFG.snow || {}; const snowAmt = (SN[SEASON] != null ? SN[SEASON] : SN.all != null ? SN.all : 0);
+  const C = c => new THREE.Color(c);
+  const mat = new THREE.ShaderMaterial({ transparent: true, depthWrite: false, fog: false, toneMapped: false,
+    uniforms: { uProf: {value: tex}, uRock: {value: C(CFG.rock || '#5d5048')}, uRock2: {value: C(CFG.rock2 || CFG.rock || '#77685c')}, uForest: {value: C(CFG.forest || CFG.rock2 || CFG.rock || '#4a5a40')},
+      uForestTop: {value: CFG.forestTop != null ? CFG.forestTop : (CFG.forest ? 0.32 : -1)}, uSnow: {value: snowAmt}, uStreak: {value: CFG.streak != null ? CFG.streak : 1}, uFog: {value: new THREE.Color(0xc8d4e2)},
+      uHaze: {value: CFG.haze != null ? CFG.haze : 0.32}, uDay: {value: 1}, uSunX: {value: 0.5}, uSunCol: {value: new THREE.Color(0xffffff)}, uA: {value: 1}, uMax: {value: smax} },
+    vertexShader: `varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+    fragmentShader: `precision highp float; varying vec2 vUv; uniform sampler2D uProf; uniform vec3 uRock, uRock2, uForest, uFog, uSunCol; uniform float uForestTop, uSnow, uStreak, uHaze, uDay, uSunX, uA, uMax;
+      float h2(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+      float vn(vec2 p){ vec2 i = floor(p), f = fract(p); f = f*f*(3.0-2.0*f); return mix(mix(h2(i), h2(i+vec2(1,0)), f.x), mix(h2(i+vec2(0,1)), h2(i+vec2(1,1)), f.x), f.y); }
+      float fb(vec2 p){ float s = 0.0, a = 0.5; for(int i = 0; i < 5; i++){ s += a*vn(p); p *= 2.03; a *= 0.5; } return s; }
+      void main(){
+        float s = texture2D(uProf, vec2(vUv.x, 0.5)).r, v = vUv.y;
+        float edge = 1.0 - smoothstep(s - 0.006, s + 0.002, v); if(edge <= 0.001) discard;
+        float sl = texture2D(uProf, vec2(vUv.x + 0.004, 0.5)).r - texture2D(uProf, vec2(vUv.x - 0.004, 0.5)).r;   // 실루엣 기울기 → 산 사면 방향
+        float h = v / max(uMax, 0.05);                       // 0 아래 ~ 1 정상
+        float depth = clamp((s - v) / max(s, 0.05), 0.0, 1.0);   // 능선에서 얼마나 아래인지
+        // 골짜기 줄무늬: 능선에서 아래로 흘러내리는 무늬
+        float gx = vUv.x * 46.0 + fb(vec2(vUv.x * 9.0, v * 3.0)) * 2.5;
+        float gully = fb(vec2(gx, v * 5.0));
+        float ridgeL = 0.80 + 0.30 * (gully - 0.5) * 1.6;
+        // 사면 밝기: 해가 오는 쪽 사면은 밝게
+        float side = clamp(-sl * 22.0, -1.0, 1.0); float lit = 0.80 + 0.22 * side * uSunX;
+        vec3 rock = mix(uRock, uRock2, smoothstep(0.25, 0.75, fb(vec2(vUv.x * 14.0, v * 6.0))));
+        vec3 col = rock;
+        if(uForestTop > 0.0){ float f = 1.0 - smoothstep(uForestTop - 0.08, uForestTop + 0.06 + (gully - 0.5) * 0.12, h); col = mix(col, uForest * (0.85 + 0.3 * vn(vec2(vUv.x * 120.0, v * 60.0))), f); }
+        col *= ridgeL * lit;
+        // 눈: 정상에서부터 uSnow 만큼, 골을 따라 손가락처럼 흘러내려요
+        float line = 1.0 - uSnow + (gully - 0.5) * 0.12 * uStreak;
+        // 정상에서 방사형으로 흘러내리는 눈 골: 정상(가운데)에서 퍼지는 각도를 따라 가는 줄
+        float ang = (vUv.x - 0.5) / max(1.05 - h, 0.08);
+        float wob = fb(vec2(vUv.x * 7.0, v * 2.0)) * 1.6;
+        float rib = 1.0 - abs(2.0 * fract(ang * 15.0 + wob) - 1.0);
+        float rib2 = 1.0 - abs(2.0 * fract(ang * 9.0 + wob * 1.3 + 0.37) - 1.0);
+        float fingers = pow(rib, 4.0) * 0.26 * uStreak * smoothstep(0.0, 0.2, uSnow);
+        float snow = uSnow > 0.001 ? smoothstep(line - 0.02, line + 0.02, h + fingers) : 0.0;
+        snow *= 1.0 - smoothstep(0.86, 0.97, rib2) * 0.75 * smoothstep(0.92, 0.55, h) * uStreak * step(uSnow, 0.7);   // 눈 사이로 드러난 바위 줄기
+        vec3 sc = vec3(0.93, 0.95, 0.98) * (0.84 + 0.18 * side * uSunX) * (0.90 + 0.10 * rib);
+        col = mix(col, sc, snow);
+        // 빛: 낮·밤, 노을 색
+        col *= mix(vec3(0.20, 0.24, 0.36), uSunCol, uDay);
+        // 먼 공기: 아래쪽일수록 더 흐리게
+        float haze = clamp(uHaze + (1.0 - h) * 0.14, 0.0, 0.92);
+        col = mix(col, uFog, haze);
+        float a = edge * smoothstep(0.0, 0.22, v) * uA;
+        gl_FragColor = vec4(col, a);
+        #include <colorspace_fragment>
+      }` });
+  const geo = new THREE.PlaneGeometry(1, 1); geo.translate(0, 0.5, 0);
+  const mesh = new THREE.Mesh(geo, mat); mesh.frustumCulled = false; mesh.renderOrder = -0.5; scene.add(mesh); window.__PEAK = mesh;
+  const SUM = trail[trail.length - 1], D = 8600, ANG = (CFG.ang || 12) * Math.PI / 180, ASP = CFG.aspect || 3;
+  let sky = 0, prog = 0, tick = 0;
+  const _v = new THREE.Vector3(), _d = new THREE.Vector3();
+  window.__peakUpdate = () => {
+    const cp = camera.position, az = Math.atan2(SUM.x - cp.x, SUM.z - cp.z), dx = Math.sin(az), dz = Math.cos(az);
+    if((tick++ % 20) === 0){   // 가까운 지형이 정상 쪽에서 몇 도까지 올라와 있는지
+      let m = -0.2; for(let t = 30; t < 2600; t += t < 400 ? 25 : 60){ const x = cp.x + dx*t, z = cp.z + dz*t; if(Math.abs(x) > HALF - 4 || Math.abs(z) > HALF - 4) break; const a = Math.atan2(heightAt(x, z) - cp.y, t); if(a > m) m = a; }
+      sky = m; const nt = nearTrail(st.x, st.z, 2); if(nt.i >= 0) prog = nt.i / (trail.length - 1); }
+    const base = sky - 0.012, top = base + ANG, y0 = cp.y + Math.tan(base) * D, y1 = cp.y + Math.tan(top) * D, hgt = y1 - y0;
+    mesh.position.set(cp.x + dx*D, y0, cp.z + dz*D); mesh.scale.set(hgt * ASP, hgt, 1); mesh.rotation.set(0, az + Math.PI, 0);
+    const U = mat.uniforms, fade = 1 - Math.min(1, Math.max(0, (prog - 0.82) / 0.10));
+    U.uA.value = fade; mesh.visible = fade > 0.01 && !st.inSummit;
+    if(mesh.visible){ const S = window.SKY || {}; U.uDay.value = S.day != null ? Math.max(0.05, S.day) : 1; U.uFog.value.copy(scene.fog.color);
+      _d.copy(sun.position).sub(sun.target.position).normalize(); _v.set(Math.cos(az), 0, -Math.sin(az));   // 화면 오른쪽 방향
+      U.uSunX.value = THREE.MathUtils.clamp(_d.x * _v.x + _d.z * _v.z, -1, 1) * -1;
+      U.uSunCol.value.copy(sun.color).lerp(new THREE.Color(1, 1, 1), 0.55); }
+  };
+}
 window.__game = {standY, heightAt, METEOR, VIEWPOINTS, POOL, restSpots, doRest, st, trail, WPS, heightAt, keys, camera, npcs, remotes, applyPeers, scene, renderer, player, SKY, CAMP, startCamp, startDescent, finish, campCam};
 frame();
 </script>

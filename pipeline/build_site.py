@@ -28,6 +28,7 @@ from moon_patch import patch_moon
 from far_patch import patch_far, patch_flora, patch_far_clumps
 from vista_patch import patch_vista
 from trail_patch import patch_trail
+from peak_patch import patch_peak
 from loader_patch import patch_loader, loader_rows
 from i18n_fix_patch import patch_i18n_fix, FIX_ROWS
 
@@ -319,6 +320,7 @@ def build_page(T, m, mts, data):
     patch_far_clumps(P, m)
     patch_vista(P, m, meta)
     patch_trail(P, m)
+    patch_peak(P, m, meta)
     patch_loader(P, m, mts, data)
     patch_i18n_fix(P, m)
     patch_lang(P, m)

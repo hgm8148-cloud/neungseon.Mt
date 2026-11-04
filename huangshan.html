@@ -445,6 +445,8 @@ body.inSummit:not(.camping) #summitBtn#summitBtn#summitBtn{display:inline-flex!i
 #tpAsk .row{display:flex;gap:8px;justify-content:center}
 #tpAsk button{border:0;border-radius:999px;padding:9px 20px;font:inherit;font-size:14px;font-weight:600;cursor:pointer}
 #tpAsk .go{background:#3f6e48;color:#fff}#tpAsk .no{background:rgba(0,0,0,.07);color:inherit}
+#prog.tight{display:none!important}
+#pcard .pk{font-size:11.5px;font-weight:700;letter-spacing:.04em;color:#b5562c;margin:1px 3px 6px}
 
 /* ---------- 로딩 화면 (pipeline/loader_patch.py) ---------- */
 #loading .ld2{display:none}
@@ -1065,6 +1067,7 @@ html:not([lang=ko]) .ld2.mtn h2{letter-spacing:.04em}
     ["취소", "Cancel", "キャンセル", "取消"],
     ["순간이동했어요", "Teleported", "移動しました", "已瞬间移动"],
     ["아직 가 보지 않은 곳이에요 · 걸어서 먼저 들러 보세요", "You haven’t been here yet · walk there first", "まだ行っていない場所です · まずは歩いて訪れてみましょう", "这里还没去过 · 先走过去看看吧"],
+    ["📮 경유지 도착 · 이 산의 사진 엽서", "📮 Checkpoint reached · a postcard from this mountain", "📮 経由地に到着 · この山の写真はがき", "📮 抵达途经点 · 这座山的明信片"],
     ["황산", "Huangshan", "黄山", "黄山"],
     ["연화봉", "Lotus Peak", "蓮花峰", "莲花峰"],
     ["옥병루 · 연화봉", "Yuping Tower · Lotus Peak", "玉屏楼・蓮花峰", "玉屏楼 · 莲花峰"],
@@ -1297,7 +1300,7 @@ html:not([lang=ko]) .ld2.mtn h2{letter-spacing:.04em}
     <div class="credit">지형 고도: AWS Terrain Tiles (Mapzen Terrarium, SRTM 등 공개 DEM). 약 30m 해상도라 실제보다 부드럽고, 탐방로는 주요 지점을 지형에 맞춰 이은 근사치입니다.</div>
   </div>
 </div>
-<div id="pcard" aria-live="polite"><button type="button" aria-label="닫기">✕</button><img alt=""><div class="cap"><b></b><small></small></div></div>
+<div id="pcard" aria-live="polite"><button type="button" aria-label="닫기">✕</button><div class="pk">📮 경유지 도착 · 이 산의 사진 엽서</div><img alt=""><div class="cap"><b></b><small></small></div></div>
 <div id="seasonPop" class="glass" hidden><p>이 자리에서 계절을 바꿔요 · 산을 새로 그린 뒤 이어서 걸어요</p><div class="seasonRow" id="seasonRow2"></div></div>
 
 <div id="mtSel" class="panel" hidden>
@@ -4972,6 +4975,17 @@ function tpClick(e){ const W = $('mapWrap'); const big = W.classList.contains('b
   if(best.i > TP_REACH + 3){ toast('아직 가 보지 않은 곳이에요 · 걸어서 먼저 들러 보세요', 2.6); return true; }
   tpPick = best; $('tpName').textContent = best.name; $('tpAsk').hidden = false; return true; }
 window.__tp = { spots: tpSpots, tf: () => drawMap.tf, reach: () => TP_REACH };
+
+// ---------- 경로 안내 바 자리 맞추기 (pipeline/trail_patch.py) ----------
+{ const fit = () => { const pg = $('prog'), tl = $('brand'), tr = $('tr'); if(!pg || !tl || !tr) return;
+    pg.style.left = ''; pg.style.width = ''; pg.classList.remove('tight');
+    if(getComputedStyle(pg).display === 'none') return;
+    let right = innerWidth; for(const el of [tr, $('supportBtn')]){ if(!el) continue; const r = el.getBoundingClientRect(); if(r.width > 0 && r.top < 80) right = Math.min(right, r.left); }
+    const left = tl.getBoundingClientRect().right, gap = 16, room = right - left - gap*2;
+    if(room < 240){ pg.classList.add('tight'); return; }
+    const w = Math.min(460, room), c = left + gap + room/2;
+    pg.style.width = w + 'px'; pg.style.left = (Math.abs(c - innerWidth/2) < 4 ? innerWidth/2 : c) + 'px'; };
+  addEventListener('resize', fit); setInterval(fit, 1500); setTimeout(fit, 300); window.__progFit = fit; }
 window.__game = {standY, heightAt, METEOR, VIEWPOINTS, POOL, restSpots, doRest, st, trail, WPS, heightAt, keys, camera, npcs, remotes, applyPeers, scene, renderer, player, SKY, CAMP, startCamp, startDescent, finish, campCam};
 frame();
 </script>

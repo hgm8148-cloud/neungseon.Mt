@@ -36,6 +36,7 @@ VP_FIX += [
     ['아직 가 보지 않은 곳이에요 · 걸어서 먼저 들러 보세요','You haven’t been here yet · walk there first','まだ行っていない場所です · まずは歩いて訪れてみましょう','这里还没去过 · 先走过去看看吧','Hier warst du noch nicht · geh zuerst zu Fuß hin','Vous n’y êtes pas encore allé · allez-y d’abord à pied','Non ci sei ancora stato · prima arrivaci a piedi','Aún no has estado aquí · ve primero caminando','तपाईं अझै यहाँ पुग्नुभएको छैन · पहिले हिँडेर जानुहोस्','Bado hujafika hapa · tembea huko kwanza'],
 ]
 
+VP_FIX += [['📮 경유지 도착 · 이 산의 사진 엽서','📮 Checkpoint reached · a postcard from this mountain','📮 経由地に到着 · この山の写真はがき','📮 抵达途经点 · 这座山的明信片','📮 Etappe erreicht · eine Postkarte von diesem Berg','📮 Étape atteinte · une carte postale de cette montagne','📮 Tappa raggiunta · una cartolina da questa montagna','📮 Punto alcanzado · una postal de esta montaña','📮 बिसौनीमा पुगियो · यो हिमालको पोस्टकार्ड','📮 Umefika kituo · postikadi ya mlima huu']]
 VP_JS = "const VP_SZ = (a, b, c, d, e) => (BIO.leaf < 0.05 || SEASON === 'fixed') ? e : ({spring:a, summer:b, autumn:c, winter:d})[SEASON] || e;\n"
 
 
@@ -51,6 +52,7 @@ def patch_vp_text(P, m):
 def patch_trail(P, m):
     patch_vp_text(P, m)
     patch_teleport(P, m)
+    patch_prog_fit(P, m)
     # 바닥 낙엽 무늬(LEAF_COLS)도 나무 없는 산에선 돌 조각 색으로
     P.rep("if(SZ.leaf) LEAF_COLS.splice(0, LEAF_COLS.length, ...SZ.leaf);",
           "if(SZ.leaf) LEAF_COLS.splice(0, LEAF_COLS.length, ...SZ.leaf);\n"
@@ -113,3 +115,25 @@ def patch_teleport(P, m):
     P.rep("$('mapWrap').onclick=()=>$('mapWrap').classList.toggle('big');",
           "$('mapWrap').onclick=e=>{ if(tpClick(e)) return; $('mapWrap').classList.toggle('big'); };", 1)
     P.rep("window.__game = {", TP_JS.replace('__ID__', m['id']) + "window.__game = {", 1)
+
+
+# ---------- 경로 안내 바(#prog)가 간식 보태기 버튼·툴바와 겹치지 않게 ----------
+PROG_FIT_JS = r'''
+// ---------- 경로 안내 바 자리 맞추기 (pipeline/trail_patch.py) ----------
+{ const fit = () => { const pg = $('prog'), tl = $('brand'), tr = $('tr'); if(!pg || !tl || !tr) return;
+    pg.style.left = ''; pg.style.width = ''; pg.classList.remove('tight');
+    if(getComputedStyle(pg).display === 'none') return;
+    let right = innerWidth; for(const el of [tr, $('supportBtn')]){ if(!el) continue; const r = el.getBoundingClientRect(); if(r.width > 0 && r.top < 80) right = Math.min(right, r.left); }
+    const left = tl.getBoundingClientRect().right, gap = 16, room = right - left - gap*2;
+    if(room < 240){ pg.classList.add('tight'); return; }
+    const w = Math.min(460, room), c = left + gap + room/2;
+    pg.style.width = w + 'px'; pg.style.left = (Math.abs(c - innerWidth/2) < 4 ? innerWidth/2 : c) + 'px'; };
+  addEventListener('resize', fit); setInterval(fit, 1500); setTimeout(fit, 300); window.__progFit = fit; }
+'''
+
+
+def patch_prog_fit(P, m):
+    P.rep('</style>', '#prog.tight{display:none!important}\n#pcard .pk{font-size:11.5px;font-weight:700;letter-spacing:.04em;color:#b5562c;margin:1px 3px 6px}\n</style>', 1)
+    # 경유지 사진 엽서가 무엇인지 알 수 있게 머리글
+    P.rep('<button type="button" aria-label="닫기">✕</button><img alt="">', '<button type="button" aria-label="닫기">✕</button><div class="pk">📮 경유지 도착 · 이 산의 사진 엽서</div><img alt="">', need=False)
+    P.rep("window.__game = {", PROG_FIT_JS + "window.__game = {", 1)
