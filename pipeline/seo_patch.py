@@ -1,7 +1,7 @@
 """검색 노출용 head 정리 (빌드 후 처리, 여러 번 돌려도 결과가 같다).
 
 사용: python3 pipeline/seo_patch.py <사이트 루트>   (기본: 저장소 루트)
-build_site.py 마지막에 seo_patch.patch_dir(root) 를 불러도 된다.
+build_site.py 마지막에 seo_patch.patch_dir(root) 를 불러도 된다(sitemap.xml 도 함께 다시 쓴다).
 
 원칙(승연 님 결정, 2026-11-04)
 - 산 개수를 쓰지 않는다 ('20개 산' 금지): 산은 계속 추가된다.
@@ -21,6 +21,8 @@ KEYWORDS = ('능선 온라인, 능선, 능선 게임, 온라인 등산, 온라�
             '등산 게임, 산행 게임, 트레킹 게임, 하이킹 게임, 힐링 게임, 브라우저 게임, '
             'online hiking game, Neungseon Online, Neungseon')
 MARK = 'data-seo="neungseon"'
+# Cloudflare Web Analytics (쿠키 없는 방문 집계). 토큰은 공개 값이다.
+CF_TOKEN = '53fa976ecea94716b700fb9d477c7025'
 
 
 def place_of(s):
@@ -66,6 +68,7 @@ def patch(s, page):
     s = re.sub(r'<meta property="og:site_name"[^>]*' + MARK + r'[^>]*>\n?', '', s)
     s = re.sub(r'<meta name="application-name"[^>]*' + MARK + r'[^>]*>\n?', '', s)
     s = re.sub(r'<script type="application/ld\+json" ' + MARK + r'>.*?</script>\n?', '', s, flags=re.S)
+    s = re.sub(r'<script defer src="https://static\.cloudflareinsights\.com/[^>]*' + MARK + r'[^>]*></script>\n?', '', s)
     s = re.sub(r'<noscript ' + MARK + r'>.*?</noscript>\n?', '', s, flags=re.S)
 
     ld = {
@@ -93,6 +96,8 @@ def patch(s, page):
                    f'<meta property="og:image:height" content="{720 if page == "index.html" else 630}" {MARK}>\n' if og_size else '') +
                 f'<meta name="application-name" content="{NAME}" {MARK}>\n'
                 f'<script type="application/ld+json" {MARK}>{json.dumps(ld, ensure_ascii=False)}</script>\n')
+    head_add += (f'<script defer src="https://static.cloudflareinsights.com/beacon.min.js" '
+                 f'data-cf-beacon=\'{{"token": "{CF_TOKEN}"}}\' {MARK}></script>\n')
     if page == 'index.html':
         head_add += f'<script type="application/ld+json" {MARK}>{json.dumps(site, ensure_ascii=False)}</script>\n'
     s = s.replace('</head>', head_add + '</head>', 1)
@@ -106,6 +111,29 @@ def patch(s, page):
              f'<a href="{SITE}" style="color:#e3b04f">{NAME} 첫 화면으로</a></p></section></noscript>\n')
     s = re.sub(r'(<body[^>]*>\n?)', lambda m: m.group(1) + intro, s, count=1)
     return s
+
+
+def write_sitemap(root, pages):
+    """게임 페이지 목록으로 sitemap.xml 을 다시 쓴다. 이미 있던 페이지의 lastmod 는 그대로 두고
+    새 페이지만 오늘 날짜를 넣는다(여러 번 돌려도 결과가 같다)."""
+    import datetime
+    path = os.path.join(root, 'sitemap.xml')
+    old = {}
+    if os.path.exists(path):
+        for loc, mod in re.findall(r'<loc>([^<]+)</loc>(?:<lastmod>([^<]*)</lastmod>)?',
+                                   open(path, encoding='utf-8').read()):
+            old[loc] = mod
+    today = datetime.date.today().isoformat()
+    ordered = sorted(pages, key=lambda f: (f != 'index.html', f))
+    rows = []
+    for f in ordered:
+        loc = SITE + ('' if f == 'index.html' else f)
+        rows.append(f'  <url><loc>{loc}</loc><lastmod>{old.get(loc) or today}</lastmod></url>')
+    xml = ('<?xml version="1.0" encoding="UTF-8"?>\n'
+           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+           + '\n'.join(rows) + '\n</urlset>\n')
+    if not os.path.exists(path) or open(path, encoding='utf-8').read() != xml:
+        open(path, 'w', encoding='utf-8').write(xml)
 
 
 def patch_dir(root):
@@ -123,6 +151,7 @@ def patch_dir(root):
         if n != s:
             open(p, 'w', encoding='utf-8').write(n)
         done.append(f)
+    write_sitemap(root, done)
     return done
 
 
