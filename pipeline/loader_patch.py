@@ -2,7 +2,7 @@
 
 1) 처음 들어올 때(산 고르기 화면이 뜨는 경우): 북한산 사진 대신 '능선' 고유의 브랜드 화면
    - 새벽 하늘이 밝아지고, 겹겹의 능선이 천천히 흐르고, 한 줄 능선이 그려지며 '능선' 글자가 떠올라요.
-   - 아래로 20개 산 이름이 천천히 흘러가요.
+   - 아래로 산 이름들이 천천히 흘러가요 (산을 더하면 저절로 늘어나요). 숫자로 산 개수를 못박는 표현은 쓰지 않아요.
 2) 산을 골라 들어갈 때: 그 산 사진 + 실제 탐방로 고도 그래프 위를 등산객 점이 걸어 올라가요.
    - 예전엔 SVG 선을 메인 스레드로 그려서, 지형을 만드는 동안 화면이 뚝뚝 끊겼어요.
    - 이제 움직이는 것은 모두 transform/opacity(합성 스레드)라 무거운 계산 중에도 부드럽게 움직여요.
@@ -16,7 +16,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 
 # ---------- 번역 (ko, en, ja, zh, de, fr, it, es, ne, sw) ----------
 LOADER_FIX = [
-    ['실제 고도로 걷는 스무 개의 명산', 'Twenty great mountains, walked at their real elevation', '実際の標高で歩く20の名山', '按真实海拔漫步的二十座名山', 'Zwanzig große Berge, in echter Höhe erwandert', 'Vingt grandes montagnes, parcourues à leur vraie altitude', 'Venti grandi montagne, percorse alla loro vera quota', 'Veinte grandes montañas, recorridas a su altitud real', 'वास्तविक उचाइमा हिँडिने बीस प्रसिद्ध हिमाल', 'Milima mikubwa ishirini, ikitembewa kwa urefu wake halisi'],
+    ['실제 지형 그대로 걷는 명산', 'Great mountains, walked on their real terrain', '実際の地形のまま歩く名山', '按真实地形漫步的名山', 'Große Berge auf echtem Gelände', 'De grandes montagnes, sur leur vrai relief', 'Grandi montagne sul loro vero terreno', 'Grandes montañas sobre su terreno real', 'वास्तविक भू-भागमा हिँडिने प्रसिद्ध हिमाल', 'Milima maarufu kwenye ardhi yake halisi'],
+    ['국내 명산', 'Korea', '韓国の名山', '韩国名山', 'Korea', 'Corée', 'Corea', 'Corea', 'कोरिया', 'Korea'],
+    ['해외 명산', 'World', '世界の名山', '世界名山', 'Welt', 'Monde', 'Mondo', 'Mundo', 'विश्व', 'Dunia'],
     ['여유 있는 산행', 'An unhurried hike', 'ゆったりとした山歩き', '从容的山行', 'Eine gemächliche Wanderung', 'Une randonnée sans hâte', 'Un’escursione senza fretta', 'Una caminata sin prisas', 'फुर्सदको पदयात्रा', 'Matembezi ya taratibu mlimani'],
     ['오늘의 산행', "Today's hike", '今日の山歩き', '今天的山行', 'Heutige Wanderung', 'La randonnée du jour', 'L’escursione di oggi', 'La caminata de hoy', 'आजको पदयात्रा', 'Matembezi ya leo'],
     ['정상', 'Summit', '山頂', '山顶', 'Gipfel', 'Sommet', 'Vetta', 'Cumbre', 'शिखर', 'Kilele'],
@@ -184,7 +186,7 @@ def brand_html(mts):
             'fill="none" stroke="#ffd9a6" stroke-width="2.2" stroke-linecap="round"/><circle cx="232" cy="8" r="3.2" fill="#fff1dc"/></svg>')
     return (f'<div class="ld2 brand" aria-hidden="false"><div class="bSky"></div><div class="bDawn"></div><div class="bSun"></div>{rs}'
             '<div class="bMist m1"></div><div class="bMist m2"></div><div class="bBirds"><i></i><i></i><i></i></div>'
-            f'<div class="bLogo"><div class="bKick">실제 고도로 걷는 스무 개의 명산</div><div class="bLineWrap">{line}</div><h2>능선</h2><p class="bTag">여유 있는 산행</p></div>'
+            f'<div class="bLogo"><div class="bKick">실제 지형 그대로 걷는 명산</div><div class="bLineWrap">{line}</div><h2>능선</h2><p class="bTag">여유 있는 산행</p></div>'
             f'<div class="bTick"><div class="bTrack">{names}{names}</div></div><div class="bar"><i></i></div></div>')
 
 

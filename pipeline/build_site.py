@@ -1,6 +1,6 @@
 """게임 템플릿 + 산 설정 + 지형 데이터 → 산마다 페이지 한 장.
 
-    python3 build_site.py                       # 미리보기: pipeline/out/ 에 20개 페이지
+    python3 build_site.py                       # 미리보기: pipeline/out/ 에 산마다 페이지
     python3 build_site.py --to-site             # 저장소 루트(index.html=북한산, hallasan.html …)에 쓰기 (배포 전 승인 필요)
     python3 build_site.py --template game.photo.html --only hallasan
 
@@ -45,8 +45,8 @@ COUNTRY = {
 UI_ROWS = [
     ['어느 산에 오를까요?', 'Which mountain today?', 'どの山に登りますか？', '今天爬哪座山？'],
     ['실제 고도 데이터로 만든 산길을 골라 보세요', 'Pick a trail built from real elevation data', '実際の標高データで作った山道を選んでください', '选择一条用真实海拔数据制作的山路'],
-    ['국내 명산 10', 'Korea · 10 mountains', '韓国の名山 10', '韩国名山 10'],
-    ['해외 명산 10', 'World · 10 mountains', '世界の名山 10', '世界名山 10'],
+    ['국내 명산', 'Korea', '韓国の名山', '韩国名山'],
+    ['해외 명산', 'World', '世界の名山', '世界名山'],
     ['다른 산 고르기', 'Choose another mountain', '別の山を選ぶ', '选择其他山'],
     ['지금 이 산', 'You are here', 'いまの山', '当前所在'],
     ['준비 중', 'Coming soon', '準備中', '准备中'],
@@ -181,7 +181,7 @@ def selector_html():
       <button type="button" class="mtX" id="mtX" aria-label="닫기">✕</button>
     </div>
     <p class="mtSaved" id="mtSaved" hidden>지금까지 걸은 기록을 저장했어요</p>
-    <div class="mtTabs" role="tablist"><button type="button" data-r="kr">국내 명산 10</button><button type="button" data-r="world">해외 명산 10</button></div>
+    <div class="mtTabs" role="tablist"><button type="button" data-r="kr">국내 명산</button><button type="button" data-r="world">해외 명산</button></div>
     <div class="mtList" id="mtList"></div>
   </div>
 </div>
@@ -354,7 +354,7 @@ def patch_mountain(H, B, m, meta):
     # head 메타
     H.rep('북한산 백운대 836m', f'{ap} {e}m')
     H.rep('북한산 백운대', ap)
-    H.sub(r'(og:url" content="https://hgm8148-cloud\.github\.io/neungseon\.Mt/)', r'\g<1>' + page)
+    H.sub(r'(og:url" content="https://neungseon\.com/)', r'\g<1>' + page)
     for X in (B,):
         route = f'<b>{ko(W[0])}</b> → ' + (' → '.join(ko(w) for w in mids) + ' → ' if mids else '') + f'<b>{end} {e}m</b>'
         X.rep('<b>백운대탐방지원센터</b> → 하루재 → 백운산장 → 위문 → <b>백운대 정상 836m</b>', route, 1)
