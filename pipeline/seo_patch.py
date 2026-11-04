@@ -15,6 +15,7 @@ import re
 import sys
 
 SITE = 'https://neungseon.com/'
+ROOT = '.'  # patch_dir 가 사이트 루트로 바꿔 준다
 NAME = '능선 온라인'
 KEYWORDS = ('능선 온라인, 능선, 능선 게임, 온라인 등산, 온라인 산행, 온라인 트레킹, 온라인 하이킹, '
             '등산 게임, 산행 게임, 트레킹 게임, 하이킹 게임, 힐링 게임, 브라우저 게임, '
@@ -23,7 +24,10 @@ MARK = 'data-seo="neungseon"'
 
 
 def place_of(s):
-    """기존 description 의 '만든 <산 봉우리> 산길' 또는 og:title 의 '· <산 봉우리>' 에서 장소 이름을 꺼낸다."""
+    """장소 이름: 이전 실행의 noscript 제목 > og:title 의 '· 장소' > 설명문 '만든 장소 산길'."""
+    m = re.search(r'<h1>능선 온라인 · (.+?) 온라인 등산</h1>', s)
+    if m:
+        return H.unescape(m.group(1)).strip()
     m = re.search(r'<meta property="og:title" content="[^"]*·\s*([^"]+)">', s)
     if m:
         return H.unescape(m.group(1)).strip()
@@ -45,8 +49,19 @@ def patch(s, page):
     s = re.sub(r'<title>[^<]*</title>', f'<title>{e(title)}</title>', s, count=1)
     s = re.sub(r'<meta name="description" content="[^"]*">', f'<meta name="description" content="{e(desc)}">', s, count=1)
 
+    # 공유 미리보기: 제목은 '능선 온라인', 산 페이지는 산별 그림(og/<id>.jpg, pipeline/make_og.py)
+    og_title = f'{NAME} | 온라인 등산·산행·트레킹 게임' if page == 'index.html' else f'{NAME} · {place}'
+    s = re.sub(r'<meta property="og:title" content="[^"]*">', f'<meta property="og:title" content="{e(og_title)}">', s, count=1)
+    mid = page[:-5]
+    if page != 'index.html' and os.path.exists(os.path.join(ROOT, 'og', mid + '.jpg')):
+        s = re.sub(r'<meta property="og:image" content="[^"]*">', f'<meta property="og:image" content="{SITE}og/{mid}.jpg">', s, count=1)
+        og_size = True
+    else:
+        og_size = page == 'index.html'  # og.png 1280x720
+
     # 이전 실행 결과 제거 후 다시 넣기 (idempotent)
     s = re.sub(r'<meta name="keywords"[^>]*' + MARK + r'[^>]*>\n?', '', s)
+    s = re.sub(r'<meta property="og:image:(?:width|height)"[^>]*' + MARK + r'[^>]*>\n?', '', s)
     s = re.sub(r'<link rel="canonical"[^>]*' + MARK + r'[^>]*>\n?', '', s)
     s = re.sub(r'<meta property="og:site_name"[^>]*' + MARK + r'[^>]*>\n?', '', s)
     s = re.sub(r'<meta name="application-name"[^>]*' + MARK + r'[^>]*>\n?', '', s)
@@ -74,6 +89,8 @@ def patch(s, page):
     head_add = (f'<meta name="keywords" content="{e(KEYWORDS)}" {MARK}>\n'
                 f'<link rel="canonical" href="{url}" {MARK}>\n'
                 f'<meta property="og:site_name" content="{NAME}" {MARK}>\n'
+                + (f'<meta property="og:image:width" content="{1280 if page == "index.html" else 1200}" {MARK}>\n'
+                   f'<meta property="og:image:height" content="{720 if page == "index.html" else 630}" {MARK}>\n' if og_size else '') +
                 f'<meta name="application-name" content="{NAME}" {MARK}>\n'
                 f'<script type="application/ld+json" {MARK}>{json.dumps(ld, ensure_ascii=False)}</script>\n')
     if page == 'index.html':
@@ -92,6 +109,8 @@ def patch(s, page):
 
 
 def patch_dir(root):
+    global ROOT
+    ROOT = root
     done = []
     for f in sorted(os.listdir(root)):
         if not f.endswith('.html'):
