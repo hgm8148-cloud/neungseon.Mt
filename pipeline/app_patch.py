@@ -81,6 +81,10 @@ PC_JS = r"""
 """
 
 PC_FIX = [
+    ['천천히', 'Slow', 'ゆっくり', '慢走', 'Langsam', 'Lent', 'Piano', 'Despacio', 'बिस्तारै', 'Polepole'],
+    ['빠르게', 'Fast', '速く', '快走', 'Schnell', 'Rapide', 'Veloce', 'Rápido', 'छिटो', 'Haraka'],
+    ['오르는 중', 'Climbing', '登っています', '上山中', 'Im Aufstieg', 'En montée', 'In salita', 'Subiendo', 'उक्लँदै', 'Inapanda'],
+    ['내려가는 중', 'Descending', '下っています', '下山中', 'Im Abstieg', 'En descente', 'In discesa', 'Bajando', 'झर्दै', 'Inashuka'],
     ['등산', 'Up', '登り', '上山', 'Aufstieg', 'Montée', 'Salita', 'Subida', 'उकालो', 'Kupanda'],
     ['하산', 'Down', '下り', '下山', 'Abstieg', 'Descente', 'Discesa', 'Bajada', 'ओरालो', 'Kushuka'],
     ['💻 PC에 설치', '💻 Install on PC', '💻 PCにインストール', '💻 安装到电脑', '💻 Auf dem PC installieren', '💻 Installer sur PC', '💻 Installa sul PC', '💻 Instalar en el PC', '💻 PC मा इन्स्टल गर्नुहोस्', '💻 Sakinisha kwenye PC'],
@@ -124,5 +128,11 @@ $('bUp').onclick = () => setTrailDir(false); $('bDown').onclick = () => setTrail
 def patch_dir(P):
     P.rep('<div id="walkPill" class="glass pill"><span id="walkTxt">', '<div id="walkPill" class="glass pill"><span class="dirSeg"><button id="bUp" class="on" type="button">등산</button><button id="bDown" type="button">하산</button></span><span id="walkTxt">', 1)
     P.rep("document.body.classList.toggle('walking', !!st.auto); }", "document.body.classList.toggle('walking', !!st.auto); $('bUp').classList.toggle('on', !d); $('bDown').classList.toggle('on', !!d); }", 1)
-    P.rep('</style>', DIR_CSS + '</style>', 1)
+    P.rep('</style>', DIR_CSS + '#walkPill,#walkPill span,#walkPill button{white-space:nowrap}\n</style>', 1)
+    # 짧고 직관적인 글자: 버튼은 천천히/빠르게, 상태는 오르는 중/내려가는 중 (줄바꿈 없이)
+    P.rep('<button id="bSlow" class="pz">천천히 걷기</button><button id="bFast" class="pz">빠르게 걷기</button>', '<button id="bSlow" class="pz">천천히</button><button id="bFast" class="pz">빠르게</button>', 1)
+    P.rep("$('walkTxt').textContent = st.auto ? (fast ? (d?'빠르게 내려가는 중':'빠르게 걷는 중') : (d?'천천히 내려가는 중':'천천히 걷는 중')) : (d?'하산길을 따라':'탐방로를 따라');",
+          "$('walkTxt').textContent = st.auto ? (d?'내려가는 중':'오르는 중') : (d?'하산길을 따라':'탐방로를 따라');", 1)
+    P.rep("$('bSlow').textContent = d ? '천천히 내려가기' : '천천히 걷기'; $('bFast').textContent = d ? '빠르게 내려가기' : '빠르게 걷기';",
+          "$('bSlow').textContent = '천천히'; $('bFast').textContent = '빠르게';", 1)
     P.rep("window.__game = {", DIR_JS + "window.__game = {", 1)
