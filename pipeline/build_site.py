@@ -29,6 +29,7 @@ from far_patch import patch_far, patch_flora, patch_far_clumps
 from vista_patch import patch_vista
 from trail_patch import patch_trail
 from peak_patch import patch_peak
+from app_patch import patch_app, write_sw
 from loader_patch import patch_loader, loader_rows
 from i18n_fix_patch import patch_i18n_fix, FIX_ROWS
 
@@ -313,6 +314,7 @@ def build_page(T, m, mts, data):
     patch_admin(P, m)
     patch_ios(P, m)
     patch_install(P, m)
+    patch_app(P, m)
     patch_ui(P, m)
     patch_moon(P, m)
     patch_far(P, m)
@@ -447,6 +449,13 @@ def main():
         open(p, 'w').write(html)
         print(f"{m['id']:>15} → {os.path.relpath(p, os.path.dirname(HERE))} ({len(html)/1024:.0f} KB)")
     copy_photos(out, [m['id'] for m in mts] + ['sky'])
+    write_sw(out)
+    if a.to_site and not a.only:   # 검색 엔진용 사이트맵: 산을 더하면 자동으로 늘어나요 (robots.txt는 그대로 둬요)
+        import datetime
+        day = datetime.date.today().isoformat()
+        locs = ['https://neungseon.com/'] + ['https://neungseon.com/' + m['page'] for m in mts if m['_built'] and m['page'] not in ('', 'index.html')]
+        xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join(f'  <url><loc>{u}</loc><lastmod>{day}</lastmod></url>\n' for u in locs) + '</urlset>\n'
+        open(os.path.join(out, 'sitemap.xml'), 'w').write(xml)
 
 
 if __name__ == '__main__':
