@@ -113,7 +113,7 @@ def patch_peak(P, m, meta):
             gg['shrinkAbove'] = gg['shrinkAbove'] - meta['BASE']
         P.rep("// ---------- 바위·통나무·돌계단 충돌", GROUND_JS.replace('__G__', json.dumps(gg)) + "// ---------- 바위·통나무·돌계단 충돌", 1)
     cfg = m.get('peakArt')
-    if not cfg:
+    if not cfg or m.get('relief'):   # 3D 정상(relief)을 쓰는 산은 하늘 그림을 쓰지 않아요
         return
     P.rep("window.__game = {", PEAK_JS.replace('__CFG__', json.dumps(cfg)) + "window.__game = {", 1)
     P.rep("\n  camera.lookAt(camLook);", "\n  camera.lookAt(camLook);\n  if(window.__peakUpdate) window.__peakUpdate();", 1)

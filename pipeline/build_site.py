@@ -31,6 +31,7 @@ from trail_patch import patch_trail
 from peak_patch import patch_peak
 from app_patch import patch_app, write_sw
 from preview_patch import patch_preview
+from relief_patch import patch_relief
 from loader_patch import patch_loader, loader_rows
 from i18n_fix_patch import patch_i18n_fix, FIX_ROWS
 
@@ -326,6 +327,8 @@ def build_page(T, m, mts, data):
     patch_vista(P, m, meta)
     patch_trail(P, m)
     patch_peak(P, m, meta)
+    patch_relief(P, m)
+    if m.get("relief"): __import__("relief_patch").patch_uplook(P)
     patch_loader(P, m, mts, data)
     patch_i18n_fix(P, m)
     patch_lang(P, m)
@@ -392,10 +395,11 @@ def patch_mountain(H, B, m, meta):
         # 지점 설명
         X.sub(r"const WP_DESC = \{[^}]*\};", 'const WP_DESC = {\n' + ',\n'.join(f"  '{js(k)}':'{js(v[0])}'" for k, v in wp_desc(m).items()) + '\n};', flags=re.S)
         # 높이 기준·표시
-        X.sub(r'const H0 = [\d.]+, VEX = [\d.]+;', f"const H0 = {meta['H0']}, VEX = {meta['VEX']}, ALT0 = {meta['BASE']};")
-        if meta['BASE']:
-            X.sub(r'Math\.round\(heightAt\(st\.x, ?st\.z\)\)', 'Math.round(heightAt(st.x,st.z)+ALT0)')
-            X.rep("$('alt').textContent = Math.round(y) + ' m';", "$('alt').textContent = Math.round(y + ALT0) + ' m';", 1)
+        # 산세 강조(xex): 들머리 높이를 기준으로 오르막을 키워요. 화면의 해발 표시는 실제 값으로 되돌려 보여요
+        xex = float((m.get('relief') or {}).get('xex', 1))
+        X.sub(r'const H0 = [\d.]+, VEX = [\d.]+;', f"const H0 = {meta['H0']}, VEX = {round(meta['VEX'] * xex, 4)}, ALT0 = {meta['BASE']}, XEX = {xex};\nconst realH = y => H0 + (y - H0) / XEX + ALT0;")
+        X.sub(r'Math\.round\(heightAt\(st\.x, ?st\.z\)\)', 'Math.round(realH(heightAt(st.x,st.z)))', need=False)
+        X.rep("$('alt').textContent = Math.round(y) + ' m';", "$('alt').textContent = Math.round(realH(y)) + ' m';", 1)
         start = int(round(meta['H0'] + meta['BASE']))
         X.sub(r"Math\.round\(110 \+ f\*726\)", f"Math.round({start} + f*{e - start})", need=False)
         # 태양: 위도·남중 시각

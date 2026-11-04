@@ -81,6 +81,8 @@ PC_JS = r"""
 """
 
 PC_FIX = [
+    ['등산', 'Up', '登り', '上山', 'Aufstieg', 'Montée', 'Salita', 'Subida', 'उकालो', 'Kupanda'],
+    ['하산', 'Down', '下り', '下山', 'Abstieg', 'Descente', 'Discesa', 'Bajada', 'ओरालो', 'Kushuka'],
     ['💻 PC에 설치', '💻 Install on PC', '💻 PCにインストール', '💻 安装到电脑', '💻 Auf dem PC installieren', '💻 Installer sur PC', '💻 Installa sul PC', '💻 Instalar en el PC', '💻 PC मा इन्स्टल गर्नुहोस्', '💻 Sakinisha kwenye PC'],
     ['바탕화면 아이콘으로 바로, 전체 화면으로 즐겨요', 'Open it from a desktop icon and play full screen', 'デスクトップのアイコンからすぐ、全画面で', '从桌面图标直接打开，全屏畅玩', 'Direkt per Desktop-Symbol öffnen und im Vollbild spielen', 'Ouvrez-le depuis une icône du bureau, en plein écran', 'Aprilo da un’icona sul desktop, a schermo intero', 'Ábrelo desde un icono del escritorio, a pantalla completa', 'डेस्कटप आइकनबाट सिधै, पूरा स्क्रिनमा', 'Fungua kutoka kwenye aikoni ya eneo-kazi, skrini nzima'],
     ['PC에 능선 설치하기', 'Install 능선 on your computer', 'PCに능선をインストール', '在电脑上安装 능선', '능선 auf dem Computer installieren', 'Installer 능선 sur l’ordinateur', 'Installa 능선 sul computer', 'Instala 능선 en el ordenador', 'कम्प्युटरमा 능선 इन्स्टल गर्ने', 'Sakinisha 능선 kwenye kompyuta'],
@@ -97,7 +99,30 @@ def patch_app(P, m):
     P.rep('body.standalone #bFull{display:none!important}', 'body.standalone:not(.desk) #bFull{display:none!important}', need=False)
     P.rep('</style>', '#start .card h1 .aiTop{display:inline-block;vertical-align:middle;margin:0 0 6px 12px;padding:6px 13px;border-radius:999px;border:1px solid rgba(255,214,150,.55);background:rgba(255,214,150,.16);color:inherit;font-family:var(--body);font-size:13px;font-weight:600;letter-spacing:0;cursor:pointer}#start .card h1 .aiTop:hover{background:rgba(255,214,150,.3)}\n</style>', 1)
     P.rep("window.__game = {", PC_JS + "window.__game = {", 1)
+    patch_dir(P)
 
 
 def write_sw(out):
     open(os.path.join(out, 'sw.js'), 'w').write(SW_JS)
+
+
+DIR_CSS = "#walkPill .dirSeg{display:inline-flex;padding:2px;margin-right:6px;border-radius:999px;background:rgba(0,0,0,.18)}#walkPill .dirSeg button{padding:6px 12px;background:transparent}#walkPill .dirSeg button.on{background:rgba(255,255,255,.22);font-weight:700}\n"
+
+DIR_JS = r"""
+// ---------- 탐방로 방향: 등산 / 하산 (pipeline/app_patch.py) ----------
+function setTrailDir(down){
+  if(!st.started){ toast('먼저 산행을 시작해 주세요', 2); return; }
+  if(down && !st.descending){ if(st.camp && typeof endCamp === 'function') endCamp(true);
+    const ci = nearTrail(st.x, st.z, 1).i; let k = 0; while(k < WPS.length && WPS[k].i <= ci + 10) k++;
+    st.descending = true; st.dcp = Math.max(1, k); st.down0 = { sec: st.gameSec, walked: st.walked }; st.sitting = false; st.view = null; }
+  else if(!down && st.descending){ st.descending = false; }
+  st.goal = null; refreshWalk(); canvas.focus(); }
+$('bUp').onclick = () => setTrailDir(false); $('bDown').onclick = () => setTrailDir(true);
+"""
+
+
+def patch_dir(P):
+    P.rep('<div id="walkPill" class="glass pill"><span id="walkTxt">', '<div id="walkPill" class="glass pill"><span class="dirSeg"><button id="bUp" class="on" type="button">등산</button><button id="bDown" type="button">하산</button></span><span id="walkTxt">', 1)
+    P.rep("document.body.classList.toggle('walking', !!st.auto); }", "document.body.classList.toggle('walking', !!st.auto); $('bUp').classList.toggle('on', !d); $('bDown').classList.toggle('on', !!d); }", 1)
+    P.rep('</style>', DIR_CSS + '</style>', 1)
+    P.rep("window.__game = {", DIR_JS + "window.__game = {", 1)
