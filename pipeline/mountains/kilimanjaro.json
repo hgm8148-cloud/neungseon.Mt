@@ -106,7 +106,7 @@
   "treeline": 3000,
   "rockline": 3100,
   "plantline": 4300,
-  "snow": 5750
+  "snow": 5600
  },
  "seasons": [],
  "climate": "fixed",
@@ -115,9 +115,9 @@
   "cloudSea": 3700,
   "farSnow": 4500,
   "ridges": {
-   "base": 3900,
-   "amp": 2900,
-   "snow": 5150,
+   "base": 4200,
+   "amp": 3400,
+   "snow": 5300,
    "peaks": [
     {
      "name": "Mount Meru",

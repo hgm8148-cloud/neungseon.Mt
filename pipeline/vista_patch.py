@@ -36,14 +36,20 @@ def patch_vista(P, m, meta):
             peaks.append(dict(a=math.atan2(z, x), d=math.hypot(x, z), h=p['elev'] - base))
         sn = round(r['snow'] - base)
         # 능선 높이·색: 아래는 구름 밑으로, 꼭대기는 눈
+        # 먼 능선 색이 안개색을 그대로 곱해 눈이 묻혔어요 → 밝기만 따르고 푸른 기는 덜어서 눈·바위 대비를 살려요
+        P.rep("for(const rm of RIDGES) rm.color.copy(scene.fog.color).multiplyScalar(1.12);",
+              "for(const rm of RIDGES){ rm.color.copy(scene.fog.color).multiplyScalar(1.12); const lu = rm.color.r*0.3 + rm.color.g*0.59 + rm.color.b*0.11; rm.color.lerp(_cl.setRGB(lu, lu, lu), 0.55); }", 1)
+        P.rep("new THREE.MeshBasicMaterial({vertexColors:true, fog:false, side:THREE.DoubleSide})", "new THREE.MeshBasicMaterial({vertexColors:true, fog:false, side:THREE.DoubleSide, toneMapped:false})", 1)
         P.rep("{R:36000, amp:1500, base:-100,", "{R:36000, amp:%d, base:%d," % (r['amp'], round(r['base'] - base)), 1)
         P.rep("{R:46000, amp:2000, base:-200,", "{R:46000, amp:%d, base:%d," % (round(r['amp'] * 1.25), round(r['base'] - base - 150)), 1)
         P.rep("      const hgt = L.base + Math.pow(ridge,1.6)*L.amp + n*L.amp*0.25;\n      const x = Math.cos(a)*L.R, z = Math.sin(a)*L.R;\n      pos.push(x, -400, z, x, hgt, z);\n      cols.push(...L.col.map(v=>v*1.08), ...L.top);\n      if(i>0){ const k=i*2; idx.push(k-2,k,k-1, k-1,k,k+1); }",
               "      let hgt = L.base + Math.pow(ridge,1.6)*L.amp + n*L.amp*0.25;\n"
               "      if(L.seed === 3) for(const p of VPEAKS){ let da = Math.abs(a - p.a); da = Math.min(da, Math.PI*2 - da); hgt = Math.max(hgt, p.h*L.R/p.d - da*L.R*0.42); }\n"
-              "      const x = Math.cos(a)*L.R, z = Math.sin(a)*L.R, sl = VSNOW - (L.seed === 3 ? 450 : 0) + (vnoise(Math.cos(a)*40, Math.sin(a)*40)-0.5)*420, mid = Math.max(VLOW, Math.min(hgt, sl));\n"
+              "      const x = Math.cos(a)*L.R, z = Math.sin(a)*L.R, sl = VSNOW - (L.seed === 3 ? 150 : -250) + (vnoise(Math.cos(a)*40, Math.sin(a)*40)-0.5)*420, mid = Math.max(VLOW, Math.min(hgt, sl));\n"
               "      pos.push(x, VLOW, z, x, mid, z, x, mid, z, x, hgt, z);\n"
-              "      const rk = L.col.map(v=>v*0.5), rk2 = L.top.map(v=>v*0.56), snowT = [1.22,1.2,1.16];\n"
-              "      cols.push(...rk, ...rk2, ...snowT.map(v=>v*0.92), ...snowT);\n"
+              "      const seg = L.R*Math.PI*2/segs, sh0 = THREE.MathUtils.clamp((hgt - (L.ph ?? hgt))/seg*1.6, -1, 1), sh = L.ps = (L.ps ?? sh0)*0.6 + sh0*0.4; L.ph = hgt;\n"
+              "      const lit = 1 + 0.16*sh, rk = L.col.map(v=>v*0.5*(1+0.25*sh)), rk2 = L.top.map(v=>v*0.56*(1+0.25*sh));\n"
+              "      const snowT = sh >= 0 ? [1.24*lit,1.22*lit,1.18*lit] : [0.86*lit,0.92*lit,1.04*lit];\n"
+              "      cols.push(...rk, ...rk2, ...snowT.map(v=>v*0.9), ...snowT);\n"
               "      if(i>0){ const k=i*4; idx.push(k-4,k,k-3, k-3,k,k+1, k-2,k+2,k-1, k-1,k+2,k+3); }", 1)
         P.rep("  const layers = [\n", "  const VPEAKS = %s, VSNOW = %d, VLOW = %d;\n  const layers = [\n" % (json.dumps(peaks), sn, round(r['base'] - base - 1500)), 1)

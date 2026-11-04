@@ -27,6 +27,8 @@ from ui_patch import patch_ui, UIX_ROWS
 from moon_patch import patch_moon
 from far_patch import patch_far, patch_flora
 from vista_patch import patch_vista
+from trail_patch import patch_trail
+from loader_patch import patch_loader, loader_rows
 from i18n_fix_patch import patch_i18n_fix, FIX_ROWS
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -289,7 +291,7 @@ def build_page(T, m, mts, data):
     rows = list(UI_ROWS)
     for x in mts: rows += mountain_rows(x)
     if m['id'] != 'bukhansan': rows += page_rows(m)
-    rows += EXTRA_ROWS + SEASON_ROWS + SKY_ROWS + WX_ROWS + lm_rows(m) + FIX_ROWS + [[tagline(m, l) for l in LANGS]]
+    rows += EXTRA_ROWS + SEASON_ROWS + SKY_ROWS + WX_ROWS + lm_rows(m) + FIX_ROWS + loader_rows(m) + [[tagline(m, l) for l in LANGS]]
     pre, R, post = split_R(P.t)
     R += ',\n    // 산 고르기·산 이름 (pipeline/build_site.py)\n' + ',\n'.join('    ' + json.dumps(r, ensure_ascii=False) for r in rows)
     if not m.get('legacy'):
@@ -314,6 +316,8 @@ def build_page(T, m, mts, data):
     patch_far(P, m)
     patch_flora(P, m)
     patch_vista(P, m, meta)
+    patch_trail(P, m)
+    patch_loader(P, m, mts, data)
     patch_i18n_fix(P, m)
     patch_lang(P, m)
     # 선택 화면
