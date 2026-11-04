@@ -1,7 +1,7 @@
 """검색 노출용 head 정리 (빌드 후 처리, 여러 번 돌려도 결과가 같다).
 
 사용: python3 pipeline/seo_patch.py <사이트 루트>   (기본: 저장소 루트)
-build_site.py 마지막에 seo_patch.patch_dir(root) 를 불러도 된다.
+build_site.py 마지막에 seo_patch.patch_dir(root) 를 불러도 된다(sitemap.xml 도 함께 다시 쓴다).
 
 원칙(승연 님 결정, 2026-11-04)
 - 산 개수를 쓰지 않는다 ('20개 산' 금지): 산은 계속 추가된다.
@@ -108,6 +108,29 @@ def patch(s, page):
     return s
 
 
+def write_sitemap(root, pages):
+    """게임 페이지 목록으로 sitemap.xml 을 다시 쓴다. 이미 있던 페이지의 lastmod 는 그대로 두고
+    새 페이지만 오늘 날짜를 넣는다(여러 번 돌려도 결과가 같다)."""
+    import datetime
+    path = os.path.join(root, 'sitemap.xml')
+    old = {}
+    if os.path.exists(path):
+        for loc, mod in re.findall(r'<loc>([^<]+)</loc>(?:<lastmod>([^<]*)</lastmod>)?',
+                                   open(path, encoding='utf-8').read()):
+            old[loc] = mod
+    today = datetime.date.today().isoformat()
+    ordered = sorted(pages, key=lambda f: (f != 'index.html', f))
+    rows = []
+    for f in ordered:
+        loc = SITE + ('' if f == 'index.html' else f)
+        rows.append(f'  <url><loc>{loc}</loc><lastmod>{old.get(loc) or today}</lastmod></url>')
+    xml = ('<?xml version="1.0" encoding="UTF-8"?>\n'
+           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+           + '\n'.join(rows) + '\n</urlset>\n')
+    if not os.path.exists(path) or open(path, encoding='utf-8').read() != xml:
+        open(path, 'w', encoding='utf-8').write(xml)
+
+
 def patch_dir(root):
     global ROOT
     ROOT = root
@@ -123,6 +146,7 @@ def patch_dir(root):
         if n != s:
             open(p, 'w', encoding='utf-8').write(n)
         done.append(f)
+    write_sitemap(root, done)
     return done
 
 
