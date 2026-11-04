@@ -1,0 +1,112 @@
+"""검색 노출용 head 정리 (빌드 후 처리, 여러 번 돌려도 결과가 같다).
+
+사용: python3 pipeline/seo_patch.py <사이트 루트>   (기본: 저장소 루트)
+build_site.py 마지막에 seo_patch.patch_dir(root) 를 불러도 된다.
+
+원칙(승연 님 결정, 2026-11-04)
+- 산 개수를 쓰지 않는다 ('20개 산' 금지): 산은 계속 추가된다.
+- '실제 지형 그대로' 같은 과장 금지: '실제 산을 본떠 만든'으로 쓴다.
+- 정상 이벤트·숨은 탐방로는 언급하지 않는다(스포일러 금지).
+"""
+import html as H
+import json
+import os
+import re
+import sys
+
+SITE = 'https://neungseon.com/'
+NAME = '능선 온라인'
+KEYWORDS = ('능선 온라인, 능선, 능선 게임, 온라인 등산, 온라인 산행, 온라인 트레킹, 온라인 하이킹, '
+            '등산 게임, 산행 게임, 트레킹 게임, 하이킹 게임, 힐링 게임, 브라우저 게임, '
+            'online hiking game, Neungseon Online, Neungseon')
+MARK = 'data-seo="neungseon"'
+
+
+def place_of(s):
+    """기존 description 의 '만든 <산 봉우리> 산길' 또는 og:title 의 '· <산 봉우리>' 에서 장소 이름을 꺼낸다."""
+    m = re.search(r'<meta property="og:title" content="[^"]*·\s*([^"]+)">', s)
+    if m:
+        return H.unescape(m.group(1)).strip()
+    m = re.search(r'만든 (.+?) 산길', s)
+    return m.group(1).strip() if m else ''
+
+
+def patch(s, page):
+    place = place_of(s)
+    url = SITE + ('' if page == 'index.html' else page)
+    if page == 'index.html':
+        title = f'{NAME} | 온라인 등산·산행·트레킹 게임 · {place}'
+    else:
+        title = f'{place} 온라인 등산 | {NAME}'
+    desc = (f'{place} 코스를 본떠 만든 산길을 브라우저에서 천천히 걷는 온라인 등산·산행 게임, 능선 온라인. '
+            '설치 없이 무료로 즐기는 힐링 트레킹·하이킹 게임. 한국어·English·日本語·中文')
+    e = lambda t: H.escape(t, quote=True)
+
+    s = re.sub(r'<title>[^<]*</title>', f'<title>{e(title)}</title>', s, count=1)
+    s = re.sub(r'<meta name="description" content="[^"]*">', f'<meta name="description" content="{e(desc)}">', s, count=1)
+
+    # 이전 실행 결과 제거 후 다시 넣기 (idempotent)
+    s = re.sub(r'<meta name="keywords"[^>]*' + MARK + r'[^>]*>\n?', '', s)
+    s = re.sub(r'<link rel="canonical"[^>]*' + MARK + r'[^>]*>\n?', '', s)
+    s = re.sub(r'<meta property="og:site_name"[^>]*' + MARK + r'[^>]*>\n?', '', s)
+    s = re.sub(r'<meta name="application-name"[^>]*' + MARK + r'[^>]*>\n?', '', s)
+    s = re.sub(r'<script type="application/ld\+json" ' + MARK + r'>.*?</script>\n?', '', s, flags=re.S)
+    s = re.sub(r'<noscript ' + MARK + r'>.*?</noscript>\n?', '', s, flags=re.S)
+
+    ld = {
+        '@context': 'https://schema.org',
+        '@type': 'VideoGame',
+        'name': NAME,
+        'alternateName': ['능선', '능선 게임', 'Neungseon Online', 'Neungseon'],
+        'url': url,
+        'description': desc,
+        'genre': ['온라인 등산 게임', '힐링 게임', 'Hiking', 'Walking simulator'],
+        'gamePlatform': ['Web browser', 'PC', 'Mobile'],
+        'applicationCategory': 'Game',
+        'operatingSystem': 'Any (web browser)',
+        'inLanguage': ['ko', 'en', 'ja', 'zh'],
+        'isAccessibleForFree': True,
+        'offers': {'@type': 'Offer', 'price': '0', 'priceCurrency': 'KRW'},
+        'image': SITE + 'og.png',
+    }
+    site = {'@context': 'https://schema.org', '@type': 'WebSite', 'name': NAME,
+            'alternateName': ['능선', 'Neungseon Online'], 'url': SITE}
+    head_add = (f'<meta name="keywords" content="{e(KEYWORDS)}" {MARK}>\n'
+                f'<link rel="canonical" href="{url}" {MARK}>\n'
+                f'<meta property="og:site_name" content="{NAME}" {MARK}>\n'
+                f'<meta name="application-name" content="{NAME}" {MARK}>\n'
+                f'<script type="application/ld+json" {MARK}>{json.dumps(ld, ensure_ascii=False)}</script>\n')
+    if page == 'index.html':
+        head_add += f'<script type="application/ld+json" {MARK}>{json.dumps(site, ensure_ascii=False)}</script>\n'
+    s = s.replace('</head>', head_add + '</head>', 1)
+
+    intro = (f'<noscript {MARK}><section style="padding:24px;color:#f4efe6;background:#1d2238;font-family:sans-serif">'
+             f'<h1>{NAME} · {e(place)} 온라인 등산</h1>'
+             f'<p>{NAME}은 브라우저에서 바로 즐기는 온라인 등산·산행 게임입니다. '
+             f'실제 산을 본떠 만든 {e(place)} 코스를 천천히 걸으며 계절과 날씨, 숲의 소리를 느낄 수 있어요. '
+             '설치 없이 무료로 PC와 휴대폰에서 즐길 수 있고, 산은 계속 추가됩니다.</p>'
+             '<p>게임을 하려면 자바스크립트를 켜 주세요. '
+             f'<a href="{SITE}" style="color:#e3b04f">{NAME} 첫 화면으로</a></p></section></noscript>\n')
+    s = re.sub(r'(<body[^>]*>\n?)', lambda m: m.group(1) + intro, s, count=1)
+    return s
+
+
+def patch_dir(root):
+    done = []
+    for f in sorted(os.listdir(root)):
+        if not f.endswith('.html'):
+            continue
+        p = os.path.join(root, f)
+        s = open(p, encoding='utf-8').read()
+        if '<meta property="og:url"' not in s:  # 게임 페이지만
+            continue
+        n = patch(s, f)
+        if n != s:
+            open(p, 'w', encoding='utf-8').write(n)
+        done.append(f)
+    return done
+
+
+if __name__ == '__main__':
+    root = sys.argv[1] if len(sys.argv) > 1 else os.path.join(os.path.dirname(__file__), '..')
+    print('\n'.join(patch_dir(root)))
