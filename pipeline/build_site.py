@@ -346,6 +346,8 @@ def patch_hike(P, m):
 
 
 def patch_og(H, page):
+    NV = '<meta name="naver-site-verification" content="8f0f6c4eff38edcc794467af0cae44d70eb60f67" />'   # 네이버 서치어드바이저 소유 확인 (지우지 마세요)
+    if NV not in H.t: H.rep('</head>', NV + '\n</head>', 1)
     H.sub(r'(og:image" content="https://neungseon\.com/og\.png)(\?v=\d+)?', r'\g<1>?v=2', need=False)   # 메신저 미리보기 캐시를 새로
     if page in ('', 'index.html'):   # 대표 주소(neungseon.com) 공유 미리보기는 한 산이 아니라 '능선' 브랜드로
         H.sub(r'(og:title" content=")[^"]*', r'\g<1>능선, 여유 있는 산행')

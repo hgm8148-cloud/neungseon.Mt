@@ -27,6 +27,15 @@ VP_FIX = [
     ['물소리를 들으며 눈 덮인 계곡을 바라봐요','Listen to the stream and gaze at the snowy valley','水の音を聞きながら雪の渓谷を眺めましょう','听着水声，看看白雪溪谷','Lausche dem Bach und blicke ins verschneite Tal','Écoutez le ruisseau et contemplez la vallée enneigée','Ascolta il torrente e guarda la valle innevata','Escucha el arroyo y contempla el valle nevado','खोलाको आवाज सुन्दै हिउँले ढाकिएको उपत्यका हेर्नुहोस्','Sikiliza kijito na utazame bonde lenye theluji'],
     ['물소리를 들으며 계곡을 바라봐요','Listen to the stream and gaze at the valley','水の音を聞きながら渓谷を眺めましょう','听着水声，看看溪谷','Lausche dem Bach und blicke ins Tal','Écoutez le ruisseau et contemplez la vallée','Ascolta il torrente e guarda la valle','Escucha el arroyo y contempla el valle','खोलाको आवाज सुन्दै उपत्यका हेर्नुहोस्','Sikiliza kijito na utazame bonde'],
 ]
+VP_FIX += [
+    ['이곳으로 순간이동할까요?','Teleport here?','ここへ移動しますか？','要瞬间移动到这里吗？','Hierher teleportieren?','Se téléporter ici ?','Teletrasportarsi qui?','¿Teletransportarse aquí?','यहाँ सिधै जाने?','Uhamie hapa mara moja?'],
+    ['이미 지나온 곳이라 바로 갈 수 있어요','You have been here, so you can jump straight back','一度通った場所なので、すぐに戻れます','这里你已经来过，可以直接回去','Hier warst du schon – du kannst direkt zurück','Vous y êtes déjà passé, vous pouvez y retourner directement','Ci sei già passato, puoi tornarci subito','Ya pasaste por aquí, puedes volver al instante','तपाईं यहाँ आइसक्नुभएको छ, सिधै फर्कन सक्नुहुन्छ','Umeshapita hapa, unaweza kurudi moja kwa moja'],
+    ['이동하기','Go','移動する','前往','Los','Y aller','Vai','Ir','जानुहोस्','Nenda'],
+    ['취소','Cancel','キャンセル','取消','Abbrechen','Annuler','Annulla','Cancelar','रद्द गर्नुहोस्','Ghairi'],
+    ['순간이동했어요','Teleported','移動しました','已瞬间移动','Teleportiert','Téléporté','Teletrasportato','Teletransportado','सिधै पुगियो','Umehamia'],
+    ['아직 가 보지 않은 곳이에요 · 걸어서 먼저 들러 보세요','You haven’t been here yet · walk there first','まだ行っていない場所です · まずは歩いて訪れてみましょう','这里还没去过 · 先走过去看看吧','Hier warst du noch nicht · geh zuerst zu Fuß hin','Vous n’y êtes pas encore allé · allez-y d’abord à pied','Non ci sei ancora stato · prima arrivaci a piedi','Aún no has estado aquí · ve primero caminando','तपाईं अझै यहाँ पुग्नुभएको छैन · पहिले हिँडेर जानुहोस्','Bado hujafika hapa · tembea huko kwanza'],
+]
+
 VP_JS = "const VP_SZ = (a, b, c, d, e) => (BIO.leaf < 0.05 || SEASON === 'fixed') ? e : ({spring:a, summer:b, autumn:c, winter:d})[SEASON] || e;\n"
 
 
@@ -41,6 +50,7 @@ def patch_vp_text(P, m):
 
 def patch_trail(P, m):
     patch_vp_text(P, m)
+    patch_teleport(P, m)
     # 바닥 낙엽 무늬(LEAF_COLS)도 나무 없는 산에선 돌 조각 색으로
     P.rep("if(SZ.leaf) LEAF_COLS.splice(0, LEAF_COLS.length, ...SZ.leaf);",
           "if(SZ.leaf) LEAF_COLS.splice(0, LEAF_COLS.length, ...SZ.leaf);\n"
@@ -48,3 +58,58 @@ def patch_trail(P, m):
     P.rep("    let r=138*k, g=113*k, b=86*k;\n", "    let r=(BIO.leaf < 0.05 ? 116 : 138)*k, g=(BIO.leaf < 0.05 ? 107 : 113)*k, b=(BIO.leaf < 0.05 ? 99 : 86)*k;\n", 1)
     P.rep("  for(let i=0;i<80;i++){ const px=W*(0.1+trnd()*0.8), py=trnd()*W, c0=LEAF_COLS",
           "  " + GRAVEL_JS + "for(let i=0;i<80;i++){ const px=W*(0.1+trnd()*0.8), py=trnd()*W, c0=LEAF_COLS", 1)
+
+
+# ---------- 지도에서 지나온 곳으로 순간이동 ----------
+TP_CSS = '''
+#tpAsk{position:fixed;inset:0;z-index:60;display:grid;place-items:center;background:rgba(10,12,10,.28)}
+#tpAsk[hidden]{display:none}
+#tpAsk .box{background:var(--paper,#fbf7ef);color:var(--ink,#2a2620);border-radius:18px;padding:18px 20px 16px;min-width:260px;max-width:min(88vw,360px);box-shadow:0 18px 50px rgba(0,0,0,.35);text-align:center}
+#tpAsk .nm{font-size:19px;font-weight:700;margin:2px 0 4px}
+#tpAsk .q{font-size:15px;margin:0}
+#tpAsk small{display:block;opacity:.65;font-size:12.5px;margin:6px 0 14px}
+#tpAsk .row{display:flex;gap:8px;justify-content:center}
+#tpAsk button{border:0;border-radius:999px;padding:9px 20px;font:inherit;font-size:14px;font-weight:600;cursor:pointer}
+#tpAsk .go{background:#3f6e48;color:#fff}#tpAsk .no{background:rgba(0,0,0,.07);color:inherit}
+'''
+TP_HTML = '<div id="tpAsk" hidden><div class="box"><div class="nm" id="tpName"></div><p class="q">이곳으로 순간이동할까요?</p><small>이미 지나온 곳이라 바로 갈 수 있어요</small><div class="row"><button class="no" id="tpNo">취소</button><button class="go" id="tpGo">이동하기</button></div></div></div>'
+TP_JS = r'''
+// ---------- 지도: 지나온 체크포인트·전망 스팟을 눌러 순간이동 (pipeline/trail_patch.py) ----------
+const TP_KEY = 'neungseon.reach.__ID__';
+let TP_REACH = 0; try{ TP_REACH = +localStorage.getItem(TP_KEY) || 0; }catch(e){}
+setInterval(() => { if(!st || st.x == null) return; const nt = nearTrail(st.x, st.z, 1); if(nt.i >= 0 && nt.d < 6 && nt.i > TP_REACH){ TP_REACH = nt.i; try{ localStorage.setItem(TP_KEY, TP_REACH); }catch(e){} } }, 700);
+const tpSpots = () => { const out = []; const T_ = window.T || (x => x);
+  WPS.forEach((w, k) => out.push({ i: w.i, name: T_(w.name.replace(/\(.*\)/, '')), wp: k }));
+  for(const v of VIEWPOINTS) if(!v.spin) out.push({ i: v.i, name: T_(v.name), vp: true });
+  return out; };
+let tpPick = null;
+function tpGo(){ const s = tpPick; $('tpAsk').hidden = true; if(!s) return; const p = trail[Math.min(trail.length - 1, s.i)], q = trail[Math.min(trail.length - 1, s.i + 4)];
+  st.x = p.x; st.z = p.z; st.face = Math.atan2(q.x - p.x, q.z - p.z); st.yaw = st.face + Math.PI; st.goal = null; st.sitting = false; st.breathing = 0; st.auto = false; refreshWalk();
+  goalRing.visible = false; st.camInit = false; st.cf = null; toast('순간이동했어요', 2); canvas.focus(); }
+$('tpGo').onclick = tpGo; $('tpNo').onclick = () => { $('tpAsk').hidden = true; tpPick = null; };
+$('tpAsk').addEventListener('click', e => { if(e.target === $('tpAsk')){ $('tpAsk').hidden = true; tpPick = null; } });
+function tpClick(e){ const W = $('mapWrap'); const big = W.classList.contains('big') || document.body.classList.contains('mapOn');
+  if(!big || !drawMap.tf) return false;
+  const r = mapC.getBoundingClientRect(), mx = (e.clientX - r.left) / r.width * MAPN, my = (e.clientY - r.top) / r.height * MAPN;
+  let best = null, bd = 26; for(const s of tpSpots()){ const p = trail[s.i]; const d = Math.hypot(drawMap.tf.u(p.x) - mx, drawMap.tf.v(p.z) - my); if(d < bd){ bd = d; best = s; } }
+  if(!best) return false;
+  if(best.i > TP_REACH + 3){ toast('아직 가 보지 않은 곳이에요 · 걸어서 먼저 들러 보세요', 2.6); return true; }
+  tpPick = best; $('tpName').textContent = best.name; $('tpAsk').hidden = false; return true; }
+window.__tp = { spots: tpSpots, tf: () => drawMap.tf, reach: () => TP_REACH };
+'''
+
+
+def patch_teleport(P, m):
+    P.rep('</style>', TP_CSS + '</style>', 1)
+    P.rep('<div id="mapWrap" class="hud glass click"><canvas id="map" width="500" height="500"></canvas></div>',
+          '<div id="mapWrap" class="hud glass click"><canvas id="map" width="500" height="500"></canvas></div>' + TP_HTML, 1)
+    # 지도 좌표 변환을 밖에서도 쓰게 + 전망 스팟 표시(지나온 곳은 금색, 아직이면 회색)
+    P.rep("  const toU = x => (x-ox)*k, toV = z => (z-oz)*k;\n",
+          "  const toU = x => (x-ox)*k, toV = z => (z-oz)*k; drawMap.tf = { u: toU, v: toV };\n", 1)
+    P.rep("  const dot = (x,z,col,rad) => {",
+          "  for(const vp of VIEWPOINTS){ if(vp.spin) continue; const p = trail[vp.i], u = toU(p.x), v = toV(p.z); if(u<-20||v<-20||u>MAPN+20||v>MAPN+20) continue; const rr = big ? 5 : 10, ok = vp.i <= TP_REACH + 3;\n"
+          "    mctx.save(); mctx.translate(u, v); mctx.rotate(Math.PI/4); mctx.fillStyle = ok ? '#f1c862' : 'rgba(200,200,200,.9)'; mctx.strokeStyle = '#2b2118'; mctx.lineWidth = big ? 1.6 : 3; mctx.fillRect(-rr*0.75, -rr*0.75, rr*1.5, rr*1.5); mctx.strokeRect(-rr*0.75, -rr*0.75, rr*1.5, rr*1.5); mctx.restore(); }\n"
+          "  const dot = (x,z,col,rad) => {", 1)
+    P.rep("$('mapWrap').onclick=()=>$('mapWrap').classList.toggle('big');",
+          "$('mapWrap').onclick=e=>{ if(tpClick(e)) return; $('mapWrap').classList.toggle('big'); };", 1)
+    P.rep("window.__game = {", TP_JS.replace('__ID__', m['id']) + "window.__game = {", 1)
