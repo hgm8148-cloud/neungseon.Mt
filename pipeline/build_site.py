@@ -25,7 +25,7 @@ from admin_patch import patch_admin
 from ios_patch import patch_ios, patch_install, INST_ROWS
 from ui_patch import patch_ui, UIX_ROWS
 from moon_patch import patch_moon
-from far_patch import patch_far
+from far_patch import patch_far, patch_flora
 from i18n_fix_patch import patch_i18n_fix, FIX_ROWS
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -311,6 +311,7 @@ def build_page(T, m, mts, data):
     patch_ui(P, m)
     patch_moon(P, m)
     patch_far(P, m)
+    patch_flora(P, m)
     patch_i18n_fix(P, m)
     patch_lang(P, m)
     # 선택 화면
