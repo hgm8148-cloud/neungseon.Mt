@@ -29,7 +29,7 @@
 28	El sendero llega a la cumbre
 29	En otoño, juntos al Baegundae del Bukhansan
 30	Solo ida, unos
-31	km · terreno hecho con datos reales de altitud
+31	km · terreno modelado a partir de datos de altitud reales
 32	Tu nombre de caminante
 33	Nuevo nombre
 34	Colores de la ropa
@@ -263,7 +263,7 @@
 262	Vista limpia: ocultar todos los botones (H)
 263	Idioma
 264	¿Qué montaña hoy?
-265	Elige un sendero hecho con datos reales de altitud
+265	Elige un sendero inspirado en el terreno real
 266	Corea · 10 montañas
 267	Mundo · 10 montañas
 268	Elegir otra montaña

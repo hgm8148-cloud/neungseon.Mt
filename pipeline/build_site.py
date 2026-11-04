@@ -1,6 +1,6 @@
 """게임 템플릿 + 산 설정 + 지형 데이터 → 산마다 페이지 한 장.
 
-    python3 build_site.py                       # 미리보기: pipeline/out/ 에 20개 페이지
+    python3 build_site.py                       # 미리보기: pipeline/out/ 에 산마다 페이지
     python3 build_site.py --to-site             # 저장소 루트(index.html=북한산, hallasan.html …)에 쓰기 (배포 전 승인 필요)
     python3 build_site.py --template game.photo.html --only hallasan
 
@@ -21,6 +21,19 @@ from sound_patch import patch_sound
 from camera_patch import patch_camera
 from look_patch import patch_look
 from landmark_patch import patch_landmark, lm_rows
+from admin_patch import patch_admin
+from ios_patch import patch_ios, patch_install, INST_ROWS
+from ui_patch import patch_ui, UIX_ROWS
+from moon_patch import patch_moon
+from far_patch import patch_far, patch_flora, patch_far_clumps
+from vista_patch import patch_vista
+from trail_patch import patch_trail
+from peak_patch import patch_peak
+from app_patch import patch_app, write_sw
+from preview_patch import patch_preview
+from relief_patch import patch_relief
+from loader_patch import patch_loader, loader_rows
+from i18n_fix_patch import patch_i18n_fix, FIX_ROWS
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PF = '/mnt/project-files/hiking-game'
@@ -35,9 +48,9 @@ COUNTRY = {
 # 선택 화면 등 공통 문구 [ko, en, ja, zh]
 UI_ROWS = [
     ['어느 산에 오를까요?', 'Which mountain today?', 'どの山に登りますか？', '今天爬哪座山？'],
-    ['실제 고도 데이터로 만든 산길을 골라 보세요', 'Pick a trail built from real elevation data', '実際の標高データで作った山道を選んでください', '选择一条用真实海拔数据制作的山路'],
-    ['국내 명산 10', 'Korea · 10 mountains', '韓国の名山 10', '韩国名山 10'],
-    ['해외 명산 10', 'World · 10 mountains', '世界の名山 10', '世界名山 10'],
+    ['실제 지형을 본떠 만든 산길을 골라 보세요', 'Pick a trail modelled on real terrain', '実際の地形をもとに作った山道を選んでください', '选择一条参照真实地形制作的山路'],
+    ['국내 명산', 'Korea', '韓国の名山', '韩国名山'],
+    ['해외 명산', 'World', '世界の名山', '世界名山'],
     ['다른 산 고르기', 'Choose another mountain', '別の山を選ぶ', '选择其他山'],
     ['지금 이 산', 'You are here', 'いまの山', '当前所在'],
     ['준비 중', 'Coming soon', '準備中', '准备中'],
@@ -168,11 +181,11 @@ def selector_html():
 <div id="mtSel" class="panel" hidden>
   <div class="mtCard">
     <div class="mtHead">
-      <div><h1>어느 산에 오를까요?</h1><p>실제 고도 데이터로 만든 산길을 골라 보세요</p></div>
+      <div><h1>어느 산에 오를까요?</h1><p>실제 지형을 본떠 만든 산길을 골라 보세요</p></div>
       <button type="button" class="mtX" id="mtX" aria-label="닫기">✕</button>
     </div>
     <p class="mtSaved" id="mtSaved" hidden>지금까지 걸은 기록을 저장했어요</p>
-    <div class="mtTabs" role="tablist"><button type="button" data-r="kr">국내 명산 10</button><button type="button" data-r="world">해외 명산 10</button></div>
+    <div class="mtTabs" role="tablist"><button type="button" data-r="kr">국내 명산</button><button type="button" data-r="world">해외 명산</button></div>
     <div class="mtList" id="mtList"></div>
   </div>
 </div>
@@ -197,7 +210,7 @@ SEL_CSS = '''
 .mtItem:hover,.mtItem:focus-visible{transform:translateY(-3px);box-shadow:0 12px 26px rgba(30,45,80,.18);outline:none}
 .mtPic{flex:none;position:relative;aspect-ratio:16/9;width:100%;background:#dde7f3}
 .mtPic svg{width:100%;height:100%;display:block}
-.mtPic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s ease}
+.mtPic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.3s ease}
 .mtPic img.on{opacity:1}
 .mtPic .mtTag{position:absolute;left:10px;top:10px;font-size:11.5px;padding:3px 10px;border-radius:999px;background:rgba(255,255,255,.92);color:#c8562a;font-weight:700}
 .mtPic .mtElev{position:absolute;right:10px;bottom:8px;font-size:12px;padding:2px 9px;border-radius:999px;background:rgba(20,28,48,.55);color:#fff;font-variant-numeric:tabular-nums}
@@ -227,10 +240,11 @@ def selector_js(cur, mts):
   function draw(){
     document.querySelectorAll('.mtTabs button').forEach(b => { const on = b.dataset.r === tab; b.classList.toggle('on', on); b.setAttribute('aria-selected', on); });
     list.innerHTML = '';
-    MTS.filter(m => m.r === tab).forEach(m => {
+    const T0 = performance.now(), RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    MTS.filter(m => m.r === tab).forEach((m, k) => {
       const b = document.createElement('button'); b.type = 'button'; b.className = 'mtItem' + (m.id === CUR ? ' here' : '');
       const pic = document.createElement('div'); pic.className = 'mtPic'; pic.innerHTML = m.pic; b.appendChild(pic);
-      if(m.photo){ const im = document.createElement('img'); im.alt = ''; im.loading = 'lazy'; im.src = m.photo; im.onload = () => im.classList.add('on'); im.onerror = () => im.remove(); pic.appendChild(im); }
+      if(m.photo){ const im = document.createElement('img'); im.alt = ''; im.loading = 'lazy'; im.src = m.photo; im.onload = () => setTimeout(() => im.classList.add('on'), RM ? 0 : Math.max(0, 1100 + k * 140 - (performance.now() - T0))); im.onerror = () => im.remove(); pic.appendChild(im); }
       const ev = document.createElement('span'); ev.className = 'mtElev'; ev.textContent = m.elev.toLocaleString() + 'm'; pic.appendChild(ev);
       if(m.id === CUR){ const t = document.createElement('span'); t.className = 'mtTag'; t.textContent = '지금 이 산'; pic.appendChild(t); }
       const body = document.createElement('div'); body.className = 'mtBody'; b.appendChild(body);
@@ -282,12 +296,13 @@ def build_page(T, m, mts, data):
     rows = list(UI_ROWS)
     for x in mts: rows += mountain_rows(x)
     if m['id'] != 'bukhansan': rows += page_rows(m)
-    rows += EXTRA_ROWS + SEASON_ROWS + SKY_ROWS + WX_ROWS + lm_rows(m) + [[tagline(m, l) for l in LANGS]]
+    rows += EXTRA_ROWS + SEASON_ROWS + SKY_ROWS + WX_ROWS + lm_rows(m) + FIX_ROWS + loader_rows(m) + [[tagline(m, l) for l in LANGS]]
     pre, R, post = split_R(P.t)
     R += ',\n    // 산 고르기·산 이름 (pipeline/build_site.py)\n' + ',\n'.join('    ' + json.dumps(r, ensure_ascii=False) for r in rows)
     if not m.get('legacy'):
         pre, post = patch_mountain(Patch(pre, m['id'] + ':head'), Patch(post, m['id']), m, meta)
     P.t = pre + R + post
+    patch_og(P, m['page'])
     patch_hike(P, m)
     patch_common(P, m, data)
     patch_photos(P, m)
@@ -299,6 +314,23 @@ def build_page(T, m, mts, data):
     patch_look(P, m)
     patch_landmark(P, m)
     patch_release(P, m)
+    patch_admin(P, m)
+    patch_ios(P, m)
+    patch_install(P, m)
+    patch_app(P, m)
+    patch_preview(P)
+    patch_ui(P, m)
+    patch_moon(P, m)
+    patch_far(P, m)
+    patch_flora(P, m)
+    patch_far_clumps(P, m)
+    patch_vista(P, m, meta)
+    patch_trail(P, m)
+    patch_peak(P, m, meta)
+    patch_relief(P, m)
+    if m.get("relief"): __import__("relief_patch").patch_uplook(P)
+    patch_loader(P, m, mts, data)
+    patch_i18n_fix(P, m)
     patch_lang(P, m)
     # 선택 화면
     P.rep('</style>', SEL_CSS + '</style>', 1)
@@ -323,6 +355,16 @@ def patch_hike(P, m):
         P.rep("store.set('hike', c.hike)", f"store.set('{key}', c.hike)", 1)
 
 
+def patch_og(H, page):
+    NV = '<meta name="naver-site-verification" content="8f0f6c4eff38edcc794467af0cae44d70eb60f67" />'   # 네이버 서치어드바이저 소유 확인 (지우지 마세요)
+    if NV not in H.t: H.rep('</head>', NV + '\n</head>', 1)
+    H.sub(r'(og:image" content="https://neungseon\.com/og\.png)(\?v=\d+)?', r'\g<1>?v=2', need=False)   # 메신저 미리보기 캐시를 새로
+    if page in ('', 'index.html'):   # 대표 주소(neungseon.com) 공유 미리보기는 한 산이 아니라 '능선' 브랜드로
+        H.sub(r'(og:title" content=")[^"]*', r'\g<1>능선, 여유 있는 산행')
+        H.sub(r'(og:description" content=")[^"]*', r'\g<1>국내·해외 명산의 산길을 한 걸음씩. 실제 지형을 본떠 만든 산길을 브라우저에서 바로 오르는 산행 게임.')
+        H.sub(r'(<meta name="description" content=")[^"]*', r'\g<1>국내·해외 명산의 산길을 한 걸음씩 걷는 웹 산행 게임. 실제 지형을 본떠 만들었어요. 한국어·English·日本語·中文')
+
+
 def patch_mountain(H, B, m, meta):
     """북한산에 묶인 글자·숫자를 이 산 값으로. H=번역표 앞(head·HTML), B=번역표 뒤(HTML·게임 코드)."""
     ko = lambda d: L(d, 'ko')
@@ -333,7 +375,7 @@ def patch_mountain(H, B, m, meta):
     # head 메타
     H.rep('북한산 백운대 836m', f'{ap} {e}m')
     H.rep('북한산 백운대', ap)
-    H.sub(r'(og:url" content="https://hgm8148-cloud\.github\.io/neungseon\.Mt/)', r'\g<1>' + page)
+    H.sub(r'(og:url" content="https://neungseon\.com/)', r'\g<1>' + page)
     for X in (B,):
         route = f'<b>{ko(W[0])}</b> → ' + (' → '.join(ko(w) for w in mids) + ' → ' if mids else '') + f'<b>{end} {e}m</b>'
         X.rep('<b>백운대탐방지원센터</b> → 하루재 → 백운산장 → 위문 → <b>백운대 정상 836m</b>', route, 1)
@@ -353,10 +395,11 @@ def patch_mountain(H, B, m, meta):
         # 지점 설명
         X.sub(r"const WP_DESC = \{[^}]*\};", 'const WP_DESC = {\n' + ',\n'.join(f"  '{js(k)}':'{js(v[0])}'" for k, v in wp_desc(m).items()) + '\n};', flags=re.S)
         # 높이 기준·표시
-        X.sub(r'const H0 = [\d.]+, VEX = [\d.]+;', f"const H0 = {meta['H0']}, VEX = {meta['VEX']}, ALT0 = {meta['BASE']};")
-        if meta['BASE']:
-            X.sub(r'Math\.round\(heightAt\(st\.x, ?st\.z\)\)', 'Math.round(heightAt(st.x,st.z)+ALT0)')
-            X.rep("$('alt').textContent = Math.round(y) + ' m';", "$('alt').textContent = Math.round(y + ALT0) + ' m';", 1)
+        # 산세 강조(xex): 들머리 높이를 기준으로 오르막을 키워요. 화면의 해발 표시는 실제 값으로 되돌려 보여요
+        xex = float((m.get('relief') or {}).get('xex', 1))
+        X.sub(r'const H0 = [\d.]+, VEX = [\d.]+;', f"const H0 = {meta['H0']}, VEX = {round(meta['VEX'] * xex, 4)}, ALT0 = {meta['BASE']}, XEX = {xex};\nconst realH = y => H0 + (y - H0) / XEX + ALT0;")
+        X.sub(r'Math\.round\(heightAt\(st\.x, ?st\.z\)\)', 'Math.round(realH(heightAt(st.x,st.z)))', need=False)
+        X.rep("$('alt').textContent = Math.round(y) + ' m';", "$('alt').textContent = Math.round(realH(y)) + ' m';", 1)
         start = int(round(meta['H0'] + meta['BASE']))
         X.sub(r"Math\.round\(110 \+ f\*726\)", f"Math.round({start} + f*{e - start})", need=False)
         # 태양: 위도·남중 시각
@@ -413,6 +456,15 @@ def main():
         open(p, 'w').write(html)
         print(f"{m['id']:>15} → {os.path.relpath(p, os.path.dirname(HERE))} ({len(html)/1024:.0f} KB)")
     copy_photos(out, [m['id'] for m in mts] + ['sky'])
+    write_sw(out)
+    if a.to_site:   # 검색 엔진용 머리말(제목·설명·canonical·JSON-LD) — seo_patch.py
+        import seo_patch; seo_patch.patch_dir(out)
+    if a.to_site and not a.only:   # 검색 엔진용 사이트맵: 산을 더하면 자동으로 늘어나요 (robots.txt는 그대로 둬요)
+        import datetime
+        day = datetime.date.today().isoformat()
+        locs = ['https://neungseon.com/'] + ['https://neungseon.com/' + m['page'] for m in mts if m['_built'] and m['page'] not in ('', 'index.html')]
+        xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join(f'  <url><loc>{u}</loc><lastmod>{day}</lastmod></url>\n' for u in locs) + '</urlset>\n'
+        open(os.path.join(out, 'sitemap.xml'), 'w').write(xml)
 
 
 if __name__ == '__main__':

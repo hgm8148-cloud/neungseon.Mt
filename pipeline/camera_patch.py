@@ -11,16 +11,21 @@
 
 ROCK_JS = r'''
 // ---------- 바위·통나무·돌계단 충돌 (pipeline/camera_patch.py) ----------
-// 야영장 안의 바위는 치워요 (앉을 자리·텐트와 겹치지 않게)
+// 야영장 안·탐방로 위의 바위는 치워요 (앉을 자리·텐트·길과 겹치지 않게)
 { const M = new THREE.Matrix4(), Z = new THREE.Matrix4().makeScale(0,0,0), v = new THREE.Vector3();
   scene.traverse(o => { if(!o.isInstancedMesh || o.geometry.type !== 'IcosahedronGeometry') return; let ch = false;
-    for(let n=0;n<o.count;n++){ o.getMatrixAt(n, M); v.setFromMatrixPosition(M); if(Math.hypot(v.x-CAMP.x, v.z-CAMP.z) < 8.5){ o.setMatrixAt(n, Z); ch = true; } }
+    const R0 = (o.geometry.parameters && o.geometry.parameters.radius) || 1;
+    for(let n=0;n<o.count;n++){ o.getMatrixAt(n, M); v.setFromMatrixPosition(M); if(Math.hypot(v.x-CAMP.x, v.z-CAMP.z) < 8.5){ o.setMatrixAt(n, Z); ch = true; continue; }
+      // 탐방로 위·바로 옆 바위도 치워요 (물가 바위 줄이 길을 가로막아 제자리걸음 하던 문제)
+      const e = M.elements, rr = R0*Math.max(Math.hypot(e[0], e[1], e[2]), Math.hypot(e[8], e[9], e[10])), nt = nearTrail(v.x, v.z, 2);
+      if(nt.i >= 0 && nt.d < rr + 0.6){ o.setMatrixAt(n, Z); ch = true; } }
     if(ch) o.instanceMatrix.needsUpdate = true; }); }
 ROCKC = (()=>{
   const ok = im => { const g = im.geometry, t = g.type, p = g.parameters || {};
     return t === 'IcosahedronGeometry' || t === 'BoxGeometry' || (t === 'CylinderGeometry' && (p.radiusBottom||0) >= 0.1); };
   const list = [], G = new Map(), C = 4, key = (i, j) => i*100003 + j, M4 = new THREE.Matrix4();
   scene.traverse(o => { if(!o.isInstancedMesh || !ok(o) || o === window.__skipRock) return; o.updateMatrixWorld(true);
+    const ZERO_M = new THREE.Matrix4().makeScale(0,0,0);
     const tmp = new THREE.Mesh(o.geometry); tmp.matrixAutoUpdate = false; if(!o.geometry.boundingBox) o.geometry.computeBoundingBox(); const bb = o.geometry.boundingBox;
     for(let n = 0; n < o.count; n++){ o.getMatrixAt(n, M4); M4.premultiply(o.matrixWorld); const e = M4.elements;
       const hx = Math.hypot(e[0], e[4], e[8]) * Math.max(Math.abs(bb.min.x), Math.abs(bb.max.x), Math.abs(bb.min.y), Math.abs(bb.max.y), Math.abs(bb.min.z), Math.abs(bb.max.z));
@@ -28,6 +33,9 @@ ROCKC = (()=>{
       const rx = (Math.abs(e[0]) + Math.abs(e[4]) + Math.abs(e[8])) * 1.0, rz = (Math.abs(e[2]) + Math.abs(e[6]) + Math.abs(e[10])) * 1.0, ry = (Math.abs(e[1]) + Math.abs(e[5]) + Math.abs(e[9]));
       const r = { x:e[12], y:e[13], z:e[14], rx:rx*Math.max(Math.abs(bb.min.x),bb.max.x), rz:rz*Math.max(Math.abs(bb.min.z),bb.max.z), top:e[13] + ry*Math.max(Math.abs(bb.min.y),bb.max.y), m:M4.clone(), mesh:tmp };
       if(r.top < heightAt(r.x, r.z) + 0.12) continue;   // 땅속에 잠긴 것
+      // 탐방로를 가로막는 키 큰 바위는 치워요 (황산 등에서 길 위 바위에 막혀 제자리걸음 하던 문제)
+      if(o.geometry.type !== 'CylinderGeometry' && o.geometry.type !== 'BoxGeometry' && r.top - heightAt(r.x, r.z) > 0.9){ const nt = nearTrail(r.x, r.z, 2);
+        if(nt.i >= 0 && nt.d < Math.max(r.rx, r.rz) + 1.0){ o.setMatrixAt(n, ZERO_M); o.instanceMatrix.needsUpdate = true; continue; } }
       list.push(r); const i0 = Math.floor((r.x - r.rx)/C), i1 = Math.floor((r.x + r.rx)/C), j0 = Math.floor((r.z - r.rz)/C), j1 = Math.floor((r.z + r.rz)/C);
       for(let i = i0; i <= i1; i++) for(let j = j0; j <= j1; j++){ const k = key(i, j); let a = G.get(k); if(!a) G.set(k, a = []); a.push(r); } } });
   const ray = new THREE.Raycaster(), down = new THREE.Vector3(0, -1, 0), o = new THREE.Vector3(), hits = [];
@@ -41,9 +49,11 @@ ROCKC = (()=>{
   return {
     n: list.length, list,
     // 올라설 수 있는 높이면 그 위에 서요
-    top(x, z, gy){ let y = -Infinity; for(const [a, b] of [[0,0],[FOOT,0],[-FOOT,0],[0,FOOT],[0,-FOOT]]){ const s = surf(x+a, z+b); if(s > y) y = s; } return y - gy <= STEP ? y : -Infinity; },
+    // 탐방로 위(가운데서 2.4m 안)에서는 더 높은 바위도 타고 올라 넘어가요
+    top(x, z, gy){ let y = -Infinity; for(const [a, b] of [[0,0],[FOOT,0],[-FOOT,0],[0,FOOT],[0,-FOOT]]){ const s = surf(x+a, z+b); if(s > y) y = s; } const lim = nearTrail(x, z, 1).d < 2.4 ? 3.2 : STEP; return y - gy <= lim ? y : -Infinity; },
     // 너무 높은 바위면 막혀요
-    blocked(x, z){ const g = heightAt(x, z); for(const [a, b] of [[0,0],[0.22,0],[-0.22,0],[0,0.22],[0,-0.22]]){ if(surf(x+a, z+b) - g > STEP) return true; } return false; },
+    blocked(x, z){ if(nearTrail(x, z, 1).d < 2.4) return false;   // 탐방로 위는 절대 막히지 않아요
+      const g = heightAt(x, z); for(const [a, b] of [[0,0],[0.22,0],[-0.22,0],[0,0.22],[0,-0.22]]){ if(surf(x+a, z+b) - g > STEP) return true; } return false; },
   };
 })(); window.__ROCKC = ROCKC;
 '''
@@ -84,5 +94,10 @@ def patch_camera(P, m):
     P.rep("    camLook.set(st.x, yC+1.1 + Math.tan(Math.min(1.35, lookUp*1.45))*st.dist, st.z);\n    camPos.set(st.x + Math.sin(st.yaw)*cy*st.dist, yC + 1.1 + sy*st.dist, st.z + Math.cos(st.yaw)*cy*st.dist);\n    const g = heightAt(camPos.x, camPos.z) + 0.8; if(camPos.y < g) camPos.y = g;\n    if(dt===0 || !st.camInit){ camera.position.copy(camPos); st.camInit = true; } else camera.position.lerp(camPos, Math.min(1, dt*8));",
           "    camLook.set(fX, yC+1.1 + Math.tan(Math.min(1.35, lookUp*1.45))*st.dist, fZ);\n"
           "    camPos.set(fX + Math.sin(st.yaw)*cy*st.dist, yC + 1.1 + sy*st.dist, fZ + Math.cos(st.yaw)*cy*st.dist);\n"
-          "    { const need = Math.max(0, heightAt(camPos.x, camPos.z) + 0.8 - camPos.y); st.lift = (dt === 0 || !st.camInit) ? need : st.lift + (need - st.lift)*Math.min(1, dt*(need > st.lift ? 6 : 1.5)); camPos.y += Math.max(st.lift, need - 0.35); }   // 땅 밑으로 안 들어가게, 그러나 출렁이지 않게\n"
+          "    { const need = Math.max(0, heightAt(camPos.x, camPos.z) + 0.8 - camPos.y); let los = 0;\n"
+          "      // 드론처럼 멀리 뺀 카메라: 아바타와 카메라 사이를 언덕이 가리면 카메라를 그만큼 위로 (시야 확보)\n"
+          "      if(st.dist > 9){ const ly = camLook.y, cy0 = camPos.y + need; let want = cy0; for(let t = 0.2; t < 0.99; t += 0.08){ const x = camLook.x + (camPos.x - camLook.x)*t, z = camLook.z + (camPos.z - camLook.z)*t, g = heightAt(x, z) + 1.6; if(ly + (want - ly)*t < g) want = ly + (g - ly)/t; } los = Math.min(want - cy0, st.dist*0.9); }\n"
+          "      const tgt = need + los; st.lift = (dt === 0 || !st.camInit || st.lift == null) ? tgt : st.lift + (tgt - st.lift)*Math.min(1, dt*(tgt > st.lift ? 4 : 1.2)); camPos.y += Math.max(st.lift, need - 0.35); }   // 땅 밑으로 안 들어가게, 그러나 출렁이지 않게\n"
           "    if(dt===0 || !st.camInit){ camera.position.copy(camPos); st.camInit = true; } else camera.position.lerp(camPos, Math.min(1, dt*14));", 1)
+    # 드론 시점: 카메라 바로 앞 나무·바위·풀만 잘라내요 (지형은 그대로 두어 땅 밑 빈 공간이 보이지 않게)
+    P.rep("\n  camera.lookAt(camLook);", "\n  camera.lookAt(camLook);\n  { const U = window.__vegCut || (window.__vegCut = {value:0}); U.value = (!st.fp && st.dist > 9) ? Math.max(0, Math.min(st.dist*0.45, camera.position.distanceTo(camLook) - 5)) : 0;\n    if(camera.near !== 0.3){ camera.near = 0.3; camera.updateProjectionMatrix(); }\n    const tn = performance.now(); if(!(tn < (st.cutT || 0))){ st.cutT = tn + 2000; scene.traverse(o => { if(!o.isInstancedMesh) return; for(const m of (Array.isArray(o.material) ? o.material : [o.material])){ if(!m || m.__cut || m.isShaderMaterial) continue; m.__cut = 1; const pb = m.onBeforeCompile, pk = m.customProgramCacheKey;\n      m.onBeforeCompile = function(sh, r){ if(pb) pb.call(this, sh, r); if(!sh.vertexShader.includes('#include <project_vertex>')) return; sh.uniforms.uVegCut = U;\n        sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\\nvarying float vCutZ;').replace('#include <project_vertex>', '#include <project_vertex>\\n  vCutZ = -mvPosition.z;');\n        sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\\nvarying float vCutZ; uniform float uVegCut;').replace(/void main\\(\\) \\{/, 'void main() {\\n  if(vCutZ < uVegCut) discard;'); };\n      m.customProgramCacheKey = function(){ return (pk ? pk.call(this) : '') + '|vegcut'; }; m.needsUpdate = true; } }); } }", 1)

@@ -45,7 +45,8 @@ I18N_JS = r'''
 def patch_lang(P, m):
     langs = PAGE_LANGS.get(m['id'])
     if not langs: return
-    X = {l: table(l) for l in langs}
+    from i18n_fix_patch import FIX_LOCAL
+    X = {l: {**table(l), **FIX_LOCAL.get(l, {})} for l in langs}
     P.rep("const LANGS = { ko:'한국어', en:'English', ja:'日本語', zh:'中文' };",
           "const LANGS = { ko:'한국어', en:'English', ja:'日本語', zh:'中文', " + ', '.join(f"{l}:'{NAMES[l]}'" for l in langs) + " };", 1)
     P.rep("const IDX = { en:1, ja:2, zh:3 };", "const IDX = { en:1, ja:2, zh:3 };" + I18N_JS
