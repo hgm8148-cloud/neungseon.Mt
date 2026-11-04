@@ -11,10 +11,14 @@
 
 ROCK_JS = r'''
 // ---------- 바위·통나무·돌계단 충돌 (pipeline/camera_patch.py) ----------
-// 야영장 안의 바위는 치워요 (앉을 자리·텐트와 겹치지 않게)
+// 야영장 안·탐방로 위의 바위는 치워요 (앉을 자리·텐트·길과 겹치지 않게)
 { const M = new THREE.Matrix4(), Z = new THREE.Matrix4().makeScale(0,0,0), v = new THREE.Vector3();
   scene.traverse(o => { if(!o.isInstancedMesh || o.geometry.type !== 'IcosahedronGeometry') return; let ch = false;
-    for(let n=0;n<o.count;n++){ o.getMatrixAt(n, M); v.setFromMatrixPosition(M); if(Math.hypot(v.x-CAMP.x, v.z-CAMP.z) < 8.5){ o.setMatrixAt(n, Z); ch = true; } }
+    const R0 = (o.geometry.parameters && o.geometry.parameters.radius) || 1;
+    for(let n=0;n<o.count;n++){ o.getMatrixAt(n, M); v.setFromMatrixPosition(M); if(Math.hypot(v.x-CAMP.x, v.z-CAMP.z) < 8.5){ o.setMatrixAt(n, Z); ch = true; continue; }
+      // 탐방로 위·바로 옆 바위도 치워요 (물가 바위 줄이 길을 가로막아 제자리걸음 하던 문제)
+      const e = M.elements, rr = R0*Math.max(Math.hypot(e[0], e[1], e[2]), Math.hypot(e[8], e[9], e[10])), nt = nearTrail(v.x, v.z, 2);
+      if(nt.i >= 0 && nt.d < rr + 0.6){ o.setMatrixAt(n, Z); ch = true; } }
     if(ch) o.instanceMatrix.needsUpdate = true; }); }
 ROCKC = (()=>{
   const ok = im => { const g = im.geometry, t = g.type, p = g.parameters || {};

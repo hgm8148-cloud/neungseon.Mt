@@ -2,7 +2,7 @@
 미리보기(claude 아티팩트, 파이어베이스 없음)는 비공개라 비밀번호만으로 켜져요.
 이메일 원문은 코드에 넣지 않고 SHA-256 해시만 둬요. 진짜 보호는 파이어베이스 규칙(auth.token.email)이 해요."""
 
-ADMIN_MAIL_HASH = '66fbf40f2c12a58d89db570b34b34470b40e9b715c720b3d85123fa53f768f56'
+ADMIN_MAIL_HASH = '0b19424c6645eae9d3b1c6ec9c821674a39dbbabe57e61371dbeb7694bb20acf'
 
 OWNER_JS = r"""
 const ADMIN_MAIL_HASH = '%s';

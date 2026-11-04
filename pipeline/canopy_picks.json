@@ -1,0 +1,143 @@
+{
+ "_format": "[사진 폴더 산id, 사진 번호, 중심 x 비율, 중심 y 비율, 정사각형 한 변(가로 대비 비율)]",
+ "bukhansan": [
+  "bukhansan",
+  0,
+  0.88,
+  0.9,
+  0.15
+ ],
+ "deogyusan": [
+  "deogyusan",
+  3,
+  0.3,
+  0.91,
+  0.15
+ ],
+ "everest": [
+  "everest",
+  0,
+  0.17,
+  0.78,
+  0.3
+ ],
+ "fuji": [
+  "fuji",
+  4,
+  0.08,
+  0.62,
+  0.1
+ ],
+ "halfdome": [
+  "halfdome",
+  5,
+  0.8,
+  0.45,
+  0.25
+ ],
+ "hallasan": [
+  "hallasan",
+  5,
+  0.3,
+  0.72,
+  0.22
+ ],
+ "huangshan": [
+  "huangshan",
+  0,
+  0.25,
+  0.86,
+  0.25
+ ],
+ "jirisan": [
+  "jirisan",
+  2,
+  0.2,
+  0.75,
+  0.25
+ ],
+ "kilimanjaro": [
+  "kilimanjaro",
+  2,
+  0.2,
+  0.88,
+  0.22
+ ],
+ "matterhorn": [
+  "matterhorn",
+  3,
+  0.15,
+  0.78,
+  0.25
+ ],
+ "montblanc": [
+  "matterhorn",
+  3,
+  0.62,
+  0.92,
+  0.1
+ ],
+ "mudeungsan": [
+  "mudeungsan",
+  1,
+  0.8,
+  0.88,
+  0.18
+ ],
+ "naejangsan": [
+  "naejangsan",
+  0,
+  0.25,
+  0.55,
+  0.3
+ ],
+ "seoraksan": [
+  "seoraksan",
+  1,
+  0.3,
+  0.9,
+  0.2
+ ],
+ "sobaeksan": [
+  "sobaeksan",
+  0,
+  0.85,
+  0.8,
+  0.18
+ ],
+ "taebaeksan": [
+  "taebaeksan",
+  1,
+  0.12,
+  0.9,
+  0.15
+ ],
+ "tongariro": [
+  "tongariro",
+  3,
+  0.85,
+  0.85,
+  0.18
+ ],
+ "torresdelpaine": [
+  "torresdelpaine",
+  3,
+  0.1,
+  0.75,
+  0.12
+ ],
+ "trecime": [
+  "trecime",
+  0,
+  0.2,
+  0.85,
+  0.25
+ ],
+ "wolchulsan": [
+  "wolchulsan",
+  0,
+  0.85,
+  0.9,
+  0.15
+ ]
+}

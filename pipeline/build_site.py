@@ -24,6 +24,9 @@ from landmark_patch import patch_landmark, lm_rows
 from admin_patch import patch_admin
 from ios_patch import patch_ios, patch_install, INST_ROWS
 from ui_patch import patch_ui, UIX_ROWS
+from moon_patch import patch_moon
+from far_patch import patch_far
+from i18n_fix_patch import patch_i18n_fix, FIX_ROWS
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PF = '/mnt/project-files/hiking-game'
@@ -285,7 +288,7 @@ def build_page(T, m, mts, data):
     rows = list(UI_ROWS)
     for x in mts: rows += mountain_rows(x)
     if m['id'] != 'bukhansan': rows += page_rows(m)
-    rows += EXTRA_ROWS + SEASON_ROWS + SKY_ROWS + WX_ROWS + lm_rows(m) + INST_ROWS + UIX_ROWS + [[tagline(m, l) for l in LANGS]]
+    rows += EXTRA_ROWS + SEASON_ROWS + SKY_ROWS + WX_ROWS + lm_rows(m) + FIX_ROWS + [[tagline(m, l) for l in LANGS]]
     pre, R, post = split_R(P.t)
     R += ',\n    // 산 고르기·산 이름 (pipeline/build_site.py)\n' + ',\n'.join('    ' + json.dumps(r, ensure_ascii=False) for r in rows)
     if not m.get('legacy'):
@@ -306,6 +309,9 @@ def build_page(T, m, mts, data):
     patch_ios(P, m)
     patch_install(P, m)
     patch_ui(P, m)
+    patch_moon(P, m)
+    patch_far(P, m)
+    patch_i18n_fix(P, m)
     patch_lang(P, m)
     # 선택 화면
     P.rep('</style>', SEL_CSS + '</style>', 1)

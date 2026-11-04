@@ -53,12 +53,12 @@ INST_SHEET = r"""
 <div id="aiSheet" class="panel" hidden><div class="card aiCard"><button class="pX" id="aiX" aria-label="닫기">✕</button>
   <h3 class="aiH">아이폰에 앱으로 설치하기</h3>
   <ol class="aiSteps" id="aiSafari">
-    <li><span>Safari 주소창 옆 <b>공유 버튼</b></span><svg class="aiIc" viewBox="0 0 24 24"><path d="M12 3v12M7.5 7.5 12 3l4.5 4.5M6 11H5v10h14V11h-1"/></svg><span>을 눌러요. 안 보이면 <b>⋯</b> 버튼을 먼저 눌러요.</span></li>
-    <li><span>목록을 내려 <b>홈 화면에 추가</b>를 눌러요.</span></li>
-    <li><span><b>웹 앱으로 열기</b>가 켜져 있으면 그대로 두고 <b>추가</b>를 눌러요.</span></li>
-    <li><span>홈 화면의 <b>능선</b> 아이콘으로 열면 주소창 없이 꽉 찬 화면이에요.</span></li>
+    <li><svg class="aiIc" viewBox="0 0 24 24"><path d="M12 3v12M7.5 7.5 12 3l4.5 4.5M6 11H5v10h14V11h-1"/></svg> Safari 주소창 옆 공유 버튼을 눌러요. 안 보이면 ⋯ 버튼을 먼저 눌러요.</li>
+    <li>목록을 내려 ‘홈 화면에 추가’를 눌러요.</li>
+    <li>‘웹 앱으로 열기’가 켜져 있으면 그대로 두고 ‘추가’를 눌러요.</li>
+    <li>홈 화면의 능선 아이콘으로 열면 주소창 없이 꽉 찬 화면이에요.</li>
   </ol>
-  <p class="aiNote" id="aiOther" hidden>카카오톡·네이버 같은 앱 안에서 연 화면에서는 설치할 수 없어요. 오른쪽 위(또는 아래) 메뉴에서 <b>Safari로 열기</b>를 누른 뒤 다시 해 주세요.</p>
+  <p class="aiNote" id="aiOther" hidden>카카오톡·네이버 같은 앱 안에서 연 화면에서는 설치할 수 없어요. 메뉴에서 ‘Safari로 열기’를 누른 뒤 다시 해 주세요.</p>
   <p class="aiNote">앱과 Safari는 기록을 따로 저장해요. 구글로 로그인하면 산행 기록이 앱으로 이어져요.</p>
   <button class="btn" id="aiOk" type="button">알겠어요</button>
 </div></div>"""
