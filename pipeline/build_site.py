@@ -29,7 +29,7 @@ from far_patch import patch_far, patch_flora, patch_far_clumps
 from vista_patch import patch_vista
 from trail_patch import patch_trail
 from peak_patch import patch_peak
-from app_patch import patch_app, write_sw
+from app_patch import patch_app, write_sw, patch_walk_keys
 from preview_patch import patch_preview
 from relief_patch import patch_relief
 from side_patch import patch_side, THEME_ROWS
@@ -338,6 +338,7 @@ def build_page(T, m, mts, data):
     patch_relief(P, m)
     if m.get("relief"): __import__("relief_patch").patch_uplook(P)
     patch_side(P, m)
+    patch_walk_keys(P, m)
     patch_loader(P, m, mts, data)
     patch_i18n_fix(P, m)
     patch_lang(P, m)

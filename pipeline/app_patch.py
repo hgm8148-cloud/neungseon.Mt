@@ -183,3 +183,12 @@ def patch_quick(P):
     P.rep('<div id="toast" class="hud glass pill"></div>', QUICK_HTML + '<div id="toast" class="hud glass pill"></div>', 1)
     P.rep('</style>', QUICK_CSS + '</style>', 1)
     P.rep("window.__game = {", QUICK_JS + "window.__game = {", 1)
+
+
+# ---------- 걷기 단축키 (2026-11-05 승연): Z 천천히 · X 빠르게 · C 멈추기 ----------
+def patch_walk_keys(P, m):
+    P.rep("  if(e.code==='KeyF') toggleAuto();",
+          "  if(e.code==='KeyF') toggleAuto();\n"
+          "  if(e.code==='KeyZ' || e.code==='KeyX'){ PACE = e.code==='KeyZ' ? 1 : 2; store.set('pace', PACE); st.goal = null; if(!st.auto) toggleAuto(); else refreshWalk(); }\n"
+          "  if(e.code==='KeyC'){ st.goal = null; try{ goalRing.visible = false; }catch(_){} try{ window.__SIDE && window.__SIDE.stop(); }catch(_){} if(st.auto){ st.auto = false; refreshWalk(); } }", 1)
+    P.rep("<kbd>F</kbd> 천천히 걷기", "<kbd>Z</kbd> 천천히 · <kbd>X</kbd> 빠르게 · <kbd>C</kbd> 멈추기", need=False)

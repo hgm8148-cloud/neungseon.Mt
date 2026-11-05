@@ -1349,7 +1349,7 @@ html:not([lang=ko]) .ld2.mtn h2{letter-spacing:.04em}
     <div class="tentRow"><svg class="tentPv" id="tentPv" viewBox="0 0 64 40"><path d="M4 36 Q20 6 40 6 Q56 8 60 36 Z" id="tentPvBody"/><path d="M40 6 Q50 14 54 36 L36 36 Q40 20 40 6Z" fill="rgba(0,0,0,.28)"/><path d="M44 36 Q46 24 50 18 Q54 26 55 36Z" fill="#2a2118"/><path d="M2 36h60" stroke="rgba(0,0,0,.35)" stroke-width="1.5"/></svg><div class="sw" id="tentSw"></div></div>
     <p class="note" id="mpNote">이 페이지를 함께 열어 둔 사람들이 같은 산길에 보여요. 지나치며 인사(1)를 건네 보세요.</p>
     <div class="keys touchKeys">왼쪽 아래 동그라미를 밀어 걷기 · 화면을 끌어 둘러보기 · 땅을 톡 눌러 그곳으로 걷기</div>
-    <div class="keys deskKeys"><kbd>W A S D</kbd> 걷기 · <kbd>Shift</kbd> 빠르게 · 땅 클릭으로 이동 · 마우스 드래그 시점 · <kbd>F</kbd> 천천히 걷기 · <kbd>V</kbd> 1인칭 · <kbd>H</kbd> 버튼 숨기기 · <kbd>M</kbd> 지도 · <kbd>R</kbd> 체크포인트</div>
+    <div class="keys deskKeys"><kbd>W A S D</kbd> 걷기 · <kbd>Shift</kbd> 빠르게 · 땅 클릭으로 이동 · 마우스 드래그 시점 · <kbd>Z</kbd> 천천히 · <kbd>X</kbd> 빠르게 · <kbd>C</kbd> 멈추기 · <kbd>V</kbd> 1인칭 · <kbd>H</kbd> 버튼 숨기기 · <kbd>M</kbd> 지도 · <kbd>R</kbd> 체크포인트</div>
     <div id="gLogin" hidden><button id="gBtn" class="gBtn" type="button">Google로 로그인</button><span id="gTxt">로그인하면 다른 기기에서도 이어서 오를 수 있어요</span></div>
     <div id="resume" hidden><div class="resHead">지난 산행이 저장되어 있어요</div><div class="resTxt" id="resTxt"></div><button class="btn" id="goResume">이어서 오르기</button></div>
         <div id="appInst" hidden><button id="aiBtn" class="gBtn" type="button">📲 앱으로 설치</button><span id="aiTxt">홈 화면에 두고 앱처럼 꽉 찬 화면으로 즐겨요</span></div>
@@ -3779,6 +3779,8 @@ addEventListener('keydown', e => {
   if(e.code==='Digit4') doBreath();
   if(e.code==='Digit5'||e.code==='KeyP') takePhoto();
   if(e.code==='KeyF') toggleAuto();
+  if(e.code==='KeyZ' || e.code==='KeyX'){ PACE = e.code==='KeyZ' ? 1 : 2; store.set('pace', PACE); st.goal = null; if(!st.auto) toggleAuto(); else refreshWalk(); }
+  if(e.code==='KeyC'){ st.goal = null; try{ goalRing.visible = false; }catch(_){} try{ window.__SIDE && window.__SIDE.stop(); }catch(_){} if(st.auto){ st.auto = false; refreshWalk(); } }
   if(e.code==='KeyR') toCheckpoint();
   if(e.code==='KeyM') $('mapWrap').classList.toggle('big');
   if(e.code==='KeyV') toggleView();
