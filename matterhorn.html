@@ -454,6 +454,16 @@ body.inSummit:not(.camping) #summitBtn#summitBtn#summitBtn{display:inline-flex!i
 #prog.tight{display:none!important}
 #pcard .pk{font-size:11.5px;font-weight:700;letter-spacing:.04em;color:#b5562c;margin:1px 3px 6px}
 
+#sideAsk{position:fixed;left:50%;bottom:calc(150px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:30;background:var(--paper,#fbf7ef);color:var(--ink,#2a2620);border-radius:18px;padding:14px 18px 14px;box-shadow:0 16px 44px rgba(0,0,0,.35);text-align:center;min-width:260px;max-width:min(92vw,380px)}
+#sideAsk[hidden]{display:none}
+#sideAsk .k{font-size:12px;font-weight:800;letter-spacing:.06em;color:#c0602e}
+#sideAsk .n{font-size:19px;font-weight:700;margin:3px 0 1px}
+#sideAsk .t{font-size:12.5px;opacity:.7}
+#sideAsk p{font-size:13.5px;margin:8px 0 12px}
+#sideAsk .row{display:flex;gap:8px;justify-content:center}
+#sideAsk button{border:0;border-radius:999px;padding:9px 18px;font:inherit;font-size:14px;font-weight:600;cursor:pointer}
+#sideAsk .go{background:#c0602e;color:#fff}#sideAsk .no{background:rgba(0,0,0,.07);color:inherit}
+
 /* ---------- 로딩 화면 (pipeline/loader_patch.py) ---------- */
 #loading .ld2{display:none}
 #loading.mBrand .ld2.brand, #loading.mMtn .ld2.mtn{display:block}
@@ -561,6 +571,7 @@ html:not([lang=ko]) .ld2.mtn h2{letter-spacing:.04em}
 .mtPic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.3s ease}
 .mtPic img.on{opacity:1}
 .mtPic .mtTag{position:absolute;left:10px;top:10px;font-size:11.5px;padding:3px 10px;border-radius:999px;background:rgba(255,255,255,.92);color:#c8562a;font-weight:700}
+.mtPic .mtDone{position:absolute;right:10px;top:10px;display:flex;gap:5px;align-items:center;font-size:11.5px;padding:3px 9px;border-radius:999px;background:rgba(20,28,48,.62);color:#fff}.mtPic .mtDone b{color:#ffd27a;font-weight:800}.mtPic .mtDone i{font-style:normal;color:#ffd27a;letter-spacing:1px}
 .mtPic .mtElev{position:absolute;right:10px;bottom:8px;font-size:12px;padding:2px 9px;border-radius:999px;background:rgba(20,28,48,.55);color:#fff;font-variant-numeric:tabular-nums}
 .mtBody{display:flex;flex-direction:column;gap:3px;padding:11px 14px 13px}
 .mtBody b{font-family:var(--display);font-size:18px;color:#1f2a44}
@@ -1100,6 +1111,18 @@ html:not([lang=ko]) .ld2.mtn h2{letter-spacing:.04em}
     ["이 브라우저는 앱 설치를 지원하지 않아요. 크롬이나 엣지(맥은 Safari)로 neungseon.com 을 열고 다시 눌러 주세요.", "This browser can’t install apps. Open neungseon.com in Chrome or Edge (Safari on Mac) and try again.", "このブラウザはアプリのインストールに対応していません。Chrome か Edge(Macは Safari)で neungseon.com を開いて、もう一度押してください。", "此浏览器不支持安装应用。请用 Chrome 或 Edge（Mac 用 Safari）打开 neungseon.com 后再试。"],
     ["설치한 앱과 브라우저는 기록을 따로 저장해요. 구글로 로그인하면 산행 기록이 이어져요.", "The installed app and the browser keep separate records. Sign in with Google to carry your hikes over.", "インストールしたアプリとブラウザは記録を別々に保存します。Googleでログインすると記録が引き継がれます。", "已安装的应用和浏览器分开保存记录。用 Google 登录即可同步登山记录。"],
     ["알겠어요", "Got it", "わかりました", "知道了"],
+    ["깎아지른 오르막", "Sheer climb", "切り立った登り", "陡峭上坡", "Steiler Anstieg", "Montée abrupte", "Salita ripida", "Subida empinada", "ठाडो उकालो", "Mteremko mkali"],
+    ["바위 틈 길", "Rock crevice", "岩の隙間の道", "岩缝小路", "Felsspalte", "Passage entre les rochers", "Passaggio tra le rocce", "Paso entre rocas", "चट्टानको चिराबाट बाटो", "Njia ya ufa wa mwamba"],
+    ["바위 굴", "Rock cave", "岩の洞窟", "岩洞", "Felshöhle", "Grotte rocheuse", "Grotta rocciosa", "Cueva de roca", "चट्टानको गुफा", "Pango la mwamba"],
+    ["숨은 길 발견!", "Hidden trail found!", "隠れた道を発見！", "发现隐藏小路！", "Versteckter Pfad entdeckt!", "Sentier caché découvert !", "Sentiero nascosto scoperto!", "¡Sendero oculto descubierto!", "लुकेको बाटो भेटियो!", "Njia iliyofichwa imepatikana!"],
+    ["이 길로 가 볼까요? 다시 탐방로로 이어져요", "Take this path? It rejoins the main trail", "この道を行ってみますか？ 本道に戻ります", "要走这条路吗？它会回到主步道", "Diesen Weg nehmen? Er führt zurück zum Hauptweg", "Prendre ce chemin ? Il rejoint le sentier principal", "Prendere questo sentiero? Si ricongiunge al principale", "¿Tomar este camino? Vuelve al sendero principal", "यो बाटो जाने? यो मुख्य बाटोमै जोडिन्छ", "Kupita njia hii? Inarudi njia kuu"],
+    ["이 길로 가기", "Take it", "この道へ", "走这条路", "Los geht’s", "Y aller", "Andiamo", "Ir por aquí", "यो बाटो जाने", "Pita hapa"],
+    ["그냥 갈래요", "Not now", "やめておく", "先不了", "Lieber nicht", "Pas maintenant", "Non ora", "Ahora no", "अहिले होइन", "Si sasa"],
+    ["다시 탐방로로 나왔어요", "Back on the main trail", "本道に戻りました", "回到主步道了", "Zurück auf dem Hauptweg", "De retour sur le sentier principal", "Di nuovo sul sentiero principale", "De vuelta en el sendero principal", "मुख्य बाटोमा फर्कियो", "Umerudi njia kuu"],
+    ["◯ 표시된 곳을 누르면 바로 이동해요", "◯ Tap a circled spot to jump there", "◯ 印の場所をタップするとすぐ移動します", "◯ 点击圆圈处即可直接前往", "◯ Markierte Stelle antippen, um hinzuspringen", "◯ Touchez un lieu entouré pour y aller", "◯ Tocca un punto cerchiato per andarci", "◯ Toca un punto marcado para ir allí", "◯ घेरिएको ठाउँ थिच्नुहोस्, सिधै पुगिन्छ", "◯ Gusa sehemu yenye duara kwenda huko"],
+    ["완등하면 경유지로 바로 이동할 수 있어요", "Summit once to jump between checkpoints", "完登すると経由地へすぐ移動できます", "登顶后可直接前往途经点", "Nach dem Gipfel kannst du zu Etappen springen", "Après le sommet, allez directement aux étapes", "Dopo la vetta puoi saltare alle tappe", "Tras la cumbre podrás ir directo a los puntos", "शिखर पुगेपछि बिसौनीमा सिधै जान सकिन्छ", "Ukifika kileleni utaweza kuruka vituoni"],
+    ["이 산을 완등하면 지도에서 눌러 바로 이동할 수 있어요", "Summit this mountain to jump from the map", "この山を完登すると地図からすぐ移動できます", "登顶这座山后可在地图上直接前往", "Erst den Gipfel erreichen, dann per Karte springen", "Atteignez le sommet pour voyager depuis la carte", "Raggiungi la vetta per spostarti dalla mappa", "Llega a la cumbre para moverte desde el mapa", "यो हिमालको शिखर पुगेपछि नक्साबाट सिधै जान सकिन्छ", "Fika kileleni kwanza ili uruke kutoka ramani"],
+    ["완등", "Summited", "完登", "登顶", "Gipfel", "Sommet", "Vetta", "Cumbre", "शिखर", "Kilele"],
     ["마터호른", "Matterhorn", "マッターホルン", "马特洪峰"],
     ["회른리 산장", "Hörnli Hut", "ヘルンリ小屋", "霍恩利小屋"],
     ["회른리 산장 길", "Hörnli Hut Trail", "ヘルンリ小屋への道", "霍恩利小屋步道"],
@@ -1311,6 +1334,7 @@ html:not([lang=ko]) .ld2.mtn h2{letter-spacing:.04em}
   </div>
 </div>
 <button id="cleanOff" class="glass pill" aria-label="버튼 다시 보이기">버튼 보이기</button>
+<div id="sideAsk" hidden><div class="k">숨은 길 발견!</div><div class="n" id="sdName"></div><div class="t" id="sdTheme"></div><p>이 길로 가 볼까요? 다시 탐방로로 이어져요</p><div class="row"><button class="no" id="sdNo">그냥 갈래요</button><button class="go" id="sdGo">이 길로 가기</button></div></div>
 <div id="mapWrap" class="hud glass click"><canvas id="map" width="500" height="500"></canvas></div><div id="tpAsk" hidden><div class="box"><div class="nm" id="tpName"></div><p class="q">이곳으로 순간이동할까요?</p><small>이미 지나온 곳이라 바로 갈 수 있어요</small><div class="row"><button class="no" id="tpNo">취소</button><button class="go" id="tpGo">이동하기</button></div></div></div>
 
 <div id="start" class="panel">
@@ -1447,6 +1471,8 @@ html:not([lang=ko]) .ld2.mtn h2{letter-spacing:.04em}
   <div class="adHead"><b>🛠 관리자</b><button id="adX" title="접기">✕</button></div>
   <div class="adSec">이동</div>
   <div class="adRow"><button data-ad="goStart">들머리</button><button data-ad="goMid">중턱</button><button data-ad="goTop">정상</button><button data-ad="goCamp">야영장</button></div>
+  <div class="adSec">숨은 길 <span id="adSideN"></span> <small>· 관리자에게만 보여요 · 누르면 입구로 이동</small></div>
+  <div class="adRow" id="adSide"></div>
   <div class="adSec">시간 <span id="adHour"></span></div>
   <div class="adRow"><button data-ad="tReal">실시간</button><button data-ad="tDawn">일출</button><button data-ad="tMorning">오전</button><button data-ad="tDay">오후</button><button data-ad="tDusk">일몰</button><button data-ad="tNight">심야</button></div>
   <input type="range" id="adSlider" min="0" max="24" step="0.1" value="12">
@@ -3745,7 +3771,7 @@ function stopAuto(){ if(st.auto){ st.auto=false; refreshWalk(); } }
 addEventListener('keydown', e => {
   if(!st.started || e.target.tagName==='INPUT') return;
   keys[e.code] = true;
-  if(['KeyW','KeyA','KeyS','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.code)){ stopAuto(); st.goal=null; }
+  if(['KeyW','KeyA','KeyS','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.code)){ stopAuto(); st.goal=null; if(window.__SIDE) window.__SIDE.stop(); }
   if(e.repeat) return;
   if(e.code==='Digit1') doWave();
   if(e.code==='Digit2'||e.code==='KeyE') doRest();
@@ -4133,8 +4159,11 @@ function drawMap(){
     if(u<-60||v<-60||u>MAPN+60||v>MAPN+60) return;
     mctx.fillStyle = i===WPS.length-1?'#e8452a':(i<=st.cp?'#e3b04f':'#fff'); mctx.beginPath(); mctx.arc(u,v,r,0,7); mctx.fill(); mctx.strokeStyle='#2b2118'; mctx.lineWidth=big?2:4; mctx.stroke();
     const lab = (window.T||(x=>x))(w.name.replace(/\(.*\)/,'')); mctx.fillStyle='#fff'; mctx.strokeStyle='rgba(0,0,0,.75)'; mctx.lineWidth=big?4:8; mctx.strokeText(lab,u,v-r-6); mctx.fillText(lab,u,v-r-6); });
-  for(const vp of VIEWPOINTS){ if(vp.spin) continue; const p = trail[vp.i], u = toU(p.x), v = toV(p.z); if(u<-20||v<-20||u>MAPN+20||v>MAPN+20) continue; const rr = big ? 5 : 10, ok = vp.i <= TP_REACH + 3;
+  for(const vp of VIEWPOINTS){ if(vp.spin) continue; const p = trail[vp.i], u = toU(p.x), v = toV(p.z); if(u<-20||v<-20||u>MAPN+20||v>MAPN+20) continue; const rr = big ? 5 : 10, ok = tpOk(vp);
     mctx.save(); mctx.translate(u, v); mctx.rotate(Math.PI/4); mctx.fillStyle = ok ? '#f1c862' : 'rgba(200,200,200,.9)'; mctx.strokeStyle = '#2b2118'; mctx.lineWidth = big ? 1.6 : 3; mctx.fillRect(-rr*0.75, -rr*0.75, rr*1.5, rr*1.5); mctx.strokeRect(-rr*0.75, -rr*0.75, rr*1.5, rr*1.5); mctx.restore(); }
+  if(big){ for(const s of tpSpots()){ if(!tpOk(s)) continue; const u = toU(s.x), v = toV(s.z); mctx.save(); mctx.strokeStyle = 'rgba(255,255,255,.95)'; mctx.lineWidth = 2; mctx.shadowColor = 'rgba(255,255,255,.8)'; mctx.shadowBlur = 6; mctx.beginPath(); mctx.arc(u, v, 10, 0, 7); mctx.stroke(); mctx.restore(); }
+    mctx.save(); mctx.font = '600 12px sans-serif'; mctx.textAlign = 'left'; mctx.fillStyle = 'rgba(255,255,255,.92)'; mctx.strokeStyle = 'rgba(20,16,12,.75)'; mctx.lineWidth = 3; const lg = tpSum() || tpAdm() ? '◯ 표시된 곳을 누르면 바로 이동해요' : '완등하면 경유지로 바로 이동할 수 있어요'; const lt = (window.T || (x => x))(lg); mctx.strokeText(lt, 10, MAPN - 12); mctx.fillText(lt, 10, MAPN - 12); mctx.restore(); }
+  if(window.__SIDE) window.__SIDE.draw(mctx, toU, toV, big);
   const dot = (x,z,col,rad) => { mctx.fillStyle=col; mctx.strokeStyle='#fff'; mctx.lineWidth=big?1.5:3; mctx.beginPath(); mctx.arc(toU(x),toV(z),rad,0,7); mctx.fill(); mctx.stroke(); };
   for(const n of npcs) dot(n.x, n.z, 'rgba(230,225,215,.85)', big?3:6);
   for(const a of remotes.values()) dot(a.x, a.z, hexCss(a.outfit.jacket), big?5:10);
@@ -4486,11 +4515,12 @@ async function cloudPull(){ const fb = await FB_READY; if(!isGoogleUser(fb)) ret
   try{ const s = await fb.D.get(fb.D.ref(fb.db, `users/${fb.auth.currentUser.uid}`)), c = s.val(); if(!c) return false; let changed = false;
     if(num(c.pts) > store.get('profTs', 0)){ if(typeof c.nick === 'string') store.set('nick', c.nick.replace(/[<>]/g,'').slice(0,10)); const o = cleanOutfit(c.outfit); if(o) store.set('outfit', o); if(typeof c.tent === 'number') store.set('tent', c.tent & 0xffffff); store.set('profTs', num(c.pts)); changed = true; }
     const lh = store.get('hike.matterhorn', null); if(c.hike && c.hike.v === 1 && c.hike.m === 'matterhorn' && isFinite(c.hike.x) && (!lh || num(c.hike.ts) > num(lh.ts))){ store.set('hike.matterhorn', c.hike); changed = true; }
+    if(c.prog && typeof c.prog === 'object'){ const lp = store.get('prog', {}); for(const k in c.prog){ const a = c.prog[k] || {}, b = lp[k] || (lp[k] = {}); if(a.sum) b.sum = 1; b.tr = [...new Set([...(b.tr || []), ...((a.tr || []).filter(Number.isInteger))])]; if(a.n && !b.n) b.n = a.n; } store.set('prog', lp); }
     return changed; }catch(e){ return false; } }
 // 클라우드에 저장: 30초에 한 번, 닫을 때는 바로
 let lastCloud = 0;
 function cloudPush(force){ return FB_READY.then(fb => { if(!isGoogleUser(fb)) return; const now = Date.now(); if(!force && now - lastCloud < 30000) return; lastCloud = now;
-  return fb.D.set(fb.D.ref(fb.db, `users/${fb.auth.currentUser.uid}`), { nick: String(me.nick).slice(0,12), outfit: me.outfit, tent: me.tent, pts: store.get('profTs', 0), hike: store.get('hike.matterhorn', null), t: fb.D.serverTimestamp() }).catch(()=>{}); }); }
+  return fb.D.set(fb.D.ref(fb.db, `users/${fb.auth.currentUser.uid}`), { nick: String(me.nick).slice(0,12), outfit: me.outfit, tent: me.tent, pts: store.get('profTs', 0), hike: store.get('hike.matterhorn', null), prog: store.get('prog', {}), t: fb.D.serverTimestamp() }).catch(()=>{}); }); }
 // 다른 기기에서 더 최근 기록이 있으면 시작 전에 한 번 반영
 FB_READY.then(async fb => { if(!isGoogleUser(fb) || st.started) return; let once = false; try{ once = sessionStorage.getItem('neungseon.pulled') === '1'; }catch(e){}
   if(!once && await cloudPull()){ try{ sessionStorage.setItem('neungseon.pulled','1'); }catch(e){} if(!st.started) location.reload(); } });
@@ -4572,7 +4602,7 @@ function update(dt){
   if(joy.id !== null && Math.hypot(joy.x, joy.y) > 0.18){ forward = -joy.y; strafe = joy.x; joySprint = Math.hypot(joy.x, joy.y) > 0.97; st.goal = null; }
   const nt = nearTrailFull(st.x, st.z);
   const tpz = trail[trail.length-1]; st.inSummit = Math.hypot(CAMP.x-st.x, CAMP.z-st.z) < SUMMIT_R || Math.hypot(tpz.x-st.x, tpz.z-st.z) < 16;
-  const onTrail = nt.d < 3.2 || st.inSummit;
+  const onTrail = nt.d < 3.2 || st.inSummit || !!(window.__SIDE && window.__SIDE.on(st.x, st.z));
   // 계곡 물가·정상 야영장에선 물병을 가득
   { const nearPool = POOL && Math.hypot(POOL.x-st.x, POOL.z-st.z) < 10; if((nearPool || st.inSummit) && st.water < 3 && st.started){ st.water = 3; toast(nearPool ? '계곡물로 물병을 가득 채웠어요 💧' : '야영장 물통에서 물병을 가득 채웠어요 💧', 2.5); } }
   let mx=0, mz=0, moving=false;
@@ -4629,7 +4659,7 @@ function update(dt){
     else if(!(st.sitting || st.breathing)) st.refillT = 0;
   }
   st.speed = speed;
-  if(st.camp || st.inSummit) setWarn('');
+  if(st.camp || st.inSummit || (window.__SIDE && window.__SIDE.on(st.x, st.z))) setWarn('');
   else if(!moving || speed>0){
     if(nt.d > 40) setWarn('탐방로에서 멀리 벗어났어요 · R을 누르면 체크포인트로 돌아가요');
     else if(nt.d > 3.2) setWarn('탐방로를 벗어났어요 · 걸음이 느려져요');
@@ -4707,7 +4737,11 @@ function update(dt){
     if(!st.view && !st.camp){ const fx = -Math.sin(st.yaw), fz = -Math.cos(st.yaw); let rise = 0;
       for(const d of [12, 24, 40]) rise = Math.max(rise, (heightAt(fX + fx*d, fZ + fz*d) - yC) * (20/(d+8)));
       const want = Math.min(1, Math.max(0, rise - 1.5)/7) * (st.dist > 4 ? 1 : 0); st.upk = st.upk == null ? want : st.upk + (want - st.upk)*Math.min(1, dt*1.5);
-      if(st.upk > 0.01){ const k = st.upk; camLook.x += fx*st.dist*0.9*k; camLook.z += fz*st.dist*0.9*k; camLook.y += Math.min(st.dist*1.2, rise*0.45 + st.dist*0.45)*k; } }
+      if(st.upk > 0.01){ const k = st.upk; let ox = fx*st.dist*0.9*k, oz = fz*st.dist*0.9*k, oy = Math.min(st.dist*1.2, rise*0.45 + st.dist*0.45)*k;
+        // 아바타가 화면 밖으로 밀려나지 않게: 아바타 쪽과 보는 쪽 사이 각도를 0.2rad(약 11°) 안으로
+        const ax = camLook.x - camPos.x, ay = camLook.y - camPos.y, az = camLook.z - camPos.z, al = Math.hypot(ax, ay, az) || 1;
+        for(let it = 0; it < 12; it++){ const bx = ax + ox, by = ay + oy, bz = az + oz, c = (ax*bx + ay*by + az*bz) / (al * (Math.hypot(bx, by, bz) || 1)); if(Math.acos(Math.min(1, c)) <= 0.2) break; ox *= 0.8; oy *= 0.8; oz *= 0.8; }
+        camLook.x += ox; camLook.z += oz; camLook.y += oy; } }
     if(dt===0 || !st.camInit){ camera.position.copy(camPos); st.camInit = true; } else camera.position.lerp(camPos, Math.min(1, dt*14));
   }
   if(st.camp && st.campCam && !moving){
@@ -4719,13 +4753,36 @@ function update(dt){
   if(st.camp && moving) st.campCam = null;
   if(window.__deckClamp) window.__deckClamp();
   camera.lookAt(camLook);
-  { const VU = window.__vegU || (window.__vegU = { uCutOn:{value:0}, uCamP:{value:new THREE.Vector3()}, uLook:{value:new THREE.Vector3()}, uCutR:{value:0}, uNearR:{value:0} });
-    const on = !st.fp && st.dist > 9; VU.uCutOn.value = on ? 1 : 0; VU.uCamP.value.copy(camera.position); VU.uLook.value.copy(camLook); VU.uCutR.value = 4 + st.dist*0.06; VU.uNearR.value = Math.max(6, st.dist*0.22);
+  if(window.__SIDE) window.__SIDE.update();
+  { const VU = window.__vegU || (window.__vegU = { uCutOn:{value:0}, uCamP:{value:new THREE.Vector3()}, uAvP:{value:new THREE.Vector3()} });
+    VU.uCutOn.value = (!st.fp && st.dist > 4) ? 1 : 0; VU.uCamP.value.copy(camera.position); VU.uAvP.value.set(st.x, heightAt(st.x, st.z) + 1.0, st.z);
     if(camera.near !== 0.3){ camera.near = 0.3; camera.updateProjectionMatrix(); }
-    const tn = performance.now(); if(!(tn < (st.cutT || 0))){ st.cutT = tn + 2000; scene.traverse(o => { if(!o.isInstancedMesh) return; for(const m of (Array.isArray(o.material) ? o.material : [o.material])){ if(!m || m.__cut || m.isShaderMaterial) continue; m.__cut = 1; const pb = m.onBeforeCompile, pk = m.customProgramCacheKey;
-      m.onBeforeCompile = function(sh, r){ if(pb) pb.call(this, sh, r); if(!sh.vertexShader.includes('#include <project_vertex>')) return; Object.assign(sh.uniforms, VU);
-        sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nuniform float uCutOn, uCutR, uNearR; uniform vec3 uCamP, uLook;').replace('#include <project_vertex>', '#include <project_vertex>\n  if(uCutOn > 0.5){\n  #ifdef USE_INSTANCING\n    vec4 ip = modelMatrix * instanceMatrix * vec4(0.0, 0.0, 0.0, 1.0);\n  #else\n    vec4 ip = modelMatrix * vec4(0.0, 0.0, 0.0, 1.0);\n  #endif\n    vec2 dd = ip.xz - uCamP.xz, sg = uLook.xz - uCamP.xz; float sl = max(1.0, dot(sg, sg)); float tt = clamp(dot(dd, sg)/sl, 0.0, 1.0); float lt = length(dd - sg*tt);\n    if((tt < 0.92 && lt < uCutR) || length(dd) < uNearR) gl_Position = vec4(2.0, 2.0, 2.0, 1.0);\n  }'); };
-      m.customProgramCacheKey = function(){ return (pk ? pk.call(this) : '') + '|vegcut2'; }; m.needsUpdate = true; } }); } }
+    const tn = performance.now(); if(!(tn < (st.cutT || 0))){ st.cutT = tn + 2000; scene.traverse(o => { if(!o.isInstancedMesh) return;
+      if(!o.geometry.boundingBox) o.geometry.computeBoundingBox(); const bb = o.geometry.boundingBox, top = bb.max.y, rad = Math.max(Math.abs(bb.min.x), bb.max.x, Math.abs(bb.min.z), bb.max.z);
+      for(const m of (Array.isArray(o.material) ? o.material : [o.material])){ if(!m || m.isShaderMaterial) continue;
+        if(m.__cut){ m.__topU.value = Math.max(m.__topU.value, top); m.__radU.value = Math.max(m.__radU.value, rad); continue; }
+        m.__cut = 1; m.__topU = {value: top}; m.__radU = {value: rad}; const pb = m.onBeforeCompile, pk = m.customProgramCacheKey;
+        m.onBeforeCompile = function(sh, r){ if(pb) pb.call(this, sh, r); if(!sh.vertexShader.includes('#include <project_vertex>') || !sh.fragmentShader.includes('#include <clipping_planes_fragment>')) return;
+          Object.assign(sh.uniforms, VU, { uTopY: this.__topU, uRadXZ: this.__radU });
+          sh.vertexShader = 'uniform float uCutOn, uTopY, uRadXZ; uniform vec3 uCamP, uAvP; varying float vCut;\n' + sh.vertexShader.replace('#include <project_vertex>', `#include <project_vertex>
+  vCut = 0.0;
+  if(uCutOn > 0.5){
+  #ifdef USE_INSTANCING
+    mat4 IM = modelMatrix * instanceMatrix;
+  #else
+    mat4 IM = modelMatrix;
+  #endif
+    vec3 ip = (IM * vec4(0.0, 0.0, 0.0, 1.0)).xyz; float sy = length(IM[1].xyz), sxz = length(IM[0].xyz);
+    float top = ip.y + uTopY * sy, rr = uRadXZ * sxz + 0.4;
+    vec2 dd = ip.xz - uCamP.xz, sg = uAvP.xz - uCamP.xz; float sl = max(0.01, dot(sg, sg)); float tt = clamp(dot(dd, sg)/sl, 0.0, 1.0); float lt = length(dd - sg*tt);
+    float ly = mix(uCamP.y, uAvP.y, tt);
+    float occ = (1.0 - smoothstep(rr, rr + 2.0, lt)) * smoothstep(ly - 0.6, ly + 0.4, top) * (1.0 - smoothstep(0.86, 0.97, tt)) * step(0.0001, tt);
+    vec3 cp = vec3(dd.x, clamp(uCamP.y, ip.y, top) - uCamP.y, dd.y); float nr = 1.0 - smoothstep(rr + 0.6, rr + 2.6, length(cp));
+    vCut = max(occ * 0.82, nr);
+  }`);
+          sh.fragmentShader = 'varying float vCut;\n' + sh.fragmentShader.replace('#include <clipping_planes_fragment>', `#include <clipping_planes_fragment>
+  if(vCut > 0.01){ vec2 q = mod(floor(gl_FragCoord.xy), 4.0); const float B[16] = float[16](0.,8.,2.,10.,12.,4.,14.,6.,3.,11.,1.,9.,15.,7.,13.,5.); float th = (B[int(q.y*4.0 + q.x)] + 0.5) / 16.0; if(vCut > 0.995 || th < vCut) discard; }`); };
+        m.customProgramCacheKey = function(){ return (pk ? pk.call(this) : '') + '|vegcut3'; }; m.needsUpdate = true; } }); } }
 
   sun.position.set(st.x + SUN_DIR.x*300, y + SUN_DIR.y*300, st.z + SUN_DIR.z*300); sun.target.position.set(st.x, y, st.z);
   window.__sky.position.copy(camera.position);
@@ -4771,7 +4828,7 @@ function update(dt){
   if(bannerT>0){ bannerT -= dt; if(bannerT<=0) $('banner').classList.remove('on'); }
 }
 
-function finish(){ clearHike();
+function finish(){ clearHike(); try{ window.__SIDE && window.__SIDE.summit(); }catch(e){}
   st.finished = true; stopAuto();
   $('sTime').textContent = fmtTime(st.gameSec);
   $('sDist').textContent = (st.walked/1000).toFixed(2)+' km';
@@ -5247,12 +5304,19 @@ $('cMin').onclick = () => { const v = !document.body.classList.contains('campMin
 const TP_KEY = 'neungseon.reach.matterhorn';
 let TP_REACH = 0; try{ TP_REACH = +localStorage.getItem(TP_KEY) || 0; }catch(e){}
 setInterval(() => { if(!st || st.x == null) return; const nt = nearTrail(st.x, st.z, 1); if(nt.i >= 0 && nt.d < 6 && nt.i > TP_REACH){ TP_REACH = nt.i; try{ localStorage.setItem(TP_KEY, TP_REACH); }catch(e){} } }, 700);
+// 순간이동 규칙 (2026-11-05 승연): 경유지·전망 스팟은 이 산을 완등한 사람만, 숨은 길 입구는 그 길을 찾은 사람만 (관리자는 모두)
+const tpAdm = () => document.body.classList.contains('admin');
+const tpSum = () => { try{ return !!((JSON.parse(localStorage.getItem('neungseon.prog') || '{}') || {})['matterhorn'] || {}).sum; }catch(e){ return false; } };
+const tpOk = s => tpAdm() || (s.side != null ? !!(window.__SIDE && window.__SIDE.found(s.side)) : tpSum());
 const tpSpots = () => { const out = []; const T_ = window.T || (x => x);
-  WPS.forEach((w, k) => out.push({ i: w.i, name: T_(w.name.replace(/\(.*\)/, '')), wp: k }));
-  for(const v of VIEWPOINTS) if(!v.spin) out.push({ i: v.i, name: T_(v.name), vp: true });
+  WPS.forEach((w, k) => { const p = trail[w.i]; out.push({ i: w.i, x: p.x, z: p.z, name: T_(w.name.replace(/\(.*\)/, '')), wp: k }); });
+  for(const v of VIEWPOINTS) if(!v.spin){ const p = trail[v.i]; out.push({ i: v.i, x: p.x, z: p.z, name: T_(v.name), vp: true }); }
+  const S = window.__SIDE; if(S) for(const q of S.paths){ if(!tpAdm() && !S.found(q.k)) continue; const p = q.pts[q.e]; out.push({ x: p.x, z: p.z, name: S.label(q), side: q.k }); }
   return out; };
 let tpPick = null;
-function tpGo(){ const s = tpPick; $('tpAsk').hidden = true; if(!s) return; const p = trail[Math.min(trail.length - 1, s.i)], q = trail[Math.min(trail.length - 1, s.i + 4)];
+function tpGo(){ const s = tpPick; $('tpAsk').hidden = true; if(!s) return;
+  if(s.side != null){ window.__SIDE.goTo(s.side); st.auto = false; refreshWalk(); st.cf = null; toast('순간이동했어요', 2); canvas.focus(); return; }
+  const p = trail[Math.min(trail.length - 1, s.i)], q = trail[Math.min(trail.length - 1, s.i + 4)];
   st.x = p.x; st.z = p.z; st.face = Math.atan2(q.x - p.x, q.z - p.z); st.yaw = st.face + Math.PI; st.goal = null; st.sitting = false; st.breathing = 0; st.auto = false; refreshWalk();
   goalRing.visible = false; st.camInit = false; st.cf = null; toast('순간이동했어요', 2); canvas.focus(); }
 $('tpGo').onclick = tpGo; $('tpNo').onclick = () => { $('tpAsk').hidden = true; tpPick = null; };
@@ -5260,11 +5324,11 @@ $('tpAsk').addEventListener('click', e => { if(e.target === $('tpAsk')){ $('tpAs
 function tpClick(e){ const W = $('mapWrap'); const big = W.classList.contains('big') || document.body.classList.contains('mapOn');
   if(!big || !drawMap.tf) return false;
   const r = mapC.getBoundingClientRect(), mx = (e.clientX - r.left) / r.width * MAPN, my = (e.clientY - r.top) / r.height * MAPN;
-  let best = null, bd = 26; for(const s of tpSpots()){ const p = trail[s.i]; const d = Math.hypot(drawMap.tf.u(p.x) - mx, drawMap.tf.v(p.z) - my); if(d < bd){ bd = d; best = s; } }
+  let best = null, bd = 26; for(const s of tpSpots()){ const d = Math.hypot(drawMap.tf.u(s.x) - mx, drawMap.tf.v(s.z) - my); if(d < bd){ bd = d; best = s; } }
   if(!best) return false;
-  if(best.i > TP_REACH + 3){ toast('아직 가 보지 않은 곳이에요 · 걸어서 먼저 들러 보세요', 2.6); return true; }
+  if(!tpOk(best)){ toast('이 산을 완등하면 지도에서 눌러 바로 이동할 수 있어요', 2.8); return true; }
   tpPick = best; $('tpName').textContent = best.name; $('tpAsk').hidden = false; return true; }
-window.__tp = { spots: tpSpots, tf: () => drawMap.tf, reach: () => TP_REACH };
+window.__tp = { spots: tpSpots, tf: () => drawMap.tf, reach: () => TP_REACH, ok: tpOk };
 
 // ---------- 경로 안내 바 자리 맞추기 (pipeline/trail_patch.py) ----------
 { const fit = () => { const pg = $('prog'), tl = $('brand'), tr = $('tr'); if(!pg || !tl || !tr) return;
@@ -5276,6 +5340,127 @@ window.__tp = { spots: tpSpots, tf: () => drawMap.tf, reach: () => TP_REACH };
     const w = Math.min(460, room), c = left + gap + room/2;
     pg.style.width = w + 'px'; pg.style.left = (Math.abs(c - innerWidth/2) < 4 ? innerWidth/2 : c) + 'px'; };
   addEventListener('resize', fit); setInterval(fit, 1500); setTimeout(fit, 300); window.__progFit = fit; }
+
+// ---------- 숨은 갈래길 (pipeline/side_patch.py) ----------
+const SIDE = (() => {
+  const MID = 'matterhorn', DEF = [["회른리 능선 오르막", "Hörnli Ridge Climb", "steep"], ["츠무트 바위틈", "Zmutt Crevice", "crevice"], ["빙하 얼음굴", "Glacier Ice Cave", "cave"], ["솔베이 급경사", "Solvay Steep", "steep"], ["회른리 바윗길", "Hörnli Crevice", "crevice"]], T_ = x => (window.T || (y => y))(x);
+  const isKo = () => { try{ return I18N.lang === 'ko'; }catch(e){ return true; } }, nm = S => isKo() ? S.name : S.en;
+  const isAdm = () => document.body.classList.contains('admin');
+  let rs = 9173 + MID.length * 131; const rnd = () => (rs = (rs * 16807) % 2147483647) / 2147483647;
+  const L = trail.length, cum = [0]; for(let i = 1; i < L; i++) cum.push(cum[i-1] + Math.hypot(trail[i].x - trail[i-1].x, trail[i].z - trail[i-1].z));
+  const TOT = cum[L-1], idxAt = d => { let lo = 0, hi = L - 1; while(lo < hi){ const m = (lo + hi) >> 1; if(cum[m] < d) lo = m + 1; else hi = m; } return lo; };
+  const n = Math.min(DEF.length, TOT < 3000 ? 3 : TOT < 5500 ? 4 : 5);
+  const paths = [];
+  for(let k = 0; k < n; k++){
+    const f = 0.10 + (k + 0.5) * (0.76 / n) + (rnd() - 0.5) * 0.04, d0 = f * TOT;
+    const th = DEF[k][2], span = th === 'steep' ? 140 + rnd()*80 : 200 + rnd()*120;
+    const a = idxAt(d0), b = idxAt(Math.min(TOT * 0.93, d0 + span));
+    if(b - a < 10) continue;
+    const pa = trail[a], pb = trail[b]; let side = (k % 2 ? 1 : -1);
+    // 덜 가파른 쪽 고르기 (너무 가파르면 반대쪽)
+    const nrm = i => { const p = trail[Math.max(0, i-3)], q = trail[Math.min(L-1, i+3)], dx = q.x - p.x, dz = q.z - p.z, l = Math.hypot(dx, dz) || 1; return [-dz/l, dx/l]; };
+    { const [nx, nz] = nrm(((a+b)/2)|0), m = trail[((a+b)/2)|0]; const h1 = Math.abs(heightAt(m.x + nx*35*side, m.z + nz*35*side) - heightAt(m.x, m.z)), h2 = Math.abs(heightAt(m.x - nx*35*side, m.z - nz*35*side) - heightAt(m.x, m.z)); if(h1 > h2 * 1.6) side = -side; }
+    const D = th === 'steep' ? 14 + rnd()*8 : 26 + rnd()*22, pts = [];
+    const steps = Math.max(12, Math.round((cum[b] - cum[a]) / 2));
+    for(let s = 0; s <= steps; s++){ const t = s / steps;
+      let x, z;
+      if(th === 'steep'){ x = pa.x + (pb.x - pa.x)*t; z = pa.z + (pb.z - pa.z)*t; }   // 곧장 치고 올라가는 길
+      else { const i = Math.round(a + (b - a)*t), q = trail[i]; x = q.x; z = q.z; }
+      const [nx, nz] = nrm(Math.round(a + (b - a)*t)), off = D * Math.pow(Math.sin(Math.PI * t), 0.75) * side + (rnd() - 0.5) * 0.8;
+      x += nx * off; z += nz * off;
+      if(Math.abs(x) > HALF - 8 || Math.abs(z) > HALF - 8){ pts.length = 0; break; }
+      pts.push({x, z}); }
+    if(pts.length < 10) continue;
+    // 입구: 탐방로에서 10m쯤 비켜난 곳 (덤불 뒤 작은 돌탑)
+    let e = 0; for(let s = 0; s < pts.length; s++){ if(nearTrail(pts[s].x, pts[s].z, 2).d > 10){ e = s; break; } }
+    if(!e) e = Math.min(pts.length - 1, 6);
+    paths.push({ k, name: DEF[k][0], en: DEF[k][1], theme: th, pts, a, b, e, side });
+  }
+  // 저장: 이 기기(store) + 구글 로그인하면 계정(prog)
+  const P0 = store.get('prog', {}), me = P0[MID] || (P0[MID] = {}); me.tr = me.tr || []; me.n = paths.length;
+  const save = () => { const p = store.get('prog', {}); const o = p[MID] || {}; o.tr = [...new Set([...(o.tr || []), ...me.tr])]; o.n = paths.length; if(me.sum) o.sum = 1; p[MID] = o; store.set('prog', p); try{ cloudPush(true); }catch(e){} };
+  save();
+  const found = k => me.tr.includes(k);
+  // ---- 길 그리기 ----
+  const ribbon = (pts, w, from) => { const P = [], I = [], U = []; let acc = 0;
+    for(let s = from; s < pts.length; s++){ const p = pts[s], q = pts[Math.min(pts.length-1, s+1)], o = pts[Math.max(0, s-1)]; let dx = q.x - o.x, dz = q.z - o.z; const l = Math.hypot(dx, dz) || 1; dx /= l; dz /= l;
+      if(s > from) acc += Math.hypot(p.x - pts[s-1].x, p.z - pts[s-1].z);
+      const fade = Math.min(1, (s - from) / 5);
+      for(const sg of [-1, 1]){ const x = p.x - dz*w*sg*fade, z = p.z + dx*w*sg*fade; P.push(x, heightAt(x, z) + 0.06, z); U.push(sg < 0 ? 0 : 1, acc / 6); } }
+    for(let s = 0; s < pts.length - from - 1; s++){ const i = s*2; I.push(i, i+1, i+2, i+1, i+3, i+2); }
+    const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(P, 3)); g.setAttribute('uv', new THREE.Float32BufferAttribute(U, 2)); g.setIndex(I); g.computeVertexNormals(); return g; };
+  const pathMat = new THREE.MeshStandardMaterial({map: TEX.trail, roughness: 1, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2, transparent: true, opacity: 0.92, depthWrite: false});
+  const rockMat = new THREE.MeshStandardMaterial({map: TEX.granite, roughness: 0.95, color: (window.__rocks && window.__rocks.material.color) ? window.__rocks.material.color.clone() : new THREE.Color(0xcfc8bc)});
+  const rockGeo = new THREE.IcosahedronGeometry(1, 1);
+  const deco = new THREE.Group(); scene.add(deco);
+  const dir = (pts, s) => { const p = pts[Math.max(0, s-1)], q = pts[Math.min(pts.length-1, s+1)]; return Math.atan2(q.x - p.x, q.z - p.z); };
+  for(const S of paths){ const pts = S.pts;
+    const m = new THREE.Mesh(ribbon(pts, 0.75, S.e), pathMat); m.receiveShadow = true; deco.add(m);
+    // 입구 돌탑 (작게)
+    { const p = pts[S.e], y = heightAt(p.x, p.z); for(let i = 0; i < 4; i++){ const r = new THREE.Mesh(rockGeo, rockMat); const sc = 0.32 - i*0.06; r.scale.set(sc*1.2, sc*0.7, sc); r.position.set(p.x + 0.9, y + 0.12 + i*0.2, p.z + 0.4); r.rotation.y = i; r.castShadow = true; deco.add(r); } }
+    const s0 = Math.floor(pts.length * 0.35), s1 = Math.floor(pts.length * 0.65);
+    if(S.theme === 'crevice'){ // 양쪽으로 높은 바위벽
+      for(let s = s0; s < s1; s += 2){ const p = pts[s], an = dir(pts, s), nx = Math.cos(an), nz = -Math.sin(an);
+        for(const sg of [-1, 1]){ const d = 1.7 + Math.random()*0.4, x = p.x + nx*d*sg, z = p.z + nz*d*sg, h = 3.2 + Math.random()*2.6; const r = new THREE.Mesh(rockGeo, rockMat);
+          r.scale.set(0.8 + Math.random()*0.5, h, 1.6 + Math.random()*0.8); r.position.set(x + nx*sg*0.6, heightAt(x, z) + h*0.55, z + nz*sg*0.6); r.rotation.set((Math.random()-0.5)*0.15, an, sg*0.08); r.castShadow = true; r.receiveShadow = true; deco.add(r); } } }
+    else if(S.theme === 'cave'){ // 머리 위를 덮은 바위 굴
+      const c0 = Math.floor(pts.length * 0.42), c1 = Math.floor(pts.length * 0.58);
+      for(let s = c0; s < c1; s += 1){ const p = pts[s], an = dir(pts, s), y = heightAt(p.x, p.z);
+        const arch = new THREE.Mesh(new THREE.CylinderGeometry(2.4, 2.4, 2.2, 10, 1, true, 0, Math.PI), rockMat); arch.material.side = THREE.DoubleSide;
+        arch.rotation.set(0, an, Math.PI/2); arch.rotateX(Math.PI/2); arch.position.set(p.x, y + 0.2, p.z); arch.castShadow = true; arch.receiveShadow = true; deco.add(arch);
+        const top = new THREE.Mesh(rockGeo, rockMat); top.scale.set(3.4, 1.6 + Math.random(), 2.6); top.position.set(p.x, y + 2.9, p.z); top.rotation.set(Math.random(), an, Math.random()*0.3); top.castShadow = true; deco.add(top); } }
+    else { // 깎아지른 오르막: 밧줄 기둥
+      const postM = new THREE.MeshStandardMaterial({color: 0x5a3e2a, roughness: 0.8}), postG = new THREE.CylinderGeometry(0.05, 0.06, 1.1, 6);
+      for(let s = S.e; s < pts.length; s += 3){ const p = pts[s], an = dir(pts, s), nx = Math.cos(an), nz = -Math.sin(an), x = p.x + nx*0.95, z = p.z + nz*0.95; const po = new THREE.Mesh(postG, postM); po.position.set(x, heightAt(x, z) + 0.55, z); deco.add(po); } }
+  }
+  // 갈래길 위 바위·나무는 치우고(걷는 자리), 통과는 막지 않아요
+  const onSide = (x, z, r) => { for(const S of paths){ const pts = S.pts; for(let s = S.e; s < pts.length; s += 1){ const dx = pts[s].x - x, dz = pts[s].z - z; if(dx*dx + dz*dz < r*r) return S; } } return null; };
+  { const M = new THREE.Matrix4(), Z = new THREE.Matrix4().makeScale(0, 0, 0), v = new THREE.Vector3();
+    scene.traverse(o => { if(!o.isInstancedMesh || o.parent === deco) return; let ch = false;
+      for(let i = 0; i < o.count; i++){ o.getMatrixAt(i, M); v.setFromMatrixPosition(M); if(onSide(v.x, v.z, 2.6)){ o.setMatrixAt(i, Z); ch = true; } }
+      if(ch) o.instanceMatrix.needsUpdate = true; }); }
+  if(typeof ROCKC !== 'undefined' && ROCKC){ const ob = ROCKC.blocked.bind(ROCKC); ROCKC.blocked = (x, z) => onSide(x, z, 2.2) ? false : ob(x, z); }
+  // ---- 발견 · 고르기 · 따라 걷기 ----
+  let ask = null, follow = null;
+  const box = $('sideAsk');
+  const showAsk = S => { ask = S; $('sdName').textContent = nm(S); $('sdTheme').textContent = T_(({steep:'깎아지른 오르막', crevice:'바위 틈 길', cave:'바위 굴'})[S.theme]); box.hidden = false; };
+  $('sdNo').onclick = () => { box.hidden = true; ask = null; canvas.focus(); };
+  $('sdGo').onclick = () => { const S = ask; box.hidden = true; ask = null; if(!S) return; follow = { S, s: S.e }; st.auto = false; refreshWalk(); st.sitting = false; canvas.focus(); };
+  let tick = 0;
+  return {
+    paths, found,
+    update(){
+      if(follow){ const S = follow.S, pts = S.pts; let s = follow.s; while(s < pts.length - 1 && Math.hypot(pts[s].x - st.x, pts[s].z - st.z) < 2.2) s++; follow.s = s;
+        if(s >= pts.length - 1 && Math.hypot(pts[s].x - st.x, pts[s].z - st.z) < 2.5){ follow = null; st.goal = null; goalRing.visible = false; toast(T_('다시 탐방로로 나왔어요'), 2.4); st.auto = true; refreshWalk(); }
+        else { st.goal = { x: pts[s].x, z: pts[s].z }; goalRing.visible = false; } }
+      if((tick++ % 10) !== 0 || st.finished) return;
+      for(const S of paths){ if(found(S.k)) continue; const p = S.pts[S.e]; if(Math.hypot(p.x - st.x, p.z - st.z) < 7){ me.tr.push(S.k); S._askedAt = Date.now(); save(); try{ sfx.chime && sfx.chime(); }catch(e){} banner(T_('숨은 길 발견!'), nm(S), 3); showAsk(S); break; } }
+      // 이미 찾은 길 입구에 다시 서면 또 고를 수 있어요
+      if(!ask && !follow){ for(const S of paths){ if(!found(S.k)) continue; const p = S.pts[S.e]; if(Math.hypot(p.x - st.x, p.z - st.z) < 3.5 && (!S._askedAt || Date.now() - S._askedAt > 60000)){ S._askedAt = Date.now(); showAsk(S); break; } } }
+      if(ask && Math.hypot(ask.pts[ask.e].x - st.x, ask.pts[ask.e].z - st.z) > 25){ box.hidden = true; ask = null; }
+    },
+    stop(){ follow = null; },
+    on(x, z){ return !!follow || !!onSide(x, z, 2.6); },
+    summit(){ me.sum = 1; save(); },
+    draw(mctx, toU, toV, big){ const adm = isAdm(); for(const S of paths){ const f = found(S.k); if(!f && !adm) continue; const col = f ? '#9fe0a8' : '#ffb347';
+        mctx.save(); mctx.strokeStyle = col; mctx.lineWidth = big ? 2.4 : 5; mctx.setLineDash(big ? [5, 4] : [10, 8]); mctx.beginPath();
+        S.pts.forEach((p, i) => { const u = toU(p.x), v = toV(p.z); i ? mctx.lineTo(u, v) : mctx.moveTo(u, v); }); mctx.stroke(); mctx.setLineDash([]);
+        const p = S.pts[S.e]; mctx.fillStyle = col; mctx.strokeStyle = '#1e2a1e'; mctx.lineWidth = big ? 1.5 : 3; mctx.beginPath(); mctx.arc(toU(p.x), toV(p.z), big ? 4.5 : 9, 0, 7); mctx.fill(); mctx.stroke();
+        if(adm){ mctx.font = `bold ${big ? 12 : 26}px sans-serif`; mctx.textAlign = 'left'; mctx.lineWidth = big ? 3 : 6; mctx.strokeStyle = 'rgba(20,20,20,.85)'; const t = (S.k + 1) + ' ' + nm(S), u = toU(p.x) + (big ? 7 : 14), v = toV(p.z) + (big ? 4 : 9); mctx.strokeText(t, u, v); mctx.fillStyle = col; mctx.fillText(t, u, v); }
+        mctx.restore(); } },
+    // 관리자: 입구로 바로 이동 · 이 산 숨은 길 기록 지우기
+    label: S => nm(S),
+    goTo(k){ this.adminGo(k); },
+    adminGo(k){ const S = paths.find(q => q.k === k); if(!S) return; if(!st.started){ toast('먼저 산행을 시작해 주세요', 2); return; }
+      const p = S.pts[Math.max(0, S.e - 1)], q = S.pts[Math.min(S.pts.length - 1, S.e + 1)]; follow = null; adminTeleport(p.x, p.z, Math.atan2(q.x - p.x, q.z - p.z)); S._askedAt = 0; },
+    adminReset(){ me.tr = []; me.sum = 0; const p = store.get('prog', {}); if(p[MID]){ p[MID].tr = []; delete p[MID].sum; } store.set('prog', p); try{ cloudPush(true); }catch(e){} for(const S of paths) S._askedAt = 0; toast('이 산의 숨은 길·완등 기록을 지웠어요', 2.5); },
+  };
+})();
+window.__SIDE = SIDE;
+{ const box = $('adSide'); if(box){
+  SIDE.paths.forEach(S => { const b = document.createElement('button'); b.textContent = (S.k + 1) + '. ' + S.name; b.title = S.theme; b.onclick = () => SIDE.adminGo(S.k); box.appendChild(b); });
+  const r = document.createElement('button'); r.textContent = '기록 지우기'; r.onclick = () => SIDE.adminReset(); box.appendChild(r);
+  const n = $('adSideN'); if(n) n.textContent = SIDE.paths.length + '개'; } }
 window.__game = {standY, heightAt, METEOR, VIEWPOINTS, POOL, restSpots, doRest, st, trail, WPS, heightAt, keys, camera, npcs, remotes, applyPeers, scene, renderer, player, SKY, CAMP, startCamp, startDescent, finish, campCam};
 frame();
 </script>
@@ -5327,6 +5512,12 @@ frame();
       if(m.photo){ const im = document.createElement('img'); im.alt = ''; im.loading = 'lazy'; im.src = m.photo; im.onload = () => setTimeout(() => im.classList.add('on'), RM ? 0 : Math.max(0, 1100 + k * 140 - (performance.now() - T0))); im.onerror = () => im.remove(); pic.appendChild(im); }
       const ev = document.createElement('span'); ev.className = 'mtElev'; ev.textContent = m.elev.toLocaleString() + 'm'; pic.appendChild(ev);
       if(m.id === CUR){ const t = document.createElement('span'); t.className = 'mtTag'; t.textContent = '지금 이 산'; pic.appendChild(t); }
+      { let pg = {}; try{ pg = (JSON.parse(localStorage.getItem('neungseon.prog') || '{}') || {})[m.id] || {}; }catch(e){}
+        const adm = document.body.classList.contains('admin'), nf = (pg.tr || []).length, nt = pg.n || 0;
+        if(pg.sum || nf || (adm && nt)){ const t = document.createElement('span'); t.className = 'mtDone';
+          if(pg.sum){ const w = document.createElement('b'); w.textContent = '완등'; t.appendChild(w); }
+          const sv = '★'.repeat(nf) + (adm ? '☆'.repeat(Math.max(0, nt - nf)) : ''); if(sv){ const s = document.createElement('i'); s.textContent = sv; t.appendChild(s); }
+          pic.appendChild(t); } }
       const body = document.createElement('div'); body.className = 'mtBody'; b.appendChild(body);
       const add = (tag, cls, txt) => { const e = document.createElement(tag); if(cls) e.className = cls; e.textContent = txt; body.appendChild(e); return e; };
       add('b', '', m.area);
