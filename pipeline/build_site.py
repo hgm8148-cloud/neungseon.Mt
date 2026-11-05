@@ -32,6 +32,7 @@ from peak_patch import patch_peak
 from app_patch import patch_app, write_sw
 from preview_patch import patch_preview
 from relief_patch import patch_relief
+from side_patch import patch_side, THEME_ROWS
 from loader_patch import patch_loader, loader_rows
 from i18n_fix_patch import patch_i18n_fix, FIX_ROWS
 
@@ -213,6 +214,7 @@ SEL_CSS = '''
 .mtPic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.3s ease}
 .mtPic img.on{opacity:1}
 .mtPic .mtTag{position:absolute;left:10px;top:10px;font-size:11.5px;padding:3px 10px;border-radius:999px;background:rgba(255,255,255,.92);color:#c8562a;font-weight:700}
+.mtPic .mtDone{position:absolute;right:10px;top:10px;display:flex;gap:5px;align-items:center;font-size:11.5px;padding:3px 9px;border-radius:999px;background:rgba(20,28,48,.62);color:#fff}.mtPic .mtDone b{color:#ffd27a;font-weight:800}.mtPic .mtDone i{font-style:normal;color:#ffd27a;letter-spacing:1px}
 .mtPic .mtElev{position:absolute;right:10px;bottom:8px;font-size:12px;padding:2px 9px;border-radius:999px;background:rgba(20,28,48,.55);color:#fff;font-variant-numeric:tabular-nums}
 .mtBody{display:flex;flex-direction:column;gap:3px;padding:11px 14px 13px}
 .mtBody b{font-family:var(--display);font-size:18px;color:#1f2a44}
@@ -247,6 +249,12 @@ def selector_js(cur, mts):
       if(m.photo){ const im = document.createElement('img'); im.alt = ''; im.loading = 'lazy'; im.src = m.photo; im.onload = () => setTimeout(() => im.classList.add('on'), RM ? 0 : Math.max(0, 1100 + k * 140 - (performance.now() - T0))); im.onerror = () => im.remove(); pic.appendChild(im); }
       const ev = document.createElement('span'); ev.className = 'mtElev'; ev.textContent = m.elev.toLocaleString() + 'm'; pic.appendChild(ev);
       if(m.id === CUR){ const t = document.createElement('span'); t.className = 'mtTag'; t.textContent = '지금 이 산'; pic.appendChild(t); }
+      { let pg = {}; try{ pg = (JSON.parse(localStorage.getItem('neungseon.prog') || '{}') || {})[m.id] || {}; }catch(e){}
+        const adm = document.body.classList.contains('admin'), nf = (pg.tr || []).length, nt = pg.n || 0;
+        if(pg.sum || nf || (adm && nt)){ const t = document.createElement('span'); t.className = 'mtDone';
+          if(pg.sum){ const w = document.createElement('b'); w.textContent = '완등'; t.appendChild(w); }
+          const sv = '★'.repeat(nf) + (adm ? '☆'.repeat(Math.max(0, nt - nf)) : ''); if(sv){ const s = document.createElement('i'); s.textContent = sv; t.appendChild(s); }
+          pic.appendChild(t); } }
       const body = document.createElement('div'); body.className = 'mtBody'; b.appendChild(body);
       const add = (tag, cls, txt) => { const e = document.createElement(tag); if(cls) e.className = cls; e.textContent = txt; body.appendChild(e); return e; };
       add('b', '', m.area);
@@ -296,7 +304,7 @@ def build_page(T, m, mts, data):
     rows = list(UI_ROWS)
     for x in mts: rows += mountain_rows(x)
     if m['id'] != 'bukhansan': rows += page_rows(m)
-    rows += EXTRA_ROWS + SEASON_ROWS + SKY_ROWS + WX_ROWS + lm_rows(m) + FIX_ROWS + loader_rows(m) + [[tagline(m, l) for l in LANGS]]
+    rows += EXTRA_ROWS + SEASON_ROWS + SKY_ROWS + WX_ROWS + lm_rows(m) + FIX_ROWS + THEME_ROWS + loader_rows(m) + [[tagline(m, l) for l in LANGS]]
     pre, R, post = split_R(P.t)
     R += ',\n    // 산 고르기·산 이름 (pipeline/build_site.py)\n' + ',\n'.join('    ' + json.dumps(r, ensure_ascii=False) for r in rows)
     if not m.get('legacy'):
@@ -329,6 +337,7 @@ def build_page(T, m, mts, data):
     patch_peak(P, m, meta)
     patch_relief(P, m)
     if m.get("relief"): __import__("relief_patch").patch_uplook(P)
+    patch_side(P, m)
     patch_loader(P, m, mts, data)
     patch_i18n_fix(P, m)
     patch_lang(P, m)

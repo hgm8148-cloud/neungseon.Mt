@@ -144,7 +144,11 @@ UPLOOK_JS = (
     "    if(!st.view && !st.camp){ const fx = -Math.sin(st.yaw), fz = -Math.cos(st.yaw); let rise = 0;\n"
     "      for(const d of [12, 24, 40]) rise = Math.max(rise, (heightAt(fX + fx*d, fZ + fz*d) - yC) * (20/(d+8)));\n"
     "      const want = Math.min(1, Math.max(0, rise - 1.5)/7) * (st.dist > 4 ? 1 : 0); st.upk = st.upk == null ? want : st.upk + (want - st.upk)*Math.min(1, dt*1.5);\n"
-    "      if(st.upk > 0.01){ const k = st.upk; camLook.x += fx*st.dist*0.9*k; camLook.z += fz*st.dist*0.9*k; camLook.y += Math.min(st.dist*1.2, rise*0.45 + st.dist*0.45)*k; } }\n")
+    "      if(st.upk > 0.01){ const k = st.upk; let ox = fx*st.dist*0.9*k, oz = fz*st.dist*0.9*k, oy = Math.min(st.dist*1.2, rise*0.45 + st.dist*0.45)*k;\n"
+    "        // 아바타가 화면 밖으로 밀려나지 않게: 아바타 쪽과 보는 쪽 사이 각도를 0.2rad(약 11°) 안으로\n"
+    "        const ax = camLook.x - camPos.x, ay = camLook.y - camPos.y, az = camLook.z - camPos.z, al = Math.hypot(ax, ay, az) || 1;\n"
+    "        for(let it = 0; it < 12; it++){ const bx = ax + ox, by = ay + oy, bz = az + oz, c = (ax*bx + ay*by + az*bz) / (al * (Math.hypot(bx, by, bz) || 1)); if(Math.acos(Math.min(1, c)) <= 0.2) break; ox *= 0.8; oy *= 0.8; oz *= 0.8; }\n"
+    "        camLook.x += ox; camLook.z += oz; camLook.y += oy; } }\n")
 
 
 def patch_uplook(P):
