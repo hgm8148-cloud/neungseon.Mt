@@ -49,12 +49,14 @@ THEME_ROWS = [
     ['버튼 펼치기', 'Show buttons', 'ボタンを表示', '展开按钮', 'Tasten zeigen', 'Afficher les boutons', 'Mostra pulsanti', 'Mostrar botones', 'बटन देखाउनुहोस्', 'Onyesha vitufe'],
     ['버튼 접기 (B)', 'Collapse buttons (B)', 'ボタンを畳む (B)', '收起按钮 (B)', 'Tasten einklappen (B)', 'Replier les boutons (B)', 'Comprimi pulsanti (B)', 'Contraer botones (B)', 'बटन लुकाउनुहोस् (B)', 'Kunja vitufe (B)'],
     ['버튼 펼치기 (B)', 'Show buttons (B)', 'ボタンを表示 (B)', '展开按钮 (B)', 'Tasten zeigen (B)', 'Afficher les boutons (B)', 'Mostra pulsanti (B)', 'Mostrar botones (B)', 'बटन देखाउनुहोस् (B)', 'Onyesha vitufe (B)'],
+    ['길이 막혀 있어서 탐방로로 옮겨 드렸어요', 'The path was blocked, so we moved you back to the trail', '道がふさがっていたので本道へ移動しました', '小路被挡住了，已帮你回到主步道', 'Der Weg war versperrt – zurück auf dem Hauptweg', 'Le chemin était bloqué, retour au sentier principal', 'Il sentiero era bloccato, torni sul principale', 'El camino estaba bloqueado; vuelves al sendero principal', 'बाटो बन्द थियो, मुख्य बाटोमा पुर्‍याइयो', 'Njia ilikuwa imezibwa, umerudishwa njia kuu'],
     ['완등', 'Summited', '完登', '登顶', 'Gipfel', 'Sommet', 'Vetta', 'Cumbre', 'शिखर', 'Kilele'],
 ]
 
 SIDE_CSS = r'''
 #sideAsk{position:fixed;left:50%;bottom:calc(150px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:30;background:var(--paper,#fbf7ef);color:var(--ink,#2a2620);border-radius:18px;padding:14px 18px 14px;box-shadow:0 16px 44px rgba(0,0,0,.35);text-align:center;min-width:260px;max-width:min(92vw,380px)}
 #sideAsk[hidden]{display:none}
+body.sideFollow #walkPill #bWalk{display:inline-block!important}
 #sideAsk .k{font-size:12px;font-weight:800;letter-spacing:.06em;color:#c0602e}
 #sideAsk .n{font-size:19px;font-weight:700;margin:3px 0 1px}
 #sideAsk .t{font-size:12.5px;opacity:.7}
@@ -76,31 +78,47 @@ const SIDE = (() => {
   const TOT = cum[L-1], idxAt = d => { let lo = 0, hi = L - 1; while(lo < hi){ const m = (lo + hi) >> 1; if(cum[m] < d) lo = m + 1; else hi = m; } return lo; };
   const n = Math.min(DEF.length, TOT < 3000 ? 3 : TOT < 5500 ? 4 : 5);
   const paths = [];
-  for(let k = 0; k < n; k++){
-    const f = 0.10 + (k + 0.5) * (0.76 / n) + (rnd() - 0.5) * 0.04, d0 = f * TOT;
-    const th = DEF[k][2], span = th === 'steep' ? 140 + rnd()*80 : 200 + rnd()*120;
+  const nrm = i => { const p = trail[Math.max(0, i-3)], q = trail[Math.min(L-1, i+3)], dx = q.x - p.x, dz = q.z - p.z, l = Math.hypot(dx, dz) || 1; return [-dz/l, dx/l]; };
+  // 한 갈래길 만들기 (v: 다시 시도할 때마다 방향·폭·자리를 조금씩 바꿔요)
+  const make = (k, v) => {
+    const f = 0.10 + (k + 0.5) * (0.76 / n) + (rnd() - 0.5) * 0.04 + (v ? ((v % 2 ? 1 : -1) * Math.ceil((v % 16 || 16) / 2) * 0.022) : 0), d0 = Math.max(0.05, f) * TOT;
+    const th = DEF[k][2], span = (th === 'steep' ? 140 + rnd()*80 : 200 + rnd()*120) * (v >= 16 ? 0.5 : v >= 4 ? 0.75 : 1);
     const a = idxAt(d0), b = idxAt(Math.min(TOT * 0.93, d0 + span));
-    if(b - a < 10) continue;
-    const pa = trail[a], pb = trail[b]; let side = (k % 2 ? 1 : -1);
-    // 덜 가파른 쪽 고르기 (너무 가파르면 반대쪽)
-    const nrm = i => { const p = trail[Math.max(0, i-3)], q = trail[Math.min(L-1, i+3)], dx = q.x - p.x, dz = q.z - p.z, l = Math.hypot(dx, dz) || 1; return [-dz/l, dx/l]; };
+    if(b - a < 10) return null;
+    let side = (k % 2 ? 1 : -1);
     { const [nx, nz] = nrm(((a+b)/2)|0), m = trail[((a+b)/2)|0]; const h1 = Math.abs(heightAt(m.x + nx*35*side, m.z + nz*35*side) - heightAt(m.x, m.z)), h2 = Math.abs(heightAt(m.x - nx*35*side, m.z - nz*35*side) - heightAt(m.x, m.z)); if(h1 > h2 * 1.6) side = -side; }
-    const D = th === 'steep' ? 14 + rnd()*8 : 26 + rnd()*22, pts = [];
+    if(v % 2) side = -side;
+    const sc = v >= 16 ? 0.35 : [1, 1, 0.75, 0.75, 0.6, 0.6, 0.5, 0.5][v % 8];
+    const D = (th === 'steep' ? 14 + rnd()*8 : 26 + rnd()*22) * sc, pts = [];
     const steps = Math.max(12, Math.round((cum[b] - cum[a]) / 2));
     for(let s = 0; s <= steps; s++){ const t = s / steps;
-      let x, z;
-      if(th === 'steep'){ x = pa.x + (pb.x - pa.x)*t; z = pa.z + (pb.z - pa.z)*t; }   // 곧장 치고 올라가는 길
-      else { const i = Math.round(a + (b - a)*t), q = trail[i]; x = q.x; z = q.z; }
-      const [nx, nz] = nrm(Math.round(a + (b - a)*t)), off = D * Math.pow(Math.sin(Math.PI * t), 0.75) * side + (rnd() - 0.5) * 0.8;
+      // 모든 갈래길이 탐방로 모양을 따라가다 옆으로 비켜나요 (곧은 지름길은 굽은 탐방로를 가로질러 꼬일 수 있어서)
+      const i = Math.round(a + (b - a)*t), q = trail[i]; let x = q.x, z = q.z;
+      const [nx, nz] = nrm(i), off = D * Math.pow(Math.sin(Math.PI * t), th === 'steep' ? 0.6 : 0.75) * side + (rnd() - 0.5) * 0.6;
       x += nx * off; z += nz * off;
-      if(Math.abs(x) > HALF - 8 || Math.abs(z) > HALF - 8){ pts.length = 0; break; }
+      if(Math.abs(x) > HALF - 8 || Math.abs(z) > HALF - 8) return null;
       pts.push({x, z}); }
-    if(pts.length < 10) continue;
-    // 입구: 탐방로에서 10m쯤 비켜난 곳 (덤불 뒤 작은 돌탑)
-    let e = 0; for(let s = 0; s < pts.length; s++){ if(nearTrail(pts[s].x, pts[s].z, 2).d > 10){ e = s; break; } }
-    if(!e) e = Math.min(pts.length - 1, 6);
-    paths.push({ k, name: DEF[k][0], en: DEF[k][1], theme: th, pts, a, b, e, side });
-  }
+    // 점 사이가 너무 벌어지지 않게 1.5m 간격으로 고르게
+    const R = [pts[0]]; for(let s = 1; s < pts.length; s++){ const p = R[R.length-1], q = pts[s], d = Math.hypot(q.x - p.x, q.z - p.z), m = Math.ceil(d / 1.5); for(let j = 1; j <= m; j++) R.push({ x: p.x + (q.x - p.x)*j/m, z: p.z + (q.z - p.z)*j/m }); }
+    let e = 0; for(let s = 0; s < R.length; s++){ if(nearTrail(R[s].x, R[s].z, 2).d > 10){ e = s; break; } }
+    if(!e) e = Math.min(R.length - 1, 6);
+    return { k, name: DEF[k][0], en: DEF[k][1], theme: th, pts: R, a, b, e, side };
+  };
+  // 쓸 만한지: 탐방로 양 끝에 붙고, 다른 탐방로 구간·다른 갈래길과 엉키지 않고, 너무 가파르지 않고, 저절로 꼬이지 않기
+  const check = (S) => { const P = S.pts, lo = S.a - 20, hi = S.b + 20, why = [];
+    if(Math.hypot(P[0].x - trail[S.a].x, P[0].z - trail[S.a].z) > 2 || Math.hypot(P[P.length-1].x - trail[S.b].x, P[P.length-1].z - trail[S.b].z) > 2) why.push('ends');
+    for(let s = 0; s < P.length && !why.length; s += 2){ const p = P[s]; for(let i = 0; i < L; i += 2){ if(i >= lo && i <= hi) continue; const q = trail[i]; if((q.x - p.x)*(q.x - p.x) + (q.z - p.z)*(q.z - p.z) < 144){ why.push('cross'); break; } } }
+    let mg = 0; for(let s = 1; s < P.length; s++){ const d = Math.hypot(P[s].x - P[s-1].x, P[s].z - P[s-1].z) || 1; mg = Math.max(mg, Math.abs(heightAt(P[s].x, P[s].z) - heightAt(P[s-1].x, P[s-1].z)) / d); }
+    let tg = 0; for(let i = S.a + 2; i <= S.b; i += 2){ const d = Math.hypot(trail[i].x - trail[i-2].x, trail[i].z - trail[i-2].z) || 1; tg = Math.max(tg, Math.abs(trail[i].h - trail[i-2].h) / d); }
+    if(mg > Math.max(S.theme === 'steep' ? 1.1 : 0.85, tg * 1.15)) why.push('grade');
+    for(const O of paths){ for(let s = 0; s < P.length && !why.includes('other'); s += 3) for(let t = 0; t < O.pts.length; t += 3){ const dx = O.pts[t].x - P[s].x, dz = O.pts[t].z - P[s].z; if(dx*dx + dz*dz < 100){ why.push('other'); break; } } }
+    for(let s = S.e + 4; s < P.length - 4 && !why.includes('self'); s += 2) for(let t = s + 8; t < P.length - 4; t += 2){ const dx = P[t].x - P[s].x, dz = P[t].z - P[s].z; if(dx*dx + dz*dz < 4){ why.push('self'); break; } }
+    S.mg = +mg.toFixed(2); return why; };
+  const report = [];
+  for(let k = 0; k < n; k++){ let ok = null, last = null;
+    for(let v = 0; v < 26 && !ok; v++){ const S = make(k, v); if(!S) continue; const w = check(S); last = { v, why: w, mg: S.mg }; if(!w.length){ S.v = v; ok = S; } }
+    report.push({ k, ok: !!ok, v: ok ? ok.v : -1, last }); if(ok) paths.push(ok); }
+  window.__SIDE_CHECK = report;
   // 저장: 이 기기(store) + 구글 로그인하면 계정(prog)
   const P0 = store.get('prog', {}), me = P0[MID] || (P0[MID] = {}); me.tr = me.tr || []; me.n = paths.length;
   const save = () => { const p = store.get('prog', {}); const o = p[MID] || {}; o.tr = [...new Set([...(o.tr || []), ...me.tr])]; o.n = paths.length; if(me.sum) o.sum = 1; p[MID] = o; store.set('prog', p); try{ cloudPush(true); }catch(e){} };
@@ -140,9 +158,15 @@ const SIDE = (() => {
   }
   // 갈래길 위 바위·나무는 치우고(걷는 자리), 통과는 막지 않아요
   const onSide = (x, z, r) => { for(const S of paths){ const pts = S.pts; for(let s = S.e; s < pts.length; s += 1){ const dx = pts[s].x - x, dz = pts[s].z - z; if(dx*dx + dz*dz < r*r) return S; } } return null; };
-  { const M = new THREE.Matrix4(), Z = new THREE.Matrix4().makeScale(0, 0, 0), v = new THREE.Vector3();
+  // 바위·나무·큰 바위봉우리(크기까지 고려)가 갈래길과 그 입구 쪽 길을 막으면 치워요
+  { const M = new THREE.Matrix4(), Z = new THREE.Matrix4().makeScale(0, 0, 0), v = new THREE.Vector3(), C = 6, G = new Map(), key = (i, j) => i*100003 + j;
+    for(const S of paths) for(let s = 0; s < S.pts.length; s++){ const q = S.pts[s], k = key(Math.floor(q.x/C), Math.floor(q.z/C)); let a = G.get(k); if(!a) G.set(k, a = []); a.push(q); }
+    const near = (x, z, r) => { const i0 = Math.floor((x - r)/C), i1 = Math.floor((x + r)/C), j0 = Math.floor((z - r)/C), j1 = Math.floor((z + r)/C);
+      for(let i = i0; i <= i1; i++) for(let j = j0; j <= j1; j++){ const a = G.get(key(i, j)); if(a) for(const q of a) if((q.x - x)*(q.x - x) + (q.z - z)*(q.z - z) < r*r) return true; } return false; };
     scene.traverse(o => { if(!o.isInstancedMesh || o.parent === deco) return; let ch = false;
-      for(let i = 0; i < o.count; i++){ o.getMatrixAt(i, M); v.setFromMatrixPosition(M); if(onSide(v.x, v.z, 2.6)){ o.setMatrixAt(i, Z); ch = true; } }
+      if(!o.geometry.boundingSphere) o.geometry.computeBoundingSphere(); const R0 = o.geometry.boundingSphere ? o.geometry.boundingSphere.radius : 1;
+      for(let i = 0; i < o.count; i++){ o.getMatrixAt(i, M); const e = M.elements, sc = Math.max(Math.hypot(e[0], e[1], e[2]), Math.hypot(e[8], e[9], e[10])); if(sc === 0) continue; v.setFromMatrixPosition(M);
+        const rr = Math.min(40, R0*sc*0.8); if(near(v.x, v.z, Math.max(2.6, rr + 1.2))){ o.setMatrixAt(i, Z); ch = true; } }
       if(ch) o.instanceMatrix.needsUpdate = true; }); }
   if(typeof ROCKC !== 'undefined' && ROCKC){ const ob = ROCKC.blocked.bind(ROCKC); ROCKC.blocked = (x, z) => onSide(x, z, 2.2) ? false : ob(x, z); }
   // ---- 발견 · 고르기 · 따라 걷기 ----
@@ -150,21 +174,35 @@ const SIDE = (() => {
   const box = $('sideAsk');
   const showAsk = S => { ask = S; $('sdName').textContent = nm(S); $('sdTheme').textContent = T_(({steep:'깎아지른 오르막', crevice:'바위 틈 길', cave:'바위 굴'})[S.theme]); box.hidden = false; };
   $('sdNo').onclick = () => { box.hidden = true; ask = null; canvas.focus(); };
-  $('sdGo').onclick = () => { const S = ask; box.hidden = true; ask = null; if(!S) return; follow = { S, s: S.e }; st.auto = false; refreshWalk(); st.sitting = false; canvas.focus(); };
+  const endFollow = msg => { if(!follow) return; follow = null; if(st.goal && st.goal.__side) st.goal = null; goalRing.visible = false; document.body.classList.remove('sideFollow'); if(msg) toast(T_(msg), 2.6); };
+  $('sdGo').onclick = () => { const S = ask; box.hidden = true; ask = null; if(!S) return; follow = { S, s: S.e, g: null, t: performance.now(), px: st.x, pz: st.z }; st.auto = false; refreshWalk(); st.sitting = false; document.body.classList.add('sideFollow'); canvas.focus(); };
+  // 숨은 길을 따라 걷는 중에도 '멈추기'가 보이고, 누르면 바로 멈춰요
+  { const bw = $('bWalk'); if(bw) bw.addEventListener('click', e => { if(follow){ e.stopImmediatePropagation(); endFollow(); } }, true); }
   let tick = 0;
   return {
     paths, found,
     update(){
-      if(follow){ const S = follow.S, pts = S.pts; let s = follow.s; while(s < pts.length - 1 && Math.hypot(pts[s].x - st.x, pts[s].z - st.z) < 2.2) s++; follow.s = s;
-        if(s >= pts.length - 1 && Math.hypot(pts[s].x - st.x, pts[s].z - st.z) < 2.5){ follow = null; st.goal = null; goalRing.visible = false; toast(T_('다시 탐방로로 나왔어요'), 2.4); st.auto = true; refreshWalk(); }
-        else { st.goal = { x: pts[s].x, z: pts[s].z }; goalRing.visible = false; } }
+      if(follow){
+        // 직접 조작(키보드·조이스틱·땅 클릭)이나 자동 걷기·멈추기를 누르면 따라 걷기를 그만둬요
+        const userMove = ['KeyW','KeyA','KeyS','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].some(k => keys[k]) || (joy.id !== null && Math.hypot(joy.x, joy.y) > 0.18);
+        if(userMove || st.auto || (follow.g && st.goal !== follow.g)){ endFollow(); }
+      }
+      if(follow){ const S = follow.S, pts = S.pts; let s = follow.s; while(s < pts.length - 1 && Math.hypot(pts[s].x - st.x, pts[s].z - st.z) < 2.2) s++;
+        // 막혀서 못 가면: 4초마다 다음 점으로 건너뛰고, 12초가 지나면 탐방로 합류 지점으로 옮겨 줘요
+        const nowT = performance.now();
+        if(s !== follow.s || Math.hypot(st.x - follow.px, st.z - follow.pz) > 1.2){ follow.t = nowT; follow.px = st.x; follow.pz = st.z; follow.st0 = follow.st0 && s === follow.s ? follow.st0 : 0; }
+        else if(nowT - follow.t > 4000){ follow.st0 = (follow.st0 || 0) + 1; follow.t = nowT; s = Math.min(pts.length - 1, s + 3);
+          if(follow.st0 >= 3){ const q = pts[pts.length - 1], q2 = trail[Math.min(trail.length - 1, S.b + 4)]; endFollow('길이 막혀 있어서 탐방로로 옮겨 드렸어요'); adminTeleport(q.x, q.z, Math.atan2(q2.x - q.x, q2.z - q.z)); return; } }
+        follow.s = s;
+        if(s >= pts.length - 1 && Math.hypot(pts[s].x - st.x, pts[s].z - st.z) < 2.5){ endFollow('다시 탐방로로 나왔어요'); st.auto = true; refreshWalk(); }
+        else { const g = { x: pts[s].x, z: pts[s].z, __side: 1 }; st.goal = g; follow.g = g; goalRing.visible = false; } }
       if((tick++ % 10) !== 0 || st.finished) return;
       for(const S of paths){ if(found(S.k)) continue; const p = S.pts[S.e]; if(Math.hypot(p.x - st.x, p.z - st.z) < 7){ me.tr.push(S.k); S._askedAt = Date.now(); save(); try{ sfx.chime && sfx.chime(); }catch(e){} banner(T_('숨은 길 발견!'), nm(S), 3); showAsk(S); break; } }
       // 이미 찾은 길 입구에 다시 서면 또 고를 수 있어요
       if(!ask && !follow){ for(const S of paths){ if(!found(S.k)) continue; const p = S.pts[S.e]; if(Math.hypot(p.x - st.x, p.z - st.z) < 3.5 && (!S._askedAt || Date.now() - S._askedAt > 60000)){ S._askedAt = Date.now(); showAsk(S); break; } } }
       if(ask && Math.hypot(ask.pts[ask.e].x - st.x, ask.pts[ask.e].z - st.z) > 25){ box.hidden = true; ask = null; }
     },
-    stop(){ follow = null; },
+    stop(){ endFollow(); },
     on(x, z){ return !!follow || !!onSide(x, z, 2.6); },
     summit(){ me.sum = 1; save(); },
     draw(mctx, toU, toV, big){ const adm = isAdm(); for(const S of paths){ const f = found(S.k); if(!f && !adm) continue; const col = f ? '#9fe0a8' : '#ffb347';
@@ -177,7 +215,7 @@ const SIDE = (() => {
     label: S => nm(S),
     goTo(k){ this.adminGo(k); },
     adminGo(k){ const S = paths.find(q => q.k === k); if(!S) return; if(!st.started){ toast('먼저 산행을 시작해 주세요', 2); return; }
-      const p = S.pts[Math.max(0, S.e - 1)], q = S.pts[Math.min(S.pts.length - 1, S.e + 1)]; follow = null; adminTeleport(p.x, p.z, Math.atan2(q.x - p.x, q.z - p.z)); S._askedAt = 0; },
+      const p = S.pts[Math.max(0, S.e - 1)], q = S.pts[Math.min(S.pts.length - 1, S.e + 1)]; endFollow(); adminTeleport(p.x, p.z, Math.atan2(q.x - p.x, q.z - p.z)); S._askedAt = 0; },
     adminReset(){ me.tr = []; me.sum = 0; const p = store.get('prog', {}); if(p[MID]){ p[MID].tr = []; delete p[MID].sum; } store.set('prog', p); try{ cloudPush(true); }catch(e){} for(const S of paths) S._askedAt = 0; toast('이 산의 숨은 길·완등 기록을 지웠어요', 2.5); },
   };
 })();

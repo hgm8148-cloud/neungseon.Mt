@@ -75,7 +75,8 @@
    "desc": {
     "ko": "화강암 골짜기를 따라 흐르는 폭포예요. 산양과 반달가슴곰이 사는 숲이에요.",
     "en": "A waterfall in a granite gorge, in forest home to long-tailed gorals and Asiatic black bears."
-   }
+   },
+   "feature": "waterfall"
   },
   {
    "ko": "대청봉 정상",

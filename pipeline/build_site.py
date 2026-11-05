@@ -33,6 +33,8 @@ from app_patch import patch_app, write_sw, patch_walk_keys, patch_bottom_min
 from preview_patch import patch_preview
 from relief_patch import patch_relief
 from side_patch import patch_side, THEME_ROWS
+from mp_patch import patch_mp
+from waterfall_patch import patch_waterfall
 from loader_patch import patch_loader, loader_rows
 from i18n_fix_patch import patch_i18n_fix, FIX_ROWS
 
@@ -337,9 +339,11 @@ def build_page(T, m, mts, data):
     patch_peak(P, m, meta)
     patch_relief(P, m)
     if m.get("relief"): __import__("relief_patch").patch_uplook(P)
+    patch_waterfall(P, m)
     patch_side(P, m)
     patch_walk_keys(P, m)
     patch_bottom_min(P, m)
+    patch_mp(P, m)
     patch_loader(P, m, mts, data)
     patch_i18n_fix(P, m)
     patch_lang(P, m)

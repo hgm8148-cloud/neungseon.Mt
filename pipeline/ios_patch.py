@@ -30,7 +30,12 @@ if(navigator.standalone || (window.matchMedia && matchMedia('(display-mode: stan
     document.addEventListener('gesturechange', e => e.preventDefault());
     document.addEventListener('focusout', e => { if(e.target && /^(INPUT|TEXTAREA)$/.test(e.target.tagName)) setTimeout(() => { if(!document.activeElement || !/^(INPUT|TEXTAREA)$/.test(document.activeElement.tagName)) window.scrollTo(0, 0); }, 60); });
   }
-  try{ if(navigator.audioSession) navigator.audioSession.type = 'ambient'; }catch(e){}
+  // 아이폰 무음 스위치가 켜져 있어도 소리가 나게 (ambient 는 무음 모드에서 꺼져요) + 첫 터치에 무음 오디오로 소리 길 열기
+  try{ if(navigator.audioSession) navigator.audioSession.type = 'playback'; }catch(e){}
+  if(IS_IOS){ let un = false; const unlock = () => { if(un) return; un = true;
+      try{ const el = document.createElement('audio'); el.setAttribute('playsinline', ''); el.src = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA='; el.volume = 0.01; const pr = el.play(); if(pr && pr.catch) pr.catch(() => { un = false; }); }catch(e){ un = false; }
+      try{ if(audio && audio.ac){ const b = audio.ac.createBuffer(1, 1, 22050), s = audio.ac.createBufferSource(); s.buffer = b; s.connect(audio.ac.destination); s.start(0); } }catch(e){} };
+    for(const t of ['touchend', 'pointerup', 'click']) addEventListener(t, unlock, {passive:true}); }
   const wakeAudio = () => { if(audio && audio.ac.state !== 'running' && !document.hidden) audio.ac.resume().catch(()=>{}); };
   for(const t of ['touchend', 'pointerup', 'keydown']) addEventListener(t, wakeAudio, {passive:true});
   document.addEventListener('visibilitychange', () => { if(!audio) return; if(document.hidden) audio.ac.suspend().catch(()=>{}); else wakeAudio(); });
