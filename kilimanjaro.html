@@ -4759,13 +4759,13 @@ function update(dt){
   if(st.camp && moving) st.campCam = null;
   if(window.__deckClamp) window.__deckClamp();
   camera.lookAt(camLook);
-  { const U = window.__vegCut || (window.__vegCut = {value:0}); U.value = (!st.fp && st.dist > 9) ? Math.max(0, Math.min(st.dist*0.45, camera.position.distanceTo(camLook) - 5)) : 0;
+  { const VU = window.__vegU || (window.__vegU = { uCutOn:{value:0}, uCamP:{value:new THREE.Vector3()}, uLook:{value:new THREE.Vector3()}, uCutR:{value:0}, uNearR:{value:0} });
+    const on = !st.fp && st.dist > 9; VU.uCutOn.value = on ? 1 : 0; VU.uCamP.value.copy(camera.position); VU.uLook.value.copy(camLook); VU.uCutR.value = 4 + st.dist*0.06; VU.uNearR.value = Math.max(6, st.dist*0.22);
     if(camera.near !== 0.3){ camera.near = 0.3; camera.updateProjectionMatrix(); }
     const tn = performance.now(); if(!(tn < (st.cutT || 0))){ st.cutT = tn + 2000; scene.traverse(o => { if(!o.isInstancedMesh) return; for(const m of (Array.isArray(o.material) ? o.material : [o.material])){ if(!m || m.__cut || m.isShaderMaterial) continue; m.__cut = 1; const pb = m.onBeforeCompile, pk = m.customProgramCacheKey;
-      m.onBeforeCompile = function(sh, r){ if(pb) pb.call(this, sh, r); if(!sh.vertexShader.includes('#include <project_vertex>')) return; sh.uniforms.uVegCut = U;
-        sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nvarying float vCutZ;').replace('#include <project_vertex>', '#include <project_vertex>\n  vCutZ = -mvPosition.z;');
-        sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nvarying float vCutZ; uniform float uVegCut;').replace(/void main\(\) \{/, 'void main() {\n  if(vCutZ < uVegCut) discard;'); };
-      m.customProgramCacheKey = function(){ return (pk ? pk.call(this) : '') + '|vegcut'; }; m.needsUpdate = true; } }); } }
+      m.onBeforeCompile = function(sh, r){ if(pb) pb.call(this, sh, r); if(!sh.vertexShader.includes('#include <project_vertex>')) return; Object.assign(sh.uniforms, VU);
+        sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nuniform float uCutOn, uCutR, uNearR; uniform vec3 uCamP, uLook;').replace('#include <project_vertex>', '#include <project_vertex>\n  if(uCutOn > 0.5){\n  #ifdef USE_INSTANCING\n    vec4 ip = modelMatrix * instanceMatrix * vec4(0.0, 0.0, 0.0, 1.0);\n  #else\n    vec4 ip = modelMatrix * vec4(0.0, 0.0, 0.0, 1.0);\n  #endif\n    vec2 dd = ip.xz - uCamP.xz, sg = uLook.xz - uCamP.xz; float sl = max(1.0, dot(sg, sg)); float tt = clamp(dot(dd, sg)/sl, 0.0, 1.0); float lt = length(dd - sg*tt);\n    if((tt < 0.92 && lt < uCutR) || length(dd) < uNearR) gl_Position = vec4(2.0, 2.0, 2.0, 1.0);\n  }'); };
+      m.customProgramCacheKey = function(){ return (pk ? pk.call(this) : '') + '|vegcut2'; }; m.needsUpdate = true; } }); } }
 
   sun.position.set(st.x + SUN_DIR.x*300, y + SUN_DIR.y*300, st.z + SUN_DIR.z*300); sun.target.position.set(st.x, y, st.z);
   window.__sky.position.copy(camera.position);
