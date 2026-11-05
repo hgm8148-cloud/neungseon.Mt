@@ -104,6 +104,7 @@ def patch_app(P, m):
     P.rep('</style>', '#start .card h1 .aiTop{display:inline-block;vertical-align:middle;margin:0 0 6px 12px;padding:6px 13px;border-radius:999px;border:1px solid rgba(255,214,150,.55);background:rgba(255,214,150,.16);color:inherit;font-family:var(--body);font-size:13px;font-weight:600;letter-spacing:0;cursor:pointer}#start .card h1 .aiTop:hover{background:rgba(255,214,150,.3)}\n</style>', 1)
     P.rep("window.__game = {", PC_JS + "window.__game = {", 1)
     patch_dir(P)
+    patch_quick(P)
 
 
 def write_sw(out):
@@ -136,3 +137,49 @@ def patch_dir(P):
     P.rep("$('bSlow').textContent = d ? '천천히 내려가기' : '천천히 걷기'; $('bFast').textContent = d ? '빠르게 내려가기' : '빠르게 걷기';",
           "$('bSlow').textContent = '천천히'; $('bFast').textContent = '빠르게';", 1)
     P.rep("window.__game = {", DIR_JS + "window.__game = {", 1)
+
+
+# 휴대폰: 버튼 숨기기·전체 화면을 메뉴 밖 오른쪽 위에, 걷기 막대는 작게
+QUICK_CSS = (
+  "#quickR{display:none}"
+  "body.touch #quickR{display:flex;flex-direction:column;gap:6px;position:fixed;z-index:6;right:max(10px,env(safe-area-inset-right,0px));top:calc(60px + env(safe-area-inset-top,0px))}"
+  "body.touch #quickR .ib{width:38px;height:38px;border-radius:50%;background:rgba(20,22,28,.42);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.14)}"
+  "body.touch #quickR .ib svg{width:19px;height:19px}"
+  "body.touch.clean #quickR{top:calc(10px + env(safe-area-inset-top,0px))}body.touch.clean #quickR #qFs{display:none}body.touch.clean #quickR .ib{opacity:.6}"
+  "body.touch.clean #cleanOff{display:none!important}"
+  "body.touch #quickR .eyeOff{display:none}body.touch.clean #quickR .eyeOn{display:none}body.touch.clean #quickR .eyeOff{display:block}"
+  "body.standalone.ios #qFs{display:none}"
+  "body.touch #walkPill .dirSeg{display:inline-flex!important;margin-right:4px}body.touch #walkPill .dirSeg button:not(.on){display:none}"
+  "body.touch #walkPill .dirSeg button{padding:6px 8px}body.touch #walkPill .dirSeg{margin-right:2px;padding:0}"
+  "body.touch.walking #walkPill #walkTxt{display:none}"
+  "body.touch #walkPill button{padding:6px 8px;font-size:11.5px}body.touch #walkPill .pz+.pz,body.touch.walking #walkPill #bWalk{margin-left:2px}"
+  "body.touch.walking #walkPill .pz:not(.on){display:none}body.touch.walking #walkPill #bWalk{margin-left:4px}"
+  "@media (orientation:portrait){body.touch #bottom#bottom{bottom:calc(30px + env(safe-area-inset-bottom,0px));padding:0 64px 0 136px;align-items:center}body.touch #walkPill{padding:2px;max-width:100%}}"
+  "\n")
+
+QUICK_HTML = ('<div id="quickR">'
+  '<button class="ib" id="qEye" type="button" aria-label="버튼 숨기기/보이기" title="버튼 숨기기/보이기">'
+  '<svg class="eyeOn" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></svg>'
+  '<svg class="eyeOff" viewBox="0 0 24 24"><path d="M3 3l18 18M10.6 6.1A10 10 0 0 1 12 6c6 0 9.5 6 9.5 6a17 17 0 0 1-3 3.6M6.4 7.6C3.9 9.4 2.5 12 2.5 12S6 18 12 18c1.6 0 3-.4 4.2-1"/></svg></button>'
+  '<button class="ib" id="qFs" type="button" aria-label="전체 화면" title="전체 화면"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>'
+  '</div>\n')
+
+QUICK_JS = r"""
+// ---------- 휴대폰 빠른 버튼 (pipeline/app_patch.py) ----------
+{ if(IS_IOS) document.body.classList.add('ios');
+  $('qEye').onclick = (e) => { e.stopPropagation(); toggleClean(); };
+  $('qFs').onclick = (e) => { e.stopPropagation(); toggleFull(); };
+  // 휴대폰에선 등산/하산을 버튼 하나로: 누를 때마다 바뀌어요
+  const flip = (e) => { if(!document.body.classList.contains('touch')) return; e.stopImmediatePropagation(); setTrailDir(!st.descending); };
+  $('bUp').addEventListener('click', flip, true); $('bDown').addEventListener('click', flip, true);
+  // 걷는 중엔 지금 속도 버튼 하나만 보여요: 누르면 다른 속도로 바뀌어요
+  const pace = (e) => { const b = e.currentTarget; if(!document.body.classList.contains('touch') || !st.auto || !b.classList.contains('on')) return; e.stopImmediatePropagation(); (b.id === 'bSlow' ? $('bFast') : $('bSlow')).click(); };
+  $('bSlow').addEventListener('click', pace, true); $('bFast').addEventListener('click', pace, true);
+}
+"""
+
+
+def patch_quick(P):
+    P.rep('<div id="toast" class="hud glass pill"></div>', QUICK_HTML + '<div id="toast" class="hud glass pill"></div>', 1)
+    P.rep('</style>', QUICK_CSS + '</style>', 1)
+    P.rep("window.__game = {", QUICK_JS + "window.__game = {", 1)
