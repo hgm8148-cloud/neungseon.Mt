@@ -9,6 +9,41 @@
 - 이제: 무릎 높이(0.9m)까지는 위로 올라서 넘어가고, 그보다 높은 바위는 막혀서 옆으로 미끄러지듯 비켜 가요.
 """
 
+# 3인칭 카메라와 아바타 사이를 '실제로 가리는' 나무·큰 바위만, 그루 단위로 반투명하게(점묘 디더) 흐려요.
+# - 카메라에서 아바타를 잇는 선보다 낮은 풀·작은 바위·덤불은 건드리지 않아요 (아바타가 지우며 걷는 느낌 없애기)
+# - 선에서 멀어질수록 점점 덜 흐려져서 툭 사라지지 않아요. 카메라 바로 앞을 막는 것만 완전히 숨겨요
+# - 지형은 절대 자르지 않아요
+VEG_JS = r"""
+  { const VU = window.__vegU || (window.__vegU = { uCutOn:{value:0}, uCamP:{value:new THREE.Vector3()}, uAvP:{value:new THREE.Vector3()} });
+    VU.uCutOn.value = (!st.fp && st.dist > 4) ? 1 : 0; VU.uCamP.value.copy(camera.position); VU.uAvP.value.set(st.x, heightAt(st.x, st.z) + 1.0, st.z);
+    if(camera.near !== 0.3){ camera.near = 0.3; camera.updateProjectionMatrix(); }
+    const tn = performance.now(); if(!(tn < (st.cutT || 0))){ st.cutT = tn + 2000; scene.traverse(o => { if(!o.isInstancedMesh) return;
+      if(!o.geometry.boundingBox) o.geometry.computeBoundingBox(); const bb = o.geometry.boundingBox, top = bb.max.y, rad = Math.max(Math.abs(bb.min.x), bb.max.x, Math.abs(bb.min.z), bb.max.z);
+      for(const m of (Array.isArray(o.material) ? o.material : [o.material])){ if(!m || m.isShaderMaterial) continue;
+        if(m.__cut){ m.__topU.value = Math.max(m.__topU.value, top); m.__radU.value = Math.max(m.__radU.value, rad); continue; }
+        m.__cut = 1; m.__topU = {value: top}; m.__radU = {value: rad}; const pb = m.onBeforeCompile, pk = m.customProgramCacheKey;
+        m.onBeforeCompile = function(sh, r){ if(pb) pb.call(this, sh, r); if(!sh.vertexShader.includes('#include <project_vertex>') || !sh.fragmentShader.includes('#include <clipping_planes_fragment>')) return;
+          Object.assign(sh.uniforms, VU, { uTopY: this.__topU, uRadXZ: this.__radU });
+          sh.vertexShader = 'uniform float uCutOn, uTopY, uRadXZ; uniform vec3 uCamP, uAvP; varying float vCut;\n' + sh.vertexShader.replace('#include <project_vertex>', `#include <project_vertex>
+  vCut = 0.0;
+  if(uCutOn > 0.5){
+  #ifdef USE_INSTANCING
+    mat4 IM = modelMatrix * instanceMatrix;
+  #else
+    mat4 IM = modelMatrix;
+  #endif
+    vec3 ip = (IM * vec4(0.0, 0.0, 0.0, 1.0)).xyz; float sy = length(IM[1].xyz), sxz = length(IM[0].xyz);
+    float top = ip.y + uTopY * sy, rr = uRadXZ * sxz + 0.4;
+    vec2 dd = ip.xz - uCamP.xz, sg = uAvP.xz - uCamP.xz; float sl = max(0.01, dot(sg, sg)); float tt = clamp(dot(dd, sg)/sl, 0.0, 1.0); float lt = length(dd - sg*tt);
+    float ly = mix(uCamP.y, uAvP.y, tt);
+    float occ = (1.0 - smoothstep(rr, rr + 2.0, lt)) * smoothstep(ly - 0.6, ly + 0.4, top) * (1.0 - smoothstep(0.86, 0.97, tt)) * step(0.0001, tt);
+    vec3 cp = vec3(dd.x, clamp(uCamP.y, ip.y, top) - uCamP.y, dd.y); float nr = 1.0 - smoothstep(rr + 0.6, rr + 2.6, length(cp));
+    vCut = max(occ * 0.82, nr);
+  }`);
+          sh.fragmentShader = 'varying float vCut;\n' + sh.fragmentShader.replace('#include <clipping_planes_fragment>', `#include <clipping_planes_fragment>
+  if(vCut > 0.01){ vec2 q = mod(floor(gl_FragCoord.xy), 4.0); const float B[16] = float[16](0.,8.,2.,10.,12.,4.,14.,6.,3.,11.,1.,9.,15.,7.,13.,5.); float th = (B[int(q.y*4.0 + q.x)] + 0.5) / 16.0; if(vCut > 0.995 || th < vCut) discard; }`); };
+        m.customProgramCacheKey = function(){ return (pk ? pk.call(this) : '') + '|vegcut3'; }; m.needsUpdate = true; } }); } }"""
+
 ROCK_JS = r'''
 // ---------- 바위·통나무·돌계단 충돌 (pipeline/camera_patch.py) ----------
 // 야영장 안·탐방로 위의 바위는 치워요 (앉을 자리·텐트·길과 겹치지 않게)
@@ -102,4 +137,4 @@ def patch_camera(P, m):
     # 드론 시점: 카메라 바로 앞 나무·바위·풀만 잘라내요 (지형은 그대로 두어 땅 밑 빈 공간이 보이지 않게)
     # 드론 시점: 카메라와 아바타 사이, 카메라 바로 아래 나무·바위는 '그루 단위'로 통째로 숨겨요
     # (조각으로 잘라내면 화면 아래쪽 나무가 찢어져 보여서, 지형은 절대 자르지 않아요)
-    P.rep("\n  camera.lookAt(camLook);", "\n  camera.lookAt(camLook);\n  { const VU = window.__vegU || (window.__vegU = { uCutOn:{value:0}, uCamP:{value:new THREE.Vector3()}, uLook:{value:new THREE.Vector3()}, uCutR:{value:0}, uNearR:{value:0} });\n    const on = !st.fp && st.dist > 9; VU.uCutOn.value = on ? 1 : 0; VU.uCamP.value.copy(camera.position); VU.uLook.value.copy(camLook); VU.uCutR.value = 4 + st.dist*0.06; VU.uNearR.value = Math.max(6, st.dist*0.22);\n    if(camera.near !== 0.3){ camera.near = 0.3; camera.updateProjectionMatrix(); }\n    const tn = performance.now(); if(!(tn < (st.cutT || 0))){ st.cutT = tn + 2000; scene.traverse(o => { if(!o.isInstancedMesh) return; for(const m of (Array.isArray(o.material) ? o.material : [o.material])){ if(!m || m.__cut || m.isShaderMaterial) continue; m.__cut = 1; const pb = m.onBeforeCompile, pk = m.customProgramCacheKey;\n      m.onBeforeCompile = function(sh, r){ if(pb) pb.call(this, sh, r); if(!sh.vertexShader.includes('#include <project_vertex>')) return; Object.assign(sh.uniforms, VU);\n        sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\\nuniform float uCutOn, uCutR, uNearR; uniform vec3 uCamP, uLook;').replace('#include <project_vertex>', '#include <project_vertex>\\n  if(uCutOn > 0.5){\\n  #ifdef USE_INSTANCING\\n    vec4 ip = modelMatrix * instanceMatrix * vec4(0.0, 0.0, 0.0, 1.0);\\n  #else\\n    vec4 ip = modelMatrix * vec4(0.0, 0.0, 0.0, 1.0);\\n  #endif\\n    vec2 dd = ip.xz - uCamP.xz, sg = uLook.xz - uCamP.xz; float sl = max(1.0, dot(sg, sg)); float tt = clamp(dot(dd, sg)/sl, 0.0, 1.0); float lt = length(dd - sg*tt);\\n    if((tt < 0.92 && lt < uCutR) || length(dd) < uNearR) gl_Position = vec4(2.0, 2.0, 2.0, 1.0);\\n  }'); };\n      m.customProgramCacheKey = function(){ return (pk ? pk.call(this) : '') + '|vegcut2'; }; m.needsUpdate = true; } }); } }", 1)
+    P.rep("\n  camera.lookAt(camLook);", "\n  camera.lookAt(camLook);" + VEG_JS, 1)

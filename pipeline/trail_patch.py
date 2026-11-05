@@ -80,12 +80,19 @@ TP_JS = r'''
 const TP_KEY = 'neungseon.reach.__ID__';
 let TP_REACH = 0; try{ TP_REACH = +localStorage.getItem(TP_KEY) || 0; }catch(e){}
 setInterval(() => { if(!st || st.x == null) return; const nt = nearTrail(st.x, st.z, 1); if(nt.i >= 0 && nt.d < 6 && nt.i > TP_REACH){ TP_REACH = nt.i; try{ localStorage.setItem(TP_KEY, TP_REACH); }catch(e){} } }, 700);
+// 순간이동 규칙 (2026-11-05 승연): 경유지·전망 스팟은 이 산을 완등한 사람만, 숨은 길 입구는 그 길을 찾은 사람만 (관리자는 모두)
+const tpAdm = () => document.body.classList.contains('admin');
+const tpSum = () => { try{ return !!((JSON.parse(localStorage.getItem('neungseon.prog') || '{}') || {})['__ID__'] || {}).sum; }catch(e){ return false; } };
+const tpOk = s => tpAdm() || (s.side != null ? !!(window.__SIDE && window.__SIDE.found(s.side)) : tpSum());
 const tpSpots = () => { const out = []; const T_ = window.T || (x => x);
-  WPS.forEach((w, k) => out.push({ i: w.i, name: T_(w.name.replace(/\(.*\)/, '')), wp: k }));
-  for(const v of VIEWPOINTS) if(!v.spin) out.push({ i: v.i, name: T_(v.name), vp: true });
+  WPS.forEach((w, k) => { const p = trail[w.i]; out.push({ i: w.i, x: p.x, z: p.z, name: T_(w.name.replace(/\(.*\)/, '')), wp: k }); });
+  for(const v of VIEWPOINTS) if(!v.spin){ const p = trail[v.i]; out.push({ i: v.i, x: p.x, z: p.z, name: T_(v.name), vp: true }); }
+  const S = window.__SIDE; if(S) for(const q of S.paths){ if(!tpAdm() && !S.found(q.k)) continue; const p = q.pts[q.e]; out.push({ x: p.x, z: p.z, name: S.label(q), side: q.k }); }
   return out; };
 let tpPick = null;
-function tpGo(){ const s = tpPick; $('tpAsk').hidden = true; if(!s) return; const p = trail[Math.min(trail.length - 1, s.i)], q = trail[Math.min(trail.length - 1, s.i + 4)];
+function tpGo(){ const s = tpPick; $('tpAsk').hidden = true; if(!s) return;
+  if(s.side != null){ window.__SIDE.goTo(s.side); st.auto = false; refreshWalk(); st.cf = null; toast('순간이동했어요', 2); canvas.focus(); return; }
+  const p = trail[Math.min(trail.length - 1, s.i)], q = trail[Math.min(trail.length - 1, s.i + 4)];
   st.x = p.x; st.z = p.z; st.face = Math.atan2(q.x - p.x, q.z - p.z); st.yaw = st.face + Math.PI; st.goal = null; st.sitting = false; st.breathing = 0; st.auto = false; refreshWalk();
   goalRing.visible = false; st.camInit = false; st.cf = null; toast('순간이동했어요', 2); canvas.focus(); }
 $('tpGo').onclick = tpGo; $('tpNo').onclick = () => { $('tpAsk').hidden = true; tpPick = null; };
@@ -93,11 +100,11 @@ $('tpAsk').addEventListener('click', e => { if(e.target === $('tpAsk')){ $('tpAs
 function tpClick(e){ const W = $('mapWrap'); const big = W.classList.contains('big') || document.body.classList.contains('mapOn');
   if(!big || !drawMap.tf) return false;
   const r = mapC.getBoundingClientRect(), mx = (e.clientX - r.left) / r.width * MAPN, my = (e.clientY - r.top) / r.height * MAPN;
-  let best = null, bd = 26; for(const s of tpSpots()){ const p = trail[s.i]; const d = Math.hypot(drawMap.tf.u(p.x) - mx, drawMap.tf.v(p.z) - my); if(d < bd){ bd = d; best = s; } }
+  let best = null, bd = 26; for(const s of tpSpots()){ const d = Math.hypot(drawMap.tf.u(s.x) - mx, drawMap.tf.v(s.z) - my); if(d < bd){ bd = d; best = s; } }
   if(!best) return false;
-  if(best.i > TP_REACH + 3){ toast('아직 가 보지 않은 곳이에요 · 걸어서 먼저 들러 보세요', 2.6); return true; }
+  if(!tpOk(best)){ toast('이 산을 완등하면 지도에서 눌러 바로 이동할 수 있어요', 2.8); return true; }
   tpPick = best; $('tpName').textContent = best.name; $('tpAsk').hidden = false; return true; }
-window.__tp = { spots: tpSpots, tf: () => drawMap.tf, reach: () => TP_REACH };
+window.__tp = { spots: tpSpots, tf: () => drawMap.tf, reach: () => TP_REACH, ok: tpOk };
 '''
 
 
@@ -109,12 +116,15 @@ def patch_teleport(P, m):
     P.rep("  const toU = x => (x-ox)*k, toV = z => (z-oz)*k;\n",
           "  const toU = x => (x-ox)*k, toV = z => (z-oz)*k; drawMap.tf = { u: toU, v: toV };\n", 1)
     P.rep("  const dot = (x,z,col,rad) => {",
-          "  for(const vp of VIEWPOINTS){ if(vp.spin) continue; const p = trail[vp.i], u = toU(p.x), v = toV(p.z); if(u<-20||v<-20||u>MAPN+20||v>MAPN+20) continue; const rr = big ? 5 : 10, ok = vp.i <= TP_REACH + 3;\n"
+          "  for(const vp of VIEWPOINTS){ if(vp.spin) continue; const p = trail[vp.i], u = toU(p.x), v = toV(p.z); if(u<-20||v<-20||u>MAPN+20||v>MAPN+20) continue; const rr = big ? 5 : 10, ok = tpOk(vp);\n"
           "    mctx.save(); mctx.translate(u, v); mctx.rotate(Math.PI/4); mctx.fillStyle = ok ? '#f1c862' : 'rgba(200,200,200,.9)'; mctx.strokeStyle = '#2b2118'; mctx.lineWidth = big ? 1.6 : 3; mctx.fillRect(-rr*0.75, -rr*0.75, rr*1.5, rr*1.5); mctx.strokeRect(-rr*0.75, -rr*0.75, rr*1.5, rr*1.5); mctx.restore(); }\n"
+          "  if(big){ for(const s of tpSpots()){ if(!tpOk(s)) continue; const u = toU(s.x), v = toV(s.z); mctx.save(); mctx.strokeStyle = 'rgba(255,255,255,.95)'; mctx.lineWidth = 2; mctx.shadowColor = 'rgba(255,255,255,.8)'; mctx.shadowBlur = 6; mctx.beginPath(); mctx.arc(u, v, 10, 0, 7); mctx.stroke(); mctx.restore(); }\n"
+          "    mctx.save(); mctx.font = '600 12px sans-serif'; mctx.textAlign = 'left'; mctx.fillStyle = 'rgba(255,255,255,.92)'; mctx.strokeStyle = 'rgba(20,16,12,.75)'; mctx.lineWidth = 3; const lg = tpSum() || tpAdm() ? '◯ 표시된 곳을 누르면 바로 이동해요' : '완등하면 경유지로 바로 이동할 수 있어요'; const lt = (window.T || (x => x))(lg); mctx.strokeText(lt, 10, MAPN - 12); mctx.fillText(lt, 10, MAPN - 12); mctx.restore(); }\n"
           "  const dot = (x,z,col,rad) => {", 1)
     P.rep("$('mapWrap').onclick=()=>$('mapWrap').classList.toggle('big');",
           "$('mapWrap').onclick=e=>{ if(tpClick(e)) return; $('mapWrap').classList.toggle('big'); };", 1)
     P.rep("window.__game = {", TP_JS.replace('__ID__', m['id']) + "window.__game = {", 1)
+    # 지도를 처음 열 때 숨은 길(window.__SIDE)이 아직 없을 수 있어서 위 코드는 모두 늦게 읽어요
 
 
 # ---------- 경로 안내 바(#prog)가 간식 보태기 버튼·툴바와 겹치지 않게 ----------
