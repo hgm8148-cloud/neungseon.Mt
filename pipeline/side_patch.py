@@ -43,6 +43,9 @@ THEME_ROWS = [
     ['이 길로 가기', 'Take it', 'この道へ', '走这条路', 'Los geht’s', 'Y aller', 'Andiamo', 'Ir por aquí', 'यो बाटो जाने', 'Pita hapa'],
     ['그냥 갈래요', 'Not now', 'やめておく', '先不了', 'Lieber nicht', 'Pas maintenant', 'Non ora', 'Ahora no', 'अहिले होइन', 'Si sasa'],
     ['다시 탐방로로 나왔어요', 'Back on the main trail', '本道に戻りました', '回到主步道了', 'Zurück auf dem Hauptweg', 'De retour sur le sentier principal', 'Di nuovo sul sentiero principale', 'De vuelta en el sendero principal', 'मुख्य बाटोमा फर्कियो', 'Umerudi njia kuu'],
+    ['◯ 표시된 곳을 누르면 바로 이동해요', '◯ Tap a circled spot to jump there', '◯ 印の場所をタップするとすぐ移動します', '◯ 点击圆圈处即可直接前往', '◯ Markierte Stelle antippen, um hinzuspringen', '◯ Touchez un lieu entouré pour y aller', '◯ Tocca un punto cerchiato per andarci', '◯ Toca un punto marcado para ir allí', '◯ घेरिएको ठाउँ थिच्नुहोस्, सिधै पुगिन्छ', '◯ Gusa sehemu yenye duara kwenda huko'],
+    ['완등하면 경유지로 바로 이동할 수 있어요', 'Summit once to jump between checkpoints', '完登すると経由地へすぐ移動できます', '登顶后可直接前往途经点', 'Nach dem Gipfel kannst du zu Etappen springen', 'Après le sommet, allez directement aux étapes', 'Dopo la vetta puoi saltare alle tappe', 'Tras la cumbre podrás ir directo a los puntos', 'शिखर पुगेपछि बिसौनीमा सिधै जान सकिन्छ', 'Ukifika kileleni utaweza kuruka vituoni'],
+    ['이 산을 완등하면 지도에서 눌러 바로 이동할 수 있어요', 'Summit this mountain to jump from the map', 'この山を完登すると地図からすぐ移動できます', '登顶这座山后可在地图上直接前往', 'Erst den Gipfel erreichen, dann per Karte springen', 'Atteignez le sommet pour voyager depuis la carte', 'Raggiungi la vetta per spostarti dalla mappa', 'Llega a la cumbre para moverte desde el mapa', 'यो हिमालको शिखर पुगेपछि नक्साबाट सिधै जान सकिन्छ', 'Fika kileleni kwanza ili uruke kutoka ramani'],
     ['완등', 'Summited', '完登', '登顶', 'Gipfel', 'Sommet', 'Vetta', 'Cumbre', 'शिखर', 'Kilele'],
 ]
 
@@ -168,6 +171,8 @@ const SIDE = (() => {
         if(adm){ mctx.font = `bold ${big ? 12 : 26}px sans-serif`; mctx.textAlign = 'left'; mctx.lineWidth = big ? 3 : 6; mctx.strokeStyle = 'rgba(20,20,20,.85)'; const t = (S.k + 1) + ' ' + nm(S), u = toU(p.x) + (big ? 7 : 14), v = toV(p.z) + (big ? 4 : 9); mctx.strokeText(t, u, v); mctx.fillStyle = col; mctx.fillText(t, u, v); }
         mctx.restore(); } },
     // 관리자: 입구로 바로 이동 · 이 산 숨은 길 기록 지우기
+    label: S => nm(S),
+    goTo(k){ this.adminGo(k); },
     adminGo(k){ const S = paths.find(q => q.k === k); if(!S) return; if(!st.started){ toast('먼저 산행을 시작해 주세요', 2); return; }
       const p = S.pts[Math.max(0, S.e - 1)], q = S.pts[Math.min(S.pts.length - 1, S.e + 1)]; follow = null; adminTeleport(p.x, p.z, Math.atan2(q.x - p.x, q.z - p.z)); S._askedAt = 0; },
     adminReset(){ me.tr = []; me.sum = 0; const p = store.get('prog', {}); if(p[MID]){ p[MID].tr = []; delete p[MID].sum; } store.set('prog', p); try{ cloudPush(true); }catch(e){} for(const S of paths) S._askedAt = 0; toast('이 산의 숨은 길·완등 기록을 지웠어요', 2.5); },
