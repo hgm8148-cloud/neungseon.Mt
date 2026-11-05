@@ -159,8 +159,8 @@ QUICK_CSS = (
 
 QUICK_HTML = ('<div id="quickR">'
   '<button class="ib" id="qEye" type="button" aria-label="버튼 숨기기/보이기" title="버튼 숨기기/보이기">'
-  '<svg class="eyeOn" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></svg>'
-  '<svg class="eyeOff" viewBox="0 0 24 24"><path d="M3 3l18 18M10.6 6.1A10 10 0 0 1 12 6c6 0 9.5 6 9.5 6a17 17 0 0 1-3 3.6M6.4 7.6C3.9 9.4 2.5 12 2.5 12S6 18 12 18c1.6 0 3-.4 4.2-1"/></svg></button>'
+  '<svg class="eyeOn" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="2.5"/><path d="M3.5 9h17" opacity=".5"/><path d="M8 14h8" stroke-dasharray="2 2"/></svg>'
+  '<svg class="eyeOff" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="2.5"/><path d="M3.5 9h17"/><path d="M7 12.5h10M7 15.5h6"/></svg></button>'
   '<button class="ib" id="qFs" type="button" aria-label="전체 화면" title="전체 화면"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>'
   '</div>\n')
 
