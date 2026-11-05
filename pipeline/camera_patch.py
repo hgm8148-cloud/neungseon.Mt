@@ -103,16 +103,20 @@ def patch_camera(P, m):
     P.rep("      if(Math.abs(nx)<HALF-8 && Math.abs(nz)<HALF-8){ st.walked += Math.hypot(nx-st.x, nz-st.z); st.x=nx; st.z=nz; }",
           "      let ax = nx, az = nz;   // 높은 바위는 옆으로 비켜 가요\n"
           "      if(ROCKC && ROCKC.blocked(ax, az) && !ROCKC.blocked(st.x, st.z)){ if(!ROCKC.blocked(ax, st.z)) az = st.z; else if(!ROCKC.blocked(st.x, az)) ax = st.x; else { ax = st.x; az = st.z; } }\n"
+          "      // 자동 걷기는 탐방로 가운데에서 1.1m 안쪽으로만 (길가 밧줄 난간·울타리를 넘지 않게)\n"
+          "      if(st.auto && !st.goal && !forward && !strafe && !st.inSummit){ const q = nearTrail(ax, az, 1); if(q.i >= 0 && q.d > 1.1){ const c = trail[q.i], kq = 1.1/q.d; ax = c.x + (ax - c.x)*kq; az = c.z + (az - c.z)*kq; } }\n"
           "      if(Math.abs(ax)<HALF-8 && Math.abs(az)<HALF-8){ st.walked += Math.hypot(ax-st.x, az-st.z); st.x=ax; st.z=az; }", 1)
     # 돌계단 높이는 이제 실제 계단 돌 위에 서서 정해져요 → 걸음마다 넣던 계단 들썩임은 빼요
     P.rep("(onTrail ? stairAt[nt.i]*0.5*(1 - Math.cos(2*st.phase))*0.5 : 0)", "0", 1)
 
     # --- 자동 걷기 방향을 부드럽게 ---
+    P.rep("if(joy.id !== null && Math.hypot(joy.x, joy.y) > 0.18){ forward = -joy.y; strafe = joy.x; joySprint = Math.hypot(joy.x, joy.y) > 0.97; st.goal = null; }",
+          "if(joy.id !== null && Math.hypot(joy.x, joy.y) > 0.18){ forward = -joy.y; strafe = joy.x; joySprint = Math.hypot(joy.x, joy.y) > 0.97; st.goal = null; if(st.auto){ st.auto = false; refreshWalk(); } }", 1)
     P.rep("    const ml = Math.hypot(mx,mz)||1; mx/=ml; mz/=ml;\n",
           "    const ml = Math.hypot(mx,mz)||1; mx/=ml; mz/=ml;\n"
-          "    if(st.auto && !st.goal && !forward && !strafe){ if(!st.md) st.md = { x:mx, z:mz }; const kk = Math.min(1, dt*2.2); st.md.x += (mx-st.md.x)*kk; st.md.z += (mz-st.md.z)*kk; const l2 = Math.hypot(st.md.x, st.md.z)||1; mx = st.md.x/l2; mz = st.md.z/l2; } else st.md = null;\n", 1)
-    P.rep("if(nt.d < 2.5) j = Math.min(trail.length-1, nt.i + 5);", "if(nt.d < 2.5) j = Math.min(trail.length-1, nt.i + 8);", 1)
-    P.rep("if(nt.d < 2.5) j = Math.max(0, nt.i - 5);", "if(nt.d < 2.5) j = Math.max(0, nt.i - 8);", 1)
+          "    if(st.auto && !st.goal && !forward && !strafe){ if(!st.md) st.md = { x:mx, z:mz }; const kk = Math.min(1, dt*3.5); st.md.x += (mx-st.md.x)*kk; st.md.z += (mz-st.md.z)*kk; const l2 = Math.hypot(st.md.x, st.md.z)||1; mx = st.md.x/l2; mz = st.md.z/l2; } else st.md = null;\n", 1)
+    P.rep("if(nt.d < 2.5) j = Math.min(trail.length-1, nt.i + 5);", "if(nt.d < 2.5) j = Math.min(trail.length-1, nt.i + Math.max(3, Math.round(8 - nt.d*4)));", 1)
+    P.rep("if(nt.d < 2.5) j = Math.max(0, nt.i - 5);", "if(nt.d < 2.5) j = Math.max(0, nt.i - Math.max(3, Math.round(8 - nt.d*4)));", 1)
 
     # --- 카메라: 바라보는 점을 스프링처럼 ---
     P.rep("  if(st.camY == null || dt === 0 || Math.abs(yRaw - st.camY) > 3) st.camY = yRaw; else st.camY += (yRaw - st.camY) * Math.min(1, dt*5);\n  const yC = st.camY;",
