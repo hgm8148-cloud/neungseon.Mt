@@ -46,6 +46,9 @@ THEME_ROWS = [
     ['◯ 표시된 곳을 누르면 바로 이동해요', '◯ Tap a circled spot to jump there', '◯ 印の場所をタップするとすぐ移動します', '◯ 点击圆圈处即可直接前往', '◯ Markierte Stelle antippen, um hinzuspringen', '◯ Touchez un lieu entouré pour y aller', '◯ Tocca un punto cerchiato per andarci', '◯ Toca un punto marcado para ir allí', '◯ घेरिएको ठाउँ थिच्नुहोस्, सिधै पुगिन्छ', '◯ Gusa sehemu yenye duara kwenda huko'],
     ['완등하면 경유지로 바로 이동할 수 있어요', 'Summit once to jump between checkpoints', '完登すると経由地へすぐ移動できます', '登顶后可直接前往途经点', 'Nach dem Gipfel kannst du zu Etappen springen', 'Après le sommet, allez directement aux étapes', 'Dopo la vetta puoi saltare alle tappe', 'Tras la cumbre podrás ir directo a los puntos', 'शिखर पुगेपछि बिसौनीमा सिधै जान सकिन्छ', 'Ukifika kileleni utaweza kuruka vituoni'],
     ['이 산을 완등하면 지도에서 눌러 바로 이동할 수 있어요', 'Summit this mountain to jump from the map', 'この山を完登すると地図からすぐ移動できます', '登顶这座山后可在地图上直接前往', 'Erst den Gipfel erreichen, dann per Karte springen', 'Atteignez le sommet pour voyager depuis la carte', 'Raggiungi la vetta per spostarti dalla mappa', 'Llega a la cumbre para moverte desde el mapa', 'यो हिमालको शिखर पुगेपछि नक्साबाट सिधै जान सकिन्छ', 'Fika kileleni kwanza ili uruke kutoka ramani'],
+    ['버튼 펼치기', 'Show buttons', 'ボタンを表示', '展开按钮', 'Tasten zeigen', 'Afficher les boutons', 'Mostra pulsanti', 'Mostrar botones', 'बटन देखाउनुहोस्', 'Onyesha vitufe'],
+    ['버튼 접기 (B)', 'Collapse buttons (B)', 'ボタンを畳む (B)', '收起按钮 (B)', 'Tasten einklappen (B)', 'Replier les boutons (B)', 'Comprimi pulsanti (B)', 'Contraer botones (B)', 'बटन लुकाउनुहोस् (B)', 'Kunja vitufe (B)'],
+    ['버튼 펼치기 (B)', 'Show buttons (B)', 'ボタンを表示 (B)', '展开按钮 (B)', 'Tasten zeigen (B)', 'Afficher les boutons (B)', 'Mostra pulsanti (B)', 'Mostrar botones (B)', 'बटन देखाउनुहोस् (B)', 'Onyesha vitufe (B)'],
     ['완등', 'Summited', '完登', '登顶', 'Gipfel', 'Sommet', 'Vetta', 'Cumbre', 'शिखर', 'Kilele'],
 ]
 

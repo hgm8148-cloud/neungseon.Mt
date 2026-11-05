@@ -192,3 +192,36 @@ def patch_walk_keys(P, m):
           "  if(e.code==='KeyZ' || e.code==='KeyX'){ PACE = e.code==='KeyZ' ? 1 : 2; store.set('pace', PACE); st.goal = null; if(!st.auto) toggleAuto(); else refreshWalk(); }\n"
           "  if(e.code==='KeyC'){ st.goal = null; try{ goalRing.visible = false; }catch(_){} try{ window.__SIDE && window.__SIDE.stop(); }catch(_){} if(st.auto){ st.auto = false; refreshWalk(); } }", 1)
     P.rep("<kbd>F</kbd> 천천히 걷기", "<kbd>Z</kbd> 천천히 · <kbd>X</kbd> 빠르게 · <kbd>C</kbd> 멈추기", need=False)
+
+
+# ---------- 아래쪽 버튼 묶음 접기 + PC 단축키 표시 (2026-11-05 승연) ----------
+# - 걷기 막대·행동 버튼(·정상 메뉴)을 따로 접었다 펼 수 있어요. 손잡이 버튼 또는 B 키. 상태는 기억해요.
+# - PC: 등산(T)·하산(G)·천천히(Z)·빠르게(X)·멈추기(C) 버튼에 단축키를 작게 표시해요
+BOT_CSS = r'''
+#botMin{align-self:center;border:0;cursor:pointer;font:inherit;font-size:11.5px;line-height:1;padding:4px 12px 5px;border-radius:999px;color:var(--ink,#eee);opacity:.75;display:flex;align-items:center;gap:6px}
+#botMin:hover{opacity:1}#botMin svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
+#botMin .l{display:none}
+body.botMin #botMin{opacity:.92;padding:6px 14px}body.botMin #botMin .l{display:inline}body.botMin #botMin svg{transform:rotate(180deg)}
+body.botMin #walkPill,body.botMin #actions,body.botMin #campBar,body.botMin #summitBtn{display:none!important}
+body.touch #botMin{display:none!important}
+body:not(.touch) #walkPill button[data-k]::after{content:attr(data-k);margin-left:5px;font-size:10px;font-weight:600;opacity:.55;padding:1px 4px;border-radius:4px;border:1px solid currentColor;line-height:1;vertical-align:1px}
+'''
+BOT_JS = r'''
+// ---------- 아래쪽 버튼 접기 (pipeline/app_patch.py) ----------
+{ const b = $('botMin'); const set = v => { document.body.classList.toggle('botMin', v); store.set('botMin', v ? 1 : 0); b.title = v ? '버튼 펼치기 (B)' : '버튼 접기 (B)'; };
+  b.onclick = e => { e.stopPropagation(); set(!document.body.classList.contains('botMin')); canvas.focus(); };
+  set(!!store.get('botMin', 0)); window.__botMin = set;
+  [['bUp','T'],['bDown','G'],['bSlow','Z'],['bFast','X'],['bWalk','C']].forEach(([id, k]) => { const e = $(id); if(e) e.dataset.k = k; }); }
+'''
+
+
+def patch_bottom_min(P, m):
+    P.rep('</style>', BOT_CSS + '</style>', 1)
+    P.rep('<div id="bottom" class="hud">\n', '<div id="bottom" class="hud">\n  <button id="botMin" class="glass" type="button" title="버튼 접기 (B)"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg><span class="l">버튼 펼치기</span></button>\n', 1)
+    P.rep("  if(e.code==='KeyF') toggleAuto();",
+          "  if(e.code==='KeyF') toggleAuto();\n"
+          "  if(e.code==='KeyT' && st.descending) setTrailDir(false);\n"
+          "  if(e.code==='KeyG' && !st.descending) setTrailDir(true);\n"
+          "  if(e.code==='KeyB' && window.__botMin) window.__botMin(!document.body.classList.contains('botMin'));", 1)
+    P.rep("<kbd>Z</kbd> 천천히 · <kbd>X</kbd> 빠르게 · <kbd>C</kbd> 멈추기", "<kbd>T</kbd> 등산 · <kbd>G</kbd> 하산 · <kbd>Z</kbd> 천천히 · <kbd>X</kbd> 빠르게 · <kbd>C</kbd> 멈추기 · <kbd>B</kbd> 버튼 접기", need=False)
+    P.rep("window.__game = {", BOT_JS + "window.__game = {", 1)
