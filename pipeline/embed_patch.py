@@ -1,4 +1,4 @@
-"""다른 사이트 안(iframe)에서 열렸을 때만 'neungseon.com에서 크게 열기' 버튼 (빌드 후 처리, 여러 번 돌려도 결과가 같다).
+"""저잣거리 연동 스크립트(<head>) + 다른 사이트 안(iframe)에서 열렸을 때만 'neungseon.com에서 크게 열기' 버튼 (빌드 후 처리, 여러 번 돌려도 결과가 같다).
 
 사용: python3 pipeline/embed_patch.py <사이트 루트>   (기본: 저장소 루트)
 build_site.py --to-site 마지막에 embed_patch.patch_dir(root) 를 부른다.
@@ -15,6 +15,9 @@ import os
 import sys
 
 MARK = 'id="embedOpen"'
+
+# 저잣거리 연동 스크립트 (승연 님 요청, 2026-11-06): 모든 페이지 <head> 안에 그대로 넣는다.
+JEOJAT = '<script async src="https://jeojat.altolab.ai/embed.js" data-site="av6wgLWhlE" data-key="2w27T9FZDPhIvrM0" data-ring="1"></script>'
 
 SNIPPET = r"""<style id="embedOpenCss">
 #embedOpen{position:fixed;z-index:60;top:calc(12px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);
@@ -51,6 +54,9 @@ body.touch #embedOpen{top:calc(8px + env(safe-area-inset-top,0px));font-size:12p
 
 
 def patch(s):
+    if 'jeojat.altolab.ai/embed.js' not in s and '<head>' in s:
+        i = s.index('<head>') + len('<head>')
+        s = s[:i] + '\n' + JEOJAT + s[i:]
     if MARK in s or '</body>' not in s:
         return s
     i = s.rfind('</body>')
