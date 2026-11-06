@@ -357,7 +357,7 @@ function soTick(dt){
       if(d > 3.2){ const k = (d - 2.2)/d; SO_P.goal = { x: st.x + dx*k, z: st.z + dz*k }; st.goal = SO_P.goal; st.sitting = false; try{ goalRing.visible = false; }catch(e){} }
       else if(st.goal === SO_P.goal){ st.goal = null; SO_P.goal = null; } }
   }
-  soAcc += dt; if(soAcc < 0.5) return; const step = soAcc; soAcc = 0;
+  if(nowMs - soAcc < 500) return; const step = Math.min(5, (nowMs - soAcc)/1000); soAcc = nowMs;
   // 오래된 신호 정리
   for(const k of ['iv', 'ia', 'ir']) if(SO_P[k] && Math.abs(soNow() - num(SO_P[k][1])) > 40000){ SO_P[k] = null; pushPresence(true); }
   // 이름표: 누르면 함께 가기 창, 동행은 🤝
@@ -507,7 +507,7 @@ function soBoardDraw(){ const B = SO_G.board; if(!B) return; const c = B.cv.getC
   B.tex.needsUpdate = true; }
 // 정상에 처음 오르면 방명록 안내 + 게시판 세우기
 let soSumT = 0;
-function soSummitTick(dt){ soSumT += dt; if(soSumT < 1) return; soSumT = 0;
+function soSummitTick(dt){ const now = performance.now(); if(now - soSumT < 1000) return; soSumT = now;
   if(!SO.fb) return;
   if(!SO_G.board && st.started){ const tp = trail[trail.length-1]; if(Math.hypot(tp.x - st.x, tp.z - st.z) < 160){ soGuestStart(); soBoardMake(); } }
   if(st.inSummit && !SO_G.prompted && st.started){ SO_G.prompted = true; setTimeout(() => { if(!$('soGuest').hidden) return; $('soChipName').textContent = ''; $('soChip').querySelector('span > span').textContent = '정상 방명록에 한마디 남겨 보세요'; SO_P.chip = null; $('soChipB').textContent = '📝 방명록';
@@ -516,6 +516,7 @@ function soSummitTick(dt){ soSumT += dt; if(soSumT < 1) return; soSumT = 0;
 function restoreChip(){ $('soChip').querySelector('span > span').textContent = '님이 가까이 있어요'; $('soChipB').textContent = '함께 가기 제안';
   $('soChipB').onclick = () => { const a = SO_P.chip; $('soChip').hidden = true; if(a) soSendInvite(a); }; $('soChipX').onclick = () => { $('soChip').hidden = true; }; }
 $('cGuest').onclick = () => soOpenGuest(); $('soGuestEnd').onclick = () => soOpenGuest();
+window.__so = { SO, SO_G, SO_P, soBoardMake, soOpenGuest };
 // 시작: 웹(파이어베이스)에서만
 FB_READY.then(fb => { if(!fb) return; SO.fb = fb; SO.web = true; try{ soChatStart(fb); }catch(e){ SO.chatOk = false; console.warn(e); } });
 '''
