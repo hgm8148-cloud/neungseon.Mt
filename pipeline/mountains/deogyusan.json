@@ -60,6 +60,11 @@
    "snap": "elev",
    "desc": {
     "ko": "맑은 계곡물 소리를 들으며 걸어요."
+   },
+   "feature": {
+    "type": "waterfall",
+    "scale": 0.38,
+    "at": 30
    }
   },
   {

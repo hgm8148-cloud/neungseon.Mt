@@ -15,7 +15,7 @@ def patch_look(P, m):
     P.rep("const TOON_ROCK = new THREE.Color(0xb3ada2), TOON_ROCK2 = new THREE.Color(0x8f8a82);",
           "const TOON_ROCK = new THREE.Color(0xb3ada2), TOON_ROCK2 = new THREE.Color(0x8f8a82);\n"
           "if(!SZ.toon && BIO.dens === 0) [0x7a6e60, 0x8a7c6a, 0x6e6458, 0x9a8a74, 0x857565, 0x6a5e52, 0x7e7466].forEach((c, i) => TOON_PAL[i] && TOON_PAL[i].set(c));", 1)
-    try: L = json.load(open(os.path.join(HERE, 'photos', 'look.json'))).get(m['id'])
+    try: L = json.load(open(os.path.join(HERE, 'photos', 'look.json'))).get(m.get('base', m['id']))
     except Exception: L = None
     if not L or m.get('legacy'): return
     r, g, b = L['rock']

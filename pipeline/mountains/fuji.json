@@ -75,6 +75,10 @@
    "desc": {
     "ko": "나무가 사라지고 붉은 화산 자갈 지그재그 길이 시작돼요.",
     "en": "Trees give way to switchbacks of red volcanic scree."
+   },
+   "spot": {
+    "type": "huts",
+    "n": 3
    }
   },
   {
@@ -89,6 +93,10 @@
    "desc": {
     "ko": "산장이 모여 있는 곳이에요. 공기가 눈에 띄게 얇아져요.",
     "en": "A cluster of mountain huts. The air is noticeably thinner."
+   },
+   "spot": {
+    "type": "huts",
+    "n": 3
    }
   },
   {

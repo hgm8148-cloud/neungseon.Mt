@@ -43,7 +43,7 @@ I18N_JS = r'''
 
 
 def patch_lang(P, m):
-    langs = PAGE_LANGS.get(m['id'])
+    langs = PAGE_LANGS.get(m['id']) or PAGE_LANGS.get(m.get('base', ''))
     if not langs: return
     from i18n_fix_patch import FIX_LOCAL
     X = {l: {**table(l), **FIX_LOCAL.get(l, {})} for l in langs}

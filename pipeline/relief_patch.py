@@ -28,7 +28,7 @@ const BRIDGE = (() => { const B = RELIEF.bridge; if(!B || !WPS[B.wp]) return nul
   // 다리 위 구간은 곧은 직선으로 (다리 바닥과 걷는 길이 정확히 겹치게)
   const ax = A.x, az = A.z, bx = Bp.x, bz = Bp.z;
   for(let i = best.i0; i <= best.i1; i++){ const f = (i - best.i0)/(best.i1 - best.i0); trail[i].h = ha + (hb - ha)*f; trail[i].x = ax + (bx - ax)*f; trail[i].z = az + (bz - az)*f; }
-  return { i0:best.i0, i1:best.i1, depth:B.depth || 24, color:B.color || '#b4332a' }; })();
+  return { i0:best.i0, i1:best.i1, depth:B.depth || 24, color:B.color || '#b4332a', style:B.style || 'truss' }; })();
 """
 
 CARVE_JS = r"""
@@ -102,6 +102,31 @@ SCENE_JS = r"""
     const grate = new THREE.MeshStandardMaterial({ color:0x5d5a55, roughness:0.8, metalness:0.4 }), G = new THREE.Group();
     const a = trail[i0], b = trail[i1], len = Math.hypot(b.x - a.x, b.z - a.z), yaw = Math.atan2(b.x - a.x, b.z - a.z), slope = Math.atan2(b.h - a.h, len);
     const W = 1.7, mk = (geo, m, x, y, z) => { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = true; G.add(o); return o; };
+    if(BRIDGE.style === 'suspension'){
+      // 출렁다리: 철망 바닥 + 양쪽 그물 + 늘어진 주 케이블·행어 + 양 끝 탑 + 오색 깃발 (힐러리 다리를 본떠 만들었어요)
+      const steel = new THREE.MeshStandardMaterial({ color:0x8a8d90, roughness:0.45, metalness:0.7 });
+      mk(new THREE.BoxGeometry(W, 0.1, len + 2), grate, 0, -0.05, 0);
+      const nc = document.createElement('canvas'); nc.width = nc.height = 64; { const x = nc.getContext('2d'); x.strokeStyle = 'rgba(70,74,78,0.95)'; x.lineWidth = 3; for(let k = 0; k <= 64; k += 16){ x.beginPath(); x.moveTo(k, 0); x.lineTo(k, 64); x.stroke(); x.beginPath(); x.moveTo(0, k); x.lineTo(64, k); x.stroke(); } }
+      const nt = new THREE.CanvasTexture(nc); nt.wrapS = nt.wrapT = THREE.RepeatWrapping; nt.repeat.set((len + 2)/0.5, 2.2);
+      const net = new THREE.MeshStandardMaterial({ map:nt, transparent:true, alphaTest:0.3, side:THREE.DoubleSide, metalness:0.5, roughness:0.5 });
+      const sag = 3.2, TH = 5.2, cab = t => TH - sag*(1 - Math.pow(2*t/(len + 2), 2));   // 주 케이블 높이 (가운데가 처져요)
+      for(const s of [-1, 1]){ const pl = new THREE.Mesh(new THREE.PlaneGeometry(len + 2, 1.1), net); pl.rotation.y = Math.PI/2; pl.position.set(s*W/2, 0.55, 0); G.add(pl);
+        const hr = []; for(let k = 0; k <= 30; k++){ const t = -len/2 - 1 + (len + 2)*k/30; hr.push(new THREE.Vector3(s*W/2, 1.1, t)); }
+        G.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(hr), 30, 0.035, 6), steel));
+        const mc = []; for(let k = 0; k <= 40; k++){ const t = -len/2 - 1 + (len + 2)*k/40; mc.push(new THREE.Vector3(s*(W/2 + 0.35), cab(t), t)); }
+        G.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(mc), 60, 0.06, 6), steel));
+        for(let t = -len/2 + 1; t < len/2; t += 2.2){ const y = cab(t); mk(new THREE.CylinderGeometry(0.015, 0.015, y - 1.1, 4), steel, s*(W/2 + 0.17), (y + 1.1)/2, t); }
+        // 양 끝 탑 (콘크리트 기둥)
+        for(const e of [-1, 1]) mk(new THREE.BoxGeometry(0.5, TH + 2.4, 0.5), new THREE.MeshStandardMaterial({ color:0x9a958c, roughness:0.9 }), s*(W/2 + 0.45), TH/2 - 1.2, e*(len/2 + 1.6)); }
+      // 오색 깃발(룽다)·하얀 카타: 주 케이블과 난간에 촘촘히
+      const cols = [0x2d6fd1, 0xf4f1e8, 0xd2352b, 0x2f9b4e, 0xf2c230], fg = new THREE.PlaneGeometry(0.32, 0.42), nF = Math.floor((len + 2)/0.38)*2 + Math.floor((len + 2)/0.9)*2;
+      const fm = new THREE.MeshStandardMaterial({ roughness:0.9, side:THREE.DoubleSide }), FI = new THREE.InstancedMesh(fg, fm, nF), M4 = new THREE.Matrix4(), Q = new THREE.Quaternion(), E = new THREE.Euler(), C = new THREE.Color(); let fi = 0;
+      for(const s of [-1, 1]){ for(let t = -len/2 - 1; t < len/2 + 1 && fi < nF; t += 0.38){ E.set(0.25*Math.sin(t*3.1), Math.PI/2, 0.18*Math.sin(t*1.7)); Q.setFromEuler(E); M4.compose(new THREE.Vector3(s*(W/2 + 0.4), cab(t) - 0.24, t), Q, new THREE.Vector3(1, 1, 1)); FI.setMatrixAt(fi, M4); FI.setColorAt(fi, C.setHex(cols[fi % 5])); fi++; }
+        for(let t = -len/2 - 1; t < len/2 + 1 && fi < nF; t += 0.9){ E.set(0.1*Math.sin(t*2.3), Math.PI/2, 0); Q.setFromEuler(E); M4.compose(new THREE.Vector3(s*W/2 + s*0.05, 0.86, t), Q, new THREE.Vector3(0.7, 1.1, 1)); FI.setMatrixAt(fi, M4); FI.setColorAt(fi, C.setHex(rnd() < 0.5 ? 0xf6f3ea : cols[(fi*7) % 5])); fi++; } }
+      FI.count = fi; FI.instanceMatrix.needsUpdate = true; if(FI.instanceColor) FI.instanceColor.needsUpdate = true; G.add(FI);
+      // 바람에 살랑: 깃발 무리를 조금씩 흔들어요
+      FI.onBeforeRender = () => { FI.rotation.x = Math.sin(performance.now()/700)*0.012; };
+    } else {
     mk(new THREE.BoxGeometry(W, 0.12, len + 2), grate, 0, -0.06, 0);
     for(const s of [-1, 1]){ mk(new THREE.BoxGeometry(0.16, 0.5, len + 2), red, s*W/2, -0.3, 0);   // 옆 거더
       mk(new THREE.CylinderGeometry(0.045, 0.045, len + 2, 8).rotateX(Math.PI/2), red, s*W/2, 1.15, 0);   // 손잡이
@@ -113,6 +138,7 @@ SCENE_JS = r"""
         if(prev){ const d = p.clone().sub(prev), seg = mk(new THREE.CylinderGeometry(0.09, 0.09, d.length(), 6), red, (p.x + prev.x)/2, (p.y + prev.y)/2, (p.z + prev.z)/2); seg.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), d.normalize());
           const q = new THREE.Vector3(s*W/2, -0.5, k % 2 ? prev.z : p.z), r2 = (k % 2 ? p : prev), d2 = r2.clone().sub(q), dg = mk(new THREE.CylinderGeometry(0.05, 0.05, d2.length(), 5), red, (q.x + r2.x)/2, (q.y + r2.y)/2, (q.z + r2.z)/2); dg.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), d2.normalize()); }
         prev = p; } }
+    }
     G.rotation.order = 'YXZ'; G.rotation.y = yaw; G.rotation.x = -slope; G.position.set((a.x + b.x)/2, (a.h + b.h)/2 + 0.18, (a.z + b.z)/2); scene.add(G);
     // 발 높이: 다리 직사각형 위에 있으면 다리 바닥 (탐방로 번호와 상관없이 위치로 판단)
     const ux = (b.x - a.x)/len, uz = (b.z - a.z)/len, half = W/2;

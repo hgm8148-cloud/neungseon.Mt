@@ -84,7 +84,7 @@ PHOTO_JS = r'''
 
 
 def patch_photos(P, m):
-    mid = m['id']
+    mid = m.get('base', m['id'])
     if not has_photos(mid): return
     C = {c['role']: c for c in credits()[mid]}
     pc = dict(posts=[dict(src=c['file'], cr=label(c)) for r, c in sorted(C.items()) if r.startswith('p')])

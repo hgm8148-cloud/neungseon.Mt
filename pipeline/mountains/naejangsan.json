@@ -74,6 +74,11 @@
    "desc": {
     "ko": "500년 넘게 단풍으로 이름난 산이에요. 내장사에서 산행을 시작해요.",
     "en": "Famous for its autumn colors for over 500 years. The hike starts at Naejangsa Temple."
+   },
+   "spot": {
+    "type": "pavilion",
+    "at": -25,
+    "D": 18
    }
   },
   {

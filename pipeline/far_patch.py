@@ -18,11 +18,11 @@ CANOPY_SEASON = {
 }
 
 def patch_far(P, m):
-    if m['id'] not in FAR_READY: return
+    if m.get('base', m['id']) not in FAR_READY: return
     # 먼 산 숲 무리(스프라이트 15만 개)가 계절과 상관없이 단풍색이던 것 → 그 계절의 숲 색(SZ.pals)으로
     P.rep("const pals=[[[150,40,26],[176,74,32],[124,32,22],[96,56,32]]", "const pals=SZ.pals ? (SZ.notCherry ? [1,2,3,2].map(i => SZ.pals[i]) : SZ.pals.slice(0, 4)) : (BIO.leaf < 0.5 && SEASON === 'autumn') ? [[[196,150,52],[214,176,70],[176,128,44],[150,110,40]],[[52,74,40],[40,60,34],[66,86,46],[88,96,50]],[[40,62,36],[34,54,30],[56,78,42],[30,48,28]],[[150,96,48],[124,80,40],[170,118,58],[110,76,40]]] : [[[150,40,26],[176,74,32],[124,32,22],[96,56,32]]", 1)
     tex = "const TEX = { litter: makeLitter(), litter2: makeLitter2(), canopy: makeCanopy(), granite: makeGranite(), trail: makeTrailTex() };"
-    P.rep(tex, tex + "\n{ const im = new Image(); im.onload = () => { TEX.canopy.image = im; TEX.canopy.needsUpdate = true; }; im.src = 'photos/' + (%s[SEASON] || '%s') + '/canopy.jpg'; }" % (json.dumps(CANOPY_SEASON.get(m['id'], {})), m['id']), 1)
+    P.rep(tex, tex + "\n{ const im = new Image(); im.onload = () => { TEX.canopy.image = im; TEX.canopy.needsUpdate = true; }; im.src = 'photos/' + (%s[SEASON] || '%s') + '/canopy.jpg'; }" % (json.dumps(CANOPY_SEASON.get(m.get('base', m['id']), {})), m.get('base', m['id'])), 1)
     P.rep("const seasonGLSL = () => `",
           "const seasonGLSL = () => (SEASON === 'autumn' && BIO.leaf ? `{ float gr = clamp((lit.g - max(lit.r, lit.b))*5.0, 0.0, 1.0); "
           "float h = fract(sin(dot(floor(vWP.xz/9.0), vec2(12.9898, 78.233)))*43758.5453); "
@@ -92,13 +92,13 @@ FLORA_JS = r"""
 def patch_far_clumps(P, m):
     # 먼 숲 무리: 수목한계선 위(고산 바위·눈밭)엔 심지 않아요 — 킬리만자로 비탈에 단풍 숲 무늬가 깔리던 것
     # 늘 겨울인 산(에베레스트·킬리만자로)의 숲은 짙은 상록 숲 색으로
-    if m['id'] not in FAR_READY: return
+    if m.get('base', m['id']) not in FAR_READY: return
     P.rep("if(sl > 0.9 || (h > 600 && sl > 0.55)) continue;", "if(sl > 0.9 || (h > 600 && sl > 0.55) || h > BIO.tt + 60) continue;", 1)
     P.rep("const pals=SZ.pals ? (", "const pals=SEASON === 'fixed' ? [[[44,66,40],[36,56,34],[58,80,48],[30,46,28]],[[52,74,44],[40,62,36],[66,88,52],[34,50,30]],[[40,62,36],[34,54,30],[56,78,42],[30,48,28]],[[70,84,52],[56,72,44],[82,96,60],[46,60,38]]] : SZ.pals ? (", 1)
 
 
 def patch_flora(P, m):
-    if m['id'] not in FAR_READY: return
+    if m.get('base', m['id']) not in FAR_READY: return
     fl = FLOWERS.get(m.get('climate', 'kr'), {})
     P.rep("Object.assign(SZ, SZX[SEASON] || {});", "Object.assign(SZ, SZX[SEASON] || {});" + FLORA_JS.replace('__FL__', json.dumps(fl, separators=(',', ':'))), 1)
     P.rep("const PV = { grass:2, reed:2, fern:2, bushRed:2, bushOak:2, bushGreen:1 };",

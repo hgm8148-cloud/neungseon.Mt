@@ -100,5 +100,5 @@ def patch_sound(P, m):
     # 1) 도선사 범종 빼기
     P.rep("      bellT -= dt; if(bellT < 0){ bellT = 70 + Math.random()*60; if(k.prog < 0.35) bell(t+0.1, 0.03*(1 - k.prog*2)); }\n", "", 1)
     # 2) 산별 소리 (변수 선언 뒤, sfx.update 앞)
-    P.rep("    sfx.update = (dt, k) => {", SIG_JS.replace('__MT__', m['id']) + "    sfx.update = (dt, k) => {", 1)
+    P.rep("    sfx.update = (dt, k) => {", SIG_JS.replace('__MT__', m.get('base', m['id'])) + "    sfx.update = (dt, k) => {", 1)
     P.rep("      birdT -= dt;\n", "      sigUpdate(dt, t, k);\n      birdT -= dt;\n", 1)
