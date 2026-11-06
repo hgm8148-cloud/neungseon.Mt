@@ -494,6 +494,7 @@ body.atSummit #downBtn{display:inline-flex}body.camping #downBtn,body.inSummit #
 #tut .row{display:flex;gap:8px;justify-content:space-between}
 #tut button{border:0;border-radius:999px;padding:10px 18px;font:inherit;font-size:14px;font-weight:700;cursor:pointer}
 #tutSkip{background:transparent;color:inherit;opacity:.6}#tutNext{background:#3f8a55;color:#fff;min-width:110px}
+#bGfx[data-tier="0"] svg path:nth-child(2){transform:rotate(-70deg);transform-origin:12px 16.5px}#bGfx[data-tier="1"] svg path:nth-child(2){transform:rotate(-35deg);transform-origin:12px 16.5px}
 
 /* ---------- 로딩 화면 (pipeline/loader_patch.py) ---------- */
 #loading .ld2{display:none}
@@ -1205,7 +1206,19 @@ html:not([lang=ko]) .ld2.mtn h2{letter-spacing:.04em}
     ["덕유산", "Deogyusan", "徳裕山", "德裕山"],
     ["향적봉", "Hyangjeokbong", "香積峰", "香积峰"],
     ["백련사 코스", "Baengnyeonsa Trail", "白蓮寺コース", "白莲寺路线"],
-    ["덕유산 향적봉 정상에 함께 오르다", "Climbing to Hyangjeokbong Summit on Deogyusan together", "徳裕山・香積峰 山頂へいっしょに登る", "一起登上德裕山香积峰 山顶"]
+    ["덕유산 향적봉 정상에 함께 오르다", "Climbing to Hyangjeokbong Summit on Deogyusan together", "徳裕山・香積峰 山頂へいっしょに登る", "一起登上德裕山香积峰 山顶"],
+    // 화질 (pipeline/perf_patch.py)
+    ["화질 바꾸기", "Change graphics quality", "画質を変更", "更改画质", "Grafikqualität ändern", "Changer la qualité graphique", "Cambia qualità grafica", "Cambiar calidad gráfica", "ग्राफिक्स गुणस्तर बदल्नुहोस्", "Badilisha ubora wa picha"],
+    ["화질", "Graphics", "画質", "画质", "Grafik", "Graphismes", "Grafica", "Gráficos", "ग्राफिक्स", "Picha"],
+    ["화질: 자동", "Graphics: Auto", "画質: 自動", "画质: 自动", "Grafik: Automatisch", "Graphismes : Auto", "Grafica: Automatica", "Gráficos: Automático", "ग्राफिक्स: स्वचालित", "Picha: Kiotomatiki"],
+    ["화질: 높음", "Graphics: High", "画質: 高", "画质: 高", "Grafik: Hoch", "Graphismes : Élevés", "Grafica: Alta", "Gráficos: Altos", "ग्राफिक्स: उच्च", "Picha: Juu"],
+    ["화질: 보통", "Graphics: Medium", "画質: 中", "画质: 中", "Grafik: Mittel", "Graphismes : Moyens", "Grafica: Media", "Gráficos: Medios", "ग्राफिक्स: मध्यम", "Picha: Wastani"],
+    ["화질: 낮음", "Graphics: Low", "画質: 低", "画质: 低", "Grafik: Niedrig", "Graphismes : Bas", "Grafica: Bassa", "Gráficos: Bajos", "ग्राफिक्स: न्यून", "Picha: Chini"],
+    ["지금 높음", "now High", "現在 高", "当前 高", "jetzt Hoch", "actuellement Élevés", "ora Alta", "ahora Altos", "अहिले उच्च", "sasa Juu"],
+    ["지금 보통", "now Medium", "現在 中", "当前 中", "jetzt Mittel", "actuellement Moyens", "ora Media", "ahora Medios", "अहिले मध्यम", "sasa Wastani"],
+    ["지금 낮음", "now Low", "現在 低", "当前 低", "jetzt Niedrig", "actuellement Bas", "ora Bassa", "ahora Bajos", "अहिले न्यून", "sasa Chini"],
+    ["기기에 맞춰 저절로 조절해요", "Adjusts to your device automatically", "端末に合わせて自動で調整します", "根据设备自动调整", "Passt sich automatisch an dein Gerät an", "S’adapte automatiquement à votre appareil", "Si adatta automaticamente al dispositivo", "Se ajusta solo a tu dispositivo", "तपाईंको उपकरण अनुसार आफैँ मिल्छ", "Hujirekebisha kulingana na kifaa chako"],
+    ["화면이 부드럽게 움직이도록 화질을 조금 낮췄어요", "Lowered the graphics a little so it runs smoothly", "なめらかに動くよう画質を少し下げました", "为了画面流畅，已稍微降低画质", "Grafik etwas reduziert, damit alles flüssig läuft", "Graphismes un peu réduits pour plus de fluidité", "Grafica ridotta un po’ per una maggiore fluidità", "Bajamos un poco los gráficos para que vaya fluido", "सहज चलोस् भनेर ग्राफिक्स अलि घटाइयो", "Ubora wa picha umepunguzwa kidogo ili kwenda vizuri"]
   ];
   const IDX = { en:1, ja:2, zh:3 };
   const DICT = new Map(); for(const r of R) DICT.set(r[0], r);
@@ -1377,6 +1390,7 @@ html:not([lang=ko]) .ld2.mtn h2{letter-spacing:.04em}
     <button class="ib touchOnly" id="bRotate" title="가로·세로 전환" aria-label="가로·세로 전환"><svg viewBox="0 0 24 24"><rect x="7" y="3.5" width="10" height="17" rx="2"/><path d="M3 12a9 9 0 0 1 4-7.5M21 12a9 9 0 0 1-4 7.5"/><path d="M5.5 3.5 7 4.5 6 6M18.5 20.5 17 19.5l1-1.5"/></svg></button>
     <button class="ib" id="bClean" title="화면 정리: 버튼 모두 숨기기 (H)" aria-label="버튼 모두 숨기기"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="2.5"/><path d="M3.5 9h17" opacity=".5"/><path d="M8 14h8" stroke-dasharray="2 2"/></svg></button>
     <button class="ib" id="bLang" title="언어 바꾸기" aria-label="언어 바꾸기"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.6 2.6 3.6 5.4 3.6 8.5s-1 5.9-3.6 8.5c-2.6-2.6-3.6-5.4-3.6-8.5s1-5.9 3.6-8.5z"/></svg></button>
+    <button class="ib" id="bGfx" title="화질" aria-label="화질 바꾸기"><svg viewBox="0 0 24 24"><path d="M4.5 16.5a8 8 0 1 1 15 0"/><path d="M12 16.5l3.6-5.2"/><circle cx="12" cy="16.5" r="1.4"/><path d="M6.6 11.2l1 .6M12 7.5v1.2M17.4 11.2l-1 .6"/></svg></button>
     <button class="ib" id="bMap" title="지도 크게 (M)" aria-label="지도 크게 보기"><svg viewBox="0 0 24 24"><path d="M3 6.5 9 4l6 2.5L21 4v13.5L15 20l-6-2.5L3 20z"/><path d="M9 4v13.5M15 6.5V20"/></svg></button>
   </div>
   <button id="supportBtn" class="glass pill"><svg class="oni" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2c-1.5 0-2.6.9-3.5 2.4l-4.3 7.6c-1.3 2.4.3 6.3 3.4 6.3h8.8c3.1 0 4.7-3.9 3.4-6.3l-4.3-7.6c-.9-1.5-2-2.4-3.5-2.4z" fill="#f6f1e6" stroke="#3a2c1e" stroke-width="1.3" stroke-linejoin="round"/><path d="M8.6 14h6.8v5.5H8.6z" fill="#2c3a2a"/><circle cx="9.6" cy="10.4" r=".75" fill="#3a2c1e"/><circle cx="14.4" cy="10.4" r=".75" fill="#3a2c1e"/><path d="M11 11.6q1 .8 2 0" fill="none" stroke="#3a2c1e" stroke-width=".9" stroke-linecap="round"/><circle cx="8.3" cy="11.8" r=".9" fill="#f2a28a" opacity=".7"/><circle cx="15.7" cy="11.8" r=".9" fill="#f2a28a" opacity=".7"/></svg><span class="sLong">산행 간식 보태기</span><span class="sShort">후원</span></button>
@@ -1777,9 +1791,90 @@ function slopeAt(x,z){ const e=2; const dx=heightAt(x+e,z)-heightAt(x-e,z), dz=h
 
 // ---------- renderer / scene ----------
 const canvas = document.getElementById('gl');
-const renderer = new THREE.WebGLRenderer({canvas, antialias:true, preserveDrawingBuffer:true});
+// 화질 자동 조절 (pipeline/perf_patch.py): 기기 판별 → 시작 단계, FPS 측정 → 해상도·단계 낮추기
+const GFX = window.__GFX = (() => {
+  const K = 'neungseon.gfx', KA = 'neungseon.gfxAuto', TOUCH = document.body.classList.contains('touch');
+  const ls = { get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }, set(k, v){ try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch(e){} } };
+  const NAME = ['낮음', '보통', '높음'], MODES = ['auto', 'high', 'mid', 'low'], IDX = { low:0, mid:1, high:2 };
+  // 단계별 값: 최대 화소 비율 · 동적 해상도 하한 · 그림자 · 그림자 지도 크기 · 나무 비율 · 풀 비율
+  const PR = [1, 1.25, TOUCH ? 1.5 : 2], SMIN = [0.7, 0.8, 0.85], SH = [false, true, true], SHS = [0, 1024, TOUCH ? 1024 : 2048], TREE = [0.6, 0.85, 1], PLANT = [0.4, 0.7, 1];
+  let gpu = '';
+  try { const c = document.createElement('canvas'), g = c.getContext('webgl2') || c.getContext('webgl');
+    if(g){ const e = g.getExtension('WEBGL_debug_renderer_info'); gpu = String((e && g.getParameter(e.UNMASKED_RENDERER_WEBGL)) || g.getParameter(g.RENDERER) || ''); const l = g.getExtension('WEBGL_lose_context'); if(l) l.loseContext(); }
+  } catch(e){}
+  const mem = navigator.deviceMemory || 0, cores = navigator.hardwareConcurrency || 0;
+  function detect(){
+    const G = gpu.toLowerCase(); let t = 2, m;
+    if(/swiftshader|llvmpipe|softpipe|software|microsoft basic/.test(G)) return 0;
+    if(/mali-[34]\d\d|mali-t\d|powervr|sgx|videocore|vivante|tegra 3|tegra 4/.test(G)) t = 0;
+    else if((m = G.match(/adreno\D*(\d{3})/))){ const n = +m[1]; t = n < 530 ? 0 : n < 640 ? 1 : 2; }
+    else if((m = G.match(/mali-g(\d+)/))){ const n = +m[1]; t = n <= 52 ? 0 : n <= 76 ? 1 : 2; }
+    else if(/intel.*hd graphics( \d{3,4})?\b/.test(G) && !/iris/.test(G)) t = 1;
+    if(TOUCH){
+      if((mem && mem <= 2) || (cores && cores <= 4)) t = Math.min(t, 0);
+      else if((mem && mem <= 4) || (cores && cores <= 6)) t = Math.min(t, 1);
+    } else if(mem && mem <= 2) t = Math.min(t, 1);
+    return t;
+  }
+  const base = detect();
+  let learned = 2; try { const a = JSON.parse(ls.get(KA) || 'null'); if(a && Date.now() - a.ts < 14*864e5) learned = a.t; } catch(e){}
+  let mode = MODES.includes(ls.get(K)) ? ls.get(K) : 'auto';
+  let tier = mode === 'auto' ? Math.min(base, learned) : IDX[mode], scale = 1, R = null, SUN = null, veg = [];
+  const T_ = s => (window.T || (x => x))(s);
+  function apply(){
+    if(!R) return;
+    R.setPixelRatio(Math.max(0.5, Math.min(devicePixelRatio || 1, PR[tier]) * scale));
+    if(SUN){ SUN.castShadow = SH[tier];
+      if(SH[tier] && SUN.shadow.mapSize.x !== SHS[tier]){ SUN.shadow.mapSize.set(SHS[tier], SHS[tier]); if(SUN.shadow.map){ SUN.shadow.map.dispose(); SUN.shadow.map = null; } } }
+  }
+  // 나무·풀: 그릴 때(그림자 포함)만 앞쪽 일부만 그리고, 다 그리면 개수를 되돌려요
+  function addVeg(list, plant){
+    for(const m of list){ const v = { m, plant, keep: m.count, full: 0 };
+      const pre = () => { if(v.full) return; v.full = m.count; v.keep = Math.round(m.count * (plant ? PLANT[tier] : TREE[tier])); if(v.keep < m.count) m.count = v.keep; };
+      const post = () => { if(v.full) m.count = v.full; v.full = 0; };
+      const b1 = m.onBeforeRender, a1 = m.onAfterRender, b2 = m.onBeforeShadow, a2 = m.onAfterShadow;
+      m.onBeforeRender = function(...x){ pre(); return b1.apply(this, x); }; m.onAfterRender = function(...x){ post(); return a1.apply(this, x); };
+      m.onBeforeShadow = function(...x){ pre(); return b2.apply(this, x); }; m.onAfterShadow = function(...x){ post(); return a2.apply(this, x); };
+      veg.push(v); }
+  }
+  function label(){ return T_(mode === 'auto' ? '화질: 자동' : '화질: ' + NAME[IDX[mode]]); }
+  function btn(){ const b = document.getElementById('bGfx'); if(!b) return; const l = label(); b.title = l; b.setAttribute('aria-label', l); b.dataset.tier = tier; }
+  // FPS 측정: 3초 묶음, 탭 전환·로딩 멈춤은 빼고
+  let last = 0, t0 = 0, n = 0, warm = 0, bad = 0, good = 0, slow = 0, told = false;
+  function tick(){
+    const now = performance.now();
+    if(!last){ last = t0 = now; warm = now + 6000; return; }
+    const gap = now - last; last = now; GFX.gap = Math.round(gap);
+    if(document.hidden){ n = 0; t0 = now; slow = 0; return; }
+    if(gap > 1500){ n = 0; t0 = now;   // 한 장 그리는 데 1.5초 넘게: 탭 전환일 수도 있으니 세 번 이어질 때만 아주 느린 것으로
+      if(++slow >= 3){ slow = 0; GFX.fps = Math.round(10000/gap)/10; judge(GFX.fps, now); } else warm = Math.max(warm, now + 1500);
+      return; }
+    slow = 0; n++; if(now - t0 < 3000) return;
+    const fps = n*1000/(now - t0); n = 0; t0 = now; GFX.fps = Math.round(fps); judge(fps, now);
+  }
+  function judge(fps, now){
+    if(mode !== 'auto' || now < warm) return;
+    if(fps < 24){ bad++; good = 0;
+      if(scale > SMIN[tier] + 0.01){ scale = Math.max(SMIN[tier], scale - 0.15); apply(); warm = now + 2500; }
+      else if(tier > 0 && bad >= 2){ tier--; scale = Math.max(SMIN[tier], scale); bad = 0; apply(); btn(); warm = now + 5000; ls.set(KA, JSON.stringify({ t: tier, ts: Date.now() }));
+        if(!told && typeof toast === 'function'){ told = true; toast(T_('화면이 부드럽게 움직이도록 화질을 조금 낮췄어요'), 3.5); } }
+    } else if(fps < 30){ bad = 0; good = 0; if(scale > SMIN[tier] + 0.01){ scale = Math.max(SMIN[tier], scale - 0.08); apply(); warm = now + 2500; } }
+    else { bad = 0; if(fps > 52 && scale < 1){ if(++good >= 4){ good = 0; scale = Math.min(1, scale + 0.1); apply(); warm = now + 2500; } } else good = 0; }
+  }
+  // 메뉴 버튼: 자동 → 높음 → 보통 → 낮음
+  function cycle(){
+    mode = MODES[(MODES.indexOf(mode) + 1) % MODES.length]; ls.set(K, mode === 'auto' ? null : mode);
+    if(mode === 'auto'){ ls.set(KA, null); tier = base; } else tier = IDX[mode];
+    scale = 1; bad = good = 0; warm = performance.now() + 4000; apply(); btn();
+    if(typeof toast === 'function') toast(label() + (mode === 'auto' ? ' · ' + T_('지금 ' + NAME[tier]) : ''), 2.5);
+  }
+  return { get tier(){ return tier; }, get mode(){ return mode; }, get scale(){ return scale; }, gpu, base, fps: 0, gap: 0, aa: tier >= 1,
+    pr(){ return Math.min(devicePixelRatio || 1, PR[tier]); }, shadow(){ return SH[tier]; }, shadowSize(){ return SHS[tier] || 1024; },
+    bind(r, s){ R = r; SUN = s; apply(); btn(); }, addVeg, tick, cycle, btn, apply };
+})();
+const renderer = new THREE.WebGLRenderer({canvas, antialias:GFX.aa, preserveDrawingBuffer:true});
 const IS_TOUCH = document.body.classList.contains('touch');
-renderer.setPixelRatio(Math.min(devicePixelRatio, IS_TOUCH ? 1.5 : 2));
+renderer.setPixelRatio(GFX.pr());
 renderer.setSize(innerWidth, innerHeight);
 renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.0;
@@ -1792,11 +1887,11 @@ THREE.ShaderChunk.fog_fragment = THREE.ShaderChunk.fog_fragment.replace('vFogDep
 
 const hemi = new THREE.HemisphereLight(0xd8e4f2, 0x6a5440, 0.95); scene.add(hemi);
 const sun = new THREE.DirectionalLight(0xffe6c4, 2.6);
-sun.castShadow = true; sun.shadow.mapSize.set(IS_TOUCH ? 1024 : 2048, IS_TOUCH ? 1024 : 2048);
+sun.castShadow = GFX.shadow(); sun.shadow.mapSize.set(GFX.shadowSize(), GFX.shadowSize());
 const sc = sun.shadow.camera; sc.left=-70; sc.right=70; sc.top=70; sc.bottom=-70; sc.near=1; sc.far=600;
 sun.shadow.bias = -0.0006; sun.shadow.normalBias = 0.6;
 const SUN_DIR = new THREE.Vector3(0.55, 0.62, 0.35).normalize();
-scene.add(sun, sun.target);
+scene.add(sun, sun.target); GFX.bind(renderer, sun);
 // sky (대기 산란) + 환경광
 const sky = new Sky(); sky.scale.setScalar(25000);
 { const U = sky.material.uniforms; for(const k of ['gZen','gUp','gMid','gLow','gHor','gSun']) U[k] = { value:new THREE.Color() }; U.gAmt = { value:0 }; U.gOver = { value:0 };
@@ -2677,6 +2772,7 @@ const treeShade = new Float32Array(M*M);   // 나무 그늘 (지면을 어둡게
   }
   for(const m of [...Object.values(T).flat(), ...Object.values(P).flat()]){ m.instanceMatrix.needsUpdate = true; if(m.instanceColor) m.instanceColor.needsUpdate = true; scene.add(m); }
   for(const m of [...P.grass, ...P.reed, ...P.fern]) m.castShadow = false;
+  GFX.addVeg(Object.values(T).flat(), false); GFX.addVeg(Object.values(P).flat(), true);
   // 지면에 나무 그늘 반영
   const ca = terrainGeo.attributes.color;
   for(let v=0; v<M*M; v++){ const s = 1 - Math.min(0.42, treeShade[v]); ca.array[v*3]*=s; ca.array[v*3+1]*=s; ca.array[v*3+2]*=s; }
@@ -4992,6 +5088,7 @@ function frame(){
   const dt = Math.min(clock.getDelta(), 0.05);
   if(st.started) update(dt); else { st.yaw += dt*0.05; update(0); }
   drawMap(); updateTags();
+  GFX.tick();
   renderer.render(scene, camera);
   requestAnimationFrame(frame);
 }
@@ -5805,6 +5902,7 @@ frame();
   };
 })();
 </script>
+<script>{ const b = document.getElementById('bGfx'); if(b){ b.onclick = () => window.__GFX && __GFX.cycle(); } }</script>
 
 <script>
 // ---------- 산 고르기: 오프닝이 끝나면 국내 10 / 해외 10 가운데 고르기 · 산 이름을 누르면 기록 저장 후 다시 열기 ----------
