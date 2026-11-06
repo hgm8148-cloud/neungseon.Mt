@@ -473,6 +473,27 @@ body.botMin #walkPill,body.botMin #actions,body.botMin #campBar,body.botMin #sum
 body.touch #botMin{display:none!important}
 body:not(.touch) #walkPill button[data-k]::after{content:attr(data-k);margin-left:5px;font-size:10px;font-weight:600;opacity:.55;padding:1px 4px;border-radius:4px;border:1px solid currentColor;line-height:1;vertical-align:1px}
 
+#bGo,#downBtn{display:none}body:not(.touch) #actions #aMore{display:none!important}
+body.touch #walkPill #bSlow,body.touch #walkPill #bFast,body.touch #walkPill #bWalk{display:none!important}
+body.touch #walkPill #bGo{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;min-width:84px;padding:8px 16px 7px;margin-left:4px;font-size:15px;font-weight:800;line-height:1.05;border-radius:999px;border:0;color:#fff;background:linear-gradient(135deg,#3f8a55,#5aa66d);-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;touch-action:manipulation}
+body.touch #bGo small{font-size:10px;font-weight:600;opacity:.85;margin-top:2px}
+body.touch #bGo .g2{display:none}body.touch.walking #bGo .g1,body.touch.sideFollow #bGo .g1{display:none}body.touch.walking #bGo .g2,body.touch.sideFollow #bGo .g2{display:inline}
+body.touch.walking #walkPill #bGo,body.touch.sideFollow #walkPill #bGo{background:linear-gradient(135deg,#a8552e,#c76a3a)}
+body.touch #bGo.press{transform:scale(.94)}
+body.touch #aMore{display:flex}body.touch #aMore svg{transition:transform .2s}body.touch.actMore #aMore svg{transform:rotate(45deg)}
+body.touch:not(.actMore) #actions #aWave,body.touch:not(.actMore) #actions #aWater,body.touch:not(.actMore) #actions #aBreath{display:none}
+#downBtn{border:0;padding:12px 26px;font-size:16px;font-weight:800;color:#fff;background:linear-gradient(135deg,rgba(54,120,74,.95),rgba(84,150,98,.95));cursor:pointer;pointer-events:auto;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+body.atSummit #downBtn{display:inline-flex}body.camping #downBtn,body.inSummit #downBtn,body.botMin #downBtn{display:none!important}
+#tut{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;background:rgba(10,12,10,.45);padding:16px}
+#tut[hidden]{display:none}
+#tut .tc{background:var(--paper,#fbf7ef);color:var(--ink,#2a2620);border-radius:22px;padding:22px 22px 16px;width:min(92vw,360px);text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.4)}
+#tut .ti{font-size:38px;line-height:1}#tut b{display:block;font-size:19px;margin:10px 0 8px}
+#tut p{font-size:14px;line-height:1.5;margin:4px 0;opacity:.85}
+#tut .dots{display:flex;gap:6px;justify-content:center;margin:14px 0 12px}#tut .dots i{width:7px;height:7px;border-radius:50%;background:currentColor;opacity:.2}#tut .dots i.on{opacity:.75}
+#tut .row{display:flex;gap:8px;justify-content:space-between}
+#tut button{border:0;border-radius:999px;padding:10px 18px;font:inherit;font-size:14px;font-weight:700;cursor:pointer}
+#tutSkip{background:transparent;color:inherit;opacity:.6}#tutNext{background:#3f8a55;color:#fff;min-width:110px}
+
 /* ---------- 로딩 화면 (pipeline/loader_patch.py) ---------- */
 #loading .ld2{display:none}
 #loading.mBrand .ld2.brand, #loading.mMtn .ld2.mtn{display:block}
@@ -1136,6 +1157,31 @@ html:not([lang=ko]) .ld2.mtn h2{letter-spacing:.04em}
     ["버튼 펼치기 (B)", "Show buttons (B)", "ボタンを表示 (B)", "展开按钮 (B)", "Tasten zeigen (B)", "Afficher les boutons (B)", "Mostra pulsanti (B)", "Mostrar botones (B)", "बटन देखाउनुहोस् (B)", "Onyesha vitufe (B)"],
     ["길이 막혀 있어서 탐방로로 옮겨 드렸어요", "The path was blocked, so we moved you back to the trail", "道がふさがっていたので本道へ移動しました", "小路被挡住了，已帮你回到主步道", "Der Weg war versperrt – zurück auf dem Hauptweg", "Le chemin était bloqué, retour au sentier principal", "Il sentiero era bloccato, torni sul principale", "El camino estaba bloqueado; vuelves al sendero principal", "बाटो बन्द थियो, मुख्य बाटोमा पुर्‍याइयो", "Njia ilikuwa imezibwa, umerudishwa njia kuu"],
     ["완등", "Summited", "完登", "登顶", "Gipfel", "Sommet", "Vetta", "Cumbre", "शिखर", "Kilele"],
+    ["걷기", "Walk", "歩く", "走", "Gehen", "Marcher", "Cammina", "Caminar", "हिँड्नुहोस्", "Tembea"],
+    ["빠르게 걸어요", "Walking fast", "速く歩きます", "快走", "Schnell gehen", "Marche rapide", "Passo veloce", "Paso rápido", "छिटो हिँड्दै", "Unatembea haraka"],
+    ["천천히 걸어요", "Walking slowly", "ゆっくり歩きます", "慢走", "Langsam gehen", "Marche lente", "Passo lento", "Paso lento", "बिस्तारै हिँड्दै", "Unatembea polepole"],
+    ["누르면 걷기/멈추기, 길게 누르면 빠르기 바꾸기", "Tap to walk/stop, hold to change pace", "タップで歩く/止まる、長押しで速さを変更", "点击走/停，长按切换速度", "Tippen: gehen/stoppen, halten: Tempo ändern", "Touchez pour marcher/arrêter, maintenez pour changer de rythme", "Tocca per camminare/fermarti, tieni premuto per cambiare passo", "Toca para caminar/parar, mantén para cambiar el ritmo", "थिच्दा हिँड्ने/रोकिने, थिचिराख्दा गति फेर्ने", "Gusa kutembea/kusimama, shikilia kubadili kasi"],
+    ["더 보기", "More", "もっと見る", "更多", "Mehr", "Plus", "Altro", "Más", "थप", "Zaidi"],
+    ["탐방로를 따라 걸어요", "Walking along the trail", "登山道に沿って歩きます", "沿着步道走", "Dem Weg folgen", "On suit le sentier", "Si segue il sentiero", "Siguiendo el sendero", "बाटो पछ्याउँदै हिँड्दै", "Unafuata njia"],
+    ["🥾 하산하기", "🥾 Head down", "🥾 下山する", "🥾 下山", "🥾 Abstieg", "🥾 Descendre", "🥾 Scendere", "🥾 Bajar", "🥾 ओर्लनुहोस्", "🥾 Shuka"],
+    ["건너뛰기", "Skip", "スキップ", "跳过", "Überspringen", "Passer", "Salta", "Omitir", "छोड्नुहोस्", "Ruka"],
+    ["다음", "Next", "次へ", "下一步", "Weiter", "Suivant", "Avanti", "Siguiente", "अर्को", "Ifuatayo"],
+    ["산행 시작", "Start hiking", "登山開始", "开始登山", "Los geht’s", "C’est parti", "Si parte", "A caminar", "हिँड्न सुरु", "Anza safari"],
+    ["저절로 걷기", "Auto-walk", "自動で歩く", "自动行走", "Automatisch gehen", "Marche automatique", "Cammino automatico", "Caminar solo", "आफैँ हिँड्ने", "Tembea kiotomatiki"],
+    ["직접 걷고 둘러보기", "Walk and look around", "自分で歩いて見回す", "自己走、四处看", "Selbst gehen und umsehen", "Marcher et regarder autour", "Cammina e guardati intorno", "Camina y mira alrededor", "आफैँ हिँड्ने र वरिपरि हेर्ने", "Tembea na tazama pande zote"],
+    ["쉬고, 사진 남기기", "Rest and take photos", "休んで写真を残す", "休息、拍照留念", "Rasten und Fotos machen", "Se reposer et photographier", "Riposa e scatta foto", "Descansa y toma fotos", "आराम र फोटो", "Pumzika na piga picha"],
+    ["Space 키를 누르면 탐방로를 따라 저절로 걸어요", "Press Space to walk along the trail by itself", "Space キーで登山道に沿って自動で歩きます", "按 Space 键即可沿步道自动行走", "Mit der Leertaste folgst du dem Weg automatisch", "Appuyez sur Espace pour suivre le sentier automatiquement", "Premi Spazio per seguire il sentiero da solo", "Pulsa Espacio para seguir el sendero solo", "Space थिच्दा बाटो पछ्याएर आफैँ हिँडिन्छ", "Bonyeza Space kufuata njia yenyewe"],
+    ["Z 천천히, X 빠르게, C 멈추기", "Z slow, X fast, C stop", "Z ゆっくり、X 速く、C 止まる", "Z 慢走，X 快走，C 停下", "Z langsam, X schnell, C stopp", "Z lent, X rapide, C arrêt", "Z lento, X veloce, C stop", "Z lento, X rápido, C parar", "Z बिस्तारै, X छिटो, C रोक्ने", "Z polepole, X haraka, C simama"],
+    ["WASD나 방향키로 직접 걸어요", "Walk yourself with WASD or the arrow keys", "WASD か矢印キーで自分で歩きます", "用 WASD 或方向键自己走", "Mit WASD oder Pfeiltasten selbst gehen", "Marchez avec ZQSD/WASD ou les flèches", "Cammina con WASD o le frecce", "Camina con WASD o las flechas", "WASD वा तीर कुञ्जीले आफैँ हिँड्नुहोस्", "Tembea mwenyewe kwa WASD au mishale"],
+    ["마우스로 끌면 둘러보고, 땅을 누르면 그곳으로 가요", "Drag to look around, click the ground to go there", "ドラッグで見回し、地面をクリックでそこへ移動", "拖动可环顾四周，点击地面即可前往", "Ziehen zum Umsehen, auf den Boden klicken zum Hingehen", "Faites glisser pour regarder, cliquez au sol pour y aller", "Trascina per guardarti intorno, clicca il terreno per andarci", "Arrastra para mirar, haz clic en el suelo para ir allí", "तानेर वरिपरि हेर्नुहोस्, जमिनमा थिचेर त्यहाँ जानुहोस्", "Buruta kutazama, bofya ardhi kwenda huko"],
+    ["힘들면 2번으로 쉬고, 5번으로 사진을 찍어요", "Press 2 to rest when tired, 5 to take a photo", "疲れたら 2 で休み、5 で写真を撮ります", "累了按 2 休息，按 5 拍照", "Mit 2 rasten, mit 5 fotografieren", "2 pour se reposer, 5 pour une photo", "2 per riposare, 5 per una foto", "2 para descansar, 5 para una foto", "थाक्दा 2 थिचेर आराम, 5 थिचेर फोटो", "Bonyeza 2 kupumzika, 5 kupiga picha"],
+    ["M 지도, B 버튼 접기", "M map, B hide buttons", "M 地図、B ボタンを畳む", "M 地图，B 收起按钮", "M Karte, B Tasten einklappen", "M carte, B replier les boutons", "M mappa, B comprimi pulsanti", "M mapa, B ocultar botones", "M नक्सा, B बटन लुकाउने", "M ramani, B kunja vitufe"],
+    ["아래 걷기 버튼을 누르면 탐방로를 따라 저절로 걸어요", "Tap the Walk button below to follow the trail by itself", "下の「歩く」ボタンで登山道に沿って自動で歩きます", "点击下方“走”按钮即可沿步道自动行走", "Tippe unten auf „Gehen“, um dem Weg automatisch zu folgen", "Touchez « Marcher » en bas pour suivre le sentier", "Tocca «Cammina» in basso per seguire il sentiero", "Toca «Caminar» abajo para seguir el sendero", "तलको हिँड्ने बटन थिच्दा बाटो पछ्याएर आफैँ हिँडिन्छ", "Gusa kitufe cha Tembea chini kufuata njia"],
+    ["길게 누르면 빠르기가 바뀌고, 화면을 두 번 톡톡 눌러도 돼요", "Hold it to change pace, or double-tap the screen", "長押しで速さが変わり、画面をダブルタップしても OK", "长按可切换速度，也可以双击屏幕", "Halten ändert das Tempo, oder doppelt auf den Bildschirm tippen", "Maintenez pour changer de rythme, ou touchez deux fois l’écran", "Tieni premuto per il passo, o tocca due volte lo schermo", "Mantén para cambiar el ritmo, o toca dos veces la pantalla", "थिचिराख्दा गति फेरिन्छ, वा स्क्रिनमा दुई पटक ट्याप गर्नुहोस्", "Shikilia kubadili kasi, au gusa skrini mara mbili"],
+    ["왼쪽 아래 동그라미를 밀어 직접 걸어요", "Push the circle at bottom left to walk yourself", "左下の丸を動かして自分で歩きます", "推动左下角的圆圈自己走", "Schiebe den Kreis unten links, um selbst zu gehen", "Poussez le cercle en bas à gauche pour marcher", "Sposta il cerchio in basso a sinistra per camminare", "Mueve el círculo de abajo a la izquierda para caminar", "तल बायाँको गोलो धकेलेर आफैँ हिँड्नुहोस्", "Sukuma duara la chini kushoto kutembea"],
+    ["화면을 끌면 둘러보고, 땅을 누르면 그곳으로 가요", "Drag to look around, tap the ground to go there", "画面をドラッグで見回し、地面をタップでそこへ移動", "拖动屏幕环顾四周，点击地面即可前往", "Ziehen zum Umsehen, Boden antippen zum Hingehen", "Glissez pour regarder, touchez le sol pour y aller", "Trascina per guardarti intorno, tocca il terreno per andarci", "Arrastra para mirar, toca el suelo para ir allí", "स्क्रिन तानेर हेर्नुहोस्, जमिन थिचेर त्यहाँ जानुहोस्", "Buruta kutazama, gusa ardhi kwenda huko"],
+    ["오른쪽 버튼으로 쉬고 사진을 찍어요", "Use the buttons on the right to rest and take photos", "右のボタンで休んだり写真を撮ったりします", "用右侧按钮休息和拍照", "Mit den Tasten rechts rasten und fotografieren", "Boutons à droite pour se reposer et photographier", "Pulsanti a destra per riposare e fotografare", "Botones de la derecha para descansar y hacer fotos", "दायाँका बटनले आराम र फोटो", "Vitufe vya kulia kupumzika na kupiga picha"],
+    ["+를 누르면 물, 숨 고르기, 인사가 나와요", "Tap + for water, breathing and greetings", "+ で水・呼吸・あいさつが出ます", "点 + 可喝水、调整呼吸、打招呼", "Unter + findest du Wasser, Atmen und Grüßen", "+ pour l’eau, la respiration et les saluts", "+ per acqua, respiro e saluti", "+ para agua, respirar y saludar", "+ थिच्दा पानी, सास र अभिवादन देखिन्छ", "Gusa + kwa maji, kupumua na salamu"],
     ["설악산", "Seoraksan", "雪岳山", "雪岳山"],
     ["대청봉", "Daecheongbong", "大青峰", "大青峰"],
     ["오색 코스", "Osaek Trail", "五色コース", "五色路线"],
@@ -1321,8 +1367,9 @@ html:not([lang=ko]) .ld2.mtn h2{letter-spacing:.04em}
 <div id="warn" class="hud pill"></div>
 <div id="bottom" class="hud">
   <button id="botMin" class="glass" type="button" title="버튼 접기 (B)"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg><span class="l">버튼 펼치기</span></button>
-  <div id="walkPill" class="glass pill"><span class="dirSeg"><button id="bUp" class="on" type="button">등산</button><button id="bDown" type="button">하산</button></span><span id="walkTxt">탐방로를 따라</span><button id="bSlow" class="pz">천천히</button><button id="bFast" class="pz">빠르게</button><button id="bWalk">멈추기</button></div>
+  <div id="walkPill" class="glass pill"><span class="dirSeg"><button id="bUp" class="on" type="button">등산</button><button id="bDown" type="button">하산</button></span><span id="walkTxt">탐방로를 따라</span><button id="bSlow" class="pz">천천히</button><button id="bFast" class="pz">빠르게</button><button id="bWalk">멈추기</button><button id="bGo" type="button" title="누르면 걷기/멈추기, 길게 누르면 빠르기 바꾸기"><span class="g1">걷기</span><span class="g2">멈추기</span><small id="goPace"></small></button></div>
   <button id="summitBtn" class="glass pill">⛰ 정상 메뉴</button>
+  <button id="downBtn" class="glass pill" type="button">🥾 하산하기</button>
   <div id="card"><div><div class="t" id="cardT"></div><div class="s" id="cardS"></div></div><button id="cardB"></button></div>
   <div id="campBar" class="glass">
     <div class="cTitle"><b>⛰ 정상</b>야영장</div>
@@ -1341,10 +1388,12 @@ html:not([lang=ko]) .ld2.mtn h2{letter-spacing:.04em}
     <button id="aWater"><svg viewBox="0 0 24 24"><path d="M10 3h4v3l2 2.5V20a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V8.5L10 6z"/><path d="M8 13h8"/></svg>물<kbd>3</kbd></button>
     <button id="aBreath"><svg viewBox="0 0 24 24"><path d="M3 9h11a3 3 0 1 0-3-3M3 15h15a3 3 0 1 1-3 3M3 12h8"/></svg>숨 고르기<kbd>4</kbd></button>
     <button id="aPhoto"><svg viewBox="0 0 24 24"><path d="M4 8h3l1.5-2h7L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>사진<kbd>5</kbd></button>
+    <button id="aMore" type="button" title="더 보기" aria-label="더 보기"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>더 보기</button>
   </div>
 </div>
 <button id="cleanOff" class="glass pill" aria-label="버튼 다시 보이기">버튼 보이기</button>
 <div id="sideAsk" hidden><div class="k">숨은 길 발견!</div><div class="n" id="sdName"></div><div class="t" id="sdTheme"></div><p>이 길로 가 볼까요? 다시 탐방로로 이어져요</p><div class="row"><button class="no" id="sdNo">그냥 갈래요</button><button class="go" id="sdGo">이 길로 가기</button></div></div>
+<div id="tut" hidden><div class="tc"><div class="ti" id="tutI"></div><b id="tutH"></b><p id="tutP1"></p><p id="tutP2"></p><div class="dots"><i></i><i></i><i></i></div><div class="row"><button id="tutSkip" type="button">건너뛰기</button><button id="tutNext" type="button">다음</button></div></div></div>
 <div id="mapWrap" class="hud glass click"><canvas id="map" width="500" height="500"></canvas></div><div id="tpAsk" hidden><div class="box"><div class="nm" id="tpName"></div><p class="q">이곳으로 순간이동할까요?</p><small>이미 지나온 곳이라 바로 갈 수 있어요</small><div class="row"><button class="no" id="tpNo">취소</button><button class="go" id="tpGo">이동하기</button></div></div></div>
 
 <div id="start" class="panel">
@@ -3788,7 +3837,7 @@ addEventListener('keydown', e => {
   if(e.code==='Digit3'||e.code==='KeyQ') doDrink();
   if(e.code==='Digit4') doBreath();
   if(e.code==='Digit5'||e.code==='KeyP') takePhoto();
-  if(e.code==='KeyF') toggleAuto();
+  if(e.code==='KeyF' || e.code==='Space'){ if(window.__walkToggle) window.__walkToggle(); else toggleAuto(); }
   if(e.code==='KeyT' && st.descending) setTrailDir(false);
   if(e.code==='KeyG' && !st.descending) setTrailDir(true);
   if(e.code==='KeyB' && window.__botMin) window.__botMin(!document.body.classList.contains('botMin'));
@@ -3820,6 +3869,10 @@ canvas.addEventListener('wheel', e => { st.dist = THREE.MathUtils.clamp(st.dist 
 canvas.addEventListener('contextmenu', e => e.preventDefault());
 const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
 function clickMove(e){
+  if(e.pointerType === 'touch' && !st.camp){ const now = performance.now(), D = clickMove.dt;
+    if(D && now - D.t < 380 && Math.hypot(e.clientX - D.x, e.clientY - D.y) < 40){ clickMove.dt = null; st.goal = null; goalRing.visible = false; st.sitting = false; st.breathing = 0;
+      try{ window.__SIDE && window.__SIDE.stop(); }catch(_){} st.auto = !D.walking; refreshWalk(); toast(st.auto ? '탐방로를 따라 걸어요' : '멈췄어요', 1.4); return; }
+    clickMove.dt = { t: now, x: e.clientX, y: e.clientY, walking: st.auto || !!(window.__SIDE && window.__SIDE.following) }; }
   ndc.set(e.clientX/innerWidth*2-1, -(e.clientY/innerHeight)*2+1); ray.setFromCamera(ndc, camera);
   const o = ray.ray.origin, d = ray.ray.direction; let prev = 0;
   for(let t=0.5; t<400; t+= t<40?0.5:2){
@@ -3892,7 +3945,7 @@ function refreshWalk(){ const d = st.descending, fast = PACE > 1.5;
   $('walkTxt').textContent = st.auto ? (d?'내려가는 중':'오르는 중') : (d?'하산길을 따라':'탐방로를 따라');
   $('bSlow').textContent = '천천히'; $('bFast').textContent = '빠르게';
   $('bSlow').classList.toggle('on', st.auto && !fast); $('bFast').classList.toggle('on', st.auto && fast);
-  document.body.classList.toggle('walking', !!st.auto); $('bUp').classList.toggle('on', !d); $('bDown').classList.toggle('on', !!d); }
+  document.body.classList.toggle('walking', !!st.auto); if(window.__goPace) window.__goPace(); $('bUp').classList.toggle('on', !d); $('bDown').classList.toggle('on', !!d); }
 function toggleView(){ st.fp = !st.fp; $('bView').classList.toggle('on', st.fp); }
 function loadQR(){ return window.qrcode ? Promise.resolve(window.qrcode) : new Promise((res,rej)=>{ const sc=document.createElement('script'); sc.src='https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js'; sc.onload=()=>res(window.qrcode); sc.onerror=rej; document.head.appendChild(sc); }); }
 let snackAmt = 2000;
@@ -4903,6 +4956,7 @@ function beginHike(resume){
     st.yaw = st.face + Math.PI; st.camInit = false; for(let i=1;i<=st.cp;i++) WPS[i].el && WPS[i].el.classList.add('done'); }
   else clearHike();
   $('start').hidden = true; st.started = true; canvas.focus(); startAudio(); refreshSound();
+  if(!store.get('tut', 0) && window.__tut) setTimeout(window.__tut, 700);
   if(resume && savedHike){ const nx = WPS[Math.min(st.cp+1, WPS.length-1)]; banner('다시 산행 시작', nx.name.replace(/\(.*\)/,'') + '까지 ' + (Math.max(0, nx.s - trail[Math.min(st.lastProg, trail.length-1)].s)/1000).toFixed(1) + 'km', 3.5); }
   else banner('산행 시작', WPS[1].name.replace(/\(.*\)/,'') + '까지 ' + (WPS[1].s/1000).toFixed(1) + 'km', 3.5);
   setTimeout(() => toast('산행 기록은 자동으로 저장돼요. 언제든 닫았다 다시 와도 괜찮아요', 4), 5200);
@@ -5378,49 +5432,96 @@ window.__tp = { spots: tpSpots, tf: () => drawMap.tf, reach: () => TP_REACH, ok:
   addEventListener('resize', fit); setInterval(fit, 1500); setTimeout(fit, 300); window.__progFit = fit; }
 
 // ---------- 경유지 폭포 (pipeline/waterfall_patch.py) ----------
+// 2026-11-06 승연 '너무 조악하고 깨져 보여, 더 크고 웅장하게': 높이 약 2배, 매끈한 바위 벼랑(틈 없음), 휘어 떨어지는 물줄기, 2단 낙차, 소·물보라·물안개
 for(const wi of [1]){ const W = WPS[wi]; if(!W) continue; try{
-  const i = W.i, p = trail[i], a0 = trail[Math.max(0, i-5)], a1 = trail[Math.min(trail.length-1, i+5)];
+  const i = W.i, p = trail[i], a0 = trail[Math.max(0, i-6)], a1 = trail[Math.min(trail.length-1, i+6)];
   let tx = a1.x - a0.x, tz = a1.z - a0.z; const tl = Math.hypot(tx, tz) || 1; tx /= tl; tz /= tl; const nx = -tz, nz = tx;
-  // 길 옆 두 쪽 가운데 길 높이와 비슷한 쪽(앞이 언덕에 가리지 않는 쪽)에 세워요
-  const hp = heightAt(p.x, p.z), dif = s => { let m = 0; for(const d of [4, 7, 10, 13]) m = Math.max(m, heightAt(p.x + nx*d*s, p.z + nz*d*s) - hp); return m; };
-  const sd = dif(1) <= dif(-1) ? 1 : -1;
-  const cx = p.x + nx*sd*12, cz = p.z + nz*sd*12, face = Math.atan2(-nx*sd, -nz*sd);   // 벼랑이 탐방로를 바라봐요
-  const g0 = Math.max(heightAt(cx, cz), hp) - 0.4, H = 11;
-  const G = new THREE.Group(); G.position.set(cx, g0, cz); G.rotation.y = face; scene.add(G);
-  const rockM = new THREE.MeshStandardMaterial({ map: TEX.granite, color: 0xb9b2a6, roughness: 0.92 });
+  const hp = heightAt(p.x, p.z), dif = s => { let m = 0; for(const d of [5, 9, 13, 17]) m = Math.max(m, heightAt(p.x + nx*d*s, p.z + nz*d*s) - hp); return m; };
+  const sd = dif(1) <= dif(-1) ? 1 : -1, D = 19;
+  const cx = p.x + nx*sd*D, cz = p.z + nz*sd*D, face = Math.atan2(-nx*sd, -nz*sd);   // 벼랑이 탐방로를 바라봐요
+  const G = new THREE.Group(); G.rotation.y = face; G.position.set(cx, 0, cz); G.updateMatrixWorld(true);
+  const wpt = (lx, lz) => { const v = new THREE.Vector3(lx, 0, lz); G.localToWorld(v); return v; };
+  // 소 높이: 소 둘레 땅 높이의 가운데값 (비탈에서 너무 뜨거나 묻히지 않게)
+  const PZ = 4.2, PR = 5.2; const rim = []; for(let k = 0; k < 16; k++){ const an = k/16*6.283, v = wpt(Math.cos(an)*PR, PZ + Math.sin(an)*PR); rim.push(heightAt(v.x, v.z)); }
+  rim.sort((u, v) => u - v); const L = Math.max(rim[8], hp - 1.5) + 0.25, H = 24, H1 = 15;   // H1: 위 폭포가 떨어지는 턱
+  G.position.y = L; G.updateMatrixWorld(true); scene.add(G);
   let rs = 4127; const rnd = () => (rs = (rs * 16807) % 2147483647) / 2147483647;
-  const boulder = (w, h, d, x, y, z) => { const g = new THREE.IcosahedronGeometry(1, 2), P = g.attributes.position;
-    for(let k = 0; k < P.count; k++){ const vx = P.getX(k), vy = P.getY(k), vz = P.getZ(k), n = 1 + (rnd() - 0.5)*0.22; P.setXYZ(k, vx*n, vy*n, vz*n); }
-    g.computeVertexNormals(); const m = new THREE.Mesh(g, rockM); m.scale.set(w, h, d); m.position.set(x, y, z); m.castShadow = m.receiveShadow = true; G.add(m); return m; };
-  // 벼랑: 가운데가 살짝 파인 두 덩이 + 위 턱 + 아래 받침 (물줄기가 가운데 홈으로 떨어져요)
-  boulder(2.8, H*0.6, 2.2, -3.7, H*0.5, -2.0); boulder(2.9, H*0.56, 2.3, 3.8, H*0.46, -1.9);
-  boulder(4.8, 1.6, 1.8, 0, H + 0.5, -2.4); boulder(2.4, H*0.55, 1.2, 0, H*0.5, -3.0);
-  boulder(1.6, 1.0, 1.4, -3.2, 0.4, 2.6); boulder(1.2, 0.8, 1.1, 3.0, 0.3, 2.9); boulder(0.9, 0.6, 0.9, -1.8, 0.2, 4.2);
-  // 물줄기: 세로 물결 무늬가 아래로 흘러요 (두 겹, 속도 다르게)
-  const wc = document.createElement('canvas'); wc.width = 64; wc.height = 256; const x = wc.getContext('2d');
-  x.fillStyle = 'rgba(210,232,240,0.55)'; x.fillRect(0, 0, 64, 256);
-  for(let k = 0; k < 90; k++){ const X = rnd()*64, Y = rnd()*256, L = 20 + rnd()*70; x.strokeStyle = `rgba(255,255,255,${0.35 + rnd()*0.5})`; x.lineWidth = 0.8 + rnd()*2.2; x.beginPath(); x.moveTo(X, Y); x.lineTo(X + (rnd()-0.5)*2, Y + L); x.stroke(); }
-  const mk = (sp, w, z, op) => { const t = new THREE.CanvasTexture(wc); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(1.5, 2.2); t.colorSpace = THREE.SRGBColorSpace;
-    const m = new THREE.Mesh(new THREE.PlaneGeometry(w, H + 0.6, 1, 1), new THREE.MeshBasicMaterial({ map: t, transparent: true, opacity: op, depthWrite: false, side: THREE.DoubleSide, fog: true }));
-    m.position.set(0, H/2 + 0.1, z); G.add(m); m.onBeforeRender = () => { t.offset.y = (performance.now()/1000 * sp) % 1; }; return m; };
-  mk(1.35, 2.1, -1.55, 0.95); mk(0.95, 2.7, -1.4, 0.5);
-  // 소(물웅덩이)
-  const pool = new THREE.Mesh(new THREE.CircleGeometry(3.4, 32), new THREE.MeshStandardMaterial({ color: 0x3f6f78, roughness: 0.12, metalness: 0.1, transparent: true, opacity: 0.88 }));
-  pool.rotation.x = -Math.PI/2; pool.position.set(0, 0.18, 1.2); pool.receiveShadow = true; G.add(pool);
+  const tones = [0xb7b0a4, 0xa9a397, 0xc2bbae, 0x9c978d].map(c => new THREE.MeshStandardMaterial({ map: TEX.granite, color: c, roughness: 0.9 }));
+  // 매끈한 바위: 꼭짓점을 위치로 정한 물결로만 밀어서 면 사이 틈이 생기지 않아요
+  const rockGeo = []; for(let k = 0; k < 4; k++){ const g = new THREE.SphereGeometry(1, 22, 14), P = g.attributes.position, a = 1.3 + k*0.4, s1 = k*1.7, s2 = k*2.3 + 1;
+    for(let j = 0; j < P.count; j++){ const x = P.getX(j), y = P.getY(j), z = P.getZ(j);
+      let n = 1 + 0.13*Math.sin(x*a*2.1 + s1)*Math.cos(z*a*1.7 + s2) + 0.08*Math.sin(y*a*3.3 + z*2.2 + s1) + 0.05*Math.sin((x + y)*6.1 + s2);
+      const fl = y > 0.55 ? 0.55 + (y - 0.55)*0.35 : y;   // 윗면은 판판하게 (층진 화강암)
+      P.setXYZ(j, x*n, fl*n, z*n); }
+    g.computeVertexNormals(); rockGeo.push(g); }
+  const near = (lx, lz, r) => { const v = wpt(lx, lz); return nearTrail(v.x, v.z, 30).d < r + 2.5; };
+  const boulder = (w, h, d, x, y, z, ry) => { if(near(x, z, Math.max(w, d))) return null; const m = new THREE.Mesh(rockGeo[(rnd()*4)|0], tones[(rnd()*4)|0]); m.scale.set(w, h, d); m.position.set(x, y, z); m.rotation.y = ry ?? rnd()*6.28; m.castShadow = m.receiveShadow = true; G.add(m); return m; };
+  // 벼랑: 가운데 홈(물길) 양옆으로 층층이 쌓인 큰 바위, 아래는 땅속까지 묻어요
+  for(const s of [-1, 1]){
+    for(let lv = 0; lv < 6; lv++){ const y = -3 + lv*4.6, k = 1 - lv*0.06;
+      boulder(4.2*k, 3.4, 3.4, s*(4.2 + rnd()*0.8), y, -2.6 + rnd()*0.6);
+      boulder(4.6*k, 3.8, 3.8, s*(9.2 + rnd()*1.2), y - 1.5 - lv*0.3, -3.6 + rnd()*0.8);
+      if(lv < 4) boulder(3.6, 3.2, 3.4, s*(13.5 + rnd()), y - 3 - lv*0.6, -4.6); } }
+  for(let lv = 0; lv < 6; lv++) boulder(3.2, 3.0, 2.2, (rnd() - 0.5)*0.8, -2 + lv*4.4, -5.0);   // 물이 미끄러지는 뒷벽
+  boulder(4.0, 1.4, 2.6, 0, H1 - 0.9, -1.6, 0);          // 위 폭포가 부딪는 중간 턱
+  boulder(6.5, 1.8, 3.6, 0, H + 0.2, -4.6, 0);           // 꼭대기 턱
+  boulder(5.5, 2.4, 3.8, -6, H + 0.6, -6.5); boulder(5.5, 2.4, 3.8, 6, H + 0.4, -6.8);
+  // 소 둘레 돌 (아래쪽 비탈에서 소가 떠 보이지 않게 둑처럼)
+  for(let k = 0; k < 18; k++){ const an = k/18*6.283 + rnd()*0.15; if(Math.sin(an) < -0.55) continue; const r = PR + 0.6 + rnd()*0.8, v = wpt(Math.cos(an)*r, PZ + Math.sin(an)*r), gy = heightAt(v.x, v.z) - L;
+    const sz = 0.9 + rnd()*1.1, top = Math.max(0.5, -gy + 0.6); boulder(sz*1.3, Math.max(sz, top), sz, Math.cos(an)*r, Math.min(gy, 0) + top*0.35, PZ + Math.sin(an)*r); }
+  // 물줄기 무늬: 가장자리는 부드럽게 사라져요
+  const wtex = (w, h, n, base) => { const c = document.createElement('canvas'); c.width = w; c.height = h; const x = c.getContext('2d');
+    x.fillStyle = base; x.fillRect(0, 0, w, h);
+    for(let k = 0; k < n; k++){ const X = rnd()*w, Y = rnd()*h, Lh = 30 + rnd()*140; const dark = rnd() < 0.25;
+      x.strokeStyle = dark ? `rgba(120,150,165,${0.15 + rnd()*0.25})` : `rgba(255,255,255,${0.3 + rnd()*0.6})`; x.lineWidth = 0.6 + rnd()*2.6; x.beginPath(); x.moveTo(X, Y); x.bezierCurveTo(X + (rnd()-0.5)*3, Y + Lh*0.3, X + (rnd()-0.5)*3, Y + Lh*0.7, X + (rnd()-0.5)*2, Y + Lh); x.stroke();
+      if(Y + Lh > h){ x.beginPath(); x.moveTo(X, Y - h); x.lineTo(X, Y + Lh - h); x.stroke(); } }
+    x.globalCompositeOperation = 'destination-in'; const g = x.createLinearGradient(0, 0, w, 0); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(0.16, 'rgba(0,0,0,1)'); g.addColorStop(0.84, 'rgba(0,0,0,1)'); g.addColorStop(1, 'rgba(0,0,0,0)'); x.fillStyle = g; x.fillRect(0, 0, w, h);
+    const t = new THREE.CanvasTexture(c); t.wrapT = THREE.RepeatWrapping; t.colorSpace = THREE.SRGBColorSpace; return t; };
+  const sheets = [];
+  // 휘어 떨어지는 물줄기: 턱에서 앞으로 튀어나왔다가 아래로 (z = a·√낙차), 아래로 갈수록 넓어져요
+  const fall = (top, bot, z0, w0, w1, out, sp, op, rep) => { const h = top - bot, g = new THREE.PlaneGeometry(1, 1, 6, 30), P = g.attributes.position;
+    for(let j = 0; j < P.count; j++){ const u = P.getX(j), t = 0.5 - P.getY(j); const wv = w0 + (w1 - w0)*t;
+      P.setXYZ(j, u*wv + Math.sin(t*9 + u*3)*0.12, top - t*h, z0 + out*Math.sqrt(t) + 0.15*Math.sin(u*5 + t*4)); }
+    g.computeVertexNormals(); const tx2 = wtex(128, 512, 260, 'rgba(214,234,242,0.78)'); tx2.repeat.set(1, rep);
+    const m = new THREE.Mesh(g, new THREE.MeshBasicMaterial({ map: tx2, transparent: true, opacity: op, depthWrite: false, side: THREE.DoubleSide, fog: true }));
+    G.add(m); sheets.push([tx2, sp, m.material]); return m; };
+  fall(H + 0.9, H1 - 0.2, -2.6, 2.6, 3.4, 1.2, 1.25, 0.95, 1.6); fall(H + 0.9, H1 - 0.2, -2.4, 3.4, 4.4, 1.35, 0.9, 0.45, 1.2);
+  fall(H1 + 0.1, 0.1, -1.1, 3.6, 5.0, 1.6, 1.35, 0.95, 1.4); fall(H1 + 0.1, 0.1, -0.9, 4.6, 6.0, 1.8, 0.95, 0.42, 1.1);
+  fall(H*0.62, 0.1, -2.9, 0.7, 1.0, 0.5, 1.1, 0.6, 1.0).position.x = -2.3;   // 옆으로 흐르는 가는 물줄기
+  // 꼭대기 물길 (뒤에서 흘러와 턱으로)
+  { const t = wtex(64, 256, 80, 'rgba(160,200,212,0.85)'); t.repeat.set(1, 1); const m = new THREE.Mesh(new THREE.PlaneGeometry(3, 6), new THREE.MeshBasicMaterial({ map: t, transparent: true, depthWrite: false, fog: true }));
+    m.rotation.x = -Math.PI/2 + 0.12; m.position.set(0, H + 1.1, -5.2); G.add(m); sheets.push([t, 0.6, m.material]); }
+  // 소(물웅덩이) + 퍼지는 물결
+  const pool = new THREE.Mesh(new THREE.CircleGeometry(PR, 40), new THREE.MeshStandardMaterial({ color: 0x1f4d52, roughness: 0.22, metalness: 0.0, transparent: true, opacity: 0.9 }));
+  pool.rotation.x = -Math.PI/2; pool.position.set(0, 0, PZ); pool.receiveShadow = true; G.add(pool);
+  const rc = document.createElement('canvas'); rc.width = rc.height = 256; { const x = rc.getContext('2d'); x.translate(128, 128);
+    for(let k = 0; k < 7; k++){ x.strokeStyle = `rgba(255,255,255,${0.5 - k*0.06})`; x.lineWidth = 3 - k*0.3; x.beginPath(); x.arc(0, 0, 14 + k*16 + rnd()*5, 0, 6.283); x.stroke(); } }
+  const rt = new THREE.CanvasTexture(rc), rings = [];
+  for(let k = 0; k < 3; k++){ const m = new THREE.Mesh(new THREE.CircleGeometry(1, 32), new THREE.MeshBasicMaterial({ map: rt, transparent: true, depthWrite: false, opacity: 0.4 })); m.rotation.x = -Math.PI/2; m.position.set(0, 0.03 + k*0.01, 0.9); G.add(m); rings.push(m); }
+  const lit = [];   // 빛을 받지 않는 물·물보라는 밤엔 어둡게
   // 물보라·물안개
-  const sc = document.createElement('canvas'); sc.width = sc.height = 64; const y = sc.getContext('2d'), gr = y.createRadialGradient(32, 32, 0, 32, 32, 32); gr.addColorStop(0, 'rgba(255,255,255,0.9)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); y.fillStyle = gr; y.fillRect(0, 0, 64, 64);
+  const sc = document.createElement('canvas'); sc.width = sc.height = 64; const y = sc.getContext('2d'), gr = y.createRadialGradient(32, 32, 0, 32, 32, 32); gr.addColorStop(0, 'rgba(255,255,255,0.95)'); gr.addColorStop(0.5, 'rgba(255,255,255,0.4)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); y.fillStyle = gr; y.fillRect(0, 0, 64, 64);
   const st0 = new THREE.CanvasTexture(sc), puffs = [];
-  for(let k = 0; k < 9; k++){ const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: st0, transparent: true, depthWrite: false, opacity: 0.5 })); s.userData.ph = rnd()*6.28; s.userData.k = k; G.add(s); puffs.push(s); }
-  pool.onBeforeRender = () => { const t = performance.now()/1000; for(const s of puffs){ const k = s.userData.k, f = (t*0.35 + s.userData.ph) % 1; const big = k > 5;
-      s.position.set(Math.sin(s.userData.ph*3)*1.2, 0.4 + f*(big ? 3.5 : 1.4), -0.4 + f*(big ? 1.8 : 0.8)); const sz = (big ? 2.4 : 1.3) * (0.6 + f); s.scale.set(sz, sz*0.8, 1); s.material.opacity = (big ? 0.22 : 0.55) * (1 - f); } };
+  const puff = (k, kind) => { const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: st0, transparent: true, depthWrite: false, opacity: 0.5, fog: true })); s.userData = { ph: rnd(), k, kind, x: (rnd() - 0.5) }; G.add(s); puffs.push(s); };
+  for(let k = 0; k < 16; k++) puff(k, 0); for(let k = 0; k < 8; k++) puff(k, 1); for(let k = 0; k < 6; k++) puff(k, 2);
+  pool.onBeforeRender = () => { const t = performance.now()/1000;
+    const lum = typeof SKY !== 'undefined' && SKY.night != null ? 0.2 + 0.8*(1 - SKY.night) : 1;
+    for(const [tx2, sp, mt] of sheets){ tx2.offset.y = (t*sp) % 1; mt.color.setScalar(lum); }
+    for(const m of rings) m.material.color.setScalar(lum); for(const s of puffs) s.material.color.setScalar(lum);
+    rings.forEach((m, k) => { const f = (t*0.25 + k/3) % 1, r = 1.2 + f*4.2; m.scale.set(r, r, 1); m.material.opacity = 0.45*(1 - f); });
+    for(const s of puffs){ const u = s.userData, f = (t*(u.kind === 2 ? 0.12 : 0.4) + u.ph) % 1; let sz;
+      if(u.kind === 0){ s.position.set(u.x*5, 0.3 + f*2.2, 0.5 + f*1.6); sz = (1.4 + f*1.8); s.material.opacity = 0.6*(1 - f); }        // 떨어지는 곳 물보라
+      else if(u.kind === 1){ s.position.set(u.x*3.6, H1 + 0.3 + f*1.4, -0.5 + f*0.8); sz = 1 + f*1.4; s.material.opacity = 0.45*(1 - f); }   // 중간 턱 물보라
+      else { s.position.set(u.x*8, 1 + f*9, 1.5 + f*4); sz = 4 + f*6; s.material.opacity = 0.2*(1 - f)*Math.min(1, f*4); }               // 피어오르는 물안개
+      s.scale.set(sz, sz*0.85, 1); } };
   G.updateMatrixWorld(true);
-  // 물소리: 계곡 물줄기 점으로 넣어요
-  if(typeof STREAM !== 'undefined'){ const v = new THREE.Vector3(); for(const q of [[0, 0.2, 1.6], [0, H*0.5, -1], [0, H, -1.2]]){ v.set(q[0], q[1], q[2]); G.localToWorld(v); STREAM.push({ x: v.x, z: v.z, h: v.y, foam: 1 }); } }
+  // 물소리
+  if(typeof STREAM !== 'undefined'){ const v = new THREE.Vector3(); for(const q of [[0, 0.3, PZ], [0, H1, -1], [0, H, -2.5], [0, 0.3, 0.5]]){ v.set(q[0], q[1], q[2]); G.localToWorld(v); STREAM.push({ x: v.x, z: v.z, h: v.y, foam: 1 }); } }
   // 벼랑·소 자리의 나무·풀은 치워요
-  { const M = new THREE.Matrix4(), Z = new THREE.Matrix4().makeScale(0, 0, 0), v = new THREE.Vector3(), pc = new THREE.Vector3(0, 0, 1.6); G.localToWorld(pc);
-    scene.traverse(o => { if(!o.isInstancedMesh || o.parent === G) return; let ch = false; for(let k = 0; k < o.count; k++){ o.getMatrixAt(k, M); v.setFromMatrixPosition(M);
-      if(Math.hypot(v.x - cx, v.z - cz) < 7.5 || Math.hypot(v.x - pc.x, v.z - pc.z) < 4.5){ o.setMatrixAt(k, Z); ch = true; } } if(ch) o.instanceMatrix.needsUpdate = true; }); }
-  window.__falls = (window.__falls || []).concat([{ wi, x: cx, z: cz, side: sd }]);
+  { const M = new THREE.Matrix4(), Z = new THREE.Matrix4().makeScale(0, 0, 0), v = new THREE.Vector3(), inv = new THREE.Matrix4().copy(G.matrixWorld).invert();
+    scene.traverse(o => { if(!o.isInstancedMesh || o.parent === G) return; let ch = false; for(let k = 0; k < o.count; k++){ o.getMatrixAt(k, M); v.setFromMatrixPosition(M); v.applyMatrix4(inv);
+      if((Math.abs(v.x) < 17 && v.z > -10 && v.z < 1.5) || Math.hypot(v.x, v.z - PZ) < PR + 2.5){ o.setMatrixAt(k, Z); ch = true; } } if(ch) o.instanceMatrix.needsUpdate = true; }); }
+  window.__falls = (window.__falls || []).concat([{ wi, x: cx, z: cz, side: sd, L, H }]);
 }catch(e){ console.warn('waterfall', e); } }
 
 // ---------- 숨은 갈래길 (pipeline/side_patch.py) ----------
@@ -5527,7 +5628,7 @@ const SIDE = (() => {
   // ---- 발견 · 고르기 · 따라 걷기 ----
   let ask = null, follow = null;
   const box = $('sideAsk');
-  const showAsk = S => { ask = S; $('sdName').textContent = nm(S); $('sdTheme').textContent = T_(({steep:'깎아지른 오르막', crevice:'바위 틈 길', cave:'바위 굴'})[S.theme]); box.hidden = false; };
+  const showAsk = S => { ask = S; $('sdName').textContent = nm(S); $('sdTheme').textContent = T_(({steep:'깎아지른 오르막', crevice:'바위 틈 길', cave:'바위 굴'})[S.theme]); box.hidden = false; clearTimeout(box._t); if(st.auto) box._t = setTimeout(() => { if(ask === S){ box.hidden = true; ask = null; } }, 6000); };
   $('sdNo').onclick = () => { box.hidden = true; ask = null; canvas.focus(); };
   const endFollow = msg => { if(!follow) return; follow = null; if(st.goal && st.goal.__side) st.goal = null; goalRing.visible = false; document.body.classList.remove('sideFollow'); if(msg) toast(T_(msg), 2.6); };
   $('sdGo').onclick = () => { const S = ask; box.hidden = true; ask = null; if(!S) return; follow = { S, s: S.e, g: null, t: performance.now(), px: st.x, pz: st.z }; st.auto = false; refreshWalk(); st.sitting = false; document.body.classList.add('sideFollow'); canvas.focus(); };
@@ -5558,6 +5659,7 @@ const SIDE = (() => {
       if(ask && Math.hypot(ask.pts[ask.e].x - st.x, ask.pts[ask.e].z - st.z) > 25){ box.hidden = true; ask = null; }
     },
     stop(){ endFollow(); },
+    get following(){ return !!follow; },
     on(x, z){ return !!follow || !!onSide(x, z, 2.6); },
     summit(){ me.sum = 1; save(); },
     draw(mctx, toU, toV, big){ const adm = isAdm(); for(const S of paths){ const f = found(S.k); if(!f && !adm) continue; const col = f ? '#9fe0a8' : '#ffb347';
@@ -5585,6 +5687,45 @@ window.__SIDE = SIDE;
   b.onclick = e => { e.stopPropagation(); set(!document.body.classList.contains('botMin')); canvas.focus(); };
   set(!!store.get('botMin', 0)); window.__botMin = set;
   [['bUp','T'],['bDown','G'],['bSlow','Z'],['bFast','X'],['bWalk','C']].forEach(([id, k]) => { const e = $(id); if(e) e.dataset.k = k; }); }
+
+// ---------- 조작 간편화 (pipeline/ux_patch.py) ----------
+{ const touch = () => document.body.classList.contains('touch');
+  const following = () => !!(window.__SIDE && window.__SIDE.following);
+  const walkToggle = () => { if(following()){ window.__SIDE.stop(); st.auto = false; refreshWalk(); return; } toggleAuto(); };
+  window.__walkToggle = walkToggle;
+  // 1) 휴대폰 걷기 버튼 하나: 누르면 걷기/멈추기, 길게 누르면 빠르기 바꾸기
+  const g = $('bGo'); let lt = 0, long = false;
+  const paceLbl = () => { const s = $('goPace'); if(s) s.textContent = PACE > 1.5 ? '빠르게' : '천천히'; };
+  const flipPace = () => { PACE = PACE > 1.5 ? 1 : 2; store.set('pace', PACE); refreshWalk(); toast(PACE > 1.5 ? '빠르게 걸어요' : '천천히 걸어요', 1.6); try{ navigator.vibrate && navigator.vibrate(15); }catch(_){} };
+  g.addEventListener('pointerdown', e => { long = false; g.classList.add('press'); clearTimeout(lt); lt = setTimeout(() => { long = true; g.classList.remove('press'); flipPace(); }, 520); });
+  const up = () => { clearTimeout(lt); g.classList.remove('press'); };
+  g.addEventListener('pointerup', up); g.addEventListener('pointercancel', up); g.addEventListener('pointerleave', up);
+  g.addEventListener('contextmenu', e => e.preventDefault());
+  g.onclick = e => { e.stopPropagation(); if(long){ long = false; return; } walkToggle(); canvas.focus(); };
+  window.__goPace = paceLbl; paceLbl();
+  // 2) 휴대폰 행동 버튼: + 로 나머지 펼치기
+  $('aMore').onclick = e => { e.stopPropagation(); document.body.classList.toggle('actMore'); };
+  ['aWater','aBreath'].forEach(id => { const b = $(id); if(b) b.addEventListener('click', () => setTimeout(() => document.body.classList.remove('actMore'), 0)); });
+  canvas.addEventListener('pointerdown', () => document.body.classList.remove('actMore'));
+  // 7) 정상: 큰 하산하기 버튼
+  $('downBtn').onclick = e => { e.stopPropagation(); startDescent(); };
+  // 5) 처음 온 사람에게 조작 안내 카드 3장
+  const CARDS = () => touch() ? [
+      ['🥾', '저절로 걷기', '아래 걷기 버튼을 누르면 탐방로를 따라 저절로 걸어요', '길게 누르면 빠르기가 바뀌고, 화면을 두 번 톡톡 눌러도 돼요'],
+      ['🧭', '직접 걷고 둘러보기', '왼쪽 아래 동그라미를 밀어 직접 걸어요', '화면을 끌면 둘러보고, 땅을 누르면 그곳으로 가요'],
+      ['📷', '쉬고, 사진 남기기', '오른쪽 버튼으로 쉬고 사진을 찍어요', '+를 누르면 물, 숨 고르기, 인사가 나와요'] ] : [
+      ['🥾', '저절로 걷기', 'Space 키를 누르면 탐방로를 따라 저절로 걸어요', 'Z 천천히, X 빠르게, C 멈추기'],
+      ['🧭', '직접 걷고 둘러보기', 'WASD나 방향키로 직접 걸어요', '마우스로 끌면 둘러보고, 땅을 누르면 그곳으로 가요'],
+      ['📷', '쉬고, 사진 남기기', '힘들면 2번으로 쉬고, 5번으로 사진을 찍어요', 'M 지도, B 버튼 접기'] ];
+  const tut = $('tut'); let ti = 0;
+  const show = () => { const c = CARDS()[ti]; $('tutI').textContent = c[0]; $('tutH').textContent = c[1]; $('tutP1').textContent = c[2]; $('tutP2').textContent = c[3];
+    tut.querySelectorAll('.dots i').forEach((d, k) => d.classList.toggle('on', k === ti)); $('tutNext').textContent = ti === 2 ? '산행 시작' : '다음'; };
+  const close = () => { tut.hidden = true; store.set('tut', 1); canvas.focus(); };
+  $('tutSkip').onclick = close; $('tutNext').onclick = () => { if(ti >= 2) close(); else { ti++; show(); } };
+  window.__tut = () => { ti = 0; show(); tut.hidden = false; for(const k in keys) keys[k] = false; };
+  addEventListener('keydown', e => { if(tut.hidden) return; e.stopImmediatePropagation(); e.preventDefault();
+    if(e.code === 'Escape') close(); else if(e.code === 'Enter' || e.code === 'Space' || e.code === 'ArrowRight') $('tutNext').click(); }, true);
+}
 window.__game = {standY, heightAt, METEOR, VIEWPOINTS, POOL, restSpots, doRest, st, trail, WPS, heightAt, keys, camera, npcs, remotes, applyPeers, scene, renderer, player, SKY, CAMP, startCamp, startDescent, finish, campCam};
 frame();
 </script>
