@@ -5901,5 +5901,28 @@ body.touch #embedOpen{top:calc(8px + env(safe-area-inset-top,0px));font-size:12p
   setTimeout(function(){ a.classList.add('mini'); }, 12000);
 })();
 </script>
+<style id="mapXCss">
+/* 지도 크게 보기·닫기 (pipeline/map_patch.py) */
+#mapX{display:none;position:absolute;top:-8px;right:-8px;width:30px;height:30px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(18,20,17,.78);color:#fff;font:600 15px/1 sans-serif;padding:0;place-items:center;z-index:2;pointer-events:auto;cursor:pointer;-webkit-tap-highlight-color:transparent}
+#mapWrap.big #mapX,body.touch.mapOn #mapX{display:grid}
+body.touch #mapWrap:not(.big){right:calc(58px + env(safe-area-inset-right,0px))}
+body.touch #mapWrap:not(.big) #mapX{right:auto;left:-8px;width:28px;height:28px;font-size:13px}
+body.touch #mapWrap.big{display:block;top:50%;left:50%;right:auto;bottom:auto;transform:translate(-50%,-50%);z-index:8;padding:6px;border-radius:18px}
+body.touch #mapWrap.big #map{width:min(94vw,82vh,620px);height:min(94vw,82vh,620px)}
+body.touch #mapWrap.big #mapX{top:10px;right:10px;width:38px;height:38px;font-size:18px}
+</style>
+<script id="mapXJs">
+/* 지도 닫기 버튼 (pipeline/map_patch.py) */
+(function(){
+  const W = document.getElementById('mapWrap'); if(!W) return;
+  const X = document.createElement('button'); X.id = 'mapX'; X.type = 'button'; X.setAttribute('aria-label', '지도 닫기'); X.textContent = '✕';
+  W.appendChild(X);
+  const close = () => { W.classList.remove('big'); document.body.classList.remove('mapOn'); };
+  X.addEventListener('click', e => { e.stopPropagation(); e.preventDefault(); close(); });
+  X.addEventListener('pointerdown', e => e.stopPropagation());
+  X.addEventListener('touchstart', e => e.stopPropagation(), {passive:true});
+  addEventListener('keydown', e => { if(e.key === 'Escape' && W.classList.contains('big')) W.classList.remove('big'); });
+})();
+</script>
 </body>
 </html>
