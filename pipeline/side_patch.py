@@ -172,7 +172,7 @@ const SIDE = (() => {
   // ---- 발견 · 고르기 · 따라 걷기 ----
   let ask = null, follow = null;
   const box = $('sideAsk');
-  const showAsk = S => { ask = S; $('sdName').textContent = nm(S); $('sdTheme').textContent = T_(({steep:'깎아지른 오르막', crevice:'바위 틈 길', cave:'바위 굴'})[S.theme]); box.hidden = false; };
+  const showAsk = S => { ask = S; $('sdName').textContent = nm(S); $('sdTheme').textContent = T_(({steep:'깎아지른 오르막', crevice:'바위 틈 길', cave:'바위 굴'})[S.theme]); box.hidden = false; clearTimeout(box._t); if(st.auto) box._t = setTimeout(() => { if(ask === S){ box.hidden = true; ask = null; } }, 6000); };
   $('sdNo').onclick = () => { box.hidden = true; ask = null; canvas.focus(); };
   const endFollow = msg => { if(!follow) return; follow = null; if(st.goal && st.goal.__side) st.goal = null; goalRing.visible = false; document.body.classList.remove('sideFollow'); if(msg) toast(T_(msg), 2.6); };
   $('sdGo').onclick = () => { const S = ask; box.hidden = true; ask = null; if(!S) return; follow = { S, s: S.e, g: null, t: performance.now(), px: st.x, pz: st.z }; st.auto = false; refreshWalk(); st.sitting = false; document.body.classList.add('sideFollow'); canvas.focus(); };
@@ -203,6 +203,7 @@ const SIDE = (() => {
       if(ask && Math.hypot(ask.pts[ask.e].x - st.x, ask.pts[ask.e].z - st.z) > 25){ box.hidden = true; ask = null; }
     },
     stop(){ endFollow(); },
+    get following(){ return !!follow; },
     on(x, z){ return !!follow || !!onSide(x, z, 2.6); },
     summit(){ me.sum = 1; save(); },
     draw(mctx, toU, toV, big){ const adm = isAdm(); for(const S of paths){ const f = found(S.k); if(!f && !adm) continue; const col = f ? '#9fe0a8' : '#ffb347';

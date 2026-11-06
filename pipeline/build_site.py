@@ -34,6 +34,7 @@ from preview_patch import patch_preview
 from relief_patch import patch_relief
 from side_patch import patch_side, THEME_ROWS
 from mp_patch import patch_mp
+from ux_patch import patch_ux, UX_ROWS
 from waterfall_patch import patch_waterfall
 from loader_patch import patch_loader, loader_rows
 from i18n_fix_patch import patch_i18n_fix, FIX_ROWS
@@ -306,7 +307,7 @@ def build_page(T, m, mts, data):
     rows = list(UI_ROWS)
     for x in mts: rows += mountain_rows(x)
     if m['id'] != 'bukhansan': rows += page_rows(m)
-    rows += EXTRA_ROWS + SEASON_ROWS + SKY_ROWS + WX_ROWS + lm_rows(m) + FIX_ROWS + THEME_ROWS + loader_rows(m) + [[tagline(m, l) for l in LANGS]]
+    rows += EXTRA_ROWS + SEASON_ROWS + SKY_ROWS + WX_ROWS + lm_rows(m) + FIX_ROWS + THEME_ROWS + UX_ROWS + loader_rows(m) + [[tagline(m, l) for l in LANGS]]
     pre, R, post = split_R(P.t)
     R += ',\n    // 산 고르기·산 이름 (pipeline/build_site.py)\n' + ',\n'.join('    ' + json.dumps(r, ensure_ascii=False) for r in rows)
     if not m.get('legacy'):
@@ -344,6 +345,7 @@ def build_page(T, m, mts, data):
     patch_walk_keys(P, m)
     patch_bottom_min(P, m)
     patch_mp(P, m)
+    patch_ux(P, m)
     patch_loader(P, m, mts, data)
     patch_i18n_fix(P, m)
     patch_lang(P, m)
