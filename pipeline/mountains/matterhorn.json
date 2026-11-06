@@ -61,6 +61,11 @@
    "desc": {
     "ko": "작은 호수와 예배당이 있는 들머리예요.",
     "en": "A trailhead with a small lake and chapel."
+   },
+   "spot": {
+    "type": "chapel",
+    "at": 10,
+    "D": 30
    }
   },
   {

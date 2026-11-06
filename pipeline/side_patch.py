@@ -31,6 +31,8 @@ NAMES = {
     'montblanc': [('구테 쿨루아르 오르막', 'Goûter Couloir Climb', STEEP), ('에귀 바위틈', 'Aiguille Crevice', CREV), ('세락 얼음굴', 'Serac Ice Cave', CAVE), ('테트 루스 급경사', 'Tête Rousse Steep', STEEP), ('돔 뒤 구테 바윗길', 'Dôme du Goûter Crevice', CREV)],
     'tongariro': [('레드 크레이터 오르막', 'Red Crater Climb', STEEP), ('사우스 크레이터 바위틈', 'South Crater Crevice', CREV), ('용암 바위굴', 'Lava Rock Cave', CAVE), ('에메랄드 호수 급경사', 'Emerald Lakes Steep', STEEP), ('케테타히 바윗길', 'Ketetahi Crevice', CREV)],
     'torresdelpaine': [('아센시오 오르막', 'Ascencio Climb', STEEP), ('모레인 바위틈', 'Moraine Crevice', CREV), ('화강암 바위굴', 'Granite Rock Cave', CAVE), ('칠레노 급경사', 'Chileno Steep', STEEP), ('토레스 바윗길', 'Torres Crevice', CREV)],
+    'seongpanak': [('사라오름 오르막', 'Saraoreum Climb', STEEP), ('진달래밭 바위틈', 'Jindallaebat Crevice', CREV), ('화구벽 바윗길', 'Crater Wall Crevice', CREV), ('용암 바위굴', 'Lava Rock Cave', CAVE)],
+    'namche': [('남체 언덕 급경사', 'Namche Hill Steep', STEEP), ('두드코시 바위틈', 'Dudh Koshi Crevice', CREV), ('조르살레 바위굴', 'Jorsalle Rock Cave', CAVE), ('보테코시 오르막', 'Bhote Koshi Climb', STEEP)],
     'trecime': [('라바레도 오르막', 'Lavaredo Climb', STEEP), ('파테르노 바위틈', 'Paterno Crevice', CREV), ('파테르노 동굴', 'Paterno Tunnel', CAVE), ('로카텔리 급경사', 'Locatelli Steep', STEEP), ('아우론초 바윗길', 'Auronzo Crevice', CREV)],
 }
 THEME_KO = {STEEP: '깎아지른 오르막', CREV: '바위 틈 길', CAVE: '바위 굴'}

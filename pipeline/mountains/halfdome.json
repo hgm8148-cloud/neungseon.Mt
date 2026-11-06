@@ -88,6 +88,11 @@
    "desc": {
     "ko": "화강암 계단을 지그재그로 올라요. 다음은 케이블 구간이에요.",
     "en": "Granite steps zigzag up; next come the cables."
+   },
+   "spot": {
+    "type": "stairs",
+    "from": -35,
+    "to": 5
    }
   },
   {

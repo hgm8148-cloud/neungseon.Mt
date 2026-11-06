@@ -71,6 +71,16 @@
    "desc": {
     "ko": "화산 지대의 샘이에요. 앞으로 가파른 악마의 계단이 이어져요.",
     "en": "A spring in the volcanic plateau; the steep Devil's Staircase follows."
+   },
+   "feature": {
+    "type": "waterfall",
+    "scale": 0.35,
+    "tones": [
+     4865850,
+     4077106,
+     5589055,
+     4405813
+    ]
    }
   },
   {

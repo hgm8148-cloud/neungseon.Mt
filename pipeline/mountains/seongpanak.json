@@ -1,0 +1,135 @@
+{
+ "id": "seongpanak",
+ "region": "kr",
+ "order": 2.5,
+ "flag": "kr",
+ "tz": 9,
+ "cityLights": true,
+ "area": {
+  "ko": "한라산",
+  "en": "Hallasan",
+  "ja": "漢拏山",
+  "zh": "汉拿山"
+ },
+ "peak": {
+  "ko": "백록담",
+  "en": "Baengnokdam",
+  "ja": "白鹿潭",
+  "zh": "白鹿潭"
+ },
+ "end": {
+  "ko": "백록담 정상",
+  "en": "Baengnokdam Summit",
+  "ja": "白鹿潭山頂",
+  "zh": "白鹿潭顶峰"
+ },
+ "elev": 1947,
+ "trailheadArea": {
+  "ko": "성판악",
+  "en": "Seongpanak",
+  "ja": "城板岳",
+  "zh": "城板岳"
+ },
+ "summitSub": {
+  "ko": "남한에서 가장 높은 곳, 백록담 화구",
+  "en": "the highest point in South Korea, above the Baengnokdam crater",
+  "ja": "韓国最高地点、白鹿潭の火口",
+  "zh": "韩国最高处，白鹿潭火山口"
+ },
+ "vista": {
+  "ko": "화구 안 백록담과 제주 바다가 한눈에 들어와요",
+  "en": "The Baengnokdam crater lake and the sea around Jeju in one view",
+  "ja": "火口の白鹿潭と済州の海がひと目で見渡せます",
+  "zh": "火山口内的白鹿潭与济州大海尽收眼底"
+ },
+ "course": {
+  "ko": "성판악 코스",
+  "en": "Seongpanak Trail",
+  "ja": "城板岳コース",
+  "zh": "城板岳路线"
+ },
+ "waypoints": [
+  {
+   "ko": "사라오름 입구",
+   "en": "Saraoreum Junction",
+   "ja": "サラオルム入口",
+   "zh": "沙罗岳入口",
+   "lat": 33.3712,
+   "lon": 126.5735,
+   "elev": 1300,
+   "snap": "elev",
+   "desc": {
+    "ko": "성판악 코스 중간, 사라오름 갈림길이에요. 여기서 백록담까지 올라가요.",
+    "en": "The Saraoreum junction, midway along the Seongpanak Trail. From here you climb to Baengnokdam."
+   }
+  },
+  {
+   "ko": "진달래밭 대피소",
+   "en": "Jindallaebat Shelter",
+   "ja": "チンダルレバッ避難所",
+   "zh": "杜鹃田避难所",
+   "lat": 33.3655,
+   "lon": 126.5565,
+   "elev": 1500,
+   "snap": "elev",
+   "desc": {
+    "ko": "봄이면 털진달래가 붉게 덮이는 대피소예요. 정상까지 마지막 오르막이 시작돼요.",
+    "en": "A shelter wrapped in red azaleas in spring. The last climb to the summit starts here."
+   }
+  },
+  {
+   "ko": "백록담 정상",
+   "en": "Baengnokdam Summit",
+   "ja": "白鹿潭山頂",
+   "zh": "白鹿潭顶峰",
+   "lat": 33.3616,
+   "lon": 126.5338,
+   "elev": 1947,
+   "snap": "peak",
+   "spot": {
+    "type": "crater"
+   }
+  }
+ ],
+ "biome": {
+  "preset": "highland",
+  "treeline": 1560,
+  "rockline": 1640,
+  "plantline": 1950,
+  "pine": 2.4,
+  "grass": 0.35
+ },
+ "climate": "kr-high",
+ "ground": {
+  "rock": [
+   "#5a5652",
+   "#3a3734"
+  ],
+  "rockTint": "#6e6a66",
+  "rkTint": [
+   0.66,
+   0.64,
+   0.62
+  ]
+ },
+ "relief": {
+  "xex": 1.3,
+  "crags": {
+   "color": "#4b4642",
+   "n": 120,
+   "h": [
+    5,
+    14
+   ],
+   "w": [
+    2,
+    4.5
+   ],
+   "zone": 900,
+   "sharp": 0.15,
+   "ridge": 1.2,
+   "minH": 0.3
+  }
+ },
+ "base": "hallasan"
+}

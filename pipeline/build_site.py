@@ -36,6 +36,7 @@ from side_patch import patch_side, THEME_ROWS
 from mp_patch import patch_mp
 from ux_patch import patch_ux, UX_ROWS
 from waterfall_patch import patch_waterfall
+from spots_patch import patch_spots
 from loader_patch import patch_loader, loader_rows
 from i18n_fix_patch import patch_i18n_fix, FIX_ROWS
 
@@ -232,7 +233,7 @@ SEL_CSS = '''
 
 def selector_js(cur, mts):
     lst = [dict(id=m['id'], r=m['region'], page=m['page'], built=m['_built'], area=m['area']['ko'], end=m['end']['ko'],
-                course=(m.get('course') or {}).get('ko', ''), country=COUNTRY[m['flag']][0], elev=m['elev'], km=m.get('_km'), pic=m.get('_thumb', ''), photo=hero_url(m['id'])) for m in mts]
+                course=(m.get('course') or {}).get('ko', ''), country=COUNTRY[m['flag']][0], elev=m['elev'], km=m.get('_km'), pic=m.get('_thumb', ''), photo=hero_url(m.get('base', m['id'])), dup=sum(x['area']['ko'] == m['area']['ko'] for x in mts) > 1) for m in mts]
     key = 'hike' if any(m.get('legacy') and m['id'] == cur for m in mts) else 'hike.' + cur
     return '''
 <script>
@@ -262,7 +263,7 @@ def selector_js(cur, mts):
       const add = (tag, cls, txt) => { const e = document.createElement(tag); if(cls) e.className = cls; e.textContent = txt; body.appendChild(e); return e; };
       add('b', '', m.area);
       add('span', 'mtSub', m.end);
-      const c = add('span', 'mtSub', ''); const cc = document.createElement('span'); cc.textContent = m.r === 'kr' ? m.course : m.country; c.appendChild(cc); if(m.km) c.appendChild(document.createTextNode(' · ' + m.km + ' km'));
+      const c = add('span', 'mtSub', ''); const cc = document.createElement('span'); cc.textContent = (m.r === 'kr' || m.dup) ? m.course : m.country; c.appendChild(cc); if(m.km) c.appendChild(document.createTextNode(' · ' + m.km + ' km'));
       if(!m.built){ b.disabled = true; add('span', 'mtSub', '준비 중'); }
       b.onclick = () => { if(m.id === CUR){ close(); return; } if(m.built){ try{ sessionStorage.setItem('neungseon.go', m.id); }catch(e){} location.href = m.page + '?go=1'; } };
       list.appendChild(b);
@@ -341,6 +342,7 @@ def build_page(T, m, mts, data):
     patch_relief(P, m)
     if m.get("relief"): __import__("relief_patch").patch_uplook(P)
     patch_waterfall(P, m)
+    patch_spots(P, m)
     patch_side(P, m)
     patch_walk_keys(P, m)
     patch_bottom_min(P, m)

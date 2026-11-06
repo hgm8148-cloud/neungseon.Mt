@@ -27,6 +27,7 @@ LANDMARK = {
     'sobaeksan': dict(kind='krstone', lines=['小白山', '毘盧峰', '1439.5m'], color='#2a2620'),
     'taebaeksan': dict(kind='altar', lines=['太白山', '1567m'], color='#2a2620'),
     'everest': dict(kind='flags'),
+    'seongpanak': dict(kind='krstone', lines=['한라산', '白鹿潭', '1947m'], color='#2a2620', big=True),
     'fuji': dict(kind='fuji'),
     'kilimanjaro': dict(kind='uhuru'),
     'huangshan': dict(kind='huangshan'),
@@ -149,7 +150,7 @@ TR = {
 
 def lm_rows(m):
     """이 산 NPC 한마디 번역 줄 ('🏕 이름 · 말')"""
-    v = CAMP_NPC.get(m['id'])
+    v = CAMP_NPC.get(m['id']) or CAMP_NPC.get(m.get('base', ''))
     if not v: return []
     name, _, _, lines = v
     rows = []
@@ -334,8 +335,8 @@ window.__campNpc = (()=>{ const N = __NPC__; if(!N) return null;
 
 
 def patch_landmark(P, m):
-    L = LANDMARK.get(m['id'])
-    N = CAMP_NPC.get(m['id'])
+    L = LANDMARK.get(m['id']) or LANDMARK.get(m.get('base', ''))
+    N = CAMP_NPC.get(m['id']) or CAMP_NPC.get(m.get('base', ''))
     npc = None
     if N:
         name, outfit, tent, lines = N

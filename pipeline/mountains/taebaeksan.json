@@ -85,6 +85,13 @@
    "desc": {
     "ko": "겨울이면 뒤틀린 주목에 상고대가 피어요.",
     "en": "In winter, rime frost blooms on the twisted yews."
+   },
+   "spot": {
+    "type": "yews",
+    "from": -60,
+    "to": 20,
+    "n": 14,
+    "snags": 0.4
    }
   },
   {

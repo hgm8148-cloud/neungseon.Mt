@@ -99,6 +99,14 @@
    "desc": {
     "ko": "천연기념물 제465호 주상절리. 돌기둥이 줄지어 서 있어요.",
     "en": "Columnar joints, Natural Monument No. 465: rows of standing stone pillars."
+   },
+   "spot": {
+    "type": "columns",
+    "mode": "stand",
+    "color": "#9b9488",
+    "h": 12,
+    "n": 16,
+    "D": 12
    }
   },
   {
@@ -109,7 +117,16 @@
    "lat": 35.1262,
    "lon": 127.0055,
    "elev": 1100,
-   "snap": "elev"
+   "snap": "elev",
+   "spot": {
+    "type": "columns",
+    "mode": "wall",
+    "color": "#948d81",
+    "h": 14,
+    "n": 30,
+    "at": -25,
+    "D": 16
+   }
   }
  ],
  "biome": {

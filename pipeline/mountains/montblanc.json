@@ -84,6 +84,10 @@
    "desc": {
     "ko": "작은 호수들이 이어져요. 사다리 구간을 조심하세요.",
     "en": "A chain of small lakes. Watch your step on the ladders."
+   },
+   "spot": {
+    "type": "lake",
+    "D": 20
    }
   },
   {

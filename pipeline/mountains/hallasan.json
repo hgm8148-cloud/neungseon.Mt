@@ -75,6 +75,15 @@
    "desc": {
     "ko": "오백나한이라 불리는 수직 바위기둥이 병풍처럼 둘러선 영실기암이에요.",
     "en": "The Yeongsil Giam: vertical rock pillars called the 500 Arhats, standing like a folding screen."
+   },
+   "spot": {
+    "type": "columns",
+    "mode": "spires",
+    "color": "#6f6961",
+    "h": 30,
+    "n": 26,
+    "D": 42,
+    "rows": 3
    }
   },
   {

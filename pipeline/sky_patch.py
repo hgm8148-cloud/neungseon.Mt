@@ -94,7 +94,7 @@ GLOW_TAIL_NEW = '''col *= night*smoothstep(-0.08, 0.02, d.y);
 
 
 def sky_x(m):
-    mid, cl = m['id'], m.get('climate', 'kr')
+    mid, cl = m.get('base', m['id']), m.get('climate', 'kr')
     cdir, ck = CITY.get(mid, ([0, 1], 0.0)) if m.get('cityLights', True) else ([0, 1], 0.0)
     base = [0.12, 0.07, 0.036]
     return dict(pal=PAL, tint=SEASON_TINT, alpine=ALPINE.get(cl, 0), amt=1.0,

@@ -10,20 +10,20 @@ import json
 WF_JS = r"""
 // ---------- 경유지 폭포 (pipeline/waterfall_patch.py) ----------
 // 2026-11-06 승연 '너무 조악하고 깨져 보여, 더 크고 웅장하게': 높이 약 2배, 매끈한 바위 벼랑(틈 없음), 휘어 떨어지는 물줄기, 2단 낙차, 소·물보라·물안개
-for(const wi of __WFS__){ const W = WPS[wi]; if(!W) continue; try{
-  const i = W.i, p = trail[i], a0 = trail[Math.max(0, i-6)], a1 = trail[Math.min(trail.length-1, i+6)];
+for(const wi0 of __WFS__){ const [wi, WO] = Array.isArray(wi0) ? wi0 : [wi0, {}], SC = WO.scale || 1; const W = WPS[wi]; if(!W) continue; try{
+  const i = Math.max(1, Math.min(trail.length - 2, W.i + (WO.at || 0))), p = trail[i], a0 = trail[Math.max(0, i-6)], a1 = trail[Math.min(trail.length-1, i+6)];
   let tx = a1.x - a0.x, tz = a1.z - a0.z; const tl = Math.hypot(tx, tz) || 1; tx /= tl; tz /= tl; const nx = -tz, nz = tx;
   const hp = heightAt(p.x, p.z), dif = s => { let m = 0; for(const d of [5, 9, 13, 17]) m = Math.max(m, heightAt(p.x + nx*d*s, p.z + nz*d*s) - hp); return m; };
-  const sd = dif(1) <= dif(-1) ? 1 : -1, D = 19;
+  const sd = WO.side || (dif(1) <= dif(-1) ? 1 : -1), D = (WO.D || 19*Math.max(0.55, SC));
   const cx = p.x + nx*sd*D, cz = p.z + nz*sd*D, face = Math.atan2(-nx*sd, -nz*sd);   // 벼랑이 탐방로를 바라봐요
-  const G = new THREE.Group(); G.rotation.y = face; G.position.set(cx, 0, cz); G.updateMatrixWorld(true);
+  const G = new THREE.Group(); G.rotation.y = face; G.position.set(cx, 0, cz); G.scale.setScalar(SC); G.updateMatrixWorld(true);
   const wpt = (lx, lz) => { const v = new THREE.Vector3(lx, 0, lz); G.localToWorld(v); return v; };
   // 소 높이: 소 둘레 땅 높이의 가운데값 (비탈에서 너무 뜨거나 묻히지 않게)
   const PZ = 4.2, PR = 5.2; const rim = []; for(let k = 0; k < 16; k++){ const an = k/16*6.283, v = wpt(Math.cos(an)*PR, PZ + Math.sin(an)*PR); rim.push(heightAt(v.x, v.z)); }
-  rim.sort((u, v) => u - v); const L = Math.max(rim[8], hp - 1.5) + 0.25, H = 24, H1 = 15;   // H1: 위 폭포가 떨어지는 턱
+  rim.sort((u, v) => u - v); const L = Math.max(rim[8], hp - 1.5) + 0.25*SC, H = 24, H1 = 15;   // H1: 위 폭포가 떨어지는 턱
   G.position.y = L; G.updateMatrixWorld(true); scene.add(G);
   let rs = 4127; const rnd = () => (rs = (rs * 16807) % 2147483647) / 2147483647;
-  const tones = [0xb7b0a4, 0xa9a397, 0xc2bbae, 0x9c978d].map(c => new THREE.MeshStandardMaterial({ map: TEX.granite, color: c, roughness: 0.9 }));
+  const tones = (WO.tones || [0xb7b0a4, 0xa9a397, 0xc2bbae, 0x9c978d]).map(c => new THREE.MeshStandardMaterial({ map: TEX.granite, color: c, roughness: 0.9 }));
   // 매끈한 바위: 꼭짓점을 위치로 정한 물결로만 밀어서 면 사이 틈이 생기지 않아요
   const rockGeo = []; for(let k = 0; k < 4; k++){ const g = new THREE.SphereGeometry(1, 22, 14), P = g.attributes.position, a = 1.3 + k*0.4, s1 = k*1.7, s2 = k*2.3 + 1;
     for(let j = 0; j < P.count; j++){ const x = P.getX(j), y = P.getY(j), z = P.getZ(j);
@@ -31,7 +31,7 @@ for(const wi of __WFS__){ const W = WPS[wi]; if(!W) continue; try{
       const fl = y > 0.55 ? 0.55 + (y - 0.55)*0.35 : y;   // 윗면은 판판하게 (층진 화강암)
       P.setXYZ(j, x*n, fl*n, z*n); }
     g.computeVertexNormals(); rockGeo.push(g); }
-  const near = (lx, lz, r) => { const v = wpt(lx, lz); return nearTrail(v.x, v.z, 30).d < r + 2.5; };
+  const near = (lx, lz, r) => { const v = wpt(lx, lz); return nearTrail(v.x, v.z, 30).d < r*SC + 2.5; };
   const boulder = (w, h, d, x, y, z, ry) => { if(near(x, z, Math.max(w, d))) return null; const m = new THREE.Mesh(rockGeo[(rnd()*4)|0], tones[(rnd()*4)|0]); m.scale.set(w, h, d); m.position.set(x, y, z); m.rotation.y = ry ?? rnd()*6.28; m.castShadow = m.receiveShadow = true; G.add(m); return m; };
   // 벼랑: 가운데 홈(물길) 양옆으로 층층이 쌓인 큰 바위, 아래는 땅속까지 묻어요
   for(const s of [-1, 1]){
@@ -104,6 +104,10 @@ for(const wi of __WFS__){ const W = WPS[wi]; if(!W) continue; try{
 
 
 def patch_waterfall(P, m):
-    wfs = [k for k, w in enumerate(m.get('waypoints', [])) if w.get('feature') == 'waterfall']
+    wfs = []
+    for k, w in enumerate(m.get('waypoints', [])):
+        f = w.get('feature')
+        if f == 'waterfall': wfs.append(k)
+        elif isinstance(f, dict) and f.get('type') == 'waterfall': wfs.append([k, {a: b for a, b in f.items() if a != 'type'}])
     if not wfs: return
     P.rep("window.__game = {", WF_JS.replace('__WFS__', json.dumps(wfs)) + "window.__game = {", 1)

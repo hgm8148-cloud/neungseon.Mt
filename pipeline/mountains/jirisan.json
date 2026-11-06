@@ -61,6 +61,12 @@
    "desc": {
     "ko": "지리산은 1967년 우리나라 첫 국립공원으로 지정됐어요. 이제 천왕봉을 향해 올라가요.",
     "en": "Jirisan became Korea's first national park in 1967. From here the trail climbs to Cheonwangbong."
+   },
+   "spot": {
+    "type": "blade",
+    "at": 18,
+    "D": 11,
+    "h": 14
    }
   },
   {

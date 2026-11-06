@@ -88,6 +88,10 @@
    "desc": {
     "ko": "분화구 테두리 위, 빙하가 눈앞에 보여요.",
     "en": "On the crater rim, with glaciers right in front of you."
+   },
+   "spot": {
+    "type": "icewall",
+    "D": 45
    }
   },
   {

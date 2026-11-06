@@ -81,7 +81,13 @@
    "lat": -50.9425,
    "lon": -72.96,
    "elev": 875,
-   "snap": "elev"
+   "snap": "elev",
+   "spot": {
+    "type": "boulders",
+    "from": -90,
+    "to": -12,
+    "n": 130
+   }
   }
  ],
  "biome": {

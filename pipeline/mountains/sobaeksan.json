@@ -81,7 +81,14 @@
    "lat": 36.9575,
    "lon": 128.485,
    "elev": 1439,
-   "snap": "peak"
+   "snap": "peak",
+   "spot": {
+    "type": "yews",
+    "from": -90,
+    "to": -15,
+    "n": 14,
+    "snags": 0.15
+   }
   }
  ],
  "biome": {
