@@ -5958,5 +5958,36 @@ frame();
   if(!skip) open(false);
 })();
 </script>
+<style id="embedOpenCss">
+#embedOpen{position:fixed;z-index:60;top:calc(12px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);
+display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;font:600 13px/1 system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+color:#fff;text-decoration:none;background:rgba(20,32,28,.62);border:1px solid rgba(255,255,255,.28);
+-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 4px 16px rgba(0,0,0,.25);white-space:nowrap;transition:padding .25s,opacity .25s}
+#embedOpen[hidden]{display:none}
+#embedOpen:hover{background:rgba(20,32,28,.8)}
+#embedOpen .eoI{font-size:14px}
+#embedOpen.mini{padding:8px 10px}
+#embedOpen.mini .eoT{display:none}
+#embedOpen.mini:hover{padding:8px 14px}
+#embedOpen.mini:hover .eoT{display:inline}
+body.touch #embedOpen{top:calc(8px + env(safe-area-inset-top,0px));font-size:12px;padding:7px 12px}
+</style>
+<a id="embedOpen" hidden target="_blank" rel="noopener" href="https://neungseon.com/"><span class="eoT"></span><span class="eoI">↗</span></a>
+<script>
+(function(){
+  var inFrame; try { inFrame = window.self !== window.top; } catch (e) { inFrame = true; }
+  if (!inFrame) return;
+  var a = document.getElementById('embedOpen'); if (!a) return;
+  var l = ''; try { l = localStorage.getItem('neungseon.lang') || ''; } catch (e) {}
+  l = (l || navigator.language || 'ko').slice(0, 2).toLowerCase();
+  var T = { ko: 'neungseon.com에서 크게 열기', ja: 'neungseon.comで大きく開く', zh: '在 neungseon.com 全屏打开' };
+  var t = T[l] || 'Open full size on neungseon.com';
+  a.querySelector('.eoT').textContent = t;
+  a.title = t; a.setAttribute('aria-label', t); a.setAttribute('translate', 'no');
+  a.href = 'https://neungseon.com' + location.pathname + location.search;
+  a.hidden = false;
+  setTimeout(function(){ a.classList.add('mini'); }, 12000);
+})();
+</script>
 </body>
 </html>
