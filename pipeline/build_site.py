@@ -39,6 +39,7 @@ from waterfall_patch import patch_waterfall
 from spots_patch import patch_spots
 from loader_patch import patch_loader, loader_rows
 from i18n_fix_patch import patch_i18n_fix, FIX_ROWS
+from perf_patch import patch_perf
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PF = '/mnt/project-files/hiking-game'
@@ -348,6 +349,7 @@ def build_page(T, m, mts, data):
     patch_bottom_min(P, m)
     patch_mp(P, m)
     patch_ux(P, m)
+    patch_perf(P, m)   # 저사양 휴대폰 화질 자동 조절
     patch_loader(P, m, mts, data)
     patch_i18n_fix(P, m)
     patch_lang(P, m)
