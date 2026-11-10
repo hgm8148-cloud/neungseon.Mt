@@ -37,6 +37,7 @@ from mp_patch import patch_mp
 from ux_patch import patch_ux, UX_ROWS
 from waterfall_patch import patch_waterfall
 from spots_patch import patch_spots
+from deck_patch import patch_deck
 from loader_patch import patch_loader, loader_rows
 from i18n_fix_patch import patch_i18n_fix, FIX_ROWS
 from perf_patch import patch_perf
@@ -345,6 +346,7 @@ def build_page(T, m, mts, data):
     if m.get("relief"): __import__("relief_patch").patch_uplook(P)
     patch_waterfall(P, m)
     patch_spots(P, m)
+    patch_deck(P, m)
     patch_side(P, m)
     patch_walk_keys(P, m)
     patch_bottom_min(P, m)
