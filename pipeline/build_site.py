@@ -487,6 +487,7 @@ def main():
         import seo_patch; seo_patch.patch_dir(out)
         import embed_patch; embed_patch.patch_dir(out)   # iframe 안에서만 '크게 열기' 버튼
         import map_patch; map_patch.patch_dir(out)   # 휴대폰 지도 크게 보기·닫기 버튼
+        import android_patch; android_patch.patch_dir(out)   # 플레이 스토어 앱 안에서만 후원·설치 안내 숨기기
     if a.to_site and not a.only:   # 검색 엔진용 사이트맵: 산을 더하면 자동으로 늘어나요 (robots.txt는 그대로 둬요)
         import datetime
         day = datetime.date.today().isoformat()
