@@ -37,8 +37,11 @@ from mp_patch import patch_mp
 from ux_patch import patch_ux, UX_ROWS
 from waterfall_patch import patch_waterfall
 from spots_patch import patch_spots
+from deck_patch import patch_deck
 from loader_patch import patch_loader, loader_rows
 from i18n_fix_patch import patch_i18n_fix, FIX_ROWS
+from perf_patch import patch_perf
+from social_patch import patch_social, SOCIAL_ROWS
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PF = '/mnt/project-files/hiking-game'
@@ -308,7 +311,7 @@ def build_page(T, m, mts, data):
     rows = list(UI_ROWS)
     for x in mts: rows += mountain_rows(x)
     if m['id'] != 'bukhansan': rows += page_rows(m)
-    rows += EXTRA_ROWS + SEASON_ROWS + SKY_ROWS + WX_ROWS + lm_rows(m) + FIX_ROWS + THEME_ROWS + UX_ROWS + loader_rows(m) + [[tagline(m, l) for l in LANGS]]
+    rows += EXTRA_ROWS + SEASON_ROWS + SKY_ROWS + WX_ROWS + lm_rows(m) + FIX_ROWS + THEME_ROWS + UX_ROWS + SOCIAL_ROWS + loader_rows(m) + [[tagline(m, l) for l in LANGS]]
     pre, R, post = split_R(P.t)
     R += ',\n    // 산 고르기·산 이름 (pipeline/build_site.py)\n' + ',\n'.join('    ' + json.dumps(r, ensure_ascii=False) for r in rows)
     if not m.get('legacy'):
@@ -343,11 +346,14 @@ def build_page(T, m, mts, data):
     if m.get("relief"): __import__("relief_patch").patch_uplook(P)
     patch_waterfall(P, m)
     patch_spots(P, m)
+    patch_deck(P, m)
     patch_side(P, m)
     patch_walk_keys(P, m)
     patch_bottom_min(P, m)
     patch_mp(P, m)
     patch_ux(P, m)
+    patch_perf(P, m)   # 저사양 휴대폰 화질 자동 조절
+    patch_social(P, m)
     patch_loader(P, m, mts, data)
     patch_i18n_fix(P, m)
     patch_lang(P, m)
@@ -462,7 +468,7 @@ def main():
         dp = os.path.join(HERE, 'data', m['id'] + '.json')
         m['_built'] = os.path.exists(dp)
         if m['_built']:
-            dd = json.load(open(dp)); m['_km'] = round(dd['meta']['trail_m'] / 1000, 1); m['_thumb'] = thumb_svg(m, dd)
+            dd = json.load(open(dp)); dd['meta'].update({'skyline': m['skyline']} if m.get('skyline') else {}); m['_km'] = round(dd['meta']['trail_m'] / 1000, 1); m['_thumb'] = thumb_svg(m, dd)
         mts.append(m)
     mts.sort(key=lambda m: m['order'])
     out = os.path.dirname(HERE) if a.to_site else os.path.join(HERE, 'preview' if a.preview else 'out')
@@ -470,6 +476,7 @@ def main():
     for m in mts:
         if not m['_built'] or (a.only and m['id'] not in a.only): continue
         data = json.load(open(os.path.join(HERE, 'data', m['id'] + '.json')))
+        if m.get('skyline'): data['meta']['skyline'] = m['skyline']
         html = build_page(T, m, mts, data)
         p = os.path.join(out, m['page'])
         open(p, 'w').write(html)
