@@ -516,7 +516,6 @@ function soSummitTick(dt){ const now = performance.now(); if(now - soSumT < 1000
 function restoreChip(){ $('soChip').querySelector('span > span').textContent = '님이 가까이 있어요'; $('soChipB').textContent = '함께 가기 제안';
   $('soChipB').onclick = () => { const a = SO_P.chip; $('soChip').hidden = true; if(a) soSendInvite(a); }; $('soChipX').onclick = () => { $('soChip').hidden = true; }; }
 $('cGuest').onclick = () => soOpenGuest(); $('soGuestEnd').onclick = () => soOpenGuest();
-window.__so = { SO, SO_G, SO_P, soBoardMake, soOpenGuest };
 // 시작: 웹(파이어베이스)에서만
 FB_READY.then(fb => { if(!fb) return; SO.fb = fb; SO.web = true; try{ soChatStart(fb); }catch(e){ SO.chatOk = false; console.warn(e); } });
 '''
