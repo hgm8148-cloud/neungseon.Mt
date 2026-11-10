@@ -132,7 +132,8 @@ def _skyline(data):
     vx, vz = tx_ - sx, tz_ - sz; L = math.hypot(vx, vz) or 1; vx, vz = vx / L, vz / L
     D = max(3800, L + 1600)
     cx, cz = sx + vx * D, sz + vz * D
-    camh = h(cx, cz) + 80
+    SK = M.get('skyline') or {}                  # 산 설정 "skyline": 골짜기 코스(남체)처럼 둘레 벽이 높을 때
+    camh = h(cx, cz) + SK.get('up', 80)
     yaw = math.atan2(sx - cx, sz - cz)          # 정상 쪽
     W, FOV = 1600, math.radians(62); f = (W / 2) / math.tan(FOV / 2)
     off = math.atan((1080 - W / 2) / f)          # 정상을 화면 오른쪽(1080px)에
@@ -153,6 +154,7 @@ def _skyline(data):
     lo_c, hi_c = 55, 80                                   # 정상 근처 열 (1080px 둘레)
     pk = lo_c + int(np.argmax(fr[lo_c:hi_c + 1]))
     top = max(float(fr[pk]), float(T[:-1].max()) * 0.0 + float(fr[pk]))
+    if SK.get('fit') == 'all': top = max(top, float(T.max()))   # 가장 높은 둘레 산까지 화면에 담기
     low = float(np.percentile(fr, 8))
     # 정상 → y 300, 앞 능선의 낮은 곳 → y 800 이 되도록 맞춰요 (산이 화면을 꽉 채우지 않고 하늘이 넉넉하게)
     B = (800 - 300) / max(1e-4, top - low); A = 300 + B * top
@@ -233,9 +235,10 @@ def thumb_svg(m, data):
         return 'M0 900 ' + ' '.join(f'L{k*16} {y:.0f}' for k, y in enumerate(ys)) + ' L1600 900 Z'
     top = max(140, min(min(ld['front']), *(min(l) for l in ld['layers'])) - 110)
     snow = ''
+    snowY = min(ld['front']) + 90 if (m.get('skyline') or {}).get('fit') == 'all' else ld['peakY']   # 골짜기 코스는 높은 산꼭대기만 눈
     if b.get('snow'):
         snow = f'<path d="{path(ld["front"])}" fill="#fff" opacity=".9" clip-path="url(#c{i})"/>'
-        clip = f'<clipPath id="c{i}"><rect x="0" y="0" width="1600" height="{ld["peakY"]+60:.0f}"/></clipPath>'
+        clip = f'<clipPath id="c{i}"><rect x="0" y="0" width="1600" height="{snowY+60:.0f}"/></clipPath>'
     else:
         clip = ''
     return (f'<svg viewBox="0 {top:.0f} 1600 {900-top:.0f}" preserveAspectRatio="xMidYMax slice" aria-hidden="true">'

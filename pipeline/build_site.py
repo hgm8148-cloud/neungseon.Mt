@@ -37,8 +37,10 @@ from mp_patch import patch_mp
 from ux_patch import patch_ux, UX_ROWS
 from waterfall_patch import patch_waterfall
 from spots_patch import patch_spots
+from deck_patch import patch_deck
 from loader_patch import patch_loader, loader_rows
 from i18n_fix_patch import patch_i18n_fix, FIX_ROWS
+from perf_patch import patch_perf
 from social_patch import patch_social, SOCIAL_ROWS
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -344,11 +346,13 @@ def build_page(T, m, mts, data):
     if m.get("relief"): __import__("relief_patch").patch_uplook(P)
     patch_waterfall(P, m)
     patch_spots(P, m)
+    patch_deck(P, m)
     patch_side(P, m)
     patch_walk_keys(P, m)
     patch_bottom_min(P, m)
     patch_mp(P, m)
     patch_ux(P, m)
+    patch_perf(P, m)   # 저사양 휴대폰 화질 자동 조절
     patch_social(P, m)
     patch_loader(P, m, mts, data)
     patch_i18n_fix(P, m)
@@ -464,7 +468,7 @@ def main():
         dp = os.path.join(HERE, 'data', m['id'] + '.json')
         m['_built'] = os.path.exists(dp)
         if m['_built']:
-            dd = json.load(open(dp)); m['_km'] = round(dd['meta']['trail_m'] / 1000, 1); m['_thumb'] = thumb_svg(m, dd)
+            dd = json.load(open(dp)); dd['meta'].update({'skyline': m['skyline']} if m.get('skyline') else {}); m['_km'] = round(dd['meta']['trail_m'] / 1000, 1); m['_thumb'] = thumb_svg(m, dd)
         mts.append(m)
     mts.sort(key=lambda m: m['order'])
     out = os.path.dirname(HERE) if a.to_site else os.path.join(HERE, 'preview' if a.preview else 'out')
@@ -472,6 +476,7 @@ def main():
     for m in mts:
         if not m['_built'] or (a.only and m['id'] not in a.only): continue
         data = json.load(open(os.path.join(HERE, 'data', m['id'] + '.json')))
+        if m.get('skyline'): data['meta']['skyline'] = m['skyline']
         html = build_page(T, m, mts, data)
         p = os.path.join(out, m['page'])
         open(p, 'w').write(html)
@@ -481,6 +486,7 @@ def main():
     if a.to_site:   # 검색 엔진용 머리말(제목·설명·canonical·JSON-LD) — seo_patch.py
         import seo_patch; seo_patch.patch_dir(out)
         import embed_patch; embed_patch.patch_dir(out)   # iframe 안에서만 '크게 열기' 버튼
+        import map_patch; map_patch.patch_dir(out)   # 휴대폰 지도 크게 보기·닫기 버튼
     if a.to_site and not a.only:   # 검색 엔진용 사이트맵: 산을 더하면 자동으로 늘어나요 (robots.txt는 그대로 둬요)
         import datetime
         day = datetime.date.today().isoformat()
