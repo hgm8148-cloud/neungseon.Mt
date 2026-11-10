@@ -40,6 +40,7 @@ from spots_patch import patch_spots
 from loader_patch import patch_loader, loader_rows
 from i18n_fix_patch import patch_i18n_fix, FIX_ROWS
 from perf_patch import patch_perf
+from social_patch import patch_social, SOCIAL_ROWS
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PF = '/mnt/project-files/hiking-game'
@@ -309,7 +310,7 @@ def build_page(T, m, mts, data):
     rows = list(UI_ROWS)
     for x in mts: rows += mountain_rows(x)
     if m['id'] != 'bukhansan': rows += page_rows(m)
-    rows += EXTRA_ROWS + SEASON_ROWS + SKY_ROWS + WX_ROWS + lm_rows(m) + FIX_ROWS + THEME_ROWS + UX_ROWS + loader_rows(m) + [[tagline(m, l) for l in LANGS]]
+    rows += EXTRA_ROWS + SEASON_ROWS + SKY_ROWS + WX_ROWS + lm_rows(m) + FIX_ROWS + THEME_ROWS + UX_ROWS + SOCIAL_ROWS + loader_rows(m) + [[tagline(m, l) for l in LANGS]]
     pre, R, post = split_R(P.t)
     R += ',\n    // 산 고르기·산 이름 (pipeline/build_site.py)\n' + ',\n'.join('    ' + json.dumps(r, ensure_ascii=False) for r in rows)
     if not m.get('legacy'):
@@ -350,6 +351,7 @@ def build_page(T, m, mts, data):
     patch_mp(P, m)
     patch_ux(P, m)
     patch_perf(P, m)   # 저사양 휴대폰 화질 자동 조절
+    patch_social(P, m)
     patch_loader(P, m, mts, data)
     patch_i18n_fix(P, m)
     patch_lang(P, m)
