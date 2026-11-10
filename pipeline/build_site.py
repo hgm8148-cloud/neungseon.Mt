@@ -468,7 +468,7 @@ def main():
         dp = os.path.join(HERE, 'data', m['id'] + '.json')
         m['_built'] = os.path.exists(dp)
         if m['_built']:
-            dd = json.load(open(dp)); m['_km'] = round(dd['meta']['trail_m'] / 1000, 1); m['_thumb'] = thumb_svg(m, dd)
+            dd = json.load(open(dp)); dd['meta'].update({'skyline': m['skyline']} if m.get('skyline') else {}); m['_km'] = round(dd['meta']['trail_m'] / 1000, 1); m['_thumb'] = thumb_svg(m, dd)
         mts.append(m)
     mts.sort(key=lambda m: m['order'])
     out = os.path.dirname(HERE) if a.to_site else os.path.join(HERE, 'preview' if a.preview else 'out')
@@ -476,6 +476,7 @@ def main():
     for m in mts:
         if not m['_built'] or (a.only and m['id'] not in a.only): continue
         data = json.load(open(os.path.join(HERE, 'data', m['id'] + '.json')))
+        if m.get('skyline'): data['meta']['skyline'] = m['skyline']
         html = build_page(T, m, mts, data)
         p = os.path.join(out, m['page'])
         open(p, 'w').write(html)

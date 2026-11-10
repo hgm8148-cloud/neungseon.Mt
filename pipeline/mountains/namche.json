@@ -24,6 +24,7 @@
   "zh": "南池市集"
  },
  "elev": 3440,
+ "skyline": {"up": 600, "fit": "all"},
  "trailheadArea": {
   "ko": "몬조",
   "en": "Monjo",
