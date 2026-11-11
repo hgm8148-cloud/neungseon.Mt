@@ -88,8 +88,8 @@ const WX = (()=>{
         if((MAIN === 'leaf' || MAIN === 'petal') && !active('leaf') && !active('petal')) W.start(MAIN, { dur:len + 5, amt:0.45, quiet:true }); }
       if(SKY.night > 0.7){ W.nNext -= dt; if(W.nNext <= 0){ W.nNext = 240 + Math.random()*240;
         if(W.cw < 0.2 && !(SKY.shower > 0) && !(SKY.aurOn > 0)){ const r = Math.random(), AUR = __AUR__;
-          if(r < 0.55){ SKY.shower = 14 + Math.random()*10; METEOR.force = 2; toast('별똥별이 연달아 떨어져요 ☄️ 하늘을 올려다보세요', 4); }
-          else if(r < 0.55 + AUR){ SKY.aurOn = 100 + Math.random()*80; toast('밤하늘에 오로라가 일렁여요 · 아주 드문 밤이에요', 4.5); } } } }
+          if(r < 0.165){ SKY.shower = 14 + Math.random()*10; METEOR.force = 1; toast('별똥별이 연달아 떨어져요 ☄️ 하늘을 올려다보세요', 4); }   // 2026-11-11 승연: 별똥별 소나기 횟수 30% (0.55 → 0.165)
+          else if(r < 0.165 + AUR){ SKY.aurOn = 100 + Math.random()*80; toast('밤하늘에 오로라가 일렁여요 · 아주 드문 밤이에요', 4.5); } } } }
     }
     for(const k of KINDS){ const e = E[k];
       if(e.target > 0){ e.left -= dt; if(e.left <= 0){ e.target = 0; e.admin = false; if(k === 'rain') W.storm = false; if(END[k] && !e.quiet) setTimeout(() => toast(END[k], 3), 5000); } }
@@ -182,6 +182,8 @@ LEAF_LOOP_END = "  leavesInit = true; for(const m of leafMeshes) m.instanceMatri
 
 
 def patch_weather(P, m):
+    # 2026-11-11 승연: 별똥별 소나기 양 30% (떨어지는 간격 0.12~0.47초 → 0.4~1.57초)
+    P.rep("MT.next = showering ? 0.12 + Math.random()*0.35 :", "MT.next = showering ? 0.4 + Math.random()*1.17 :", 1)
     import re
     # 늘 떨어지던 낙엽 → 계절 날씨
     i = P.t.index(LEAF_LOOP_START); j = P.t.index(LEAF_LOOP_END, i) + len(LEAF_LOOP_END)

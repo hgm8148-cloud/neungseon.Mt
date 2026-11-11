@@ -1,14 +1,17 @@
-# 파이어베이스 데이터베이스 규칙 (채팅·방명록 추가판)
+# 파이어베이스 데이터베이스 규칙 (채팅·방명록 + 산악회 채팅·귓속말 추가판, 2026-11-11)
 
 Firebase 콘솔 → neungseon-mt → Realtime Database → 규칙 탭에서 전부 지우고 아래를 통째로 붙여 넣은 뒤 **게시**를 눌러요.
-`rooms`(함께 걷기·관리자 효과)와 `users`(구글 로그인 기록)는 지금 규칙 그대로이고, 아래 4가지가 새로 생겨요.
+`rooms`(함께 걷기·관리자 효과)와 `users`(구글 로그인 기록)는 지금 규칙 그대로이고, 아래 6가지가 새로 생겨요.
+(2026-11-11: `pchat`·`dm` 두 가지가 더해졌어요. 예전 규칙을 이미 게시했어도 이 전체를 다시 붙여 넣고 게시하면 돼요.)
 
 - `chat`: 산마다 채팅. 누구나 읽고, 쓰기는 자기 이름으로 새 글만(80자). 지우기는 쓴 사람·관리자, 하루 지난 글은 누구나(정리용).
 - `chatlast`: 채팅을 2.5초에 한 번만 보내게 하는 시계.
 - `guest`: 정상 방명록. 산마다 한 사람 한 장(60자, 색 0~4). 구글 로그인한 사람만 붙이고, 10초에 한 번만 고칠 수 있어요. 관리자는 지울 수 있어요.
 - `flags`: 신고. 한 사람이 한 글에 한 번. 3명이 신고하면 게임에서 가려져요.
+- `pchat`: 산악회 채팅. 초대코드(영문 소문자·숫자 6자리)마다 따로. 쓰기·지우기 조건은 `chat`과 같아요.
+- `dm`: 귓속말. `dm/<받는 사람>`은 그 사람만 읽을 수 있어요. 보낸 사람 것도 `dm/<보낸 사람>`에 한 장 더 남겨요. 지우기는 그 칸 주인, 하루 지난 글은 누구나(정리용).
 
-함께 가기 제안·수락과 바뀐 인삿말은 지금 쓰는 위치 신호(`rooms/…/peers`)에 실려 가서 규칙을 바꾸지 않아도 돼요.
+산악회(초대코드·리더·따라 걷기), 함께 가기 제안·수락, 바뀐 인삿말은 지금 쓰는 위치 신호(`rooms/…/peers`)에 실려 가서 규칙을 바꾸지 않아도 돼요.
 
 ```json
 {
@@ -58,6 +61,26 @@ Firebase 콘솔 → neungseon-mt → Realtime Database → 규칙 탭에서 전�
         "$uid": {
           ".write": "auth != null && $mt.matches(/^[a-z0-9-]{1,30}$/) && ((auth.uid === $uid && auth.token.firebase.sign_in_provider === 'google.com' && (!newData.exists() || !data.exists() || data.child('t').val() < now - 10000)) || (!newData.exists() && auth.token.email === 'hgm8148@gmail.com' && auth.token.email_verified === true))",
           ".validate": "newData.hasChildren(['n','x','c','t']) && newData.child('n').isString() && newData.child('n').val().length <= 12 && newData.child('x').isString() && newData.child('x').val().length >= 1 && newData.child('x').val().length <= 60 && newData.child('c').isNumber() && newData.child('c').val() >= 0 && newData.child('c').val() <= 4 && newData.child('t').val() === now"
+        }
+      }
+    },
+    "pchat": {
+      "$code": {
+        ".read": "auth != null && $code.matches(/^[a-z0-9]{6}$/)",
+        ".indexOn": ["t"],
+        "$id": {
+          ".write": "auth != null && $code.matches(/^[a-z0-9]{6}$/) && ((!data.exists() && newData.child('u').val() === auth.uid) || (!newData.exists() && (data.child('u').val() === auth.uid || data.child('t').val() < now - 86400000 || (auth.token.email === 'hgm8148@gmail.com' && auth.token.email_verified === true))))",
+          ".validate": "newData.hasChildren(['u','n','x','t']) && newData.child('n').isString() && newData.child('n').val().length <= 12 && newData.child('x').isString() && newData.child('x').val().length >= 1 && newData.child('x').val().length <= 80 && newData.child('t').val() === now && newData.parent().parent().parent().child('chatlast').child(auth.uid).val() === now"
+        }
+      }
+    },
+    "dm": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".indexOn": ["t"],
+        "$id": {
+          ".write": "auth != null && ((!data.exists() && newData.child('u').val() === auth.uid) || (!newData.exists() && (auth.uid === $uid || data.child('t').val() < now - 86400000)))",
+          ".validate": "newData.hasChildren(['u','n','x','t','to']) && newData.child('n').isString() && newData.child('n').val().length <= 12 && newData.child('x').isString() && newData.child('x').val().length >= 1 && newData.child('x').val().length <= 80 && newData.child('to').isString() && newData.child('to').val().length <= 128 && (newData.child('to').val() === $uid || newData.child('u').val() === $uid) && newData.child('t').val() === now && newData.parent().parent().parent().child('chatlast').child(auth.uid).val() === now"
         }
       }
     },

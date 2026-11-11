@@ -18,6 +18,8 @@ sound_patch.py        도선사 종소리 빼기, 산마다 고유 효과음 2~3
 camera_patch.py       멀미 없는 카메라(스프링 추적), 자동 걷기 방향 부드럽게, 바위·통나무·돌계단 위로 걷기
 look_patch.py         산 사진에서 뽑은 바위 색 입히기 (make_look.py → photos/look.json)
 landmark_patch.py     정상 랜드마크(정상석·천제단·도리이·우후루 표지판·산장 등) + 야영장 상주 NPC·텐트
+social_patch.py       산악회(초대코드·최대 10명·리더 승계·보폭 맞춰 따라 걷기)·채팅(전체·산악회·귓속말·이모티콘·끄기)·인삿말·정상 방명록
+ux2_patch.py          사진 공유에 neungseon.com 주소, 휴대폰 지도 버튼(오른쪽 아래), 휴대폰 화면·키보드 다듬기
 ```
 
 ## 새 산 추가하기
