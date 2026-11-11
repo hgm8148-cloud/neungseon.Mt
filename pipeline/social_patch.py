@@ -101,6 +101,82 @@ SOCIAL_ROWS = [
     ['정상 방명록에 한마디 남겨 보세요', 'Leave a note in the summit guestbook', '山頂の芳名録にひとこと残しましょう', '在山顶留言板上留句话吧', 'Hinterlasse eine Notiz im Gipfelbuch', 'Laissez un mot dans le livre d’or', 'Lascia un messaggio nel libro di vetta', 'Deja una nota en el libro de cumbre', 'शिखर अतिथि पुस्तिकामा एउटा कुरा लेख्नुहोस्', 'Acha ujumbe kwenye kitabu cha kileleni'],
     ['구글로 로그인', 'Sign in with Google', 'Google でログイン', '使用 Google 登录', 'Mit Google anmelden', 'Se connecter avec Google', 'Accedi con Google', 'Iniciar sesión con Google', 'Google बाट लगइन', 'Ingia kwa Google'],
     ['산마다 한 사람 한 장 · 다시 쓰면 바뀌어요', 'One note per person per mountain · writing again replaces it', '山ごとに一人一枚・書き直すと替わります', '每座山每人一张 · 再写会替换', 'Eine Notiz pro Person und Berg · neu schreiben ersetzt sie', 'Un mot par personne et par montagne · réécrire le remplace', 'Un biglietto a persona per montagna · riscrivendo lo sostituisci', 'Una nota por persona y montaña · al reescribir se reemplaza', 'हिमालपिच्छे एक जनाको एउटा · फेरि लेखे फेरिन्छ', 'Kimoja kwa kila mtu kwa kila mlima · ukiandika tena kinabadilika'],
+    # 2026-11-11 산악회·채팅 3가지
+    ["님이 산악회에 초대했어요", "invited you to their hiking club", "さんが山岳会に招待しました", "邀请你加入登山队", "hat dich in den Wanderclub eingeladen", "vous invite dans son club de randonnée", "ti ha invitato nel suo gruppo", "te invitó a su club de montaña", "ले हाइकिङ क्लबमा निम्तो दिनुभयो", "amekualika kwenye klabu ya kupanda mlima"],
+    ["리더를 따라 걸을까요?", "Follow the leader?", "リーダーについて歩きますか?", "要跟着队长走吗？", "Dem Leiter folgen?", "Suivre le guide ?", "Seguire il capogruppo?", "¿Seguir al líder?", "नेतालाई पछ्याउने?", "Mfuate kiongozi?"],
+    ["👣 따라 걷기", "👣 Follow", "👣 ついて歩く", "👣 跟着走", "👣 Folgen", "👣 Suivre", "👣 Segui", "👣 Seguir", "👣 पछ्याउनुहोस्", "👣 Fuata"],
+    ["산악회가 가득 찼어요 (최대 10명)", "The club is full (up to 10)", "山岳会がいっぱいです (最大10人)", "登山队已满 (最多10人)", "Der Club ist voll (max. 10)", "Le club est complet (10 max.)", "Il gruppo è pieno (max 10)", "El club está lleno (máx. 10)", "क्लब भरियो (बढीमा १०)", "Klabu imejaa (hadi 10)"],
+    ["초대코드로 산악회를 만들었어요", "is your new club’s invite code", "の招待コードで山岳会を作りました", "是新登山队的邀请码", "ist der Einladungscode deines neuen Clubs", "est le code d’invitation de votre club", "è il codice invito del tuo gruppo", "es el código de invitación de tu club", "तपाईंको नयाँ क्लबको निम्तो कोड हो", "ni msimbo wa mwaliko wa klabu yako"],
+    ["산악회를 나왔어요", "You left the club", "山岳会を抜けました", "已退出登山队", "Du hast den Club verlassen", "Vous avez quitté le club", "Hai lasciato il gruppo", "Has dejado el club", "तपाईंले क्लब छोड्नुभयो", "Umeondoka kwenye klabu"],
+    ["초대코드 6자리를 넣어 주세요", "Enter the 6-character invite code", "6桁の招待コードを入れてください", "请输入6位邀请码", "Gib den 6-stelligen Einladungscode ein", "Entrez le code d’invitation à 6 caractères", "Inserisci il codice invito di 6 caratteri", "Escribe el código de 6 caracteres", "६ अक्षरको निम्तो कोड लेख्नुहोस्", "Weka msimbo wa mwaliko wa herufi 6"],
+    ["이미 이 산악회에 있어요", "You’re already in this club", "もうこの山岳会にいます", "你已在这个登山队中", "Du bist schon in diesem Club", "Vous êtes déjà dans ce club", "Sei già in questo gruppo", "Ya estás en este club", "तपाईं पहिल्यै यो क्लबमा हुनुहुन्छ", "Tayari uko kwenye klabu hii"],
+    ["산악회를 찾고 있어요…", "Looking for the club…", "山岳会を探しています…", "正在寻找登山队…", "Club wird gesucht…", "Recherche du club…", "Cerco il gruppo…", "Buscando el club…", "क्लब खोज्दै…", "Inatafuta klabu…"],
+    ["님의 산악회에 들어왔어요", "— you joined this leader’s club", "さんの山岳会に入りました", "的登山队，你已加入", "— du bist dem Club beigetreten", "— vous avez rejoint ce club", "— sei entrato nel gruppo", "— te uniste a su club", "को क्लबमा सामेल हुनुभयो", "— umejiunga na klabu yake"],
+    ["리더를 따라 걸어요", "Following the leader", "リーダーについて歩きます", "跟着队长走", "Du folgst dem Leiter", "Vous suivez le guide", "Segui il capogruppo", "Sigues al líder", "नेतालाई पछ्याउँदै", "Unamfuata kiongozi"],
+    ["이 산에서 그 산악회를 찾지 못했어요", "Couldn’t find that club on this mountain", "この山でその山岳会が見つかりません", "在这座山上没有找到这个登山队", "Dieser Club ist nicht auf diesem Berg", "Ce club n’est pas sur cette montagne", "Gruppo non trovato su questa montagna", "No encontramos ese club en esta montaña", "यो हिमालमा त्यो क्लब भेटिएन", "Klabu hiyo haipo kwenye mlima huu"],
+    ["리더와 같은 산에 있어야 해요", "You need to be on the same mountain as the leader", "リーダーと同じ山にいる必要があります", "需要和队长在同一座山上", "Du musst auf demselben Berg sein wie der Leiter", "Vous devez être sur la même montagne que le guide", "Devi essere sulla stessa montagna del capogruppo", "Debes estar en la misma montaña que el líder", "नेताकै हिमालमा हुनुपर्छ", "Lazima uwe mlima mmoja na kiongozi"],
+    ["내가 리더예요", "I’m the leader", "私がリーダーです", "我是队长", "Ich bin der Leiter", "Je suis le guide", "Sono io il capogruppo", "Soy el líder", "म नेता हुँ", "Mimi ndiye kiongozi"],
+    ["산악회원들이 나를 따라 걸어요", "Club members follow you", "メンバーが私について歩きます", "队员们跟着我走", "Die Mitglieder folgen dir", "Les membres vous suivent", "I membri ti seguono", "Los miembros te siguen", "सदस्यहरू मलाई पछ्याउँछन्", "Wanachama wanakufuata"],
+    ["따라 걸을 리더가 없어요", "There’s no leader to follow", "ついて歩くリーダーがいません", "没有可以跟随的队长", "Kein Leiter zum Folgen da", "Aucun guide à suivre", "Nessun capogruppo da seguire", "No hay líder a quien seguir", "पछ्याउने नेता छैन", "Hakuna kiongozi wa kufuata"],
+    ["직접 움직이면 멈춰요", "move yourself to stop", "自分で動くと止まります", "自己移动即可停止", "selbst bewegen zum Stoppen", "bougez pour arrêter", "muoviti per fermarti", "muévete para parar", "आफैँ चले रोकिन्छ", "jisogeze kusimama"],
+    ["능선 산악회에 함께 가요! 초대코드", "Join my hiking club on Neungseon! Invite code", "能線の山岳会に一緒に行こう！招待コード", "一起来能线登山队吧！邀请码", "Komm in meinen Wanderclub auf Neungseon! Code", "Rejoignez mon club sur Neungseon ! Code", "Unisciti al mio gruppo su Neungseon! Codice", "¡Únete a mi club en Neungseon! Código", "Neungseon मा मेरो क्लबमा आउनुहोस्! कोड", "Jiunge na klabu yangu Neungseon! Msimbo"],
+    ["초대코드와 주소를 복사했어요", "Invite code and link copied", "招待コードとリンクをコピーしました", "已复制邀请码和链接", "Code und Link kopiert", "Code et lien copiés", "Codice e link copiati", "Código y enlace copiados", "कोड र लिङ्क कपी भयो", "Msimbo na kiungo vimenakiliwa"],
+    ["이제 내가 리더예요", "You’re the leader now", "今は私がリーダーです", "现在我是队长", "Jetzt bist du der Leiter", "Vous êtes maintenant le guide", "Ora sei tu il capogruppo", "Ahora eres el líder", "अब तपाईं नेता हुनुहुन्छ", "Sasa wewe ni kiongozi"],
+    ["따라 걷기를 멈췄어요", "Stopped following", "ついて歩くのをやめました", "已停止跟随", "Folgen beendet", "Vous ne suivez plus", "Hai smesso di seguire", "Dejaste de seguir", "पछ्याउन रोकियो", "Umeacha kufuata"],
+    ["리더", "Leader", "リーダー", "队长", "Leiter", "Guide", "Capogruppo", "Líder", "नेता", "Kiongozi"],
+    ["따라 걷는 중", "Following", "ついて歩き中", "跟随中", "Folgt", "Suit", "Segue", "Siguiendo", "पछ्याउँदै", "Anafuata"],
+    ["다른 산악회", "Another club", "別の山岳会", "其他登山队", "Anderer Club", "Autre club", "Altro gruppo", "Otro club", "अर्को क्लब", "Klabu nyingine"],
+    ["💬 귓속말 보내기", "💬 Whisper", "💬 ささやく", "💬 发送悄悄话", "💬 Flüstern", "💬 Chuchoter", "💬 Sussurra", "💬 Susurrar", "💬 कानेखुसी", "💬 Nong’ona"],
+    ["(나)", "(me)", "(自分)", "(我)", "(ich)", "(moi)", "(io)", "(yo)", "(म)", "(mimi)"],
+    ["따라 걷기 멈추기", "Stop following", "ついて歩くのをやめる", "停止跟随", "Nicht mehr folgen", "Arrêter de suivre", "Smetti di seguire", "Dejar de seguir", "पछ्याउन रोक्नुहोस्", "Acha kufuata"],
+    ["👣 리더 따라 걷기", "👣 Follow the leader", "👣 リーダーについて歩く", "👣 跟着队长走", "👣 Dem Leiter folgen", "👣 Suivre le guide", "👣 Segui il capogruppo", "👣 Seguir al líder", "👣 नेतालाई पछ्याउनुहोस्", "👣 Mfuate kiongozi"],
+    ["산악회원들이 줄지어 따라와요", "Members follow you in a line", "メンバーが列になってついてきます", "队员们排成一列跟着你", "Die Mitglieder folgen dir in einer Reihe", "Les membres vous suivent en file", "I membri ti seguono in fila", "Los miembros te siguen en fila", "सदस्यहरू लाइन लागेर पछ्याउँछन्", "Wanachama wanakufuata kwa mstari"],
+    ["초대코드를 알려 주면 최대 10명까지 함께 걸을 수 있어요", "Share the invite code to hike with up to 10 people", "招待コードを教えると最大10人で一緒に歩けます", "分享邀请码，最多10人一起走", "Teile den Code und wandere mit bis zu 10 Leuten", "Partagez le code pour marcher jusqu’à 10", "Condividi il codice e cammina con fino a 10 persone", "Comparte el código y camina con hasta 10 personas", "कोड बाँडेर बढीमा १० जनासँग हिँड्नुहोस्", "Shiriki msimbo mtembee hadi watu 10"],
+    ["리더를 따라 걸으면 같은 보폭으로 줄지어 걸어요", "Follow the leader to walk in a line at the same pace", "リーダーについて歩くと同じ歩幅で列になって歩きます", "跟着队长走，就会以相同步伐排队前进", "Folge dem Leiter und geht im gleichen Schritt in einer Reihe", "Suivez le guide pour marcher en file au même pas", "Segui il capogruppo per camminare in fila allo stesso passo", "Sigue al líder para caminar en fila al mismo paso", "नेतालाई पछ्याए एउटै गतिमा लाइन लागेर हिँडिन्छ", "Mfuate kiongozi mtembee kwa mstari kwa mwendo mmoja"],
+    ["리더가 산을 떠나 이제 내가 산악회 리더예요", "The leader left, so you’re the club leader now", "リーダーが山を離れたので、今は私がリーダーです", "队长离开了，现在你是队长", "Der Leiter ist gegangen – jetzt leitest du den Club", "Le guide est parti : vous êtes le nouveau guide", "Il capogruppo è andato via: ora guidi tu", "El líder se fue: ahora tú eres el líder", "नेता गएकाले अब तपाईं क्लबको नेता हुनुहुन्छ", "Kiongozi ameondoka, sasa wewe ni kiongozi"],
+    ["님이 새 리더가 됐어요", "is the new leader", "さんが新しいリーダーになりました", "成为新队长", "ist der neue Leiter", "est le nouveau guide", "è il nuovo capogruppo", "es el nuevo líder", "नयाँ नेता हुनुभयो", "ndiye kiongozi mpya"],
+    ["산악회원과 멀어졌어요", "You’re far from your club", "メンバーと離れました", "和队员离远了", "Du bist weit von deinem Club entfernt", "Vous êtes loin de votre club", "Sei lontano dal gruppo", "Estás lejos de tu club", "क्लबबाट टाढा हुनुभयो", "Uko mbali na klabu yako"],
+    ["잠시 기다려 볼까요?", "wait a moment?", "少し待ちましょうか?", "要等一等吗？", "kurz warten?", "on attend un peu ?", "aspetti un attimo?", "¿esperas un poco?", "अलि पर्खने?", "subiri kidogo?"],
+    ["함께하던 산악회원이 모두 산을 떠났어요", "All your club members left the mountain", "一緒にいたメンバーが全員山を離れました", "队员们都离开了这座山", "Alle Mitglieder haben den Berg verlassen", "Tous les membres ont quitté la montagne", "Tutti i membri hanno lasciato la montagna", "Todos los miembros dejaron la montaña", "सबै सदस्यले हिमाल छोडे", "Wanachama wote wameondoka mlimani"],
+    ["리더를 따라 걷는 중", "following the leader", "リーダーについて歩き中", "正在跟随队长", "folgt dem Leiter", "suit le guide", "segue il capogruppo", "siguiendo al líder", "नेतालाई पछ्याउँदै", "anamfuata kiongozi"],
+    ["멈추기", "Stop", "止める", "停止", "Stopp", "Arrêter", "Ferma", "Parar", "रोक्नुहोस्", "Simama"],
+    ["산악회를 만들거나 초대코드로 들어가 최대 10명이 함께 걸어요. 리더를 따라 걸으면 같은 보폭으로 줄지어 걸어요.", "Create a club or join with an invite code — up to 10 people. Follow the leader to walk in a line at the same pace.", "山岳会を作るか招待コードで入って、最大10人で一緒に歩きます。リーダーについて歩くと同じ歩幅で列になって歩きます。", "创建登山队或用邀请码加入，最多10人同行。跟着队长走就会以相同步伐排队前进。", "Gründe einen Club oder tritt mit einem Code bei – bis zu 10 Leute. Folge dem Leiter, um im gleichen Schritt in einer Reihe zu gehen.", "Créez un club ou rejoignez-en un avec un code — jusqu’à 10 personnes. Suivez le guide pour marcher en file au même pas.", "Crea un gruppo o entra con un codice — fino a 10 persone. Segui il capogruppo per camminare in fila allo stesso passo.", "Crea un club o únete con un código — hasta 10 personas. Sigue al líder para caminar en fila al mismo paso.", "क्लब बनाउनुहोस् वा कोडले सामेल हुनुहोस् — बढीमा १० जना। नेतालाई पछ्याए एउटै गतिमा लाइन लागेर हिँडिन्छ।", "Unda klabu au jiunge kwa msimbo — hadi watu 10. Mfuate kiongozi mtembee kwa mstari kwa mwendo mmoja."],
+    ["⛰ 산악회", "⛰ Hiking club", "⛰ 山岳会", "⛰ 登山队", "⛰ Wanderclub", "⛰ Club de randonnée", "⛰ Gruppo", "⛰ Club de montaña", "⛰ हाइकिङ क्लब", "⛰ Klabu ya kupanda"],
+    ["초대코드", "Invite code", "招待コード", "邀请码", "Einladungscode", "Code d’invitation", "Codice invito", "Código de invitación", "निम्तो कोड", "Msimbo wa mwaliko"],
+    ["초대하기", "Invite", "招待する", "邀请", "Einladen", "Inviter", "Invita", "Invitar", "निम्तो दिनुहोस्", "Alika"],
+    ["산악회 나가기", "Leave the club", "山岳会を抜ける", "退出登山队", "Club verlassen", "Quitter le club", "Lascia il gruppo", "Salir del club", "क्लब छोड्नुहोस्", "Ondoka kwenye klabu"],
+    ["⛰ 산악회 만들기", "⛰ Create a club", "⛰ 山岳会を作る", "⛰ 创建登山队", "⛰ Club gründen", "⛰ Créer un club", "⛰ Crea un gruppo", "⛰ Crear un club", "⛰ क्लब बनाउनुहोस्", "⛰ Unda klabu"],
+    ["초대코드 6자리", "6-character invite code", "6桁の招待コード", "6位邀请码", "6-stelliger Code", "Code à 6 caractères", "Codice di 6 caratteri", "Código de 6 caracteres", "६ अक्षरको कोड", "Msimbo wa herufi 6"],
+    ["들어가기", "Join", "入る", "加入", "Beitreten", "Rejoindre", "Entra", "Unirse", "सामेल हुनुहोस्", "Jiunge"],
+    ["이 산에 있는 사람", "People on this mountain", "この山にいる人", "这座山上的人", "Leute auf diesem Berg", "Personnes sur cette montagne", "Persone su questa montagna", "Gente en esta montaña", "यो हिमालमा भएका मानिस", "Watu walio kwenye mlima huu"],
+    ["전체", "All", "全体", "全部", "Alle", "Tous", "Tutti", "Todos", "सबै", "Wote"],
+    ["산악회", "Club", "山岳会", "登山队", "Club", "Club", "Gruppo", "Club", "क्लब", "Klabu"],
+    ["귓속말", "Whisper", "ささやき", "悄悄话", "Flüstern", "Chuchoter", "Sussurro", "Susurro", "कानेखुसी", "Nong’ona"],
+    ["끄기", "Off", "オフ", "关闭", "Aus", "Désactiver", "Spegni", "Apagar", "बन्द", "Zima"],
+    ["켜기", "On", "オン", "开启", "An", "Activer", "Accendi", "Encender", "खोल्नुहोस्", "Washa"],
+    ["채팅 켜기/끄기", "Turn chat on/off", "チャットのオン/オフ", "开关聊天", "Chat an/aus", "Activer/désactiver le chat", "Attiva/disattiva chat", "Activar/desactivar chat", "च्याट खोल्ने/बन्द गर्ने", "Washa/zima gumzo"],
+    ["채팅이 꺼져 있어요. 다른 사람의 말풍선과 채팅 알림이 보이지 않아요.", "Chat is off. Other people’s speech bubbles and chat alerts are hidden.", "チャットはオフです。ほかの人の吹き出しと通知は表示されません。", "聊天已关闭。不会显示他人的气泡和聊天提醒。", "Der Chat ist aus. Sprechblasen und Chat-Hinweise sind ausgeblendet.", "Le chat est désactivé. Les bulles et alertes sont masquées.", "La chat è spenta. Fumetti e avvisi sono nascosti.", "El chat está apagado. Se ocultan burbujas y avisos.", "च्याट बन्द छ। अरूका बबल र सूचना देखिँदैनन्।", "Gumzo limezimwa. Viputo na arifa hazionekani."],
+    ["채팅 켜기", "Turn chat on", "チャットをオンにする", "开启聊天", "Chat einschalten", "Activer le chat", "Accendi la chat", "Activar el chat", "च्याट खोल्नुहोस्", "Washa gumzo"],
+    ["귓속말 받는 사람", "Whisper to", "ささやく相手", "悄悄话对象", "Flüstern an", "Chuchoter à", "Sussurra a", "Susurrar a", "कानेखुसी पाउने", "Nong’ona kwa"],
+    ["바꾸기", "Change", "変える", "更换", "Ändern", "Changer", "Cambia", "Cambiar", "फेर्नुहोस्", "Badilisha"],
+    ["받는 사람 바꾸기", "Change recipient", "相手を変える", "更换对象", "Empfänger ändern", "Changer de destinataire", "Cambia destinatario", "Cambiar destinatario", "पाउने फेर्नुहोस्", "Badilisha mpokeaji"],
+    ["이모티콘", "Emoji", "絵文字", "表情", "Emoji", "Émoji", "Emoji", "Emoji", "इमोजी", "Emoji"],
+    ["채팅을 껐어요", "Chat turned off", "チャットをオフにしました", "已关闭聊天", "Chat ausgeschaltet", "Chat désactivé", "Chat spenta", "Chat apagado", "च्याट बन्द गरियो", "Gumzo limezimwa"],
+    ["말풍선과 알림이 보이지 않아요", "bubbles and alerts are hidden", "吹き出しと通知は表示されません", "气泡和提醒不会显示", "Sprechblasen und Hinweise sind aus", "bulles et alertes masquées", "fumetti e avvisi nascosti", "burbujas y avisos ocultos", "बबल र सूचना देखिँदैनन्", "viputo na arifa vimefichwa"],
+    ["채팅을 켰어요", "Chat turned on", "チャットをオンにしました", "已开启聊天", "Chat eingeschaltet", "Chat activé", "Chat accesa", "Chat activado", "च्याट खोलियो", "Gumzo limewashwa"],
+    ["산악회원에게만 보여요", "Only club members see this", "山岳会のメンバーだけに見えます", "仅队员可见", "Nur Clubmitglieder sehen das", "Visible seulement par le club", "Lo vedono solo i membri", "Solo lo ven los miembros", "क्लब सदस्यले मात्र देख्छन्", "Wanachama pekee wanaona"],
+    ["귓속말은 이 사람에게만 보여요", "Only this person sees your whisper", "ささやきはこの人だけに見えます", "悄悄话只有对方能看到", "Nur diese Person sieht dein Flüstern", "Seule cette personne voit le message", "Solo questa persona vede il sussurro", "Solo esta persona ve el susurro", "कानेखुसी यो व्यक्तिले मात्र देख्छ", "Ni mtu huyu tu anayeona"],
+    ["산악회에 들어가면 산악회원끼리 이야기할 수 있어요", "Join a club to chat with its members", "山岳会に入るとメンバー同士で話せます", "加入登山队后可以和队员聊天", "Tritt einem Club bei, um mit den Mitgliedern zu chatten", "Rejoignez un club pour discuter entre membres", "Entra in un gruppo per parlare con i membri", "Únete a un club para hablar con sus miembros", "क्लबमा सामेल भएपछि सदस्यसँग कुरा गर्न सकिन्छ", "Jiunge na klabu ili uzungumze na wanachama"],
+    ["⛰ 산악회 만들기·들어가기", "⛰ Create or join a club", "⛰ 山岳会を作る・入る", "⛰ 创建或加入登山队", "⛰ Club gründen oder beitreten", "⛰ Créer ou rejoindre un club", "⛰ Crea o entra in un gruppo", "⛰ Crear o unirse a un club", "⛰ क्लब बनाउनुहोस् वा सामेल हुनुहोस्", "⛰ Unda au jiunge na klabu"],
+    ["누구에게 귓속말을 보낼까요?", "Who do you want to whisper to?", "誰にささやきますか?", "要给谁发悄悄话？", "Wem möchtest du flüstern?", "À qui voulez-vous chuchoter ?", "A chi vuoi sussurrare?", "¿A quién quieres susurrar?", "कसलाई कानेखुसी गर्ने?", "Unataka kumnong’oneza nani?"],
+    ["지금은 귓속말을 보낼 사람이 없어요", "There’s no one to whisper to right now", "今はささやく相手がいません", "现在没有可以发悄悄话的人", "Gerade ist niemand zum Flüstern da", "Personne à qui chuchoter pour l’instant", "Nessuno a cui sussurrare ora", "No hay nadie a quien susurrar ahora", "अहिले कानेखुसी गर्ने कोही छैन", "Hakuna wa kumnong’oneza sasa"],
+    ["귓속말은 받는 사람과 나만 볼 수 있어요", "Only you and the recipient can see whispers", "ささやきは相手と自分だけが見られます", "悄悄话只有你和对方能看到", "Nur du und der Empfänger seht das", "Seuls vous et le destinataire voyez ces messages", "Solo tu e il destinatario potete vederli", "Solo tú y el destinatario pueden verlos", "कानेखुसी तपाईं र पाउनेले मात्र देख्छन्", "Ni wewe na mpokeaji tu mnaoona"],
+    ["산악회원끼리만 보이는 이야기예요", "Only club members can see this chat", "山岳会のメンバーだけに見える会話です", "只有队员能看到的聊天", "Nur Clubmitglieder sehen diesen Chat", "Seuls les membres voient cette discussion", "Solo i membri vedono questa chat", "Solo los miembros ven este chat", "क्लब सदस्यले मात्र देख्ने कुराकानी", "Wanachama pekee wanaona mazungumzo haya"],
+    ["아직 준비 중이에요", "Not ready yet", "まだ準備中です", "还在准备中", "Noch nicht bereit", "Pas encore prêt", "Non ancora pronto", "Aún no está listo", "अझै तयारी हुँदैछ", "Bado haijawa tayari"],
+    ["곧 열려요", "opening soon", "もうすぐ開きます", "即将开放", "bald verfügbar", "bientôt disponible", "in arrivo", "pronto", "छिट्टै खुल्छ", "itafunguliwa hivi karibuni"],
+    ["님의 귓속말이 왔어요 💬", "whispered to you 💬", "さんからささやきが届きました 💬", "给你发了悄悄话 💬", "hat dir etwas zugeflüstert 💬", "vous a chuchoté 💬", "ti ha sussurrato 💬", "te susurró 💬", "ले कानेखुसी गर्नुभयो 💬", "amekunong’oneza 💬"],
+    ["지우기", "Delete", "消す", "删除", "Löschen", "Supprimer", "Elimina", "Borrar", "मेटाउनुहोस्", "Futa"],
+    ["더 보기", "More", "もっと", "更多", "Mehr", "Plus", "Altro", "Más", "थप", "Zaidi"],
 ]
 
 SOCIAL_CSS = r'''
@@ -113,9 +189,9 @@ body.soOn #soBar{display:flex}
 #soBar .bd{position:absolute;top:-3px;right:-3px;min-width:18px;height:18px;border-radius:9px;background:#d9542b;color:#fff;font-size:11px;font-weight:800;line-height:18px;text-align:center;padding:0 4px;box-sizing:border-box}
 #soBar .bd[hidden]{display:none}
 body.camping #soBar,body.photo #soBar{display:none!important}
-#soChat{position:fixed;z-index:20;left:calc(max(14px,env(safe-area-inset-left,0px)) + 56px);top:50%;transform:translateY(-50%);width:min(340px,80vw);height:min(380px,60vh);border-radius:18px;display:flex;flex-direction:column;color:#fff;pointer-events:auto;overflow:hidden}
+#soChat{position:fixed;z-index:20;left:calc(max(14px,env(safe-area-inset-left,0px)) + 56px);top:50%;transform:translateY(-50%);width:min(360px,80vw);height:min(420px,64vh);border-radius:18px;display:flex;flex-direction:column;color:#fff;pointer-events:auto;overflow:hidden}
 #soChat[hidden]{display:none}
-.soHead{display:flex;align-items:center;gap:8px;padding:10px 10px 8px 14px;border-bottom:1px solid var(--line)}
+.soHead{display:flex;align-items:center;gap:6px;padding:8px 8px 7px 12px;border-bottom:1px solid var(--line)}
 .soHead b{font-size:14px}.soHead span{flex:1;font-size:11.5px;opacity:.75;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .soX{border:0;background:rgba(255,255,255,.12);color:inherit;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:13px;flex:none}
 #soMsgs{flex:1;overflow-y:auto;padding:8px 12px;display:flex;flex-direction:column;gap:5px;font-size:13.5px;line-height:1.4;overscroll-behavior:contain}
@@ -155,9 +231,48 @@ body.camping #soBar,body.photo #soBar{display:none!important}
 .soRow button.go{background:#3f8a55;border-color:#3f8a55;color:#fff}
 .soRow .tagd{font-size:12px;font-weight:700;color:#3f8a55;white-space:nowrap}
 .soRow.hi{background:rgba(227,176,79,.18);border-radius:10px}
-#soParty{margin:10px 0 4px;padding:10px 12px;border-radius:14px;background:rgba(63,138,85,.1)}
-#soParty[hidden]{display:none}
-#soParty .h{font-size:13px;font-weight:700;color:#3f8a55;margin-bottom:6px}
+#soClub{margin:10px 0 4px;padding:10px 12px;border-radius:14px;background:rgba(63,138,85,.1)}
+#soClub[hidden],#soNoClub[hidden]{display:none}
+#soClub .h{display:flex;align-items:center;gap:8px;font-size:13.5px;color:#3f8a55;flex-wrap:wrap}
+#soClub .h .cnt{font-size:12px;opacity:.75;font-variant-numeric:tabular-nums}#soClub .h .sp{flex:1}
+#soClub .h .code{font-size:12.5px;color:var(--ink)}#soClub .h .code b{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:16px;letter-spacing:.12em;margin-left:2px}
+#soClub .h button,#soNoClub .soJoin button{border:0;border-radius:999px;padding:7px 13px;font-size:13px;font-weight:700;background:#3f8a55;color:#fff;cursor:pointer}
+#soClub .hint{font-size:12px;opacity:.7;margin:4px 0 4px}
+.soRow .tagl{font-size:11px;font-weight:800;color:#a8741a;background:rgba(227,176,79,.22);border-radius:999px;padding:2px 7px;white-space:nowrap}
+.soRow .tagl::before{content:'👑 '}.soRow .tagd.mute{color:var(--mute,#888)}
+.soRow.me{opacity:.92}.soRow.me small{opacity:.55}
+#soNoClub{display:flex;flex-direction:column;gap:8px;margin:12px 0 6px}
+.soBig{border:0;border-radius:14px;padding:12px;font:inherit;font-size:15px;font-weight:800;background:linear-gradient(135deg,#3f8a55,#5aa66d);color:#fff;cursor:pointer}
+.soJoin{display:flex;gap:8px}.soJoin input{flex:1;min-width:0;font:inherit;font-size:16px;padding:9px 12px;border-radius:12px;border:1px solid var(--paperLine);background:#fff;color:var(--ink);text-transform:uppercase;letter-spacing:.1em;font-family:ui-monospace,Menlo,Consolas,monospace}
+.soJoin button:disabled{opacity:.5}
+.soCard .h2{font-size:12.5px;font-weight:700;opacity:.6;margin:14px 0 2px}
+.soTabs{flex:1;display:flex;gap:2px;min-width:0}
+.soTabs button{position:relative;border:0;background:transparent;color:inherit;opacity:.65;font:inherit;font-size:12.5px;font-weight:700;padding:5px 8px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.soTabs button.on{opacity:1;background:rgba(255,255,255,.16)}
+.soTabs .tn{position:absolute;top:-4px;right:-3px;min-width:15px;height:15px;border-radius:8px;background:#d9542b;color:#fff;font-size:9.5px;font-style:normal;line-height:15px;text-align:center;padding:0 3px;box-sizing:border-box}
+.soTabs .tn[hidden]{display:none}
+.soOff{border:1px solid rgba(255,255,255,.3);background:transparent;color:inherit;border-radius:999px;padding:3px 9px;font:inherit;font-size:11.5px;cursor:pointer;opacity:.8;flex:none}
+.soOff.off{background:#3f8a55;border-color:#3f8a55;opacity:1}
+#soChatBody{flex:1;display:flex;flex-direction:column;min-height:0}#soChatBody[hidden]{display:none}
+#soChatOffBox{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:18px;text-align:center;font-size:13px;opacity:.9}#soChatOffBox[hidden]{display:none}
+#soChatOffBox p{margin:0;line-height:1.5}#soChatOffBox button,.soLink{border:0;border-radius:999px;padding:9px 18px;font:inherit;font-size:14px;font-weight:700;background:#3f8a55;color:#fff;cursor:pointer}
+.soLink{align-self:center;margin-top:8px;font-size:13px;padding:8px 14px}
+#soWho{display:flex;align-items:center;gap:6px;padding:6px 12px;font-size:12px;background:rgba(255,255,255,.07)}#soWho[hidden]{display:none}
+#soWho span{opacity:.7}#soWho b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px}
+#soWho button{border:0;background:rgba(255,255,255,.14);color:inherit;border-radius:999px;padding:3px 10px;font:inherit;font-size:11.5px;cursor:pointer}
+.soWhoL{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;padding:6px 0}
+.soWhoL button{border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.08);color:inherit;border-radius:999px;padding:7px 13px;font:inherit;font-size:13px;cursor:pointer}
+.soWhoL button.new{border-color:#e3b04f}.soWhoL button.new::after{content:' •';color:#e3b04f}
+#soMsgs .m.emo{font-size:26px;line-height:1.25}#soMsgs .m.emo b,#soMsgs .m.emo small{font-size:12px}
+#soEmo{display:grid;grid-template-columns:repeat(8,1fr);gap:2px;padding:6px 8px;border-top:1px solid var(--line);max-height:120px;overflow-y:auto}#soEmo[hidden]{display:none}
+#soEmo button{border:0;background:transparent;font-size:21px;line-height:1;padding:5px 0;border-radius:8px;cursor:pointer}#soEmo button:hover{background:rgba(255,255,255,.12)}
+#soChatF #soEmoB{background:transparent;padding:0 4px;font-size:20px;flex:none}
+#soFollowPill{position:fixed;z-index:21;left:50%;top:calc(96px + env(safe-area-inset-top,0px));transform:translateX(-50%);display:flex;align-items:center;gap:10px;padding:5px 5px 5px 14px;color:#fff;pointer-events:auto;font-size:13px;max-width:92vw;white-space:nowrap}
+#soFollowPill[hidden]{display:none}#soFollowPill > span{overflow:hidden;text-overflow:ellipsis}
+#soFollowPill button{border:0;border-radius:999px;padding:6px 12px;font:inherit;font-size:12.5px;font-weight:700;background:rgba(255,255,255,.18);color:#fff;cursor:pointer}
+body.chatOff #soChatB{opacity:.55}body.chatOff #soChatB::after{content:'';position:absolute;left:11px;right:11px;top:50%;height:2px;background:currentColor;transform:rotate(-40deg);border-radius:2px}
+.tag.lead .n span::before{content:'👑 '}
+.tag.lead.buddy .n span::before{content:'👑 '}
 .soPartyB{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
 .soPartyB button.on{background:#3f8a55;border-color:#3f8a55;color:#fff}
 #soList .empty,#soGreetL + .empty{opacity:.65;font-size:13.5px;text-align:center;padding:16px 0}
@@ -195,7 +310,9 @@ body.touch #soBar button{width:42px;height:42px}
 @media (orientation:portrait){
   body.touch #soBar{top:auto;transform:none;bottom:calc(250px + env(safe-area-inset-bottom,0px));left:max(10px,env(safe-area-inset-left,0px))}
 }
-body.touch #soChat{left:8px;right:8px;width:auto;top:calc(8px + env(safe-area-inset-top,0px));transform:none;height:min(300px,46vh)}
+body.touch #soChat{left:8px;right:8px;width:auto;top:calc(8px + env(safe-area-inset-top,0px));transform:none;height:min(360px,calc(var(--vh,100vh) - 24px),52vh)}
+body.touch.kbd #soChat{height:calc(var(--vh,100vh) - 16px);max-height:420px}
+body.touch #soFollowPill{top:calc(104px + env(safe-area-inset-top,0px))}
 body.touch #soInv,body.touch #soChip{top:calc(110px + env(safe-area-inset-top,0px))}
 body.touch #soNote{top:calc(64px + env(safe-area-inset-top,0px));font-size:12.5px;padding:7px 14px}
 body.clean #soBar,body.clean #soChat{opacity:0!important;pointer-events:none!important}
@@ -211,18 +328,29 @@ SOCIAL_HTML = (r'''
   <button id="soPeopleB" class="glass" title="함께 가기" aria-label="함께 가기">''' + ICON_PEOPLE + r'''<i class="bd" id="soPBadge" hidden></i></button>
 </div>
 <div id="soChat" class="glass" hidden>
-  <div class="soHead"><b>채팅</b><span id="soChatSub">같은 산에 있는 사람들과 이야기해요</span><button class="soX" id="soChatX" aria-label="닫기">✕</button></div>
+  <div class="soHead"><b>채팅</b><span class="soTabs"><button id="soTab_all" type="button">전체<i class="tn" id="soTabN_all" hidden></i></button><button id="soTab_club" type="button">산악회<i class="tn" id="soTabN_club" hidden></i></button><button id="soTab_dm" type="button">귓속말<i class="tn" id="soTabN_dm" hidden></i></button></span><button class="soOff" id="soChatOff" type="button" title="채팅 켜기/끄기" aria-label="채팅 켜기/끄기">끄기</button><button class="soX" id="soChatX" aria-label="닫기">✕</button></div>
+  <div id="soChatOffBox" hidden><p>채팅이 꺼져 있어요. 다른 사람의 말풍선과 채팅 알림이 보이지 않아요.</p><button id="soChatOn" type="button">채팅 켜기</button></div>
+  <div id="soChatBody">
+  <div id="soWho" hidden><span>귓속말 받는 사람</span><b class="ugc" id="soWhoN"></b><button id="soWhoX" type="button" aria-label="받는 사람 바꾸기">바꾸기</button></div>
   <div id="soMsgs" class="ugc"></div>
+  <div id="soEmo" hidden></div>
   <div id="soChatLogin" hidden><span>채팅은 구글로 로그인하면 쓸 수 있어요</span><button id="soChatG" type="button">구글로 로그인</button></div>
-  <form id="soChatF" autocomplete="off"><input id="soChatIn" maxlength="80" placeholder="고운 말로 인사해 보세요" enterkeyhint="send" aria-label="채팅"><button type="submit">보내기</button></form>
+  <form id="soChatF" autocomplete="off"><button id="soEmoB" type="button" aria-label="이모티콘">😊</button><input id="soChatIn" maxlength="80" placeholder="고운 말로 인사해 보세요" enterkeyhint="send" aria-label="채팅"><button type="submit">보내기</button></form>
+  </div>
 </div>
 <div id="soMenu" class="glass" hidden></div>
-<div id="soInv" class="glass" hidden role="alertdialog"><div class="t"><b class="ugc" id="soInvName"></b> <span>님이 함께 가자고 해요</span></div><div class="b"><button id="soInvY">함께 가기</button><button id="soInvN2">괜찮아요</button></div></div>
-<div id="soChip" class="glass pill" hidden><span><b class="ugc" id="soChipName"></b> <span>님이 가까이 있어요</span></span><button id="soChipB">함께 가기 제안</button><button class="x" id="soChipX" aria-label="닫기">✕</button></div>
+<div id="soInv" class="glass" hidden role="alertdialog"><div class="t"><b class="ugc" id="soInvName"></b> <span id="soInvT">님이 함께 가자고 해요</span></div><div class="b"><button id="soInvY">함께 가기</button><button id="soInvN2">괜찮아요</button></div></div>
+<div id="soChip" class="glass pill" hidden><span><b class="ugc" id="soChipName"></b> <span id="soChipT">님이 가까이 있어요</span></span><button id="soChipB">함께 가기 제안</button><button class="x" id="soChipX" aria-label="닫기">✕</button></div>
+<div id="soFollowPill" class="glass pill" hidden><span>👣 <b class="ugc" id="soFollowName"></b> <span>리더를 따라 걷는 중</span></span><button id="soFollowStop" type="button">멈추기</button></div>
 <div id="soNote" class="glass pill" hidden><b class="ugc" id="soNoteName"></b><span id="soNoteTxt"></span></div>
 <div id="soPeople" class="panel" hidden><div class="card soCard"><button class="pX" id="soPeopleX" aria-label="닫기">✕</button>
-  <h1>함께 가기</h1><p class="note" id="soPeopleSub">같은 산에 있는 사람에게 함께 가자고 제안해 보세요. 상대가 수락하면 동행이 돼요.</p>
-  <div id="soParty" hidden><div class="h">동행</div><div id="soPartyL" class="ugc"></div><div class="soPartyB"><button id="soFollow" type="button">동행 따라 걷기</button><button id="soLeave" type="button">동행 그만하기</button></div></div>
+  <h1>함께 가기</h1><p class="note" id="soPeopleSub">산악회를 만들거나 초대코드로 들어가 최대 10명이 함께 걸어요. 리더를 따라 걸으면 같은 보폭으로 줄지어 걸어요.</p>
+  <div id="soClub" hidden><div class="h"><b>⛰ 산악회</b><span class="cnt" id="soClubN"></span><span class="sp"></span><span class="code"><span>초대코드</span> <b id="soClubCode"></b></span><button id="soCodeCopy" type="button">초대하기</button></div>
+    <div class="hint" id="soClubHint"></div><div id="soPartyL"></div>
+    <div class="soPartyB"><button id="soFollow" type="button">👣 리더 따라 걷기</button><button id="soLeave" type="button">산악회 나가기</button></div></div>
+  <div id="soNoClub" hidden><button id="soMake" type="button" class="soBig">⛰ 산악회 만들기</button>
+    <div class="soJoin"><input id="soCodeIn" maxlength="7" placeholder="초대코드 6자리" aria-label="초대코드 6자리" autocapitalize="characters" autocomplete="off" spellcheck="false" enterkeyhint="go"><button id="soCodeGo" type="button">들어가기</button></div></div>
+  <div class="h2">이 산에 있는 사람</div>
   <div id="soList"></div></div></div>
 <div id="soGreet" class="panel" hidden><div class="card soCard"><button class="pX" id="soGreetX" aria-label="닫기">✕</button>
   <h1>인삿말 바꾸기</h1><p class="note">인사(1)를 할 때 머리 위에 보이는 말이에요. 한 줄에 20자까지 쓸 수 있어요.</p>
@@ -241,7 +369,7 @@ SOCIAL_HTML = (r'''
 
 SOCIAL_JS = r'''
 // ---------- 함께가기·인삿말·채팅·정상 방명록 (pipeline/social_patch.py) ----------
-const SO = { room: ROOM_ID, gb: '__GB__', login: { chat: __LC__, guest: __LG__ }, max: 4, fb: null, web: false, chatOk: null, guestOk: null };
+const SO = { room: ROOM_ID, gb: '__GB__', login: { chat: __LC__, guest: __LG__ }, max: 10, fb: null, web: false, chatOk: null, clubOk: null, dmOk: null, guestOk: null };
 const SO_COLS = ['#ffe680', '#ffb3c1', '#b5e3a1', '#a9d4ff', '#ffc98a'];
 // 거르는 말: 띄어쓰기·숫자·기호를 빼고 비교 (보낼 때 막고, 받을 때도 가려요)
 const SO_BAD = ['씨발','시발','씨바','씨빨','시빨','ㅅㅂ','ㅆㅂ','ㅄ','병신','븅신','빙신','ㅂㅅ','지랄','ㅈㄹ','좆','존나','좃','개새','개색','개세','ㄱㅅㄲ','미친놈','미친년','미친새','닥쳐','꺼져','엿먹','느금','니애미','니미럴','애미','애비','씹','섹스','야동','보지','자지','창녀','한남충','김치녀','틀딱','급식충','fuck','fuk','shit','bitch','cunt','nigg','fagg','asshole','porn','whore','slut'];
@@ -256,7 +384,7 @@ const soMe = () => { const u = SO.fb && SO.fb.auth.currentUser; return u ? u.uid
 const soAdmin = () => document.body.classList.contains('admin');
 const soGoogle = () => { const u = SO.fb && SO.fb.auth.currentUser; return !!(u && !u.isAnonymous); };
 let SO_BLOCK = new Set((store.get('blocked', []) || []).slice(-100));
-function soBlock(uid){ if(!uid) return; SO_BLOCK.add(uid); store.set('blocked', [...SO_BLOCK].slice(-100)); toast('이 사람의 채팅과 제안을 더 보지 않아요', 3); soRenderChat(); soRenderPeople(); }
+function soBlock(uid){ if(!uid) return; SO_BLOCK.add(uid); store.set('blocked', [...SO_BLOCK].slice(-100)); toast('이 사람의 채팅과 제안을 더 보지 않아요', 3); if(SO_C.wTo && SO_C.wTo.u === uid) SO_C.wTo = null; soRenderChat(); soRenderPeople(); }
 // 이름이 들어간 알림: 이름은 번역하지 않고, 뒤의 말만 번역
 let soNoteT = 0;
 function soNote(nick, txt, dur){ $('soNoteName').textContent = nick || ''; $('soNoteTxt').textContent = txt; $('soNote').hidden = false; soNoteT = performance.now() + (dur || 3.2)*1000; }
@@ -279,105 +407,215 @@ $('soGreetOk').onclick = () => { const ins = [...$('soGreetL').querySelectorAll(
 // 다른 사람이 인사할 때: 그 사람이 고친 인삿말(gs)을 거르고 보여 줘요
 function soGreetOf(pr){ if(typeof pr.gs === 'string' && pr.gs){ const s = soShow(pr.gs, 20); if(s) return s; } return SO_GREET0[Math.max(0, Math.min(SO_GREET0.length-1, num(pr.wi)|0))]; }
 
-// ===== 함께 가기 =====
-const SO_P = { pt: '', iv: null, ia: null, ir: null, follow: false, goal: null, sent: {}, hinted: new Set(), warnT: 0, buddies: 0, alone: 0, inv: null, invT: 0, chip: null, chipT: 0 };
-function soPkt(pkt){ if(SO_P.pt) pkt.pt = SO_P.pt; if(SO_P.iv) pkt.iv = SO_P.iv; if(SO_P.ia) pkt.ia = SO_P.ia; if(SO_P.ir) pkt.ir = SO_P.ir; pkt.gs = String(GREETS[greetIdx] || '').slice(0, 20); }
+// ===== 산악회 (함께 가기) =====
+// 같은 산(방)에서 초대코드(pt)가 같은 사람끼리 한 산악회. 리더 = 가장 먼저 들어온 사람(pj가 가장 이른 사람) → 리더가 떠나면 다음 사람이 저절로 리더.
+// 따라 걷기: 리더가 지나간 길을 그대로, 산악회원은 들어온 순서대로 2.4m 간격, 리더 걸음 빠르기에 맞춰 같은 보폭으로.
+const SO_P = { pt: '', pj: 0, iv: null, ia: null, ir: null, ivCode: '', ivT: 0, follow: false, goal: null, v: 0, sent: {}, hinted: new Set(), warnT: 0, buddies: 0, inv: null, invCode: '', invT: 0, chip: null, chipT: 0, chipFn: null, lead: '', joinT: 0, join: null };
+const SO_GAP = 2.4;
+const SO_ABC = 'abcdefghjkmnpqrstuvwxyz23456789';
+const soCodeNew = () => { let s = ''; const a = new Uint32Array(6); try{ crypto.getRandomValues(a); }catch(e){ for(let i = 0; i < 6; i++) a[i] = Math.random()*1e9; } for(const x of a) s += SO_ABC[x % SO_ABC.length]; return s; };
+const soCodeOk = c => typeof c === 'string' && /^[a-z0-9]{6}$/.test(c);
+const soCodeIn = s => String(s || '').toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 6);
+const soCodeFmt = c => String(c || '').toUpperCase();
+const SO_KEY = 'neungseon.club.' + ROOM_ID;
+function soPkt(pkt){ if(SO_P.pt){ pkt.pt = SO_P.pt; pkt.pj = SO_P.pj; if(SO_P.follow) pkt.pf = 1; }
+  if(SO_P.iv) pkt.iv = SO_P.iv; if(SO_P.ia) pkt.ia = SO_P.ia; if(SO_P.ir) pkt.ir = SO_P.ir; pkt.gs = String(GREETS[greetIdx] || '').slice(0, 20); }
 const soBuddy = a => !!(SO_P.pt && a.pt === SO_P.pt);
-const soArr = v => Array.isArray(v) ? v : (v && typeof v === 'object' && 0 in v) ? [v[0], v[1]] : null;
+const soArr = v => Array.isArray(v) ? v : (v && typeof v === 'object' && 0 in v) ? [v[0], v[1], v[2]] : null;
 const soFresh = v => (v = soArr(v)) && typeof v[0] === 'string' && Math.abs(soNow() - num(v[1])) < 45000;
 function soPeer(id, a, pr){
-  a.pid = id; a.pt = typeof pr.pt === 'string' ? pr.pt.slice(0, 64) : '';
+  a.pid = id; a.pt = soCodeOk(pr.pt) ? pr.pt : ''; a.pj = num(pr.pj, 0) || 9e15; a.pf = pr.pf === 1;
   const me = soMe(); if(!me || SO_BLOCK.has(id)) return;
   const iv = soArr(pr.iv), ia = soArr(pr.ia), ir = soArr(pr.ir);
-  if(soFresh(iv) && iv[0] === me && iv[1] !== a.lastIv){ a.lastIv = iv[1]; if(!soBuddy(a)) soInvite(a); }
-  if(soFresh(ia) && ia[0] === me && ia[1] !== a.lastIa){ a.lastIa = ia[1]; if(!SO_P.pt) SO_P.pt = me; soNote(a.nick, '님과 함께 걸어요', 3.5); SO_P.iv = null; pushPresence(true); soRenderPeople(); }
+  if(soFresh(iv) && iv[0] === me && iv[1] !== a.lastIv){ a.lastIv = iv[1]; const code = soCodeOk(iv[2]) ? iv[2] : ''; if(code && code !== SO_P.pt) soInvite(a, code); }
+  if(soFresh(ia) && ia[0] === me && ia[1] !== a.lastIa){ a.lastIa = ia[1];
+    if(!SO_P.pt && SO_P.ivCode && a.pt === SO_P.ivCode) soJoin(SO_P.ivCode, SO_P.ivT || soNow(), true);
+    soNote(a.nick, '님과 함께 걸어요', 3.5); SO_P.iv = null; pushPresence(true); soRenderPeople(true); }
   if(soFresh(ir) && ir[0] === me && ir[1] !== a.lastIr){ a.lastIr = ir[1]; soNote(a.nick, '님은 지금은 혼자 걷고 싶대요', 3.5); }
 }
-function soPartyCount(pt){ let n = 0; for(const a of remotes.values()) if(a.pt === pt) n++; return n; }
+function soPartyCount(pt){ let n = 0; if(!pt) return 0; for(const a of remotes.values()) if(a.pt === pt) n++; return n; }
+// 산악회원 (나 포함) — 들어온 순서대로, 맨 앞이 리더
+function soMembers(){ if(!SO_P.pt) return [];
+  const M = [{ uid: soMe() || 'me', pj: SO_P.pj || 9e15, me: true, pf: SO_P.follow, nick: me.nick }];
+  for(const a of remotes.values()) if(soBuddy(a) && a.pid) M.push({ uid: a.pid, pj: a.pj, me: false, pf: a.pf, nick: a.nick, a });
+  return M.sort((p, q) => (p.pj - q.pj) || (p.uid < q.uid ? -1 : p.uid > q.uid ? 1 : 0)); }
+function soLeader(){ const M = soMembers(); return M.length ? M[0] : null; }
+const soIsLeader = () => { const L = soLeader(); return !!(L && L.me); };
+function soSave(){ try{ SO_P.pt ? sessionStorage.setItem(SO_KEY, JSON.stringify({ pt: SO_P.pt, pj: SO_P.pj })) : sessionStorage.removeItem(SO_KEY); }catch(e){} }
+function soJoin(code, pj, quiet){ if(!soCodeOk(code)) return false;
+  if(SO_P.pt && SO_P.pt !== code) soLeave(true);
+  SO_P.pt = code; SO_P.pj = pj || soNow(); SO_P.joinT = performance.now(); SO_P.lead = ''; SO_P.ivCode = '';
+  soSave(); pushPresence(true); soClubChat(); soRenderPeople(true); try{ soRenderChat(); }catch(e){} return true; }
+function soLeave(quiet){ const was = SO_P.pt; SO_P.pt = ''; SO_P.pj = 0; SO_P.ia = null; soStopFollow(); SO_P.lead = '';
+  soSave(); pushPresence(true); soClubChat(); if(!quiet && was) toast('산악회를 나왔어요', 2); soRenderPeople(true); try{ soRenderChat(); }catch(e){} }
+function soMake(){ if(!soMe()){ toast('함께 가기는 neungseon.com에서 할 수 있어요', 3); return; }
+  const c = soCodeNew(); soJoin(c, soNow()); soNote(soCodeFmt(c), ' 초대코드로 산악회를 만들었어요', 4); }
 function soSendInvite(a){
   if(!soMe() || !a || !a.pid){ toast('함께 가기는 neungseon.com에서 할 수 있어요', 3); return; }
   if(soBuddy(a)) return;
   const last = SO_P.sent[a.pid] || 0; if(Date.now() - last < 30000){ toast('조금 뒤에 다시 제안해 주세요', 2.5); return; }
-  if(SO_P.pt && soPartyCount(SO_P.pt) + 1 >= SO.max){ toast('동행이 가득 찼어요 (최대 4명)', 2.5); return; }
-  SO_P.sent[a.pid] = Date.now(); SO_P.iv = [a.pid, soNow()]; pushPresence(true);
+  if(SO_P.pt && soPartyCount(SO_P.pt) + 1 >= SO.max){ toast('산악회가 가득 찼어요 (최대 10명)', 2.5); return; }
+  const code = SO_P.pt || SO_P.ivCode || soCodeNew(); if(!SO_P.pt){ SO_P.ivCode = code; SO_P.ivT = soNow(); }
+  SO_P.sent[a.pid] = Date.now(); SO_P.iv = [a.pid, soNow(), code]; pushPresence(true);
   soNote(a.nick, '님에게 함께 가기를 제안했어요', 3); soRenderPeople(); }
-function soInvite(a){ SO_P.inv = a; SO_P.invT = performance.now() + 30000; $('soInvName').textContent = a.nick; $('soInv').hidden = false; $('soChip').hidden = true; try{ sfx.chime && sfx.chime(); }catch(e){} }
-$('soInvY').onclick = () => { const a = SO_P.inv; $('soInv').hidden = true; SO_P.inv = null; if(!a || !remotes.has(a.pid)) return;
-  const target = a.pt || a.pid; if(soPartyCount(target) + (a.pt ? 0 : 1) + 1 > SO.max){ toast('동행이 가득 찼어요 (최대 4명)', 2.5); return; }
-  SO_P.pt = target; SO_P.ia = [a.pid, soNow()]; pushPresence(true); soNote(a.nick, '님과 함께 걸어요', 3.5); soRenderPeople(); };
+function soInvite(a, code){ SO_P.inv = a; SO_P.invCode = code; SO_P.invT = performance.now() + 30000; $('soInvName').textContent = a.nick;
+  $('soInvT').textContent = soPartyCount(code) > 1 ? '님이 산악회에 초대했어요' : '님이 함께 가자고 해요';
+  $('soInv').hidden = false; $('soChip').hidden = true; try{ sfx.chime && sfx.chime(); }catch(e){} }
+$('soInvY').onclick = () => { const a = SO_P.inv, code = SO_P.invCode; $('soInv').hidden = true; SO_P.inv = null; if(!a || !remotes.has(a.pid) || !soCodeOk(code)) return;
+  if(soPartyCount(code) + 1 > SO.max){ toast('산악회가 가득 찼어요 (최대 10명)', 2.5); return; }
+  soJoin(code, soNow()); SO_P.ia = [a.pid, soNow()]; pushPresence(true); soNote(a.nick, '님과 함께 걸어요', 3.5);
+  setTimeout(() => { if(SO_P.pt === code && !soIsLeader() && !SO_P.follow) soAsk(null, '리더를 따라 걸을까요?', '👣 따라 걷기', () => soSetFollow(true), 10); }, 1800); };
 $('soInvN2').onclick = () => { const a = SO_P.inv; $('soInv').hidden = true; SO_P.inv = null; if(a && a.pid){ SO_P.ir = [a.pid, soNow()]; pushPresence(true); } };
-function soLeave(){ SO_P.pt = ''; SO_P.follow = false; SO_P.ia = null; if(SO_P.goal && st.goal === SO_P.goal) st.goal = null; SO_P.goal = null; pushPresence(true); toast('동행을 마쳤어요', 2); soRenderPeople(); }
-function soLead(){ let best = null, bd = 1e9;
-  for(const a of remotes.values()){ if(!soBuddy(a)) continue; if(a.pid === SO_P.pt) return a; const d = Math.hypot(a.x - st.x, a.z - st.z); if(d < bd){ bd = d; best = a; } }
-  return best; }
-function soSetFollow(on){ SO_P.follow = on && !!soLead(); if(SO_P.follow){ st.sitting = false; st.breathing = 0; if(st.auto){ st.auto = false; refreshWalk(); } toast('동행을 따라 걸어요 · 직접 움직이면 멈춰요', 3); }
-  else if(SO_P.goal && st.goal === SO_P.goal){ st.goal = null; } if(!SO_P.follow) SO_P.goal = null; soRenderPeople(); }
+// 초대코드로 들어가기: 이 산에 그 코드의 산악회원이 보이면 들어가요 (몇 초 기다려요)
+function soTryCode(raw){ const code = soCodeIn(raw);
+  if(!soCodeOk(code)){ toast('초대코드 6자리를 넣어 주세요', 2.5); return; }
+  if(!soMe()){ toast('함께 가기는 neungseon.com에서 할 수 있어요', 3); return; }
+  if(code === SO_P.pt){ toast('이미 이 산악회에 있어요', 2); return; }
+  SO_P.join = { code, until: performance.now() + 8000 }; $('soCodeGo').disabled = true; toast('산악회를 찾고 있어요…', 2); soJoinTick(); }
+function soJoinTick(){ const J = SO_P.join; if(!J) return; const n = soPartyCount(J.code);
+  if(n > 0){ SO_P.join = null; $('soCodeGo').disabled = false;
+    if(n + 1 > SO.max){ toast('산악회가 가득 찼어요 (최대 10명)', 2.5); return; }
+    soJoin(J.code, soNow()); $('soCodeIn').value = ''; const L = soLeader();
+    if(L && !L.me){ soNote(L.nick, '님의 산악회에 들어왔어요 · 리더를 따라 걸어요', 4); soSetFollow(true); } return; }
+  if(performance.now() > J.until){ SO_P.join = null; $('soCodeGo').disabled = false; toast('이 산에서 그 산악회를 찾지 못했어요 · 리더와 같은 산에 있어야 해요', 4.5); } }
+// 따라 걷기
+function soSlot(){ const M = soMembers(); let k = 0; for(let i = 1; i < M.length; i++){ const m = M[i]; if(m.me ? SO_P.follow : m.pf){ k++; if(m.me) return k; } } return Math.max(1, k); }
+function soStopFollow(){ SO_P.follow = false; SO_P.v = 0; if(SO_P.goal && st.goal === SO_P.goal) st.goal = null; SO_P.goal = null; $('soFollowPill').hidden = true; }
+function soSetFollow(on){ const L = soLeader();
+  if(on && (!L || L.me)){ toast(L && L.me ? '내가 리더예요 · 산악회원들이 나를 따라 걸어요' : '따라 걸을 리더가 없어요', 2.5); on = false; }
+  if(on){ SO_P.follow = true; SO_P.v = 0; st.sitting = false; st.breathing = 0; if(st.auto){ st.auto = false; refreshWalk(); }
+    $('soFollowName').textContent = L.nick; $('soFollowPill').hidden = false; toast('리더를 따라 걸어요 · 직접 움직이면 멈춰요', 3); }
+  else soStopFollow();
+  pushPresence(true); soRenderPeople(); }
 $('soFollow').onclick = () => soSetFollow(!SO_P.follow);
-$('soLeave').onclick = soLeave;
+$('soFollowStop').onclick = e => { e.stopPropagation(); soSetFollow(false); };
+$('soLeave').onclick = () => soLeave();
+$('soMake').onclick = soMake;
+$('soCodeGo').onclick = () => soTryCode($('soCodeIn').value);
+$('soCodeIn').addEventListener('keydown', e => { if(e.key === 'Enter'){ e.preventDefault(); soTryCode($('soCodeIn').value); } });
+$('soCodeIn').addEventListener('input', () => { const v = soCodeFmt(soCodeIn($('soCodeIn').value)); if($('soCodeIn').value !== v) $('soCodeIn').value = v; });
+function soInviteText(){ const u = (location.origin.startsWith('http') ? location.origin + location.pathname : 'https://neungseon.com/') + '?club=' + SO_P.pt;
+  return { text: (window.T || (x => x))('능선 산악회에 함께 가요! 초대코드') + ' ' + soCodeFmt(SO_P.pt), url: u }; }
+$('soCodeCopy').onclick = async () => { if(!SO_P.pt) return; const t = soInviteText();
+  if(document.body.classList.contains('touch') && navigator.share){ try{ await navigator.share({ title: (window.T || (x => x))('능선'), text: t.text, url: t.url }); return; }catch(e){ if(e && e.name === 'AbortError') return; } }
+  try{ await navigator.clipboard.writeText(t.text + '\n' + t.url); toast('초대코드와 주소를 복사했어요', 2.5); }catch(e){ toast(soCodeFmt(SO_P.pt), 4); } };
+// 리더가 지나간 길 기록 + 걸음 빠르기 (매 프레임)
+function soTrack(a, dt){ if(a.px === undefined){ a.px = a.x; a.pz = a.z; a.vs = 0; a.trk = []; }
+  const sp = Math.hypot(a.x - a.px, a.z - a.pz)/Math.max(dt, 1e-3); a.px = a.x; a.pz = a.z;
+  a.vs += (Math.min(sp, 8) - a.vs)*Math.min(1, dt*4);
+  const T = a.trk, L = T[T.length - 1]; if(!L || Math.hypot(a.x - L.x, a.z - L.z) > 0.35){ T.push({ x: a.x, z: a.z }); if(T.length > 600) T.splice(0, T.length - 500); } }
+function soFollowTick(dt){
+  const manual = keys.KeyW || keys.KeyA || keys.KeyS || keys.KeyD || keys.ArrowUp || keys.ArrowDown || keys.ArrowLeft || keys.ArrowRight || (joy.id !== null && Math.hypot(joy.x, joy.y) > 0.18) || st.auto || (st.goal && st.goal !== SO_P.goal) || st.sitting || st.camp;
+  const Lm = soLeader(), L = Lm && !Lm.me ? Lm.a : null;
+  if(manual || !L){ const why = !L && Lm && Lm.me ? '이제 내가 리더예요 · 따라 걷기를 멈췄어요' : ''; soStopFollow(); pushPresence(true); soRenderPeople(); if(why) toast(why, 3); return; }
+  $('soFollowName').textContent = L.nick;
+  const D = SO_GAP*soSlot(), T = L.trk || [];
+  // 리더 → 지나온 길을 거꾸로 따라가며: 내 자리(D m 뒤)와 지금 내가 길 위 어디쯤인지
+  let acc = 0, prev = { x: L.x, z: L.z }, P = null, bs = 0, bd = 1e9; const segs = [];
+  for(let i = T.length - 1; i >= 0 && acc < D + 90; i--){ const q = T[i], sx = q.x - prev.x, sz = q.z - prev.z, sl = Math.hypot(sx, sz); if(sl < 1e-3) continue;
+    let t = ((st.x - prev.x)*sx + (st.z - prev.z)*sz)/(sl*sl); t = Math.max(0, Math.min(1, t));
+    const d = Math.hypot(prev.x + sx*t - st.x, prev.z + sz*t - st.z); if(d < bd){ bd = d; bs = acc + t*sl; }
+    if(!P && acc + sl >= D){ const k = (D - acc)/sl; P = { x: prev.x + sx*k, z: prev.z + sz*k }; }
+    segs.push([prev, q, acc, sl]); acc += sl; prev = q; }
+  const dL = Math.hypot(L.x - st.x, L.z - st.z);
+  if(!P){ P = dL > D ? { x: L.x + (st.x - L.x)/dL*D, z: L.z + (st.z - L.z)/dL*D } : { x: st.x, z: st.z }; }
+  const onPath = bd < 4 && segs.length; const sMe = onPath ? bs : (acc < D ? dL : D + Math.hypot(P.x - st.x, P.z - st.z));
+  const err = sMe - D, far = Math.hypot(P.x - st.x, P.z - st.z) > 30;
+  // 자리보다 뒤면 조금 빨리, 앞이면 더 확실히 천천히 (작은 차이는 그냥 리더 빠르기 그대로 → 같은 보폭)
+  const e2 = Math.abs(err) < 0.25 ? 0 : err - Math.sign(err)*0.25;
+  let want = far ? 4.2 : THREE.MathUtils.clamp(L.vs + (e2 > 0 ? e2*0.6 : e2*1.8), 0, Math.max(3.4, L.vs*1.5));
+  if(!far && L.vs < 0.5) want = e2 > 0 ? Math.min(want, 0.6 + e2*0.5) : 0;   // 리더가 서면 내 자리에서 멈춰요
+  SO_P.v += (want - SO_P.v)*Math.min(1, dt*(want > SO_P.v ? 2.2 : 7));
+  if(SO_P.v < 0.15 && want < 0.2){ if(SO_P.goal && st.goal === SO_P.goal) st.goal = null; SO_P.v = 0; return; }
+  // 가는 쪽: 길 위에서 내 자리보다 1.8m 앞 (리더 쪽)
+  let G = P;
+  if(onPath && !far){ const s = Math.max(0, sMe - 1.8); G = { x: L.x, z: L.z }; for(const [a, b, s0, sl] of segs){ if(s <= s0 + sl){ const k = (s - s0)/sl; G = { x: a.x + (b.x - a.x)*k, z: a.z + (b.z - a.z)*k }; break; } } }
+  if(Math.hypot(G.x - st.x, G.z - st.z) < 0.7){ const dx = L.x - st.x, dz = L.z - st.z, dd = Math.hypot(dx, dz) || 1; G = { x: st.x + dx/dd*1.2, z: st.z + dz/dd*1.2 }; }
+  const g = SO_P.goal || (SO_P.goal = {}); g.x = G.x; g.z = G.z; g.__fs = SO_P.v; g.__ph = (L.vs > 0.3 && Math.abs(SO_P.v - L.vs) < 0.6) ? L.phase : null;
+  st.goal = g; st.sitting = false; try{ goalRing.visible = false; }catch(e){} }
 function soOpenPeople(hl){ SO_P.hl = hl || null; $('soPeople').hidden = false; soRenderPeople(true); }
 $('soPeopleB').onclick = () => soOpenPeople(); $('soPeopleX').onclick = () => { $('soPeople').hidden = true; };
 $('soPeople').addEventListener('click', e => { if(e.target === $('soPeople')) $('soPeople').hidden = true; });
-$('soChipB').onclick = () => { const a = SO_P.chip; $('soChip').hidden = true; if(a) soSendInvite(a); };
-$('soChipX').onclick = () => { $('soChip').hidden = true; };
-function soRow(a){ const r = document.createElement('div'); r.className = 'soRow' + (SO_P.hl === a.pid ? ' hi' : '');
+// 알림 칩: 가까이 지나가는 사람에게 함께 가기 제안, 정상 방명록 안내, 따라 걷기 제안
+function soAsk(nick, txt, btn, fn, dur){ $('soChipName').textContent = nick || ''; $('soChipT').textContent = txt; $('soChipB').textContent = btn; SO_P.chipFn = fn;
+  $('soChip').hidden = false; SO_P.chipT = performance.now() + (dur || 9)*1000; }
+$('soChipB').onclick = () => { const f = SO_P.chipFn; $('soChip').hidden = true; SO_P.chip = null; if(f) f(); };
+$('soChipX').onclick = () => { $('soChip').hidden = true; SO_P.chip = null; };
+function soRow(a, club){ const r = document.createElement('div'); r.className = 'soRow' + (SO_P.hl === a.pid ? ' hi' : '');
   const i = document.createElement('i'); i.style.background = hexCss(a.outfit.jacket); r.appendChild(i);
   const n = document.createElement('span'); n.className = 'nm ugc'; n.textContent = a.nick; r.appendChild(n);
+  if(club && club.lead){ const t = document.createElement('span'); t.className = 'tagl'; t.textContent = '리더'; r.appendChild(t); }
   const d = document.createElement('small'); d.textContent = Math.round(Math.hypot(a.x - st.x, a.z - st.z)) + 'm'; r.appendChild(d);
-  if(soBuddy(a)){ const t = document.createElement('span'); t.className = 'tagd'; t.textContent = '동행 중'; r.appendChild(t); }
+  if(club){ if(a.pf){ const t = document.createElement('span'); t.className = 'tagd'; t.textContent = '따라 걷는 중'; r.appendChild(t); } }
+  else if(a.pt && a.pt !== SO_P.pt && soPartyCount(a.pt) > 1){ const t = document.createElement('span'); t.className = 'tagd mute'; t.textContent = '다른 산악회'; r.appendChild(t); }
   else if(Date.now() - (SO_P.sent[a.pid] || 0) < 30000){ const t = document.createElement('span'); t.className = 'tagd'; t.textContent = '제안했어요'; r.appendChild(t); }
   else { const b = document.createElement('button'); b.className = 'go'; b.textContent = '함께 가기'; b.onclick = () => soSendInvite(a); r.appendChild(b); }
-  const k = document.createElement('button'); k.textContent = '⋯'; k.setAttribute('aria-label', '이 사람 가리기'); k.onclick = e => soMenuAt(e, [['이 사람 가리기', () => soBlock(a.pid)]]); r.appendChild(k);
+  const k = document.createElement('button'); k.textContent = '⋯'; k.setAttribute('aria-label', '더 보기');
+  k.onclick = e => soMenuAt(e, [['💬 귓속말 보내기', () => soWhisperTo(a.pid, a.nick)], ['이 사람 가리기', () => soBlock(a.pid)]]); r.appendChild(k);
+  return r; }
+function soMeRow(lead){ const r = document.createElement('div'); r.className = 'soRow me';
+  const i = document.createElement('i'); i.style.background = hexCss(me.outfit.jacket); r.appendChild(i);
+  const n = document.createElement('span'); n.className = 'nm'; const nn = document.createElement('span'); nn.className = 'ugc'; nn.textContent = me.nick; n.appendChild(nn);
+  const y = document.createElement('small'); y.textContent = ' (나)'; n.appendChild(y); r.appendChild(n);
+  if(lead){ const t = document.createElement('span'); t.className = 'tagl'; t.textContent = '리더'; r.appendChild(t); }
+  if(SO_P.follow){ const t = document.createElement('span'); t.className = 'tagd'; t.textContent = '따라 걷는 중'; r.appendChild(t); }
   return r; }
 let soPeopleSig = '';
 function soRenderPeople(force){ if($('soPeople').hidden){ soPeopleSig = ''; return; }
   const list = [...remotes.values()].filter(a => a.pid && !SO_BLOCK.has(a.pid)).sort((p, q) => Math.hypot(p.x - st.x, p.z - st.z) - Math.hypot(q.x - st.x, q.z - st.z));
-  const sig = [SO.web, SO_P.follow, SO_P.pt, SO_P.hl, ...list.map(a => [a.pid, a.nick, a.pt, Math.round(Math.hypot(a.x - st.x, a.z - st.z)/5), Date.now() - (SO_P.sent[a.pid] || 0) < 30000].join(','))].join('|');
+  const M = soMembers();
+  const sig = [SO.web, SO_P.follow, SO_P.pt, SO_P.hl, M.map(m => m.uid + (m.pf ? 'f' : '')).join(','), ...list.map(a => [a.pid, a.nick, a.pt, a.pf, Math.round(Math.hypot(a.x - st.x, a.z - st.z)/5), Date.now() - (SO_P.sent[a.pid] || 0) < 30000].join(','))].join('|');
   if(sig === soPeopleSig && force !== true) return; soPeopleSig = sig;
   const L = $('soList'); L.innerHTML = '';
-  const others = list.filter(a => !soBuddy(a)), buds = list.filter(soBuddy);
+  const others = list.filter(a => !soBuddy(a));
   if(!SO.web){ L.innerHTML = '<div class="empty">함께 가기는 neungseon.com에서 할 수 있어요</div>'; }
-  else if(!others.length && !buds.length){ L.innerHTML = '<div class="empty">지금은 이 산에 다른 사람이 없어요</div>'; }
+  else if(!others.length){ L.innerHTML = '<div class="empty">지금은 이 산에 다른 사람이 없어요</div>'; }
   others.forEach(a => L.appendChild(soRow(a)));
-  $('soParty').hidden = !buds.length; const PL = $('soPartyL'); PL.innerHTML = ''; buds.forEach(a => PL.appendChild(soRow(a)));
-  $('soFollow').textContent = SO_P.follow ? '따라 걷기 멈추기' : '동행 따라 걷기'; $('soFollow').classList.toggle('on', SO_P.follow); }
+  const inClub = !!SO_P.pt; $('soClub').hidden = !inClub; $('soNoClub').hidden = inClub || !SO.web;
+  if(inClub){ $('soClubCode').textContent = soCodeFmt(SO_P.pt); $('soClubN').textContent = M.length + '/' + SO.max;
+    const PL = $('soPartyL'); PL.innerHTML = ''; M.forEach((m, i) => PL.appendChild(m.me ? soMeRow(i === 0) : soRow(m.a, { lead: i === 0 })));
+    const lead = M.length && M[0].me; $('soFollow').hidden = lead;
+    $('soFollow').textContent = SO_P.follow ? '따라 걷기 멈추기' : '👣 리더 따라 걷기'; $('soFollow').classList.toggle('on', SO_P.follow);
+    $('soClubHint').textContent = lead ? (M.length > 1 ? '내가 리더예요 · 산악회원들이 줄지어 따라와요' : '초대코드를 알려 주면 최대 10명까지 함께 걸을 수 있어요') : '리더를 따라 걸으면 같은 보폭으로 줄지어 걸어요'; } }
 // 매 프레임 (updateRemotes 앞에서)
 let soAcc = 0, soStarted = false;
 function soTick(dt){
-  if(st.started && !soStarted){ soStarted = true; document.body.classList.add('soOn'); }
+  if(st.started && !soStarted){ soStarted = true; document.body.classList.add('soOn');
+    try{ const q = new URLSearchParams(location.search).get('club'); if(q && soCodeOk(soCodeIn(q))) setTimeout(() => soTryCode(q), 2500); }catch(e){} }
   const nowMs = performance.now();
   if(soNoteT && nowMs > soNoteT){ soNoteT = 0; $('soNote').hidden = true; }
   if(SO_P.invT && nowMs > SO_P.invT){ SO_P.invT = 0; $('soInv').hidden = true; SO_P.inv = null; }
-  if(SO_P.chipT && (nowMs > SO_P.chipT || (SO_P.chip && (soBuddy(SO_P.chip) || !remotes.has(SO_P.chip.pid))))){ SO_P.chipT = 0; $('soChip').hidden = true; }
-  // 동행 따라 걷기: 직접 움직이면(키·조이스틱·땅 누르기) 멈춤
-  if(SO_P.follow){
-    const manual = keys.KeyW || keys.KeyA || keys.KeyS || keys.KeyD || keys.ArrowUp || keys.ArrowDown || keys.ArrowLeft || keys.ArrowRight || (joy.id !== null && Math.hypot(joy.x, joy.y) > 0.18) || st.auto || (st.goal && st.goal !== SO_P.goal);
-    const L = soLead();
-    if(manual || !L){ SO_P.follow = false; if(SO_P.goal && st.goal === SO_P.goal) st.goal = null; SO_P.goal = null; soRenderPeople(); }
-    else { const dx = L.x - st.x, dz = L.z - st.z, d = Math.hypot(dx, dz);
-      if(d > 3.2){ const k = (d - 2.2)/d; SO_P.goal = { x: st.x + dx*k, z: st.z + dz*k }; st.goal = SO_P.goal; st.sitting = false; try{ goalRing.visible = false; }catch(e){} }
-      else if(st.goal === SO_P.goal){ st.goal = null; SO_P.goal = null; } }
-  }
+  if(SO_P.chipT && (nowMs > SO_P.chipT || (SO_P.chip && (soBuddy(SO_P.chip) || !remotes.has(SO_P.chip.pid))))){ SO_P.chipT = 0; $('soChip').hidden = true; SO_P.chip = null; }
+  if(SO_P.pt) for(const a of remotes.values()) if(soBuddy(a)) soTrack(a, dt);
+  // 리더 따라 걷기: 직접 움직이면(키·조이스틱·땅 누르기) 멈춤
+  if(SO_P.follow) soFollowTick(dt);
   if(nowMs - soAcc < 500) return; const step = Math.min(5, (nowMs - soAcc)/1000); soAcc = nowMs;
+  soJoinTick();
   // 오래된 신호 정리
-  for(const k of ['iv', 'ia', 'ir']) if(SO_P[k] && Math.abs(soNow() - num(SO_P[k][1])) > 40000){ SO_P[k] = null; pushPresence(true); }
-  // 이름표: 누르면 함께 가기 창, 동행은 🤝
-  let buddies = 0, near = 1e9;
+  for(const k of ['iv', 'ia', 'ir']) if(SO_P[k] && Math.abs(soNow() - num(SO_P[k][1])) > 40000){ SO_P[k] = null; if(k === 'iv') SO_P.ivCode = ''; pushPresence(true); }
+  // 리더가 바뀌면 알려요 (리더가 산을 떠나면 다음으로 먼저 들어온 사람이 저절로 리더)
+  if(SO_P.pt){ const Lm = soLeader(), id = Lm ? Lm.uid : '';
+    if(SO_P.lead && id !== SO_P.lead && nowMs - SO_P.joinT > 5000){ if(Lm.me) toast('리더가 산을 떠나 이제 내가 산악회 리더예요', 4); else soNote(Lm.nick, '님이 새 리더가 됐어요', 3.5); }
+    SO_P.lead = id; }
+  // 이름표: 누르면 함께 가기 창, 산악회원은 🤝, 리더는 👑
+  let buddies = 0, near = 1e9; const lead = SO_P.pt ? soLeader() : null;
   for(const [k, a] of remotes){ const b = soBuddy(a); if(b){ buddies++; near = Math.min(near, Math.hypot(a.x - st.x, a.z - st.z)); }
-    const el = tagEls.get('p' + k); if(el){ if(!el._so){ el._so = true; el.classList.add('peer'); el.querySelector('.n').addEventListener('click', () => soOpenPeople(k)); } el.classList.toggle('buddy', b); }
+    const el = tagEls.get('p' + k); if(el){ if(!el._so){ el._so = true; el.classList.add('peer'); el.querySelector('.n').addEventListener('click', () => soOpenPeople(k)); } el.classList.toggle('buddy', b); el.classList.toggle('lead', !!(b && lead && lead.uid === a.pid)); }
     // 가까이 처음 지나가면 '함께 가기 제안' 알림 한 번
     if(SO.web && st.started && !b && a.pid && !SO_P.hinted.has(a.pid) && !SO_BLOCK.has(a.pid) && Math.hypot(a.x - st.x, a.z - st.z) < 12 && $('soInv').hidden && $('soChip').hidden){
-      SO_P.hinted.add(a.pid); SO_P.chip = a; $('soChipName').textContent = a.nick; $('soChip').hidden = false; SO_P.chipT = performance.now() + 9000; } }
+      SO_P.hinted.add(a.pid); SO_P.chip = a; soAsk(a.nick, '님이 가까이 있어요', '함께 가기 제안', () => soSendInvite(a), 9); SO_P.chip = a; } }
   if(SO_P.pt){
-    if(buddies && near > 70 && performance.now() - SO_P.warnT > 60000){ SO_P.warnT = performance.now(); toast('동행과 멀어졌어요 · 잠시 기다려 볼까요?', 3.5); }
-    if(SO_P.buddies && !buddies){ toast('동행이 산을 떠났어요', 3); SO_P.follow = false; }
-    SO_P.alone = buddies ? 0 : SO_P.alone + step;
-    if(SO_P.alone > 90){ SO_P.pt = ''; SO_P.alone = 0; pushPresence(true); } }
+    if(buddies && near > 70 && !SO_P.follow && performance.now() - SO_P.warnT > 60000){ SO_P.warnT = performance.now(); toast('산악회원과 멀어졌어요 · 잠시 기다려 볼까요?', 3.5); }
+    if(SO_P.buddies && !buddies){ toast('함께하던 산악회원이 모두 산을 떠났어요', 3); if(SO_P.follow) soSetFollow(false); } }
   SO_P.buddies = buddies;
-  $('soPeopleB').classList.toggle('on', buddies > 0); const pb = $('soPBadge'); pb.hidden = !buddies; if(buddies) pb.textContent = '🤝';
+  $('soPeopleB').classList.toggle('on', !!SO_P.pt); const pb = $('soPBadge'); pb.hidden = !SO_P.pt; if(SO_P.pt) pb.textContent = String(buddies + 1);
   soRenderPeople();
 }
-// 지도에 동행 표시 (초록 고리)
-function soMapRing(mctx, toU, toV, big){ for(const a of remotes.values()){ if(!soBuddy(a)) continue; mctx.strokeStyle = '#7dff9a'; mctx.lineWidth = big ? 2.5 : 5; mctx.beginPath(); mctx.arc(toU(a.x), toV(a.z), big ? 9 : 18, 0, 7); mctx.stroke(); } }
+// 다시 불러와도 같은 산악회 (이 탭에서만)
+try{ const c = JSON.parse(sessionStorage.getItem(SO_KEY) || 'null'); if(c && soCodeOk(c.pt)){ SO_P.pt = c.pt; SO_P.pj = num(c.pj) || 0; } }catch(e){}
+// 지도에 산악회원 표시 (초록 고리, 리더는 금빛)
+function soMapRing(mctx, toU, toV, big){ if(!SO_P.pt) return; const L = soLeader();
+  for(const a of remotes.values()){ if(!soBuddy(a)) continue; const ld = L && L.uid === a.pid; mctx.strokeStyle = ld ? '#ffd86b' : '#7dff9a'; mctx.lineWidth = big ? 2.5 : 5; mctx.beginPath(); mctx.arc(toU(a.x), toV(a.z), big ? 9 : 18, 0, 7); mctx.stroke(); } }
 
 // ===== 작은 메뉴 (신고·가리기·지우기) =====
 function soMenuAt(e, items){ e.stopPropagation(); const m = $('soMenu'); m.innerHTML = '';
@@ -388,53 +626,119 @@ function soFlag(kind, room, id){ const fb = SO.fb, me = soMe(); if(!fb || !me) r
   fb.D.set(fb.D.ref(fb.db, `flags/${kind}/${room}/${id}/${me}`), true).then(() => toast('신고했어요 · 여러 사람이 신고하면 가려져요', 3)).catch(() => toast('보내지 못했어요 · 잠시 후 다시 해 주세요', 2.5)); }
 function soFlagListen(kind, room, cb){ const fb = SO.fb; fb.D.onValue(fb.D.ref(fb.db, `flags/${kind}/${room}`), s => { const v = s.val() || {}, out = {}; for(const k in v) out[k] = Object.keys(v[k] || {}).length; cb(out); }, () => {}); }
 
-// ===== 채팅 =====
-const SO_C = { msgs: new Map(), flags: {}, unread: 0, last: 0, cleaned: 0 };
+// ===== 채팅: 전체 · 산악회 · 귓속말 + 이모티콘 + 켜고 끄기 =====
+// 전체: chat/<산>   산악회: pchat/<초대코드>   귓속말: dm/<받는 사람>/<id> (보낸 사람 것도 dm/<나>/<id>에 같이) — 귓속말은 받는 사람과 보낸 사람만 읽어요
+const SO_EMO = ['😊','😄','🥰','😂','🤗','👍','👏','🙌','🙏','💪','👋','🔥','✨','🎉','❤️','🧡','💚','😮','😢','😴','⛰️','🏔️','🌄','🌅','🌙','⭐','🍁','🌸','☕','🍙','🥾','📸'];
+const soEmoOnly = s => { const t = String(s).replace(/\s+/g, ''); try{ return t.length > 0 && t.length <= 12 && /^(\p{Extended_Pictographic}|️)+$/u.test(t); }catch(e){ return false; } };
+const SO_C = { tab: 'all', box: { all: new Map(), club: new Map(), dm: new Map() }, flags: {}, pflags: {}, unread: { all: 0, club: 0, dm: 0 }, last: 0, cleaned: 0,
+  off: !!store.get('chatOff', 0), wTo: null, clubOff: null, clubFlagOff: null, clubCode: '', dmOff: null, dmUid: '' };
+function soChatOn(){ return !SO_C.off; }
+function soSetChatOff(off){ SO_C.off = !!off; store.set('chatOff', off ? 1 : 0); document.body.classList.toggle('chatOff', SO_C.off);
+  if(off){ for(const a of remotes.values()) if(a.sayChat){ a.sayT = 0; a.sayChat = false; } SO_C.unread = { all: 0, club: 0, dm: 0 }; }
+  soBadges(); soRenderChat(); toast(off ? '채팅을 껐어요 · 말풍선과 알림이 보이지 않아요' : '채팅을 켰어요', 2.5); }
+document.body.classList.toggle('chatOff', SO_C.off);
+function soBadges(){ const U = SO_C.unread, n = SO_C.off ? 0 : U.all + U.club + U.dm, b = $('soBadge'); b.hidden = !n; if(n) b.textContent = n > 9 ? '9+' : n;
+  for(const t of ['all', 'club', 'dm']){ const e = $('soTabN_' + t); if(e){ e.hidden = !U[t] || SO_C.off; e.textContent = U[t] > 9 ? '9+' : U[t]; } } }
 function soOpenChat(on){ const c = $('soChat'); c.hidden = on === undefined ? !c.hidden : !on; $('soChatB').classList.toggle('on', !c.hidden);
-  if(!c.hidden){ SO_C.unread = 0; $('soBadge').hidden = true; soRenderChat(); if(!document.body.classList.contains('touch')) setTimeout(() => $('soChatIn').focus(), 30); } else $('soChatIn').blur(); }
+  if(!c.hidden){ SO_C.unread[SO_C.tab] = 0; soBadges(); soRenderChat(); if(!document.body.classList.contains('touch') && !SO_C.off) setTimeout(() => $('soChatIn').focus(), 30); }
+  else { $('soChatIn').blur(); $('soEmo').hidden = true; } }
+function soTab(t){ SO_C.tab = t; SO_C.unread[t] = 0; soBadges(); $('soEmo').hidden = true; soRenderChat(); }
+for(const t of ['all', 'club', 'dm']) $('soTab_' + t).onclick = () => soTab(t);
 $('soChatB').onclick = () => soOpenChat(); $('soChatX').onclick = () => soOpenChat(false);
+$('soChatOff').onclick = () => soSetChatOff(!SO_C.off); $('soChatOn').onclick = () => soSetChatOff(false);
 $('soChatG').onclick = () => { try{ googleLogin().then(() => soRenderChat()); }catch(e){} };
+$('soEmoB').onclick = e => { e.preventDefault(); $('soEmo').hidden = !$('soEmo').hidden; };
+SO_EMO.forEach(em => { const b = document.createElement('button'); b.type = 'button'; b.textContent = em; b.onclick = () => { const inp = $('soChatIn'), s = inp.selectionStart ?? inp.value.length, e2 = inp.selectionEnd ?? s;
+  const v = inp.value.slice(0, s) + em + inp.value.slice(e2); if(Array.from(v).length > 80) return; inp.value = v; const p = s + em.length; try{ inp.setSelectionRange(p, p); }catch(_){}
+  if(!document.body.classList.contains('touch')) inp.focus(); }; $('soEmo').appendChild(b); });
+$('soWhoX').onclick = () => { SO_C.wTo = null; soRenderChat(); };
+function soWhisperTo(uid, nick){ if(!uid || uid === soMe()) return; SO_C.wTo = { u: uid, n: safeNick(nick) }; $('soPeople').hidden = true; soOpenChat(true); soTab('dm');
+  if(!document.body.classList.contains('touch')) setTimeout(() => $('soChatIn').focus(), 30); }
 addEventListener('keydown', e => { if(!st.started) return;
   if(e.target && e.target.id === 'soChatIn'){ if(e.key === 'Escape'){ e.preventDefault(); soOpenChat(false); try{ canvas.focus(); }catch(_){} } return; }
-  if(e.key === 'Enter' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'BUTTON' && document.querySelectorAll('.panel:not([hidden])').length === 0){ e.preventDefault(); soOpenChat(true); $('soChatIn').focus(); } });
+  if(e.key === 'Enter' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'BUTTON' && document.querySelectorAll('.panel:not([hidden])').length === 0){ e.preventDefault(); soOpenChat(true); if(!SO_C.off) $('soChatIn').focus(); } });
+function soMsgEl(id, m, kind){ const meId = soMe(), mine = m.u === meId, d = document.createElement('div'); d.className = 'm' + (mine ? ' me' : '') + (soEmoOnly(m.x) ? ' emo' : '');
+  const b = document.createElement('b');
+  if(kind === 'dm'){ const other = mine ? safeNick(m.tn || '') : safeNick(m.n); b.textContent = mine ? '→ ' + other : other; }
+  else b.textContent = safeNick(m.n);
+  d.appendChild(b); d.appendChild(document.createTextNode(soShow(m.x, 80)));
+  const t = new Date(num(m.t)); const sm = document.createElement('small'); sm.textContent = t.getHours() + ':' + String(t.getMinutes()).padStart(2, '0'); d.appendChild(sm);
+  d.onclick = e => { const it = [], other = kind === 'dm' && mine ? m.to : m.u, on = kind === 'dm' && mine ? (m.tn || '') : m.n;
+    if(other && other !== meId){ it.push(['💬 귓속말 보내기', () => soWhisperTo(other, on)]);
+      if(kind !== 'dm') it.push(['신고하기', () => soFlag('chat', kind === 'club' ? 'p-' + SO_P.pt : SO.room, id)]);
+      it.push(['이 사람 가리기', () => soBlock(other)]); }
+    const path = kind === 'all' ? `chat/${SO.room}/${id}` : kind === 'club' ? `pchat/${SO_P.pt}/${id}` : `dm/${meId}/${id}`;
+    if(kind === 'dm') it.push(['지우기', () => SO.fb.D.remove(SO.fb.D.ref(SO.fb.db, path)).then(() => toast('지웠어요', 1.5)).catch(() => {})]);
+    else if(soAdmin() || mine) it.push([soAdmin() && !mine ? '지우기 (관리자)' : '지우기', () => SO.fb.D.remove(SO.fb.D.ref(SO.fb.db, path)).then(() => toast('지웠어요', 1.5)).catch(() => {})]);
+    if(it.length) soMenuAt(e, it); };
+  return d; }
 function soRenderChat(){ const box = $('soMsgs'); if($('soChat').hidden) return;
-  const need = SO.login.chat && !soGoogle(); $('soChatLogin').hidden = !SO.web || !need || SO.chatOk === false; $('soChatF').hidden = !SO.web || need || SO.chatOk === false;
+  const tab = SO_C.tab; for(const t of ['all', 'club', 'dm']) $('soTab_' + t).classList.toggle('on', t === tab);
+  $('soChatOff').textContent = SO_C.off ? '켜기' : '끄기'; $('soChatOff').classList.toggle('off', SO_C.off);
+  const need = SO.login.chat && !soGoogle(), ready = SO.web && (tab === 'all' ? SO.chatOk !== false : tab === 'club' ? SO.clubOk !== false : SO.dmOk !== false);
+  const noClub = tab === 'club' && !SO_P.pt, noWho = tab === 'dm' && !SO_C.wTo;
+  $('soChatOffBox').hidden = !SO_C.off; $('soChatBody').hidden = SO_C.off;
+  $('soChatLogin').hidden = SO_C.off || !SO.web || !need || !ready; $('soChatF').hidden = SO_C.off || !SO.web || need || !ready || noClub || noWho;
+  $('soWho').hidden = SO_C.off || tab !== 'dm' || !SO_C.wTo; if(SO_C.wTo) $('soWhoN').textContent = SO_C.wTo.n;
+  $('soChatIn').placeholder = tab === 'club' ? '산악회원에게만 보여요' : tab === 'dm' ? '귓속말은 이 사람에게만 보여요' : '고운 말로 인사해 보세요';
+  if(SO_C.off) return;
   const atEnd = box.scrollTop + box.clientHeight > box.scrollHeight - 30; box.innerHTML = '';
-  if(!SO.web || SO.chatOk === false){ const d = document.createElement('div'); d.className = 'empty'; d.textContent = SO.web ? '채팅을 준비하고 있어요. 곧 열려요.' : '채팅과 방명록은 neungseon.com에서 열려요'; box.appendChild(d); return; }
-  const cut = soNow() - 86400000, me = soMe(); let n = 0;
-  for(const [id, m] of [...SO_C.msgs].sort((p, q) => num(p[1].t) - num(q[1].t))){
-    if(num(m.t) < cut || SO_BLOCK.has(m.u) || (SO_C.flags[id] || 0) >= 3) continue; n++;
-    const d = document.createElement('div'); d.className = 'm' + (m.u === me ? ' me' : '');
-    const b = document.createElement('b'); b.textContent = safeNick(m.n); d.appendChild(b);
-    d.appendChild(document.createTextNode(soShow(m.x, 80)));
-    const t = new Date(num(m.t)); const sm = document.createElement('small'); sm.textContent = t.getHours() + ':' + String(t.getMinutes()).padStart(2, '0'); d.appendChild(sm);
-    d.onclick = e => { const it = []; if(m.u !== me){ it.push(['신고하기', () => soFlag('chat', SO.room, id)]); it.push(['이 사람 가리기', () => soBlock(m.u)]); }
-      if(soAdmin() || m.u === me) it.push([soAdmin() ? '지우기 (관리자)' : '떼기', () => SO.fb.D.remove(SO.fb.D.ref(SO.fb.db, `chat/${SO.room}/${id}`)).then(() => toast('지웠어요', 1.5)).catch(() => {})]);
-      if(it.length) soMenuAt(e, it); };
-    box.appendChild(d); }
-  if(!n){ const d = document.createElement('div'); d.className = 'empty'; d.textContent = '아직 대화가 없어요. 먼저 인사를 건네 보세요.'; box.appendChild(d); }
+  const empty = t => { const d = document.createElement('div'); d.className = 'empty'; d.textContent = t; box.appendChild(d); };
+  if(!SO.web){ empty('채팅과 방명록은 neungseon.com에서 열려요'); return; }
+  if(!ready){ empty('채팅을 준비하고 있어요. 곧 열려요.'); return; }
+  if(noClub){ empty('산악회에 들어가면 산악회원끼리 이야기할 수 있어요'); const b = document.createElement('button'); b.className = 'soLink'; b.textContent = '⛰ 산악회 만들기·들어가기'; b.onclick = () => { soOpenChat(false); soOpenPeople(); }; box.appendChild(b); return; }
+  const cut = soNow() - 86400000, F = tab === 'club' ? SO_C.pflags : tab === 'all' ? SO_C.flags : {}; let n = 0;
+  for(const [id, m] of [...SO_C.box[tab]].sort((p, q) => num(p[1].t) - num(q[1].t))){
+    if(num(m.t) < cut || SO_BLOCK.has(m.u) || (F[id] || 0) >= 3) continue;
+    if(tab === 'dm' && SO_C.wTo && m.u !== SO_C.wTo.u && m.to !== SO_C.wTo.u) continue;
+    n++; box.appendChild(soMsgEl(id, m, tab)); }
+  if(tab === 'dm' && !SO_C.wTo){ // 받는 사람 고르기: 이 산에 있는 사람 + 귓속말 나눈 사람
+    const seen = new Map(); for(const m of SO_C.box.dm.values()){ const mine = m.u === soMe(), o = mine ? m.to : m.u; if(o && !SO_BLOCK.has(o)) seen.set(o, mine ? (m.tn || '') : m.n); }
+    for(const a of remotes.values()) if(a.pid && !SO_BLOCK.has(a.pid)) seen.set(a.pid, a.nick);
+    box.innerHTML = ''; empty(seen.size ? '누구에게 귓속말을 보낼까요?' : '지금은 귓속말을 보낼 사람이 없어요');
+    const W = document.createElement('div'); W.className = 'soWhoL'; for(const [u, nn] of seen){ const b = document.createElement('button'); b.className = 'ugc'; b.textContent = safeNick(nn);
+      const un = [...SO_C.box.dm.values()].some(m => m.u === u && num(m.t) > (SO_C.dmSeen || 0)); if(un) b.classList.add('new'); b.onclick = () => soWhisperTo(u, nn); W.appendChild(b); }
+    box.appendChild(W); return; }
+  if(!n) empty(tab === 'dm' ? '귓속말은 받는 사람과 나만 볼 수 있어요' : tab === 'club' ? '산악회원끼리만 보이는 이야기예요' : '아직 대화가 없어요. 먼저 인사를 건네 보세요.');
+  if(tab === 'dm') SO_C.dmSeen = soNow();
   if(atEnd || n < 8) box.scrollTop = box.scrollHeight; }
-$('soChatF').addEventListener('submit', async e => { e.preventDefault(); const inp = $('soChatIn'), fb = SO.fb, me = soMe(); const x = soClean(inp.value, 80); if(!x || !fb || !me) return;
+$('soChatF').addEventListener('submit', async e => { e.preventDefault(); const inp = $('soChatIn'), fb = SO.fb, meId = soMe(); const x = soClean(inp.value, 80); if(!x || !fb || !meId || SO_C.off) return;
   if(soBad(x) || soLink(x)){ toast('고운 말로 적어 주세요 · 주소(링크)와 전화번호는 쓸 수 없어요', 3.5); return; }
   if(Date.now() - SO_C.last < 3000){ toast('조금 천천히 보내 주세요', 2); return; }
   if(SO.login.chat && !soGoogle()){ soRenderChat(); return; }
-  SO_C.last = Date.now(); const D = fb.D, key = D.push(D.ref(fb.db, `chat/${SO.room}`)).key;
-  try{ await D.update(D.ref(fb.db), { [`chat/${SO.room}/${key}`]: { u: me, n: safeNick(meNick()), x, t: D.serverTimestamp() }, [`chatlast/${me}`]: D.serverTimestamp() });
-    inp.value = ''; say(x); st.sayT = 5; }
-  catch(err){ console.warn(err); SO_C.last = 0; toast('보내지 못했어요 · 잠시 후 다시 해 주세요', 2.5); } });
+  const tab = SO_C.tab, D = fb.D, nick = safeNick(meNick()), up = { [`chatlast/${meId}`]: D.serverTimestamp() };
+  if(tab === 'all'){ const key = D.push(D.ref(fb.db, `chat/${SO.room}`)).key; up[`chat/${SO.room}/${key}`] = { u: meId, n: nick, x, t: D.serverTimestamp() }; }
+  else if(tab === 'club'){ if(!SO_P.pt) return; const key = D.push(D.ref(fb.db, `pchat/${SO_P.pt}`)).key; up[`pchat/${SO_P.pt}/${key}`] = { u: meId, n: nick, x, t: D.serverTimestamp() }; }
+  else { const W = SO_C.wTo; if(!W) return; const key = D.push(D.ref(fb.db, `dm/${W.u}`)).key, msg = { u: meId, n: nick, x, to: W.u, tn: W.n, t: D.serverTimestamp() };
+    up[`dm/${W.u}/${key}`] = msg; up[`dm/${meId}/${key}`] = msg; }
+  SO_C.last = Date.now();
+  try{ await D.update(D.ref(fb.db), up); inp.value = ''; $('soEmo').hidden = true; if(tab !== 'dm'){ say(x); st.sayT = 5; } }
+  catch(err){ console.warn(err); SO_C.last = 0; toast(tab === 'all' ? '보내지 못했어요 · 잠시 후 다시 해 주세요' : '아직 준비 중이에요 · 곧 열려요', 2.5); } });
 function meNick(){ return me.nick; }
-function soChatStart(fb){ const D = fb.D, q = D.query(D.ref(fb.db, `chat/${SO.room}`), D.limitToLast(50));
-  const add = s => { const v = s.val(); if(!v || typeof v !== 'object') return; SO_C.msgs.set(s.key, v); const me = soMe();
-      // 오래된 말은 지워 둬요 (하루 지난 것, 한 번에 조금씩)
-      if(num(v.t) < soNow() - 86400000){ if(SO_C.cleaned < 5){ SO_C.cleaned++; D.remove(D.ref(fb.db, `chat/${SO.room}/${s.key}`)).catch(() => {}); } return; }
-      SO.chatOk = true;
-      if(v.u !== me && !SO_BLOCK.has(v.u) && soNow() - num(v.t) < 20000){ const txt = soShow(v.x, 80);
-        for(const a of remotes.values()) if(a.pid === v.u){ a.say = txt; a.sayT = 5; }
-        if($('soChat').hidden){ SO_C.unread++; const b = $('soBadge'); b.hidden = false; b.textContent = SO_C.unread > 9 ? '9+' : SO_C.unread; } }
-      soRenderChat(); };
-  D.onChildAdded(q, add, err => { SO.chatOk = false; console.warn('채팅 연결 실패', err); soRenderChat(); });
-  D.onChildRemoved(q, s => { SO_C.msgs.delete(s.key); soRenderChat(); });
-  soFlagListen('chat', SO.room, f => { SO_C.flags = f; soRenderChat(); }); }
+// 받은 말: 말풍선·알림 (채팅을 끄면 둘 다 안 보여요)
+function soGot(kind, id, v){ const meId = soMe(); if(v.u === meId || SO_BLOCK.has(v.u) || soNow() - num(v.t) > 20000 || SO_C.off) return;
+  const txt = soShow(v.x, 80);
+  if(kind !== 'dm') for(const a of remotes.values()) if(a.pid === v.u){ a.say = txt; a.sayT = 5; a.sayChat = true; }
+  if(kind === 'dm') soNote(safeNick(v.n), '님의 귓속말이 왔어요 💬', 3.5);
+  if($('soChat').hidden || SO_C.tab !== kind){ SO_C.unread[kind]++; soBadges(); } }
+function soListen(fb, path, kind, okKey){ const D = fb.D, q = D.query(D.ref(fb.db, path), D.limitToLast(50)), M = SO_C.box[kind];
+  const u1 = D.onChildAdded(q, s => { const v = s.val(); if(!v || typeof v !== 'object') return; SO[okKey] = true;
+      if(num(v.t) < soNow() - 86400000){ if(SO_C.cleaned < 8){ SO_C.cleaned++; D.remove(D.ref(fb.db, `${path}/${s.key}`)).catch(() => {}); } return; }
+      M.set(s.key, v); soGot(kind, s.key, v); soRenderChat(); },
+    err => { SO[okKey] = false; console.warn('채팅 연결 실패', path, err); soRenderChat(); });
+  const u2 = D.onChildRemoved(q, s => { M.delete(s.key); soRenderChat(); });
+  return () => { try{ u1(); u2(); }catch(e){} }; }
+function soChatStart(fb){ soListen(fb, `chat/${SO.room}`, 'all', 'chatOk'); soFlagListen('chat', SO.room, f => { SO_C.flags = f; soRenderChat(); }); soClubChat(); soDmChat(); }
+// 산악회가 바뀌면 산악회 채팅도 바꿔 들어요
+function soClubChat(){ const fb = SO.fb; if(!fb || SO_C.clubCode === SO_P.pt) return;
+  if(SO_C.clubOff){ SO_C.clubOff(); SO_C.clubOff = null; } SO_C.box.club.clear(); SO_C.unread.club = 0; SO_C.pflags = {}; SO.clubOk = null; SO_C.clubCode = SO_P.pt;
+  if(SO_P.pt){ SO_C.clubOff = soListen(fb, `pchat/${SO_P.pt}`, 'club', 'clubOk'); soFlagListen('chat', 'p-' + SO_P.pt, f => { if(SO_C.clubCode === SO_P.pt){ SO_C.pflags = f; soRenderChat(); } }); }
+  soBadges(); }
+// 귓속말 받는 칸: 로그인으로 내 아이디가 바뀌면 다시
+function soDmChat(){ const fb = SO.fb, meId = soMe(); if(!fb || !meId || SO_C.dmUid === meId) return;
+  if(SO_C.dmOff){ SO_C.dmOff(); SO_C.dmOff = null; } SO_C.box.dm.clear(); SO_C.dmUid = meId; SO.dmOk = null;
+  SO_C.dmOff = soListen(fb, `dm/${meId}`, 'dm', 'dmOk'); }
+setInterval(() => { if(SO.fb) soDmChat(); }, 3000);
 
 // ===== 정상 방명록 =====
 const SO_G = { notes: {}, flags: {}, col: 0, started: false, prompted: false, board: null };
@@ -510,14 +814,12 @@ let soSumT = 0;
 function soSummitTick(dt){ const now = performance.now(); if(now - soSumT < 1000) return; soSumT = now;
   if(!SO.fb) return;
   if(!SO_G.board && st.started){ const tp = trail[trail.length-1]; if(Math.hypot(tp.x - st.x, tp.z - st.z) < 160){ soGuestStart(); soBoardMake(); } }
-  if(st.inSummit && !SO_G.prompted && st.started){ SO_G.prompted = true; setTimeout(() => { if(!$('soGuest').hidden) return; $('soChipName').textContent = ''; $('soChip').querySelector('span > span').textContent = '정상 방명록에 한마디 남겨 보세요'; SO_P.chip = null; $('soChipB').textContent = '📝 방명록';
-      $('soChipB').onclick = () => { $('soChip').hidden = true; soOpenGuest(); restoreChip(); }; $('soChipX').onclick = () => { $('soChip').hidden = true; restoreChip(); }; $('soChip').hidden = false; SO_P.chipT = performance.now() + 12000; }, 4500); }
+  if(st.inSummit && !SO_G.prompted && st.started){ SO_G.prompted = true; setTimeout(() => { if(!$('soGuest').hidden) return; SO_P.chip = null; soAsk('', '정상 방명록에 한마디 남겨 보세요', '📝 방명록', () => soOpenGuest(), 12); }, 4500); }
   if(!$('soGuest').hidden) soRenderGuest(); }
-function restoreChip(){ $('soChip').querySelector('span > span').textContent = '님이 가까이 있어요'; $('soChipB').textContent = '함께 가기 제안';
-  $('soChipB').onclick = () => { const a = SO_P.chip; $('soChip').hidden = true; if(a) soSendInvite(a); }; $('soChipX').onclick = () => { $('soChip').hidden = true; }; }
 $('cGuest').onclick = () => soOpenGuest(); $('soGuestEnd').onclick = () => soOpenGuest();
 // 시작: 웹(파이어베이스)에서만
 FB_READY.then(fb => { if(!fb) return; SO.fb = fb; SO.web = true; try{ soChatStart(fb); }catch(e){ SO.chatOk = false; console.warn(e); } });
+window.__so = { SO, SO_P, SO_C, soMembers, soLeader };
 '''
 
 
@@ -550,6 +852,10 @@ def patch_social(P, m):
     P.rep("a.nick = safeNick(pr.n);", "a.nick = safeNick(pr.n); soPeer(p.peer, a, pr);", 1)
     P.rep("a.say=GREETS[Math.max(0, Math.min(GREETS.length-1, num(pr.wi)|0))];", "a.say=soGreetOf(pr);", 1)
     P.rep("function updateRemotes(dt){", "function updateRemotes(dt){ soTick(dt); soSummitTick(dt);", 1)
+    # 따라 걷기: 리더 걸음 빠르기·발걸음에 맞추기 (goal.__fs 빠르기, goal.__ph 걸음 위상)
+    P.rep("if(st.stamina < 12) speed *= 0.55;", "if(st.stamina < 12) speed *= 0.55;\n    if(st.goal && st.goal.__fs != null) speed = st.goal.__fs;", 1)
+    P.rep("const prevPhase = st.phase; st.phase += speed*dt*2.6/Math.sqrt(PACE);",
+          "const prevPhase = st.phase; st.phase += speed*dt*2.6/Math.sqrt(PACE);\n    if(st.goal && st.goal.__ph != null){ const dph = Math.atan2(Math.sin(st.goal.__ph - st.phase), Math.cos(st.goal.__ph - st.phase)); st.phase += dph*Math.min(1, dt*1.6); }", 1)
     # 인사 메뉴 끝에 '인삿말 바꾸기'
     P.rep("if(i === greetIdx) b.className = 'sel'; b.onclick = () => { greetIdx = i; m.hidden = true; doWave(); }; m.appendChild(b); });",
           "if(i === greetIdx) b.className = 'sel'; b.onclick = () => { greetIdx = i; m.hidden = true; doWave(); }; m.appendChild(b); });"

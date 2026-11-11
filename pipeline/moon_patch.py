@@ -41,9 +41,9 @@ def patch_big_moon(P):
           "    if(pretty) md.copy(bigMoonDir(SKY.h)); else md.copy(sunAtHour(SKY.h - age*0.8127, dayOfYear() + age*12.37));", 1)
     P.rep("MOON.mat.uniforms.earth.value = 0.14*night;",
           "MOON.mat.uniforms.earth.value = 0.14*night; MOON.mat.uniforms.op.value *= Math.abs(nb*2 - 1); MOON.mat.uniforms.warm.value = 0.55*(1 - THREE.MathUtils.smoothstep(md.y, 0.12, 0.62));", 1)
-    P.rep("MOON.mesh.scale.setScalar(380);", "const big = 1 + 0.15*(1 - THREE.MathUtils.smoothstep(md.y, 0.2, 0.6)); MOON.mesh.scale.setScalar(pretty ? 1200*big : 380);", 1)
+    P.rep("MOON.mesh.scale.setScalar(380);", "const big = 1 + 0.15*(1 - THREE.MathUtils.smoothstep(md.y, 0.2, 0.6)); MOON.mesh.scale.setScalar(pretty ? 840*big : 266);   // 2026-11-11 승연: 달 크기 70%", 1)
     P.rep("MOON.glow.scale.setScalar(3400); MOON.glow.material.opacity = MOON.amt*0.9;",
-          "MOON.glow.scale.setScalar(9360*big); MOON.glow.material.opacity = MOON.amt*0.95*Math.abs(nb*2 - 1);", 1)
+          "MOON.glow.scale.setScalar(6552*big); MOON.glow.material.opacity = MOON.amt*0.95*Math.abs(nb*2 - 1);", 1)
     P.rep("function moonAge(){",
           "// 밤의 큰 달 방향: 들머리→정상 쪽(조금 오른쪽) 하늘, 저녁 6시 고도 34° → 새벽 6시 46° (봉우리·능선에 가리지 않게), 밤새 동→서 쪽으로 천천히\n"
           "function bigMoonDir(h){ if(!MOON.az){ const a = trail[0], b = trail[trail.length - 1]; MOON.az = Math.atan2(b.x - a.x, b.z - a.z); }\n"

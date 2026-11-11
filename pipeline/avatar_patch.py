@@ -9,15 +9,31 @@
 부위 이름(rig·torso·head·lArm…)과 관절 위치는 그대로라 앉기·물 마시기·숨쉬기 동작이 그대로 맞아요.
 """
 
-HIKER_JS = r'''function makeHiker(outfit){
+HIKER_JS = r'''// 2026-11-11 아바타를 더 부드럽고 정교하게 (휴대폰 포함): 천은 보송한 광택(sheen), 피부는 은은하게,
+// 모든 면 가장자리에 그 자리 빛을 따라 살짝 밝아지는 부드러운 테두리빛, 발밑엔 은은한 그림자 (그림자를 끈 휴대폰에서도 땅에 붙어 보이게)
+const HIKER_SOFT = { blobMat: null };
+function hikerSoft(mat, amt){ mat.onBeforeCompile = sh => {
+    sh.uniforms.rimA = { value: amt };
+    sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nuniform float rimA;')
+      .replace('#include <opaque_fragment>', 'float rimF = pow(1.0 - saturate(dot(normalize(vNormal), normalize(vViewPosition))), 2.4);\n  outgoingLight += rimF*rimA*(reflectedLight.indirectDiffuse + reflectedLight.directDiffuse*0.6 + 0.02*diffuseColor.rgb);\n#include <opaque_fragment>'); };
+  mat.customProgramCacheKey = () => 'hikerSoft' + amt; return mat; }
+function hikerBlob(){ if(HIKER_SOFT.blobMat) return HIKER_SOFT.blobMat;
+  const c = document.createElement('canvas'); c.width = c.height = 64; const x = c.getContext('2d'), gr = x.createRadialGradient(32, 32, 0, 32, 32, 32);
+  gr.addColorStop(0, 'rgba(0,0,0,0.55)'); gr.addColorStop(0.45, 'rgba(0,0,0,0.28)'); gr.addColorStop(1, 'rgba(0,0,0,0)'); x.fillStyle = gr; x.fillRect(0, 0, 64, 64);
+  const t = new THREE.CanvasTexture(c); HIKER_SOFT.blobMat = new THREE.MeshBasicMaterial({ map: t, transparent: true, depthWrite: false, opacity: 0.5, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
+  return HIKER_SOFT.blobMat; }
+function makeHiker(outfit){
   const g = new THREE.Group(), rig = new THREE.Group(), parts = {}; g.add(rig);
-  const M = (c,r=0.75,m=0) => new THREE.MeshStandardMaterial({color:c, roughness:r, metalness:m});
+  const HQ = !(typeof GFX !== 'undefined' && GFX.tier === 0);   // 아주 낮은 화질 휴대폰은 보송한 광택만 빼요 (테두리빛·그림자는 그대로)
+  const M = (c,r=0.75,m=0) => hikerSoft(new THREE.MeshStandardMaterial({color:c, roughness:r, metalness:m}), m > 0.3 ? 0.15 : 0.5);
+  const CL = (c,r=0.8) => hikerSoft(HQ ? new THREE.MeshPhysicalMaterial({color:c, roughness:r, sheen:0.45, sheenRoughness:0.6, sheenColor:new THREE.Color(0xffffff).lerp(new THREE.Color(c), 0.6)}) : new THREE.MeshStandardMaterial({color:c, roughness:r}), 0.55);
+  const SK = c => hikerSoft(HQ ? new THREE.MeshPhysicalMaterial({color:c, roughness:0.55, sheen:0.35, sheenRoughness:0.7, sheenColor:new THREE.Color(0xffd2c0)}) : new THREE.MeshStandardMaterial({color:c, roughness:0.58}), 0.45);
   const skinTone = [0xf3d2b4,0xeac39f,0xdcb08a,0xf6dcc4][(Math.random()*4)|0];
   const hairCol = [0x2a1d16,0x4a3020,0x1b1512,0x6a4428][(Math.random()*4)|0];
   const bootCol = [0x7a5232,0x5e4a3a,0x8a6a44,0x4a4440][(Math.random()*4)|0];
   const accent = [0xe0662c,0xd8b03a,0x3a8ac8,0xc83a3a][(Math.random()*4)|0];
-  const mats = {jacket:M(outfit.jacket,0.55), pants:M(outfit.pants,0.85), hat:M(outfit.hat,0.78), pack:M(outfit.pack,0.66), packDark:M(outfit.pack,0.78),
-    skin:M(skinTone,0.6), hair:M(hairCol,0.72), eye:M(0x1f1714,0.18), white:new THREE.MeshBasicMaterial({color:0xffffff}),
+  const mats = {jacket:CL(outfit.jacket,0.6), pants:CL(outfit.pants,0.85), hat:CL(outfit.hat,0.8), pack:CL(outfit.pack,0.7), packDark:CL(outfit.pack,0.8),
+    skin:SK(skinTone), hair:M(hairCol,0.62), eye:M(0x1f1714,0.18), white:new THREE.MeshBasicMaterial({color:0xffffff}),
     blush:new THREE.MeshBasicMaterial({color:0xff9a90, transparent:true, opacity:0.26, depthWrite:false}), mouth:M(0x8a463a,0.6), trim:M(0xf4efe6,0.85),
     boot:M(bootCol,0.68), bootDark:M(0x3a2c22,0.8), sole:M(0x2a2624,0.95), mid:M(0xc4bcb0,0.8), lace:M(accent,0.6), metal:M(0x9aa0a6,0.35,0.7),
     strap:M(0x34373a,0.8), glove:M(0x3e4248,0.78), grip:M(0x7a5a3c,0.9), shaft:M(accent,0.35,0.5), shaft2:M(0xb9bec4,0.3,0.8), bottle:M(0x6fb6d8,0.2) };
@@ -52,6 +68,7 @@ HIKER_JS = r'''function makeHiker(outfit){
     const b = add(new THREE.CircleGeometry(0.046,24), mats.blush, s*0.152, -0.088, 0.212, head); b.rotation.y = s*0.58; b.scale.y = 0.6;
     add(sph(0.05,18,14), mats.skin, s*0.252, -0.04, 0, head).scale.set(0.45,1,0.78);                          // 귀
   }
+  add(new THREE.SphereGeometry(0.266,36,10,Math.PI*0.5-0.95,1.9,Math.PI*0.4,Math.PI*0.1), mats.hair, 0, 0.0, -0.004, head).scale.set(1,0.95,0.97);   // 모자 밑 앞머리
   const mouth = add(new THREE.TorusGeometry(0.022,0.0055,8,18,Math.PI), mats.mouth, 0, -0.098, 0.243, head); mouth.rotation.z = Math.PI; mouth.rotation.x = -0.2;
   add(sph(0.022,16,12), mats.skin, 0, -0.058, 0.252, head).scale.set(1,0.85,0.9);                             // 코
   // ── 여자 아바타: 모자 뒤로 내린 포니테일, 얼굴 옆 머리, 속눈썹
@@ -138,7 +155,8 @@ HIKER_JS = r'''function makeHiker(outfit){
   add(new THREE.CylinderGeometry(0.03,0.03,0.006,16), mats.strap, 0, -0.9, 0, pole);
   add(new THREE.ConeGeometry(0.007,0.04,10), mats.metal, 0, -0.97, 0, pole).rotation.x = Math.PI;
   g.traverse(o=>{ if(o.isMesh && o.material!==mats.blush && o.material!==mats.white) o.castShadow=true; });
-  return { group:g, rig, parts, mats, setOutfit(o){ for(const k of ['jacket','pants','hat','pack']) mats[k].color.setHex(o[k]); mats.packDark.color.setHex(o.pack).multiplyScalar(0.72); parts.fem.visible = o.g === 'f'; } };
+  { const b = new THREE.Mesh(new THREE.PlaneGeometry(0.95, 0.95), hikerBlob()); b.rotation.x = -Math.PI/2; b.position.y = 0.03; b.renderOrder = -1; g.add(b); parts.blob = b; }
+  return { group:g, rig, parts, mats, setOutfit(o){ for(const k of ['jacket','pants','hat','pack']){ mats[k].color.setHex(o[k]); if(mats[k].sheenColor) mats[k].sheenColor.setHex(0xffffff).lerp(mats[k].color, 0.6); } mats.packDark.color.setHex(o.pack).multiplyScalar(0.72); parts.fem.visible = o.g === 'f'; } };
 }
 '''
 
